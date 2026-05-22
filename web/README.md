@@ -30,6 +30,8 @@ There is also a separate manual/tag-based deploy workflow available as a fallbac
 
 Preview GIFs and contact sheets are generated during CI/deploy and bundled into the site, rather than being kept as long-lived tracked files under `assets/previews/`.
 
+This means README preview links can point at the deployed site while the repository stays leaner over time.
+
 ### Setup (one-time)
 
 1. Create a Cloudflare account at [dash.cloudflare.com](https://dash.cloudflare.com)
