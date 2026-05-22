@@ -112,7 +112,7 @@ function petBlock(pet, lang) {
   const categoryName = lang === "zh" ? categoryZh[category] || category : category;
   const stateNames = previewStates.map((state) => (lang === "zh" ? state[2] : state[1]));
   const gifs = previewStates.map(([state]) => {
-    const path = `${rootPrefix}/assets/previews/${pet.slug}/gifs/${state}.gif`;
+    const path = `${websiteUrl}/assets/previews/${pet.slug}/gifs/${state}.gif`;
     return `<img src="${path}" alt="${pet.name} ${state}" width="120" height="130">`;
   });
 
@@ -175,7 +175,7 @@ pets/<pet-slug>--<author-slug>/
 └── spritesheet.webp
 \`\`\`
 
-Preview images are generated into \`assets/previews/<pet-id>/\`, never inside the pet folder.
+Preview images are generated into \`assets/previews/<pet-id>/\` as local or CI build output, never inside the pet folder.
 
 ## Quick Install
 
@@ -235,7 +235,7 @@ npm run validate:pr
 npm run lint
 \`\`\`
 
-Contributor PRs should only include \`submission.json\`, \`pet.json\`, and \`spritesheet.webp\`. Maintainers or CI regenerate previews, README listings, and \`pets.json\` after merge.
+Contributor PRs should only include \`submission.json\`, \`pet.json\`, and \`spritesheet.webp\`. Maintainers or CI regenerate previews, README listings, and \`pets.json\` after merge, but preview binaries are not kept as tracked Git assets.
 
 ## Make a Pet
 
@@ -290,7 +290,7 @@ pets/<pet-slug>--<author-slug>/
 └── spritesheet.webp
 \`\`\`
 
-预览图自动生成到 \`assets/previews/<pet-id>/\`，不会塞进宠物目录。
+预览图会作为本地或 CI 构建产物生成到 \`assets/previews/<pet-id>/\`，不会塞进宠物目录。
 
 ## 快速安装
 
@@ -350,7 +350,7 @@ npm run validate:pr
 npm run lint
 \`\`\`
 
-贡献者 PR 只需提交 \`submission.json\`、\`pet.json\` 和 \`spritesheet.webp\`。预览图、README 收录和 \`pets.json\` 由维护者或 CI 在合并后统一生成。
+贡献者 PR 只需提交 \`submission.json\`、\`pet.json\` 和 \`spritesheet.webp\`。预览图、README 收录和 \`pets.json\` 由维护者或 CI 在合并后统一生成，但预览二进制不会长期作为 Git 跟踪文件保留。
 
 ## 制作 Pet
 

@@ -52,13 +52,15 @@ pets/<pet-slug>--<author-slug>/
 
 ## 3. 生成物与来源文件
 
-仓库中允许提交的自动生成物主要有：
+仓库中允许在本地或 CI 生成的自动生成物主要有：
 
 - `assets/previews/<pet-id>/contact-sheet.png`
 - `assets/previews/<pet-id>/gifs/*.gif`
 - `README.md`
 - `docs/zh-CN/README.md`
 - `pets.json`
+
+其中 `assets/previews/<pet-id>/` 默认视为本地产物或部署产物，不作为长期 Git 跟踪内容。
 
 这些文件不是手写维护优先项。除非只是极小文案修正，否则应优先修改生成脚本，再重新生成。
 
@@ -102,7 +104,7 @@ npm run lint
 
 4. 确认 README 中已出现该 pet。
 5. 确认 `pets.json` 已更新。
-6. 确认 `assets/previews/<pet-id>/` 已生成。
+6. 确认 `assets/previews/<pet-id>/` 已在本地或 CI 中生成。
 7. 确认 `pets/<pet-id>/` 里仍然只有三个文件。
 
 如果用户新增的是 hatch-pet 输出目录中的 pet，不要直接提交整个运行目录。应只把最终的 `spritesheet.webp` 和元数据落进正式 `pets/` 结构。

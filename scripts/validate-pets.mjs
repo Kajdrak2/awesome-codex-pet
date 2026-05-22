@@ -1,4 +1,5 @@
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { execSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
 
@@ -8,12 +9,41 @@ const requireGeneratedAssets = process.argv.includes("--require-generated-assets
 
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*--[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const previewStates = ["idle", "waving", "running", "jumping", "review"];
+const maxSpritesheetBytesForPr = 1_500_000;
 const requiredGeneratedPaths = [
   join(repoRoot, "README.md"),
   join(repoRoot, "docs", "zh-CN", "README.md"),
   join(repoRoot, "pets.json"),
 ];
 const errors = [];
+
+function gitChangedPaths() {
+  try {
+    if (process.env.GITHUB_BASE_REF) {
+      const output = execSync(
+        `git diff --name-only --diff-filter=AMR origin/${process.env.GITHUB_BASE_REF}...HEAD`,
+        { cwd: repoRoot, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
+      );
+      return new Set(output.split(/\r?\n/).filter(Boolean));
+    }
+
+    const tracked = execSync("git diff --name-only --diff-filter=AMR HEAD", {
+      cwd: repoRoot,
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    });
+    const untracked = execSync("git ls-files --others --exclude-standard", {
+      cwd: repoRoot,
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    });
+    return new Set(`${tracked}\n${untracked}`.split(/\r?\n/).filter(Boolean));
+  } catch {
+    return new Set();
+  }
+}
+
+const changedPaths = requireGeneratedAssets ? new Set() : gitChangedPaths();
 
 function readJson(path) {
   try {
@@ -51,6 +81,15 @@ for (const entry of readdirSync(petsDir)) {
   for (const requiredPath of [submissionPath, petJsonPath, spritesheetPath]) {
     if (!existsSync(requiredPath)) {
       errors.push(`${entry}: missing ${requiredPath.replace(`${petDir}/`, "")}`);
+    }
+  }
+
+  if (existsSync(spritesheetPath) && !requireGeneratedAssets && changedPaths.has(`pets/${entry}/spritesheet.webp`)) {
+    const spritesheetSize = statSync(spritesheetPath).size;
+    if (spritesheetSize > maxSpritesheetBytesForPr) {
+      errors.push(
+        `${entry}: spritesheet.webp is ${spritesheetSize} bytes, exceeds PR budget of ${maxSpritesheetBytesForPr} bytes`,
+      );
     }
   }
 

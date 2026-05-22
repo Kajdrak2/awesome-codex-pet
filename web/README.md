@@ -12,6 +12,8 @@ npm run dev
 
 The dev server runs `prepare-site` automatically to generate data from the repository.
 
+If preview assets are missing locally, run `npm run previews` in the repo root first so `web/public/assets/previews/` can be bundled.
+
 ## Build
 
 ```bash
@@ -22,7 +24,11 @@ Output is in `web/out/` (static HTML export).
 
 ## Deployment (Cloudflare Pages)
 
-The site deploys to Cloudflare Pages when a release tag is pushed (`v*` or `web-v*`), or via a manual workflow dispatch. Day-to-day commits to `main` do not trigger a deploy.
+The site deploys automatically after commits land on `main`. The `Pet previews` workflow regenerates previews/README data, commits those generated files, then builds and deploys the web gallery from the latest `main` state.
+
+There is also a separate manual/tag-based deploy workflow available as a fallback (`v*`, `web-v*`, or manual dispatch).
+
+Preview GIFs and contact sheets are generated during CI/deploy and bundled into the site, rather than being kept as long-lived tracked files under `assets/previews/`.
 
 ### Setup (one-time)
 
@@ -41,7 +47,7 @@ The site deploys to Cloudflare Pages when a release tag is pushed (`v*` or `web-
    - `CLOUDFLARE_API_TOKEN` — the API token from step 2
    - `CLOUDFLARE_ACCOUNT_ID` — your account ID from step 3
 
-5. Push a release tag (e.g. `git tag web-v0.1.0 && git push origin web-v0.1.0`) — the GitHub Action will create the Pages project on first run and deploy automatically. You can also trigger a deploy manually from the Actions tab.
+5. Merge or push to `main` once — the `Pet previews` workflow will create the Pages project on first run and deploy automatically. If needed, you can also push a release tag (for the fallback deploy workflow) or trigger a deploy manually from the Actions tab.
 
 ### Custom Domain
 

@@ -9,6 +9,7 @@ dist
 coverage
 output/
 pets/*/qa/
+assets/previews/
 .pytest_cache
 __pycache__
 *.pyc

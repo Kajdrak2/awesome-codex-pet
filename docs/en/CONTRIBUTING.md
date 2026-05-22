@@ -28,7 +28,7 @@ Each pet submission should include:
 - `pet.json` for Codex runtime metadata
 - `spritesheet.webp` for installation
 
-Do not put generated previews, QA output, references, or README files inside the pet folder. Generated previews belong under `assets/previews/<pet-id>/` and are maintained after merge.
+Do not put generated previews, QA output, references, or README files inside the pet folder. Generated previews belong under `assets/previews/<pet-id>/` as local or CI build output and are maintained after merge.
 
 ## `submission.json` schema
 
@@ -62,7 +62,7 @@ Use this repository-level schema:
 - `pet.json` `id` matches the folder name
 - `submission.json` filled in
 - Author and license included
-- Contributor PR does not include `README.md`, `docs/zh-CN/README.md`, `pets.json`, or `assets/previews/<pet-id>/`
+- Contributor PR does not include `README.md`, `docs/zh-CN/README.md`, `pets.json`, or generated preview binaries under `assets/previews/<pet-id>/`
 - `npm run validate:pr` passes
 - Quick install works with `npm run install:pet -- <slug> --codex-home /tmp/codex-pet-test`
 - No unrelated files
