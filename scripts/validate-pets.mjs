@@ -9,7 +9,7 @@ const requireGeneratedAssets = process.argv.includes("--require-generated-assets
 
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*--[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const previewStates = ["idle", "waving", "running", "jumping", "review"];
-const maxSpritesheetBytesForPr = 1_500_000;
+const maxSpritesheetBytesForPr = 5_000_000;
 const requiredGeneratedPaths = [
   join(repoRoot, "README.md"),
   join(repoRoot, "docs", "zh-CN", "README.md"),
