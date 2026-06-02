@@ -210,6 +210,15 @@
     "license": "CC BY-NC 4.0"
   },
   {
+    "slug": "panda--jason-bai",
+    "name": "Panda",
+    "author": "Jason Bai",
+    "author_handle": "Jason-Bai",
+    "author_url": "https://github.com/Jason-Bai",
+    "primary_category": "Animals",
+    "license": "MIT License"
+  },
+  {
     "slug": "reimu--lingxiaotian",
     "name": "Reimu",
     "author": "Lingxiaotian",
