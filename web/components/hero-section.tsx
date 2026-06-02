@@ -83,7 +83,7 @@ export function HeroSection({
             }`}
           >
             <Link
-              className="group inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-text text-white text-sm font-medium hover:bg-text-secondary transition-all shadow-sm hover:shadow-md"
+              className="group inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-accent text-white text-sm font-medium hover:bg-accent-hover transition-all shadow-sm hover:shadow-md"
               href="#gallery"
             >
               {t("heroExplore")}
@@ -166,7 +166,7 @@ export function HeroSection({
                   >
                     <img
                       className="size-20 sm:size-24 object-contain [image-rendering:pixelated]"
-                      src={pet.previewImage}
+                      src={pet.animatedPreviewImage}
                       alt={pet.name}
                       loading="lazy"
                     />

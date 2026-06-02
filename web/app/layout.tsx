@@ -6,6 +6,7 @@ import "./globals.css";
 import { LocaleProvider } from "@/components/locale-provider";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { ThemeProvider, themeInitScript } from "@/components/theme-provider";
 import { siteConfig } from "@/lib/site";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -95,16 +96,25 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${firaCode.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${firaCode.variable}`}
+    >
       <body className="font-sans antialiased text-text bg-bg">
-        <LocaleProvider>
-          <SiteHeader />
-          {children}
-          <SiteFooter />
-        </LocaleProvider>
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{ __html: themeInitScript }}
+        />
+        <ThemeProvider>
+          <LocaleProvider>
+            <SiteHeader />
+            {children}
+            <SiteFooter />
+          </LocaleProvider>
+        </ThemeProvider>
         <script
           type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </body>

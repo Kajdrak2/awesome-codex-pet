@@ -9,6 +9,8 @@ export const translations = {
     docs: "Docs",
     github: "GitHub",
     submitPet: "Submit a Pet",
+    switchToLightMode: "Switch to light mode",
+    switchToDarkMode: "Switch to dark mode",
 
     // Hero
     heroBadge: "{count} community pets available",
@@ -147,6 +149,8 @@ export const translations = {
     docs: "文档",
     github: "GitHub",
     submitPet: "提交宠物",
+    switchToLightMode: "切换到浅色模式",
+    switchToDarkMode: "切换到深色模式",
 
     // Hero
     heroBadge: "已收录 {count} 只社区宠物",

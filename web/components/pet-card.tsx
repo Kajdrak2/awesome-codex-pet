@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import type { KeyboardEvent } from "react";
 
 import type { Pet } from "@/lib/pets";
 import { CopyCommandButton } from "@/components/copy-command-button";
@@ -20,15 +22,35 @@ function formatCount(n: number): string {
 
 export function PetCard({ pet, views = 0, installs = 0 }: PetCardProps) {
   const { t } = useLocale();
+  const router = useRouter();
   const hasStats = views > 0 || installs > 0;
+  const detailHref = `/pets/${pet.slug}`;
+
+  function openDetail() {
+    router.push(detailHref);
+  }
+
+  function handleKeyDown(event: KeyboardEvent<HTMLElement>) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openDetail();
+    }
+  }
 
   return (
-    <article className="group rounded-2xl border border-border bg-bg-elevated overflow-hidden flex flex-col transition-all duration-200 hover:shadow-lg hover:border-border-hover hover:-translate-y-0.5">
+    <article
+      className="group rounded-2xl border border-border bg-bg-elevated overflow-hidden flex flex-col transition-all duration-200 hover:shadow-lg hover:border-border-hover hover:-translate-y-0.5 cursor-pointer"
+      role="link"
+      tabIndex={0}
+      onClick={openDetail}
+      onKeyDown={handleKeyDown}
+      aria-label={`${t("view")} ${pet.name}`}
+    >
       {/* Visual area */}
       <div className="relative h-52 bg-bg-secondary flex items-center justify-center p-6">
         <img
           className="relative w-auto h-full max-w-full object-contain [image-rendering:pixelated] transition-transform duration-200 group-hover:scale-105"
-          src={pet.previewImage}
+          src={pet.animatedPreviewImage}
           alt={`${pet.name} preview`}
           loading="lazy"
         />
@@ -101,7 +123,11 @@ export function PetCard({ pet, views = 0, installs = 0 }: PetCardProps) {
         <p className="text-sm text-muted mb-1">
           {t("by")}{" "}
           {pet.author_url ? (
-            <a href={pet.author_url} className="text-accent hover:underline">
+            <a
+              href={pet.author_url}
+              className="text-accent hover:underline relative z-10"
+              onClick={(event) => event.stopPropagation()}
+            >
               {pet.author_handle ?? pet.author}
             </a>
           ) : (
@@ -113,10 +139,13 @@ export function PetCard({ pet, views = 0, installs = 0 }: PetCardProps) {
           {pet.description ?? pet.runtimeDescription ?? t("defaultDesc")}
         </p>
 
-        <div className="flex gap-2 mt-auto">
+        <div
+          className="flex gap-2 mt-auto relative z-10"
+          onClick={(event) => event.stopPropagation()}
+        >
           <Link
-            className="flex-1 inline-flex items-center justify-center h-9 px-4 rounded-lg bg-text text-white text-sm font-medium hover:bg-text-secondary transition-colors"
-            href={`/pets/${pet.slug}`}
+            className="flex-1 inline-flex items-center justify-center h-9 px-4 rounded-lg border border-transparent text-sm font-medium text-muted hover:text-text transition-colors"
+            href={detailHref}
           >
             {t("view")}
           </Link>

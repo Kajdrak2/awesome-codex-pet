@@ -4,9 +4,10 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "clean": "rm -rf .next",
     "prepare-site": "node scripts/prepare-site.mjs",
-    "dev": "npm run prepare-site && next dev",
-    "build": "npm run prepare-site && next build",
+    "dev": "npm run clean && npm run prepare-site && next dev",
+    "build": "npm run clean && npm run prepare-site && next build",
     "start": "next start",
     "lint": "eslint ."
   },

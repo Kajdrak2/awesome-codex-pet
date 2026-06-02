@@ -6,9 +6,14 @@ import { useLocale } from "@/components/locale-provider";
 type CopyCommandButtonProps = {
   command: string;
   label: string;
+  className?: string;
 };
 
-export function CopyCommandButton({ command, label }: CopyCommandButtonProps) {
+export function CopyCommandButton({
+  command,
+  label,
+  className = "",
+}: CopyCommandButtonProps) {
   const { t } = useLocale();
   const [copied, setCopied] = useState(false);
   const [, startTransition] = useTransition();
@@ -26,7 +31,7 @@ export function CopyCommandButton({ command, label }: CopyCommandButtonProps) {
 
   return (
     <button
-      className="flex-1 inline-flex items-center justify-center gap-1.5 h-9 px-4 rounded-lg border border-border text-sm font-medium text-text hover:bg-surface transition-colors cursor-pointer"
+      className={`flex-1 inline-flex items-center justify-center gap-1.5 h-9 px-4 rounded-lg border border-border bg-bg-elevated text-sm font-medium text-text hover:border-border-hover hover:bg-bg-secondary transition-colors cursor-pointer ${className}`}
       type="button"
       onClick={handleCopy}
     >

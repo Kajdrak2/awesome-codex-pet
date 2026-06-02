@@ -14,7 +14,7 @@ export function InstallPageContent() {
   const { t } = useLocale();
 
   return (
-    <main className="max-w-[960px] mx-auto px-6 pt-16 pb-24">
+    <main className="max-w-[1120px] mx-auto px-6 pt-16 pb-24">
       <header className="mb-14 text-center">
         <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight mb-4">
           {t("installPageTitle")}
@@ -86,7 +86,7 @@ export function InstallPageContent() {
       <div className="flex justify-center">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-text text-white text-sm font-medium hover:bg-text-secondary transition-colors"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent text-white text-sm font-medium hover:bg-accent-hover transition-colors"
         >
           {t("openGallery")}
           <svg
@@ -110,7 +110,7 @@ export function InstallPageContent() {
 
 function Step({ title, desc }: { title: string; desc: string }) {
   return (
-    <li className="rounded-2xl border border-border bg-bg-elevated p-5">
+    <li className="rounded-2xl border border-border bg-bg-elevated p-6">
       <h3 className="text-sm font-semibold mb-1.5">{title}</h3>
       <p className="text-sm text-muted leading-relaxed">{desc}</p>
     </li>
@@ -129,16 +129,22 @@ function CommandBlock({
   copyLabel: string;
 }) {
   return (
-    <div className="rounded-2xl border border-border bg-bg-elevated p-5">
+    <div className="rounded-2xl border border-border bg-bg-elevated p-6">
       <div className="flex items-center justify-between gap-3 mb-3">
         <div>
           <div className="text-sm font-semibold">{label}</div>
           <div className="text-xs text-muted mt-0.5">{tip}</div>
         </div>
-        <CopyCommandButton command={command} label={copyLabel} />
       </div>
-      <div className="rounded-lg bg-bg-secondary border border-border p-3 font-mono text-xs text-text-secondary overflow-x-auto">
-        <code className="whitespace-nowrap">{command}</code>
+      <div className="flex flex-col overflow-hidden rounded-xl bg-bg-secondary border border-border sm:flex-row">
+        <div className="min-w-0 flex-1 overflow-x-auto px-4 py-4 font-mono text-sm text-text-secondary">
+          <code className="block whitespace-nowrap">{command}</code>
+        </div>
+        <CopyCommandButton
+          command={command}
+          label={copyLabel}
+          className="h-11 flex-none shrink-0 rounded-none border-x-0 border-b-0 border-t sm:h-auto sm:rounded-r-xl sm:border-b-0 sm:border-l sm:border-r-0 sm:border-t-0 sm:px-4"
+        />
       </div>
     </div>
   );

@@ -28,6 +28,14 @@ const actionOrder = [
   "failed",
 ];
 
+function actionPreviewPath(slug, action) {
+  const webp = join(repoRoot, "assets", "previews", slug, "webp", `${action}.webp`);
+  if (existsSync(webp)) {
+    return `/assets/previews/${slug}/webp/${action}.webp`;
+  }
+  return `/assets/previews/${slug}/gifs/${action}.gif`;
+}
+
 function readJson(relativePath) {
   return JSON.parse(readFileSync(join(repoRoot, relativePath), "utf8"));
 }
@@ -53,6 +61,28 @@ function listActionsForPet(slug) {
   });
 }
 
+function previewImageForPet(slug, submission, gifs) {
+  const generatedThumbnail = join(
+    repoRoot,
+    "assets",
+    "previews",
+    slug,
+    "thumbnail.png",
+  );
+
+  if (existsSync(generatedThumbnail)) {
+    return `/assets/previews/${slug}/thumbnail.png`;
+  }
+
+  return submission.preview_image
+    ? toWebPath(submission.preview_image)
+    : gifs.idle ?? `/assets/previews/${slug}/gifs/idle.gif`;
+}
+
+function animatedPreviewForPet(slug, gifs, previewImage) {
+  return gifs.idle ?? previewImage ?? `/assets/previews/${slug}/thumbnail.png`;
+}
+
 const pets = readJson("pets.json").map((pet) => {
   const submission = readJson(`pets/${pet.slug}/submission.json`);
   const runtime = readJson(`pets/${pet.slug}/pet.json`);
@@ -60,7 +90,7 @@ const pets = readJson("pets.json").map((pet) => {
   const gifs = Object.fromEntries(
     actions.map((action) => [
       action,
-      `/assets/previews/${pet.slug}/gifs/${action}.gif`,
+      actionPreviewPath(pet.slug, action),
     ]),
   );
 
@@ -72,9 +102,12 @@ const pets = readJson("pets.json").map((pet) => {
     tags: submission.tags ?? [],
     sourceType: submission.source_type ?? "unknown",
     sourceUrl: submission.source_url ?? "",
-    previewImage: submission.preview_image
-      ? toWebPath(submission.preview_image)
-      : gifs.idle ?? `/assets/previews/${pet.slug}/gifs/idle.gif`,
+    previewImage: previewImageForPet(pet.slug, submission, gifs),
+    animatedPreviewImage: animatedPreviewForPet(
+      pet.slug,
+      gifs,
+      previewImageForPet(pet.slug, submission, gifs),
+    ),
     contactSheet: submission.preview_assets?.contact_sheet
       ? toWebPath(submission.preview_assets.contact_sheet)
       : `/assets/previews/${pet.slug}/contact-sheet.png`,

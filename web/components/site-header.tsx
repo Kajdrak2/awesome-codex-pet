@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useLocale } from "@/components/locale-provider";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { SiteLogo } from "@/components/site-logo";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function SiteHeader() {
   const { t } = useLocale();
@@ -72,10 +73,12 @@ export function SiteHeader() {
             <span className="text-sm">{t("github")}</span>
           </a>
 
+          <ThemeToggle />
+
           <LocaleSwitcher />
 
           <Link
-            className="ml-1 inline-flex items-center px-3.5 py-1.5 text-sm font-medium rounded-full bg-text text-white hover:bg-text-secondary transition-colors"
+            className="ml-1 inline-flex items-center px-3.5 py-1.5 text-sm font-medium rounded-full bg-accent text-white hover:bg-accent-hover transition-colors shadow-sm"
             href="https://github.com/legeling/awesome-codex-pet/issues/new?template=pet-submission.yml"
             target="_blank"
             rel="noreferrer"

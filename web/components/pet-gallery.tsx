@@ -15,6 +15,21 @@ type PetGalleryProps = {
 
 type SortKey = "popular" | "downloads" | "name";
 
+function normalizeSortText(value: string) {
+  return value.normalize("NFKD").toLowerCase();
+}
+
+function comparePetsByName(a: Pet, b: Pet) {
+  const aName = normalizeSortText(a.name);
+  const bName = normalizeSortText(b.name);
+
+  if (aName < bName) return -1;
+  if (aName > bName) return 1;
+  if (a.slug < b.slug) return -1;
+  if (a.slug > b.slug) return 1;
+  return 0;
+}
+
 export function PetGallery({ pets, categories }: PetGalleryProps) {
   const { t } = useLocale();
   const [filters, setFilters] = useState({ query: "", category: "All" });
@@ -65,16 +80,16 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
           return (
             b.installs - a.installs ||
             b.views - a.views ||
-            a.pet.name.localeCompare(b.pet.name)
+            comparePetsByName(a.pet, b.pet)
           );
         case "name":
-          return a.pet.name.localeCompare(b.pet.name);
+          return comparePetsByName(a.pet, b.pet);
         case "popular":
         default:
           return (
             b.views - a.views ||
             b.installs - a.installs ||
-            a.pet.name.localeCompare(b.pet.name)
+            comparePetsByName(a.pet, b.pet)
           );
       }
     });

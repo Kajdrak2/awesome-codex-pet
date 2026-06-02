@@ -104,7 +104,7 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
       {/* CTA */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
         <a
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-text text-white text-sm font-medium hover:bg-text-secondary transition-colors"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent text-white text-sm font-medium hover:bg-accent-hover transition-colors"
           href="https://github.com/legeling/awesome-codex-pet/issues/new?template=pet-submission.yml"
           target="_blank"
           rel="noreferrer"

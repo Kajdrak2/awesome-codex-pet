@@ -22,6 +22,7 @@ export type Pet = CatalogPet & {
   sourceType: string;
   sourceUrl: string;
   previewImage: string;
+  animatedPreviewImage: string;
   contactSheet: string;
   actions: PreviewAction[];
   gifs: Record<PreviewAction, string>;

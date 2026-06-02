@@ -17,7 +17,7 @@ export default function NotFound() {
           {t("notFoundDesc")}
         </p>
         <Link
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-text text-white text-sm font-medium hover:bg-text-secondary transition-colors"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-white text-sm font-medium hover:bg-accent-hover transition-colors"
           href="/"
         >
           <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

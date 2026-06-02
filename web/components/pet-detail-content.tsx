@@ -29,7 +29,7 @@ export function PetDetailContent({ pet, actions }: PetDetailContentProps) {
   }, [pet.slug]);
 
   return (
-    <main className="max-w-[1200px] mx-auto px-6 pb-20">
+    <main className="max-w-[1080px] mx-auto px-6 pb-20 overflow-hidden">
       {/* Breadcrumb */}
       <div className="py-6">
         <Link
@@ -43,13 +43,13 @@ export function PetDetailContent({ pet, actions }: PetDetailContentProps) {
         </Link>
       </div>
 
-      <div className="grid lg:grid-cols-[1fr_340px] gap-10">
+      <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_300px]">
         {/* Main content */}
-        <div>
+        <div className="min-w-0">
           {/* Preview - solid color background, no shadow */}
-          <div className="rounded-2xl bg-bg-secondary border border-border p-10 flex justify-center items-center min-h-[320px] mb-8">
+          <div className="rounded-2xl bg-bg-secondary border border-border p-8 flex justify-center items-center min-h-[280px] mb-8">
             <img
-              className="max-w-full max-h-[300px] object-contain [image-rendering:pixelated]"
+              className="max-w-full max-h-[260px] object-contain [image-rendering:pixelated]"
               src={pet.previewImage}
               alt={`${pet.name} preview`}
             />
@@ -67,14 +67,12 @@ export function PetDetailContent({ pet, actions }: PetDetailContentProps) {
             {pet.name}
           </h1>
 
-          <p className="text-lg text-muted leading-relaxed mb-8">
+          <p className="max-w-3xl text-base text-muted leading-relaxed mb-8">
             {pet.description ?? pet.runtimeDescription ?? t("defaultDesc")}
           </p>
 
           {/* Action buttons */}
           <div className="flex flex-wrap gap-3 mb-12">
-            <CopyCommandButton command={pet.installCommand} label={t("copyBashInstall")} />
-            <CopyCommandButton command={pet.installCommandPowerShell} label={t("copyPowerShell")} />
             <a
               className="inline-flex items-center justify-center gap-2 h-9 px-4 rounded-lg border border-border text-sm font-medium text-text hover:bg-surface transition-colors"
               href={pet.repositoryPath}
@@ -88,6 +86,30 @@ export function PetDetailContent({ pet, actions }: PetDetailContentProps) {
             </a>
           </div>
 
+          <section className="rounded-2xl border border-border bg-bg-elevated p-6 mb-12 min-w-0">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-muted mb-4">
+              {t("installCommands")}
+            </h2>
+
+            <div className="space-y-4">
+              <div>
+                <span className="text-xs text-muted block mb-1.5">Bash</span>
+                <CommandField
+                  command={pet.installCommand}
+                  copyLabel={t("copyBashInstall")}
+                />
+              </div>
+
+              <div>
+                <span className="text-xs text-muted block mb-1.5">PowerShell</span>
+                <CommandField
+                  command={pet.installCommandPowerShell}
+                  copyLabel={t("copyPowerShell")}
+                />
+              </div>
+            </div>
+          </section>
+
           {/* Action previews */}
           <section>
             <h2 className="text-xl font-semibold tracking-tight mb-1">
@@ -97,7 +119,7 @@ export function PetDetailContent({ pet, actions }: PetDetailContentProps) {
               {t("actionPreviewsDesc")}
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {actions.map((item) => {
                 const known = knownActionKeys.has(item.action);
                 const label = known
@@ -105,18 +127,20 @@ export function PetDetailContent({ pet, actions }: PetDetailContentProps) {
                   : item.title;
                 return (
                   <div
-                    className="rounded-xl border border-border bg-bg-secondary p-4 hover:border-border-hover transition-colors"
+                    className="rounded-xl border border-border bg-bg-secondary p-4 hover:border-border-hover transition-colors overflow-hidden"
                     key={item.action}
                   >
                     <span className="text-xs font-medium text-muted uppercase tracking-wide mb-3 block">
                       {label}
                     </span>
-                    <img
-                      className="w-full rounded-lg [image-rendering:pixelated]"
-                      src={item.image}
-                      alt={`${pet.name} ${item.title}`}
-                      loading="lazy"
-                    />
+                    <div className="flex h-64 items-center justify-center overflow-hidden rounded-lg bg-bg-elevated">
+                      <img
+                        className="max-h-full max-w-full object-contain [image-rendering:pixelated]"
+                        src={item.image}
+                        alt={`${pet.name} ${item.title}`}
+                        loading="lazy"
+                      />
+                    </div>
                   </div>
                 );
               })}
@@ -125,9 +149,9 @@ export function PetDetailContent({ pet, actions }: PetDetailContentProps) {
         </div>
 
         {/* Sidebar */}
-        <aside className="space-y-6">
+        <aside className="min-w-0 space-y-6">
           {/* Metadata */}
-          <div className="rounded-2xl border border-border p-6">
+          <div className="rounded-2xl border border-border p-6 overflow-hidden">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-muted mb-4">
               {t("metadata")}
             </h2>
@@ -156,7 +180,7 @@ export function PetDetailContent({ pet, actions }: PetDetailContentProps) {
               <div>
                 <dt className="text-xs text-muted mb-0.5">{t("slug")}</dt>
                 <dd>
-                  <code className="font-mono text-xs text-text-secondary bg-surface px-1.5 py-0.5 rounded">
+                  <code className="block max-w-full truncate font-mono text-xs text-text-secondary bg-surface px-1.5 py-0.5 rounded" title={pet.slugLabel}>
                     {pet.slugLabel}
                   </code>
                 </dd>
@@ -165,11 +189,11 @@ export function PetDetailContent({ pet, actions }: PetDetailContentProps) {
                 <dt className="text-xs text-muted mb-0.5">{t("tags")}</dt>
                 <dd>
                   {pet.tags.length ? (
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-1.5 min-w-0">
                       {pet.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="inline-flex px-2 py-0.5 rounded-md bg-surface text-xs text-text-secondary"
+                          className="inline-flex max-w-full px-2 py-0.5 rounded-md bg-surface text-xs text-text-secondary"
                         >
                           {tag}
                         </span>
@@ -182,33 +206,29 @@ export function PetDetailContent({ pet, actions }: PetDetailContentProps) {
               </div>
             </dl>
           </div>
-
-          {/* Install commands */}
-          <div className="rounded-2xl border border-border p-6">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-muted mb-4">
-              {t("installCommands")}
-            </h2>
-
-            <div className="space-y-4">
-              <div>
-                <span className="text-xs text-muted block mb-1.5">Bash</span>
-                <div className="rounded-lg bg-bg-secondary border border-border p-3 font-mono text-xs text-text-secondary overflow-x-auto">
-                  <code className="whitespace-nowrap">{pet.installCommand}</code>
-                </div>
-              </div>
-
-              <div>
-                <span className="text-xs text-muted block mb-1.5">PowerShell</span>
-                <div className="rounded-lg bg-bg-secondary border border-border p-3 font-mono text-xs text-text-secondary overflow-x-auto">
-                  <code className="whitespace-nowrap break-all">
-                    {pet.installCommandPowerShell}
-                  </code>
-                </div>
-              </div>
-            </div>
-          </div>
         </aside>
       </div>
     </main>
+  );
+}
+
+function CommandField({
+  command,
+  copyLabel,
+}: {
+  command: string;
+  copyLabel: string;
+}) {
+  return (
+    <div className="flex min-w-0 flex-col overflow-hidden rounded-lg bg-bg-secondary border border-border sm:flex-row">
+      <div className="min-w-0 flex-1 overflow-x-auto px-3 py-3 font-mono text-xs text-text-secondary">
+        <code className="block whitespace-nowrap">{command}</code>
+      </div>
+      <CopyCommandButton
+        command={command}
+        label={copyLabel}
+        className="h-10 flex-none shrink-0 rounded-none border-x-0 border-b-0 border-t bg-bg-elevated px-3 text-xs sm:h-auto sm:rounded-r-lg sm:border-y-0 sm:border-r-0 sm:border-l"
+      />
+    </div>
   );
 }

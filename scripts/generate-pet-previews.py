@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont
 
 COLUMNS = 8
 ROWS = 9
@@ -13,6 +13,8 @@ CELL_WIDTH = 192
 CELL_HEIGHT = 208
 GIF_SCALE = 2
 GIF_SIZE = (CELL_WIDTH * GIF_SCALE, CELL_HEIGHT * GIF_SCALE)
+THUMBNAIL_SCALE = 2
+THUMBNAIL_SIZE = (CELL_WIDTH * THUMBNAIL_SCALE, CELL_HEIGHT * THUMBNAIL_SCALE)
 LABEL_HEIGHT = 22
 
 STATES = [
@@ -38,7 +40,7 @@ def checker(size: tuple[int, int], square: int = 16) -> Image.Image:
     return image
 
 
-def frame_with_background(atlas: Image.Image, row: int, column: int) -> Image.Image:
+def extract_frame(atlas: Image.Image, row: int, column: int) -> Image.Image:
     frame = atlas.crop(
         (
             column * CELL_WIDTH,
@@ -47,9 +49,99 @@ def frame_with_background(atlas: Image.Image, row: int, column: int) -> Image.Im
             (row + 1) * CELL_HEIGHT,
         )
     ).convert("RGBA")
+    return clean_preview_frame(frame)
+
+
+def clean_preview_frame(frame: Image.Image) -> Image.Image:
+    """Remove magenta matte pixels that sit on the transparent edge."""
+    frame = frame.convert("RGBA")
+    red, green, blue, alpha = frame.split()
+    edge_background = alpha.point(lambda value: 255 if value <= 8 else 0)
+    edge_halo = edge_background.filter(ImageFilter.MaxFilter(9))
+
+    masks = [
+        alpha.point(lambda value: 255 if value > 0 else 0),
+        green.point(lambda value: 255 if value < 120 else 0),
+        ImageChops.subtract(red, green).point(lambda value: 255 if value > 16 else 0),
+        ImageChops.subtract(blue, green).point(lambda value: 255 if value > 16 else 0),
+        ImageChops.add(red, blue).point(lambda value: 255 if value > 80 else 0),
+        ImageChops.difference(red, blue).point(lambda value: 255 if value < 140 else 0),
+    ]
+
+    matte_mask = masks[0]
+    for mask in masks[1:]:
+        matte_mask = ImageChops.multiply(matte_mask, mask)
+
+    remove_mask = ImageChops.multiply(edge_halo, matte_mask)
+    if not remove_mask.getbbox():
+        return remove_small_alpha_components(frame)
+
+    cleaned = frame.copy()
+    cleaned_alpha = ImageChops.subtract(alpha, remove_mask)
+    cleaned.putalpha(cleaned_alpha)
+    return remove_small_alpha_components(cleaned)
+
+
+def remove_small_alpha_components(frame: Image.Image, min_area: int = 12) -> Image.Image:
+    alpha = frame.getchannel("A")
+    width, height = frame.size
+    alpha_values = list(alpha.getdata())
+    visited = bytearray(width * height)
+    remove = bytearray(width * height)
+
+    for start, opacity in enumerate(alpha_values):
+        if visited[start] or opacity <= 8:
+            continue
+
+        stack = [start]
+        visited[start] = 1
+        component = []
+
+        while stack:
+            index = stack.pop()
+            component.append(index)
+            x = index % width
+
+            neighbors = []
+            if x > 0:
+                neighbors.append(index - 1)
+            if x < width - 1:
+                neighbors.append(index + 1)
+            if index >= width:
+                neighbors.append(index - width)
+            if index < width * (height - 1):
+                neighbors.append(index + width)
+
+            for neighbor in neighbors:
+                if not visited[neighbor] and alpha_values[neighbor] > 8:
+                    visited[neighbor] = 1
+                    stack.append(neighbor)
+
+        if len(component) < min_area:
+            for index in component:
+                remove[index] = 255
+
+    if not any(remove):
+        return frame
+
+    remove_mask = Image.frombytes("L", frame.size, bytes(remove))
+    cleaned = frame.copy()
+    cleaned.putalpha(ImageChops.subtract(alpha, remove_mask))
+    return cleaned
+
+
+def frame_with_background(atlas: Image.Image, row: int, column: int) -> Image.Image:
+    frame = extract_frame(atlas, row, column)
     background = checker((CELL_WIDTH, CELL_HEIGHT))
     background.paste(frame, (0, 0), frame)
     return background
+
+
+def make_thumbnail(atlas: Image.Image, output: Path) -> None:
+    frame = extract_frame(atlas, 0, 0)
+    frame = frame.resize(THUMBNAIL_SIZE, Image.Resampling.NEAREST)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    frame.save(output)
 
 
 def make_contact_sheet(atlas: Image.Image, output: Path, scale: float = 0.5) -> None:
@@ -84,7 +176,7 @@ def make_contact_sheet(atlas: Image.Image, output: Path, scale: float = 0.5) -> 
 
 
 def make_gif(atlas: Image.Image, state: str, row: int, durations: list[int], output: Path) -> None:
-    frames = [frame_with_background(atlas, row, column) for column in range(len(durations))]
+    frames = [extract_frame(atlas, row, column) for column in range(len(durations))]
     frames = [frame.resize(GIF_SIZE, Image.Resampling.NEAREST) for frame in frames]
     output.parent.mkdir(parents=True, exist_ok=True)
     frames[0].save(
@@ -95,6 +187,25 @@ def make_gif(atlas: Image.Image, state: str, row: int, durations: list[int], out
         loop=0,
         optimize=False,
         disposal=2,
+    )
+    with Image.open(output) as generated:
+        if generated.size != GIF_SIZE:
+            raise ValueError(f"{output} must be {GIF_SIZE[0]}x{GIF_SIZE[1]}, got {generated.size[0]}x{generated.size[1]}")
+
+
+def make_webp(atlas: Image.Image, state: str, row: int, durations: list[int], output: Path) -> None:
+    frames = [extract_frame(atlas, row, column) for column in range(len(durations))]
+    frames = [frame.resize(GIF_SIZE, Image.Resampling.NEAREST) for frame in frames]
+    output.parent.mkdir(parents=True, exist_ok=True)
+    frames[0].save(
+        output,
+        save_all=True,
+        append_images=frames[1:],
+        duration=durations,
+        loop=0,
+        lossless=True,
+        quality=100,
+        method=0,
     )
     with Image.open(output) as generated:
         if generated.size != GIF_SIZE:
@@ -115,9 +226,11 @@ def generate_for_pet(pet_dir: Path) -> None:
 
     repo_root = Path(__file__).resolve().parents[1]
     preview_dir = repo_root / "assets" / "previews" / pet_dir.name
+    make_thumbnail(atlas, preview_dir / "thumbnail.png")
     make_contact_sheet(atlas, preview_dir / "contact-sheet.png")
     for state, row, durations in STATES:
         make_gif(atlas, state, row, durations, preview_dir / "gifs" / f"{state}.gif")
+        make_webp(atlas, state, row, durations, preview_dir / "webp" / f"{state}.webp")
 
     print(f"generated previews for {pet_dir.name}")
 
