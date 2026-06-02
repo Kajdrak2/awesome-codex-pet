@@ -19,6 +19,15 @@
     "license": "CC BY-NC 4.0"
   },
   {
+    "slug": "claude--xiangking",
+    "name": "Claude",
+    "author": "XiangWang",
+    "author_handle": "xiangking",
+    "author_url": "https://github.com/xiangking",
+    "primary_category": "Original Characters",
+    "license": "MIT License"
+  },
+  {
     "slug": "doro--lingxiaotian",
     "name": "Doro",
     "author": "Lingxiaotian",
