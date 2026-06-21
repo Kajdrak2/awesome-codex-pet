@@ -10,15 +10,6 @@
     "description": "A pre-transformation Firefly fan-art Codex pet with a soft white, mint, and gold palette."
   },
   {
-    "slug": "dnf-female-ammo--qunboo",
-    "name": "女弹药Q",
-    "author": "QunBoo",
-    "author_handle": "QunBoo",
-    "author_url": "https://github.com/QunBoo",
-    "primary_category": "Anime Characters",
-    "license": "CC BY-NC 4.0"
-  },
-  {
     "slug": "aemeath-mini--cunuo",
     "name": "Aemeath Mini",
     "author": "cuNuo",
@@ -352,6 +343,15 @@
     "author_url": "https://github.com/Keseras34938976",
     "primary_category": "Original Characters",
     "license": "MIT License"
+  },
+  {
+    "slug": "dnf-female-ammo--qunboo",
+    "name": "女弹药Q",
+    "author": "QunBoo",
+    "author_handle": "QunBoo",
+    "author_url": "https://github.com/QunBoo",
+    "primary_category": "Anime Characters",
+    "license": "CC BY-NC 4.0"
   },
   {
     "slug": "bocchi--lingxiaotian",
