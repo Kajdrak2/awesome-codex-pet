@@ -10,6 +10,16 @@
     "description": "A pre-transformation Firefly fan-art Codex pet with a soft white, mint, and gold palette."
   },
   {
+    "slug": "acheron--lingxiaotian",
+    "name": "Acheron",
+    "author": "Lingxiaotian",
+    "author_handle": "legeling",
+    "author_url": "https://github.com/legeling",
+    "primary_category": "Anime Characters",
+    "license": "CC BY-NC 4.0",
+    "description": "An Acheron-inspired fan-art Codex pet with long dark-purple hair, a red hair accent, a tiny sword silhouette, and a calm lethal mood."
+  },
+  {
     "slug": "aemeath-mini--cunuo",
     "name": "Aemeath Mini",
     "author": "cuNuo",
@@ -44,6 +54,16 @@
     "author_url": "https://github.com/gbn666",
     "primary_category": "Animals",
     "license": "MIT License"
+  },
+  {
+    "slug": "castorice--lingxiaotian",
+    "name": "Castorice",
+    "author": "Lingxiaotian",
+    "author_handle": "legeling",
+    "author_url": "https://github.com/legeling",
+    "primary_category": "Anime Characters",
+    "license": "CC BY-NC 4.0",
+    "description": "A Castorice-inspired fan-art Codex pet with a purple-black palette, butterfly motifs, long flowing hair, and a gentle mysterious mood."
   },
   {
     "slug": "claude--xiangking",
@@ -126,6 +146,16 @@
     "author_url": "https://github.com/legeling",
     "primary_category": "Anime Characters",
     "license": "CC BY-NC 4.0"
+  },
+  {
+    "slug": "furina--lingxiaotian",
+    "name": "Furina",
+    "author": "Lingxiaotian",
+    "author_handle": "legeling",
+    "author_url": "https://github.com/legeling",
+    "primary_category": "Anime Characters",
+    "license": "CC BY-NC 4.0",
+    "description": "A Furina-inspired fan-art Codex pet with a blue-white top hat, theatrical Fontaine styling, and a playful chibi sprite identity."
   },
   {
     "slug": "hajimi--zeyuwang1999",
@@ -264,6 +294,16 @@
     "license": "CC BY-NC 4.0"
   },
   {
+    "slug": "ruan-mei--lingxiaotian",
+    "name": "Ruan Mei",
+    "author": "Lingxiaotian",
+    "author_handle": "legeling",
+    "author_url": "https://github.com/legeling",
+    "primary_category": "Anime Characters",
+    "license": "CC BY-NC 4.0",
+    "description": "A Ruan Mei-inspired fan-art Codex pet with a teal palette, floral hair ornament, and a calm, elegant chibi sprite identity."
+  },
+  {
     "slug": "ruruka--ltmcliao-cmyk",
     "name": "RuRuKa",
     "author": "ltmcliao-cmyk",
@@ -291,6 +331,16 @@
     "license": "MIT License"
   },
   {
+    "slug": "sparkle--lingxiaotian",
+    "name": "Sparkle",
+    "author": "Lingxiaotian",
+    "author_handle": "legeling",
+    "author_url": "https://github.com/legeling",
+    "primary_category": "Anime Characters",
+    "license": "CC BY-NC 4.0",
+    "description": "A Sparkle-inspired fan-art Codex pet with a playful red-black palette, twin tails, and a theatrical mask."
+  },
+  {
     "slug": "teddy--danieloleary",
     "name": "Teddy",
     "author": "Daniel O'Leary",
@@ -307,6 +357,16 @@
     "author_url": "https://github.com/D1a0y1bb",
     "primary_category": "Animals",
     "license": "MIT License"
+  },
+  {
+    "slug": "tingyun--lingxiaotian",
+    "name": "Tingyun",
+    "author": "Lingxiaotian",
+    "author_handle": "legeling",
+    "author_url": "https://github.com/legeling",
+    "primary_category": "Anime Characters",
+    "license": "CC BY-NC 4.0",
+    "description": "A Tingyun-inspired fan-art Codex pet with fox ears, a plush tail, green eyes, and a warm gold-brown palette in a compact chibi sprite style."
   },
   {
     "slug": "wally--wally025",
