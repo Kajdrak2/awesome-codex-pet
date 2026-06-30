@@ -10,6 +10,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: pet-previews-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   previews:
     runs-on: ubuntu-latest
@@ -59,6 +63,11 @@ jobs:
       - name: Commit generated files on main
         if: github.event_name == 'push'
         run: |
+          git fetch origin main
+          if [ "$(git rev-parse origin/main)" != "$GITHUB_SHA" ]; then
+            echo "main moved ahead while this run was executing; skip generated commit from stale run."
+            exit 0
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md docs/zh-CN/README.md pets.json
