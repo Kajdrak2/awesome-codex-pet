@@ -186,6 +186,15 @@
     "description": "A Kamisato Ayaka-inspired fan-art Codex pet with a blue-and-white palette, hime-cut silhouette, and a calm elegant chibi identity."
   },
   {
+    "slug": "katana-cheems--thankyou-cheems",
+    "name": "Katana Cheems",
+    "author": "Thankyou-Cheems",
+    "author_handle": "Thankyou-Cheems",
+    "author_url": "https://github.com/Thankyou-Cheems",
+    "primary_category": "Memes",
+    "license": "CC BY-NC 4.0"
+  },
+  {
     "slug": "little-sheep--mingdong",
     "name": "Little Sheep",
     "author": "MingDong",
