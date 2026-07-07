@@ -53,25 +53,29 @@ def extract_frame(atlas: Image.Image, row: int, column: int) -> Image.Image:
 
 
 def clean_preview_frame(frame: Image.Image) -> Image.Image:
-    """Remove magenta matte pixels that sit on the transparent edge."""
+    """Remove chroma-key matte pixels that sit on the transparent edge."""
     frame = frame.convert("RGBA")
     red, green, blue, alpha = frame.split()
     edge_background = alpha.point(lambda value: 255 if value <= 8 else 0)
     edge_halo = edge_background.filter(ImageFilter.MaxFilter(9))
 
-    masks = [
+    fringe_alpha = alpha.point(lambda value: 255 if 0 < value <= 96 else 0)
+    magenta_mask = intersect_masks(
         alpha.point(lambda value: 255 if value > 0 else 0),
         green.point(lambda value: 255 if value < 120 else 0),
         ImageChops.subtract(red, green).point(lambda value: 255 if value > 16 else 0),
         ImageChops.subtract(blue, green).point(lambda value: 255 if value > 16 else 0),
         ImageChops.add(red, blue).point(lambda value: 255 if value > 80 else 0),
         ImageChops.difference(red, blue).point(lambda value: 255 if value < 140 else 0),
-    ]
+    )
+    green_mask = intersect_masks(
+        fringe_alpha,
+        ImageChops.subtract(green, red).point(lambda value: 255 if value > 16 else 0),
+        ImageChops.subtract(green, blue).point(lambda value: 255 if value > 16 else 0),
+        green.point(lambda value: 255 if value >= 40 else 0),
+    )
 
-    matte_mask = masks[0]
-    for mask in masks[1:]:
-        matte_mask = ImageChops.multiply(matte_mask, mask)
-
+    matte_mask = ImageChops.lighter(magenta_mask, green_mask)
     remove_mask = ImageChops.multiply(edge_halo, matte_mask)
     if not remove_mask.getbbox():
         return remove_small_alpha_components(frame)
@@ -80,6 +84,13 @@ def clean_preview_frame(frame: Image.Image) -> Image.Image:
     cleaned_alpha = ImageChops.subtract(alpha, remove_mask)
     cleaned.putalpha(cleaned_alpha)
     return remove_small_alpha_components(cleaned)
+
+
+def intersect_masks(*masks: Image.Image) -> Image.Image:
+    merged = masks[0]
+    for mask in masks[1:]:
+        merged = ImageChops.multiply(merged, mask)
+    return merged
 
 
 def remove_small_alpha_components(frame: Image.Image, min_area: int = 12) -> Image.Image:
