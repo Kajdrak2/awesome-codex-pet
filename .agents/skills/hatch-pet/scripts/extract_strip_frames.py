@@ -13,6 +13,8 @@ from PIL import Image
 
 CELL_WIDTH = 192
 CELL_HEIGHT = 208
+KEY_DOMINANCE_THRESHOLD = 16.0
+ALPHA_NOISE_FLOOR = 24
 ROW_FRAME_COUNTS = {
     "idle": 6,
     "running-right": 8,
@@ -63,23 +65,209 @@ def color_distance(
     return math.sqrt((red - key[0]) ** 2 + (green - key[1]) ** 2 + (blue - key[2]) ** 2)
 
 
+def channel_distance(
+    red: int,
+    green: int,
+    blue: int,
+    key: tuple[int, int, int],
+) -> int:
+    return max(abs(red - key[0]), abs(green - key[1]), abs(blue - key[2]))
+
+
+def clamp_channel(value: float) -> int:
+    return max(0, min(255, int(round(value))))
+
+
+def smoothstep(value: float) -> float:
+    value = max(0.0, min(1.0, value))
+    return value * value * (3.0 - 2.0 * value)
+
+
+def spill_channels(key: tuple[int, int, int]) -> list[int]:
+    key_max = max(key)
+    if key_max < 128:
+        return []
+    return [index for index, value in enumerate(key) if value >= key_max - 16 and value >= 128]
+
+
+def key_channel_dominance(
+    red: int,
+    green: int,
+    blue: int,
+    key: tuple[int, int, int],
+) -> float:
+    channels = [float(red), float(green), float(blue)]
+    key_channels = spill_channels(key)
+    if not key_channels:
+        return 0.0
+
+    other_channels = [index for index in range(3) if index not in key_channels]
+    key_strength = (
+        min(channels[index] for index in key_channels)
+        if len(key_channels) > 1
+        else channels[key_channels[0]]
+    )
+    other_strength = max((channels[index] for index in other_channels), default=0.0)
+    return key_strength - other_strength
+
+
+def looks_key_colored(
+    red: int,
+    green: int,
+    blue: int,
+    key: tuple[int, int, int],
+    distance: int,
+) -> bool:
+    if distance <= 32:
+        return True
+    return key_channel_dominance(red, green, blue, key) >= KEY_DOMINANCE_THRESHOLD
+
+
+def soft_alpha(distance: int, transparent_threshold: float, opaque_threshold: float) -> int:
+    if distance <= transparent_threshold:
+        return 0
+    if distance >= opaque_threshold:
+        return 255
+    ratio = (float(distance) - transparent_threshold) / (
+        opaque_threshold - transparent_threshold
+    )
+    return clamp_channel(255.0 * smoothstep(ratio))
+
+
+def dominance_alpha(
+    red: int,
+    green: int,
+    blue: int,
+    key: tuple[int, int, int],
+) -> int:
+    channels = [float(red), float(green), float(blue)]
+    key_channels = spill_channels(key)
+    if not key_channels:
+        return 255
+
+    other_channels = [index for index in range(3) if index not in key_channels]
+    key_strength = (
+        min(channels[index] for index in key_channels)
+        if len(key_channels) > 1
+        else channels[key_channels[0]]
+    )
+    other_strength = max((channels[index] for index in other_channels), default=0.0)
+    dominance = key_strength - other_strength
+    if dominance <= 0:
+        return 255
+
+    denominator = max(1.0, float(max(key)) - other_strength)
+    alpha = 1.0 - min(1.0, dominance / denominator)
+    return clamp_channel(alpha * 255.0)
+
+
+def cleanup_spill(
+    red: int,
+    green: int,
+    blue: int,
+    key: tuple[int, int, int],
+    alpha: int,
+) -> tuple[int, int, int]:
+    if alpha >= 252:
+        return red, green, blue
+
+    channels = [float(red), float(green), float(blue)]
+    key_channels = spill_channels(key)
+    if not key_channels:
+        return red, green, blue
+
+    other_channels = [index for index in range(3) if index not in key_channels]
+    if other_channels:
+        anchor = max(channels[index] for index in other_channels)
+        cap = max(0.0, anchor - 1.0)
+        for index in key_channels:
+            if channels[index] > cap:
+                channels[index] = cap
+
+    return (
+        clamp_channel(channels[0]),
+        clamp_channel(channels[1]),
+        clamp_channel(channels[2]),
+    )
+
+
+def contract_alpha(image: Image.Image, pixels: int) -> Image.Image:
+    if pixels <= 0:
+        return image
+
+    from PIL import ImageFilter
+
+    alpha = image.getchannel("A")
+    for _ in range(pixels):
+        alpha = alpha.filter(ImageFilter.MinFilter(3))
+    image.putalpha(alpha)
+    return image
+
+
 def remove_chroma_background(
     image: Image.Image,
     chroma_key: tuple[int, int, int],
     threshold: float,
+    *,
+    transparent_threshold: float = 12.0,
+    edge_contract: int = 1,
 ) -> Image.Image:
     rgba = image.convert("RGBA")
     pixels = rgba.load()
     for y in range(rgba.height):
         for x in range(rgba.width):
             red, green, blue, alpha = pixels[x, y]
-            if color_distance(red, green, blue, chroma_key) <= threshold:
-                pixels[x, y] = (red, green, blue, 0)
-    return rgba
+            distance = channel_distance(red, green, blue, chroma_key)
+            key_like = looks_key_colored(red, green, blue, chroma_key, distance)
+            output_alpha = (
+                min(
+                    soft_alpha(distance, transparent_threshold, threshold),
+                    dominance_alpha(red, green, blue, chroma_key),
+                )
+                if key_like
+                else 255
+            )
+            output_alpha = int(round(output_alpha * (alpha / 255.0)))
+            if 0 < output_alpha <= ALPHA_NOISE_FLOOR:
+                output_alpha = 0
+
+            if output_alpha == 0:
+                pixels[x, y] = (0, 0, 0, 0)
+                continue
+
+            if key_like:
+                red, green, blue = cleanup_spill(red, green, blue, chroma_key, output_alpha)
+            pixels[x, y] = (red, green, blue, output_alpha)
+    return contract_alpha(rgba, edge_contract)
+
+
+def alpha_bbox(
+    image: Image.Image,
+    threshold: int = ALPHA_NOISE_FLOOR,
+) -> tuple[int, int, int, int] | None:
+    alpha = image.getchannel("A")
+    width, height = image.size
+    min_x = width
+    min_y = height
+    max_x = -1
+    max_y = -1
+
+    for y in range(height):
+        for x in range(width):
+            if alpha.getpixel((x, y)) <= threshold:
+                continue
+            min_x = min(min_x, x)
+            min_y = min(min_y, y)
+            max_x = max(max_x, x)
+            max_y = max(max_y, y)
+
+    if max_x < min_x or max_y < min_y:
+        return None
+    return (min_x, min_y, max_x + 1, max_y + 1)
 
 
 def fit_to_cell(image: Image.Image) -> Image.Image:
-    bbox = image.getbbox()
+    bbox = alpha_bbox(image)
     target = Image.new("RGBA", (CELL_WIDTH, CELL_HEIGHT), (0, 0, 0, 0))
     if bbox is None:
         return target
@@ -97,6 +285,11 @@ def fit_to_cell(image: Image.Image) -> Image.Image:
     top = (CELL_HEIGHT - sprite.height) // 2
     target.alpha_composite(sprite, (left, top))
     return target
+
+
+def count_nontransparent_pixels(image: Image.Image) -> int:
+    alpha = image.getchannel("A")
+    return sum(1 for value in alpha.getdata() if value > 16)
 
 
 def connected_components(image: Image.Image) -> list[dict[str, object]]:
@@ -250,6 +443,16 @@ def extract_state(
         frames = extract_component_frames(strip, frame_count)
         if frames is None and method == "components":
             raise SystemExit(f"could not find {frame_count} sprite components in {strip_path}")
+        if frames is not None and method == "auto":
+            used_pixels = sorted(count_nontransparent_pixels(frame) for frame in frames)
+            if used_pixels:
+                median = used_pixels[len(used_pixels) // 2]
+                smallest = used_pixels[0]
+                largest = used_pixels[-1]
+                if median > 0 and (
+                    smallest < median * 0.35 or largest > median * 2.75
+                ):
+                    frames = None
         if frames is not None:
             used_method = "components"
 
