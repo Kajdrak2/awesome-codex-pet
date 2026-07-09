@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont
+from PIL import Image, ImageDraw, ImageFont
 
 COLUMNS = 8
 ROWS = 9
@@ -41,7 +41,7 @@ def checker(size: tuple[int, int], square: int = 16) -> Image.Image:
 
 
 def extract_frame(atlas: Image.Image, row: int, column: int) -> Image.Image:
-    frame = atlas.crop(
+    return atlas.crop(
         (
             column * CELL_WIDTH,
             row * CELL_HEIGHT,
@@ -49,96 +49,6 @@ def extract_frame(atlas: Image.Image, row: int, column: int) -> Image.Image:
             (row + 1) * CELL_HEIGHT,
         )
     ).convert("RGBA")
-    return clean_preview_frame(frame)
-
-
-def clean_preview_frame(frame: Image.Image) -> Image.Image:
-    """Remove chroma-key matte pixels that sit on the transparent edge."""
-    frame = frame.convert("RGBA")
-    red, green, blue, alpha = frame.split()
-    edge_background = alpha.point(lambda value: 255 if value <= 8 else 0)
-    edge_halo = edge_background.filter(ImageFilter.MaxFilter(9))
-
-    fringe_alpha = alpha.point(lambda value: 255 if 0 < value <= 96 else 0)
-    magenta_mask = intersect_masks(
-        alpha.point(lambda value: 255 if value > 0 else 0),
-        green.point(lambda value: 255 if value < 120 else 0),
-        ImageChops.subtract(red, green).point(lambda value: 255 if value > 16 else 0),
-        ImageChops.subtract(blue, green).point(lambda value: 255 if value > 16 else 0),
-        ImageChops.add(red, blue).point(lambda value: 255 if value > 80 else 0),
-        ImageChops.difference(red, blue).point(lambda value: 255 if value < 140 else 0),
-    )
-    green_mask = intersect_masks(
-        fringe_alpha,
-        ImageChops.subtract(green, red).point(lambda value: 255 if value > 16 else 0),
-        ImageChops.subtract(green, blue).point(lambda value: 255 if value > 16 else 0),
-        green.point(lambda value: 255 if value >= 40 else 0),
-    )
-
-    matte_mask = ImageChops.lighter(magenta_mask, green_mask)
-    remove_mask = ImageChops.multiply(edge_halo, matte_mask)
-    if not remove_mask.getbbox():
-        return remove_small_alpha_components(frame)
-
-    cleaned = frame.copy()
-    cleaned_alpha = ImageChops.subtract(alpha, remove_mask)
-    cleaned.putalpha(cleaned_alpha)
-    return remove_small_alpha_components(cleaned)
-
-
-def intersect_masks(*masks: Image.Image) -> Image.Image:
-    merged = masks[0]
-    for mask in masks[1:]:
-        merged = ImageChops.multiply(merged, mask)
-    return merged
-
-
-def remove_small_alpha_components(frame: Image.Image, min_area: int = 12) -> Image.Image:
-    alpha = frame.getchannel("A")
-    width, height = frame.size
-    alpha_values = list(alpha.getdata())
-    visited = bytearray(width * height)
-    remove = bytearray(width * height)
-
-    for start, opacity in enumerate(alpha_values):
-        if visited[start] or opacity <= 8:
-            continue
-
-        stack = [start]
-        visited[start] = 1
-        component = []
-
-        while stack:
-            index = stack.pop()
-            component.append(index)
-            x = index % width
-
-            neighbors = []
-            if x > 0:
-                neighbors.append(index - 1)
-            if x < width - 1:
-                neighbors.append(index + 1)
-            if index >= width:
-                neighbors.append(index - width)
-            if index < width * (height - 1):
-                neighbors.append(index + width)
-
-            for neighbor in neighbors:
-                if not visited[neighbor] and alpha_values[neighbor] > 8:
-                    visited[neighbor] = 1
-                    stack.append(neighbor)
-
-        if len(component) < min_area:
-            for index in component:
-                remove[index] = 255
-
-    if not any(remove):
-        return frame
-
-    remove_mask = Image.frombytes("L", frame.size, bytes(remove))
-    cleaned = frame.copy()
-    cleaned.putalpha(ImageChops.subtract(alpha, remove_mask))
-    return cleaned
 
 
 def frame_with_background(atlas: Image.Image, row: int, column: int) -> Image.Image:
