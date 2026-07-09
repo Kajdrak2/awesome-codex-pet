@@ -324,6 +324,17 @@ def main() -> None:
             str(qa_dir / "contact-sheet.png"),
         ]
     )
+    run(
+        [
+            sys.executable,
+            str(scripts_dir / "inspect_matte_fringe.py"),
+            str(final_dir / "spritesheet.webp"),
+            "--json-out",
+            str(qa_dir / "matte-fringe.json"),
+            "--review-image",
+            str(qa_dir / "matte-fringe-contact-sheet.png"),
+        ]
+    )
 
     if not args.skip_videos:
         video_command = [
@@ -369,6 +380,8 @@ def main() -> None:
         "spritesheet": str(final_dir / "spritesheet.webp"),
         "validation": str(final_dir / "validation.json"),
         "contact_sheet": str(qa_dir / "contact-sheet.png"),
+        "matte_fringe": str(qa_dir / "matte-fringe.json"),
+        "matte_fringe_contact_sheet": str(qa_dir / "matte-fringe-contact-sheet.png"),
         "review": str(review_path),
         "videos": None if args.skip_videos else str(qa_dir / "videos"),
         "package": None if package_dir is None else str(package_dir),

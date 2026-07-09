@@ -43,6 +43,16 @@ Do NOT generate polished illustration, painterly rendering, anime key art, 3D re
 
 Pet rows are processed into transparent 192x208 cells, so every generated pixel must either belong to the pet sprite or be cleanly removable chroma-key background. Prefer pose, expression, and silhouette changes over decorative effects.
 
+## Matte Fringe Prevention
+
+Chroma-key cleanup can leave visible green, cyan, magenta, purple, or pink edge halos after rows are converted to transparent sprites. Prevent and review this as part of every pet run:
+
+- Pick a chroma key that is absent from the pet identity. Do not use green for green-haired/green-clothed pets, magenta or purple for purple/pink pets, or cyan for blue/cyan pets unless the row has been visually proven safe.
+- Row prompts must ask for a flat, uniform chroma-key background with no antialiasing halo, glow, shadow, motion smear, or semi-transparent pixels touching the pet edge.
+- Do not fix fringe by globally deleting a color family. Character palettes often legitimately contain green, cyan, purple, pink, or magenta. A cleanup candidate is acceptable only after per-pet or per-row visual comparison proves it removes background residue without changing character colors.
+- After finalization, inspect `qa/matte-fringe-contact-sheet.png` and `qa/matte-fringe.json` in addition to `qa/contact-sheet.png`. These files are review aids, not automatic failure proofs; highlighted pixels require human visual judgment.
+- If matte fringe is visible, repair the smallest scope first: one frame, then one row, then the full pet only if the matte problem is broad. Never batch-apply a color-removal script across multiple pets without reviewing each pet result.
+
 Allowed effects must satisfy all of these conditions:
 
 - The effect is state-relevant and helps explain the animation.
@@ -187,6 +197,8 @@ run/
   final/spritesheet.webp
   final/validation.json
   qa/contact-sheet.png
+  qa/matte-fringe.json
+  qa/matte-fringe-contact-sheet.png
   qa/review.json
   qa/run-summary.json
   qa/videos/*.mp4
@@ -200,9 +212,11 @@ ${CODEX_HOME:-$HOME/.codex}/pets/<pet-name>/
   spritesheet.webp
 ```
 
-Review `qa/contact-sheet.png`, `qa/review.json`, `final/validation.json`, and `qa/videos/` before accepting the pet.
+Review `qa/contact-sheet.png`, `qa/matte-fringe-contact-sheet.png`, `qa/matte-fringe.json`, `qa/review.json`, `final/validation.json`, and `qa/videos/` before accepting the pet.
 
 Deterministic validation is necessary but not sufficient. Before calling the pet done, visually inspect the contact sheet for identity consistency. Block acceptance if any row changes species/body type, face, markings, palette, prop design, prop side unexpectedly, or overall silhouette.
+
+Matte-fringe validation is also necessary but not sufficient. The detector only marks edge pixels whose colors look like common chroma-key residue. Treat it as a pointer for visual inspection; do not erase those colors blindly, because they may be legitimate character colors.
 
 ## Subagent Row Generation
 
@@ -249,6 +263,7 @@ Before returning, visually check:
 - exact requested frame count
 - same pet identity as the canonical base
 - clean flat chroma-key background
+- no green/cyan/magenta/purple/pink matte halo around the pet edge
 - complete, separated, unclipped poses
 - no forbidden detached effects or slot-crossing artifacts
 

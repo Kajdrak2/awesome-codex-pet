@@ -9,6 +9,7 @@ Do not accept an atlas until all checks pass.
 - Each frame fits inside its `192x208` cell.
 - Unused cells are transparent.
 - `qa/review.json` has no errors.
+- `qa/matte-fringe.json` and `qa/matte-fringe-contact-sheet.png` exist for final atlas review.
 - `frames/frames-manifest.json` records component extraction for production rows, unless slot extraction was intentionally accepted after visual inspection.
 
 ## Character Consistency
@@ -44,10 +45,12 @@ Do not accept an atlas until all checks pass.
 - Contact sheets must not be accepted if every used frame is just the reference image with small geometric transforms.
 - Used cells must not have white or opaque rectangular backgrounds unless the pet intentionally fills the whole cell and the user accepts that tradeoff.
 - The chroma key must be visually absent from the character. If extraction removes character regions, choose a different key and regenerate the affected base/rows.
+- The final sprite must not show visible green, cyan, magenta, purple, or pink matte halos around the pet edge unless that color is an intentional, consistent part of the character silhouette.
 - Contact sheets must not show edge slivers or partial neighboring sprites inside cells.
 - Contact sheets must not show darker/lighter versions of the chroma key as shadows, dust, smears, glows, landing marks, or motion effects. These are background extraction failures and should trigger row repair.
 - If `qa/review.json` reports edge pixels, sparse frames, size outliers, or slot-extraction fallback, inspect the row visually and repair it when the issue is visible.
 - If `qa/review.json` reports chroma-adjacent non-transparent pixels, repair the row unless those pixels are an intentional character color and the selected key was manually accepted.
+- If `qa/matte-fringe.json` has `needs_review: true`, open `qa/matte-fringe-contact-sheet.png` and decide visually per pet or per row. Do not accept a global color-removal pass without checking whether the highlighted hue is a legitimate character color.
 
 ## Repair Policy
 
@@ -58,3 +61,5 @@ Repair the smallest failing scope first:
 3. Full atlas regeneration only when identity or layout is broadly broken.
 
 The normal production path should queue targeted repair jobs for failing rows. Manual repair should preserve the same run directory and regenerate only the affected row prompt/image unless the base character is wrong.
+
+Never repair matte fringe by deleting all pixels of one hue family across unrelated pets. Green, cyan, purple, pink, and magenta may be real character colors. Use the detector to find likely residue, then compare before/after visually and apply only the confirmed smallest safe change.
