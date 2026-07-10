@@ -33,6 +33,16 @@ body:
     validations:
       required: true
   - type: dropdown
+    id: pet_version
+    attributes:
+      label: Pet runtime version
+      description: v1 uses a 1536x1872 8x9 atlas. v2 uses a 1536x2288 8x11 atlas and requires spriteVersionNumber 2.
+      options:
+        - v2 - standard animations plus 16 look directions
+        - v1 - legacy standard animations
+    validations:
+      required: true
+  - type: dropdown
     id: source_type
     attributes:
       label: Source type
@@ -71,7 +81,7 @@ body:
     id: assets
     attributes:
       label: Included assets
-      description: The pet folder should only include final submission files.
+      description: The pet folder should only include the three final submission files. Do not attach Hatch Pet run directories, QA media, prompts, or references.
       placeholder: submission.json, pet.json, spritesheet.webp
     validations:
       required: true

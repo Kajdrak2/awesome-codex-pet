@@ -63,6 +63,34 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
         <p className="text-xs text-muted mt-3">{t("guideStructureNote")}</p>
       </section>
 
+      {/* Runtime versions */}
+      <section className="mb-14">
+        <h2 className="text-xl font-semibold tracking-tight mb-2">
+          {t("guideVersionsTitle")}
+        </h2>
+        <p className="text-sm text-muted mb-5">{t("guideVersionsDesc")}</p>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {[t("guideVersionV1"), t("guideVersionV2")].map((version) => (
+            <div
+              key={version}
+              className="border-l-2 border-accent bg-bg-secondary px-4 py-3 text-sm text-text-secondary"
+            >
+              {version}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Upgrade */}
+      <section className="mb-14">
+        <h2 className="text-xl font-semibold tracking-tight mb-2">
+          {t("guideUpgradeTitle")}
+        </h2>
+        <p className="text-sm text-muted leading-relaxed">
+          {t("guideUpgradeDesc")}
+        </p>
+      </section>
+
       {/* Checklist */}
       <section className="mb-14">
         <h2 className="text-xl font-semibold tracking-tight mb-5">

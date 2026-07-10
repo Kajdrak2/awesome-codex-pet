@@ -43,7 +43,7 @@ import json
 import os
 
 for pet in json.loads(os.environ["CATALOG"]):
-    print(f"{pet['slug']} - {pet.get('name', pet['slug'])}")
+    print(f"{pet['slug']} - {pet.get('name', pet['slug'])} (v{pet.get('spriteVersionNumber', 1)})")
 PY
     return
   fi

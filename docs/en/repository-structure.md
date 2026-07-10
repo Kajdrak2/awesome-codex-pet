@@ -45,6 +45,12 @@ pets/
 
 Pet folders should not contain generated previews, QA output, reference images, or README files.
 
+## Runtime versions
+
+- v1 uses a `1536x1872` 8 × 9 atlas. `spriteVersionNumber` may be omitted or set to `1`.
+- v2 uses a `1536x2288` 8 × 11 atlas. `pet.json` must contain `"spriteVersionNumber": 2`.
+- The installer copies either contract unchanged. Preview and validation scripts derive the expected row count from `spriteVersionNumber`.
+
 ## Folder naming
 
 Use this format:

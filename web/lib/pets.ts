@@ -12,6 +12,7 @@ type CatalogPet = {
   primary_category: string;
   license: string;
   description?: string;
+  spriteVersionNumber: 1 | 2;
 };
 
 export type Pet = CatalogPet & {

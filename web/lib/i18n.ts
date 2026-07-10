@@ -51,6 +51,7 @@ export const translations = {
     author: "Author",
     license: "License",
     displayName: "Display Name",
+    petVersion: "Pet Version",
     slug: "Slug",
     tags: "Tags",
     installCommands: "Install Commands",
@@ -112,6 +113,16 @@ export const translations = {
       "Each pet lives under pets/<pet-slug>--<author-slug>/ and only contains three files.",
     guideStructureNote:
       "Generated previews land in assets/previews/<pet-id>/ and are produced by the build pipeline.",
+    guideVersionsTitle: "Choose a pet version",
+    guideVersionsDesc:
+      "v1 keeps the standard 8×9 animation atlas. v2 uses an 8×11 atlas and adds 16 clockwise look directions.",
+    guideVersionV1:
+      "v1: 1536×1872. Omit spriteVersionNumber or set it to 1.",
+    guideVersionV2:
+      "v2: 1536×2288. Set spriteVersionNumber to 2.",
+    guideUpgradeTitle: "Upgrade an installed v1 pet",
+    guideUpgradeDesc:
+      "In Codex, open Settings → Pets and choose Update. Hatch Pet preserves approved standard rows, adds the look-direction rows, and updates the local package. Review it before submitting the three final files to this repository.",
     guideChecklistTitle: "Reviewer checklist",
     guideChecklistItem1: "Folder name matches the pet slug and author slug.",
     guideChecklistItem2: "pet.json id equals the folder name.",
@@ -190,6 +201,7 @@ export const translations = {
     author: "作者",
     license: "许可证",
     displayName: "显示名称",
+    petVersion: "Pet 版本",
     slug: "标识符",
     tags: "标签",
     installCommands: "安装命令",
@@ -246,6 +258,16 @@ export const translations = {
       "每只宠物放在 pets/<pet-slug>--<author-slug>/ 下，目录里只允许三个文件。",
     guideStructureNote:
       "自动生成的预览会落在 assets/previews/<pet-id>/，由构建流水线生成。",
+    guideVersionsTitle: "选择 Pet 版本",
+    guideVersionsDesc:
+      "v1 保留标准 8×9 动画图集；v2 使用 8×11 图集，并增加 16 个顺时针环视方向。",
+    guideVersionV1:
+      "v1：1536×1872。省略 spriteVersionNumber 或设为 1。",
+    guideVersionV2:
+      "v2：1536×2288。必须把 spriteVersionNumber 设为 2。",
+    guideUpgradeTitle: "升级已安装的 v1 宠物",
+    guideUpgradeDesc:
+      "在 Codex 中打开设置 → 宠物并点击更新。Hatch Pet 会保留通过审核的标准动作行、增加环视方向行并更新本地包。审核完成后，再向本仓库提交最终三件套。",
     guideChecklistTitle: "审核清单",
     guideChecklistItem1: "目录名遵循 pet-slug--author-slug 格式。",
     guideChecklistItem2: "pet.json 的 id 与目录名完全一致。",

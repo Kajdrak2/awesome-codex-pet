@@ -11,8 +11,9 @@ Quick checklist:
 
 - Use `pets/<pet-slug>--<author-slug>/`
 - Submit only `submission.json`, `pet.json`, and `spritesheet.webp`
-- Include `pet.json` and `spritesheet.webp`
 - Keep `pet.json` `id` equal to the folder name
+- For v1, omit `spriteVersionNumber` or set it to `1`, and use a `1536x1872` spritesheet
+- For v2, set `spriteVersionNumber: 2`, and use a `1536x2288` spritesheet with 16 look directions
 - Fill in `submission.json`
 - Do not place previews, QA files, references, or README files inside the pet folder
 - Contributors should run `npm run validate:pr` and `npm run lint`

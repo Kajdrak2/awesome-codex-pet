@@ -55,7 +55,12 @@ function loadPets() {
     .filter((entry) => existsSync(join(petsDir, entry, "submission.json")))
     .map((slug) => {
       const metadata = readJson(join(petsDir, slug, "submission.json"));
-      return { ...metadata, slug };
+      const runtime = readJson(join(petsDir, slug, "pet.json"));
+      return {
+        ...metadata,
+        slug,
+        spriteVersionNumber: runtime.spriteVersionNumber ?? 1,
+      };
     })
     .sort((a, b) => {
       const rankA = featuredRank.get(a.slug) ?? Number.MAX_SAFE_INTEGER;
@@ -118,7 +123,7 @@ function petBlock(pet, lang) {
 
   return [
     `<table>`,
-    `<tr><th>${labels[0]}</th><td colspan="5"><a href="${rootPrefix}/pets/${pet.slug}">${pet.name}</a> · ${by} ${authorLink(pet)} · ${categoryName}</td></tr>`,
+    `<tr><th>${labels[0]}</th><td colspan="5"><a href="${rootPrefix}/pets/${pet.slug}">${pet.name}</a> · ${by} ${authorLink(pet)} · ${categoryName} · v${pet.spriteVersionNumber}</td></tr>`,
     `<tr><th>${labels[1]}</th><td colspan="5"><code>${bashInstallCommand(pet.slug)}</code></td></tr>`,
     `<tr><th>${labels[2]}</th>${stateNames.map((name) => `<td><strong>${name}</strong></td>`).join("")}</tr>`,
     `<tr><th>${labels[3]}</th>${gifs.map((gif) => `<td>${gif}</td>`).join("")}</tr>`,
@@ -177,6 +182,15 @@ pets/<pet-slug>--<author-slug>/
 
 Preview images are generated into \`assets/previews/<pet-id>/\` as local or CI build output, never inside the pet folder.
 
+## Pet Versions
+
+| Version | Atlas                            | Runtime metadata                            | Use                                                   |
+| ------- | -------------------------------- | ------------------------------------------- | ----------------------------------------------------- |
+| v1      | \`1536x1872\`, 8 columns × 9 rows  | omit \`spriteVersionNumber\` or set it to \`1\` | Existing standard-animation pets                      |
+| v2      | \`1536x2288\`, 8 columns × 11 rows | set \`spriteVersionNumber: 2\`                | Standard animations plus 16 clockwise look directions |
+
+Both versions remain installable. Use v1 when maintaining an existing 9-row pet; use v2 for newly upgraded pets that need directional looking.
+
 ## Quick Install
 
 No clone required. Pick the script for your shell:
@@ -209,6 +223,15 @@ Default install locations:
 
 Set \`CODEX_HOME\` to override, or \`AWESOME_CODEX_PET_NO_STATS=1\` to opt out of anonymous install counters.
 
+## Upgrade an Existing v1 Pet
+
+1. Open Codex **Settings → Pets**.
+2. Find the installed custom pet and choose **Update**.
+3. Codex opens a Hatch Pet task. The current v2 workflow validates and preserves the existing 9 animation rows, generates four cardinal anchors plus 16 look directions, then writes an 11-row atlas with \`spriteVersionNumber: 2\`.
+4. Review the generated contact sheet and direction previews before accepting the replacement.
+
+The **Update** action is an AI-assisted v1-to-v2 conversion, not a download notification from this repository. It updates the local package under \`~/.codex/pets/\`; it does not modify or submit the GitHub copy automatically.
+
 ## Pets
 
 ${categorySections(pets, "en")}
@@ -227,7 +250,21 @@ pets/
     └── spritesheet.webp
 \`\`\`
 
-Use \`pet-slug--author-slug\` so multiple authors can ship variants of the same character. Generated previews and README listings are produced by CI:
+Use \`pet-slug--author-slug\` so multiple authors can ship variants of the same character. A v1 submission may omit \`spriteVersionNumber\` and must provide a \`1536x1872\` WebP. A v2 submission must set \`spriteVersionNumber: 2\` and provide a \`1536x2288\` WebP.
+
+The v2 runtime manifest looks like:
+
+\`\`\`json
+{
+  "id": "pet-slug--author-slug",
+  "displayName": "Pet Name",
+  "description": "One short sentence.",
+  "spriteVersionNumber": 2,
+  "spritesheetPath": "spritesheet.webp"
+}
+\`\`\`
+
+Generated previews and README listings are produced by CI:
 
 \`\`\`bash
 python -m pip install -r requirements.txt
@@ -235,11 +272,14 @@ npm run validate:pr
 npm run lint
 \`\`\`
 
-Contributor PRs should only include \`submission.json\`, \`pet.json\`, and \`spritesheet.webp\`. Maintainers or CI regenerate previews, README listings, and \`pets.json\` after merge, but preview binaries are not kept as tracked Git assets.
+Contributor PRs should only include \`submission.json\`, \`pet.json\`, and \`spritesheet.webp\`. Do not submit prompts, references, QA folders, contact sheets, videos, decoded frames, or Hatch Pet run directories. Maintainers or CI regenerate previews, README listings, and \`pets.json\` after merge, but preview binaries are not kept as tracked Git assets.
 
 ## Make a Pet
 
-- [.agents/skills/hatch-pet](./.agents/skills/hatch-pet) — end-to-end pipeline for designing, generating, QAing, and packaging a pet
+- [.agents/skills/hatch-pet-v1](./.agents/skills/hatch-pet-v1) — preserve or repair a legacy 8x9 v1 pet
+- [.agents/skills/hatch-pet-v2](./.agents/skills/hatch-pet-v2) — create or upgrade an 8x11 v2 pet with 16 look directions
+
+Choose the skill explicitly. For an upgrade, give \`$hatch-pet-v2\` the existing installed \`pet.json\` and \`spritesheet.webp\`; approved rows 0–8 are retained rather than regenerated.
 
 ## Documentation
 
@@ -292,6 +332,15 @@ pets/<pet-slug>--<author-slug>/
 
 预览图会作为本地或 CI 构建产物生成到 \`assets/previews/<pet-id>/\`，不会塞进宠物目录。
 
+## Pet 版本
+
+| 版本 | 图集                      | 运行时元数据                          | 用途                           |
+| ---- | ------------------------- | ------------------------------------- | ------------------------------ |
+| v1   | \`1536x1872\`，8 列 × 9 行  | 省略 \`spriteVersionNumber\` 或设为 \`1\` | 已有的标准动作宠物             |
+| v2   | \`1536x2288\`，8 列 × 11 行 | 设置 \`spriteVersionNumber: 2\`         | 标准动作加 16 个顺时针环视方向 |
+
+两个版本都可以安装。维护已有九行动画时使用 v1；需要环视动作的新宠物或升级宠物使用 v2。
+
 ## 快速安装
 
 无需 clone，按你的系统选一条命令：
@@ -324,6 +373,15 @@ curl -fsSL ${rawBase}/scripts/install-pet.sh | bash -s -- --list
 
 可通过 \`CODEX_HOME\` 自定义安装路径，或者设置 \`AWESOME_CODEX_PET_NO_STATS=1\` 关闭匿名安装计数。
 
+## 升级已有 v1 宠物
+
+1. 打开 Codex 的**设置 → 宠物**。
+2. 找到已安装的自定义宠物，点击**更新**。
+3. Codex 会打开 Hatch Pet 任务。当前 v2 流程会校验并保留原有九行动画，只生成四个方向锚点和 16 个环视方向，然后写出带 \`spriteVersionNumber: 2\` 的十一行图集。
+4. 接受替换前，检查生成的 contact sheet 和方向预览。
+
+这里的**更新**是 AI 辅助的 v1 → v2 转换，不是本仓库发出了新版下载通知。它只更新 \`~/.codex/pets/\` 下的本地包，不会自动修改或提交 GitHub 仓库里的版本。
+
 ## 宠物收录
 
 ${categorySections(pets, "zh")}
@@ -342,7 +400,21 @@ pets/
     └── spritesheet.webp
 \`\`\`
 
-目录名使用 \`pet-slug--author-slug\`，这样同一个角色的不同作者版本可以并存。预览图和 README 收录表都由 CI 自动生成：
+目录名使用 \`pet-slug--author-slug\`，这样同一个角色的不同作者版本可以并存。v1 投稿可以省略 \`spriteVersionNumber\`，WebP 必须是 \`1536x1872\`；v2 投稿必须设置 \`spriteVersionNumber: 2\`，WebP 必须是 \`1536x2288\`。
+
+v2 的运行时清单示例：
+
+\`\`\`json
+{
+  "id": "pet-slug--author-slug",
+  "displayName": "Pet 名称",
+  "description": "一句简短描述。",
+  "spriteVersionNumber": 2,
+  "spritesheetPath": "spritesheet.webp"
+}
+\`\`\`
+
+预览图和 README 收录表都由 CI 自动生成：
 
 \`\`\`bash
 python -m pip install -r requirements.txt
@@ -350,11 +422,14 @@ npm run validate:pr
 npm run lint
 \`\`\`
 
-贡献者 PR 只需提交 \`submission.json\`、\`pet.json\` 和 \`spritesheet.webp\`。预览图、README 收录和 \`pets.json\` 由维护者或 CI 在合并后统一生成，但预览二进制不会长期作为 Git 跟踪文件保留。
+贡献者 PR 只需提交 \`submission.json\`、\`pet.json\` 和 \`spritesheet.webp\`。不要提交 prompts、参考图、QA 目录、contact sheet、视频、解码帧或 Hatch Pet 运行目录。预览图、README 收录和 \`pets.json\` 由维护者或 CI 在合并后统一生成，但预览二进制不会长期作为 Git 跟踪文件保留。
 
 ## 制作 Pet
 
-- [.agents/skills/hatch-pet](../../.agents/skills/hatch-pet) — 设计、生成、QA、打包的端到端流水线
+- [.agents/skills/hatch-pet-v1](../../.agents/skills/hatch-pet-v1) — 保留或修复旧版 8x9 v1 宠物
+- [.agents/skills/hatch-pet-v2](../../.agents/skills/hatch-pet-v2) — 创建或升级带 16 个环视方向的 8x11 v2 宠物
+
+调用时要显式选择 skill。升级已有宠物时，把现有的 \`pet.json\` 和 \`spritesheet.webp\` 交给 \`$hatch-pet-v2\`；通过审核的第 0–8 行会被保留，不会重新生成。
 
 ## 文档
 
@@ -388,6 +463,7 @@ writeFileSync(
       primary_category: normalizeCategory(pet.primary_category),
       license: pet.license,
       description: pet.description,
+      spriteVersionNumber: pet.spriteVersionNumber,
     })),
     null,
     2,

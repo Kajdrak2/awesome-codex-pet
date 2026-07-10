@@ -45,6 +45,12 @@ pets/
 
 pet 目录里不应该包含自动生成的预览图、QA 输出、参考图或 README 文件。
 
+## 运行时版本
+
+- v1 使用 `1536x1872` 的 8 × 9 图集，`spriteVersionNumber` 可以省略或设为 `1`。
+- v2 使用 `1536x2288` 的 8 × 11 图集，`pet.json` 必须包含 `"spriteVersionNumber": 2`。
+- 安装器会原样复制两种格式；预览和校验脚本会根据 `spriteVersionNumber` 判断应有的行数。
+
 ## 目录命名
 
 使用这个格式：

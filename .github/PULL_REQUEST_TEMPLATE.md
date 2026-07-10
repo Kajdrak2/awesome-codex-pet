@@ -9,9 +9,13 @@
 - [ ] Folder name uses `pet-slug--author-slug`
 - [ ] Pet folder contains only `submission.json`, `pet.json`, and `spritesheet.webp`
 - [ ] `pet.json` `id` matches the folder name
+- [ ] v1 uses a `1536x1872` atlas and omits `spriteVersionNumber` or sets it to `1`
+- [ ] v2 uses a `1536x2288` atlas and sets `spriteVersionNumber: 2`
+- [ ] v2 includes and visually reviews all 16 look directions
 - [ ] `submission.json` is filled in
 - [ ] Authorship is clear
 - [ ] Licensing is clear
-- [ ] `npm run previews` has been run if `spritesheet.webp` changed
-- [ ] `npm run validate` passes
+- [ ] Generated previews, README files, `pets.json`, prompts, references, QA media, and Hatch Pet run directories are not included
+- [ ] `npm run validate:pr` passes
+- [ ] `npm run lint` passes
 - [ ] No unrelated files are included

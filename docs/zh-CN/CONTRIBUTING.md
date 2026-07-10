@@ -30,6 +30,27 @@
 
 不要把自动生成的预览图、QA 输出、参考图或 README 文件放进 pet 目录。生成的预览统一放在 `assets/previews/<pet-id>/` 作为本地或 CI 构建产物，并由维护者或 CI 在合并后更新。
 
+## Pet 版本
+
+| 版本 | Spritesheet               | `pet.json`                            |
+| ---- | ------------------------- | ------------------------------------- |
+| v1   | `1536x1872`，8 列 × 9 行  | 省略 `spriteVersionNumber` 或设为 `1` |
+| v2   | `1536x2288`，8 列 × 11 行 | 设置 `spriteVersionNumber: 2`         |
+
+两个版本的第 0–8 行都是标准动作。v2 的第 9–10 行存放 16 个顺时针环视方向。不要把九行图集标成 v2，也不要在补了环视行后漏掉 `spriteVersionNumber: 2`。
+
+v2 运行时清单示例：
+
+```json
+{
+  "id": "mikoto--lingxiaotian",
+  "displayName": "Mikoto",
+  "description": "一句简短描述。",
+  "spriteVersionNumber": 2,
+  "spritesheetPath": "spritesheet.webp"
+}
+```
+
 ## `submission.json` 结构
 
 使用下面这个仓库侧结构：
@@ -60,6 +81,8 @@
 - 目录名使用清晰的 `pet-slug--author-slug`
 - pet 目录只包含 `submission.json`、`pet.json` 和 `spritesheet.webp`
 - `pet.json` 里的 `id` 与目录名一致
+- `spriteVersionNumber` 与 spritesheet 尺寸符合对应的 v1 或 v2 规范
+- v2 的 16 个环视方向已作为完整循环审核
 - `submission.json` 已填写
 - 作者信息和许可证信息清楚
 - 贡献者 PR 不包含 `README.md`、`docs/zh-CN/README.md`、`pets.json` 或 `assets/previews/<pet-id>/` 下的生成预览二进制

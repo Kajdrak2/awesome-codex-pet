@@ -30,6 +30,27 @@ Each pet submission should include:
 
 Do not put generated previews, QA output, references, or README files inside the pet folder. Generated previews belong under `assets/previews/<pet-id>/` as local or CI build output and are maintained after merge.
 
+## Pet versions
+
+| Version | Spritesheet                      | `pet.json`                                  |
+| ------- | -------------------------------- | ------------------------------------------- |
+| v1      | `1536x1872`, 8 columns × 9 rows  | omit `spriteVersionNumber` or set it to `1` |
+| v2      | `1536x2288`, 8 columns × 11 rows | set `spriteVersionNumber: 2`                |
+
+Rows 0–8 contain the standard animation states in both versions. v2 rows 9–10 contain 16 clockwise look directions. Do not label a 9-row atlas as v2 or append look rows without setting `spriteVersionNumber: 2`.
+
+Example v2 runtime manifest:
+
+```json
+{
+  "id": "mikoto--lingxiaotian",
+  "displayName": "Mikoto",
+  "description": "One short sentence.",
+  "spriteVersionNumber": 2,
+  "spritesheetPath": "spritesheet.webp"
+}
+```
+
 ## `submission.json` schema
 
 Use this repository-level schema:
@@ -60,6 +81,8 @@ Use this repository-level schema:
 - Clear `pet-slug--author-slug` folder name and readable title
 - Pet folder contains only `submission.json`, `pet.json`, and `spritesheet.webp`
 - `pet.json` `id` matches the folder name
+- `spriteVersionNumber` and spritesheet dimensions match the v1 or v2 contract
+- v2 look directions have been reviewed as a complete 16-direction loop
 - `submission.json` filled in
 - Author and license included
 - Contributor PR does not include `README.md`, `docs/zh-CN/README.md`, `pets.json`, or generated preview binaries under `assets/previews/<pet-id>/`

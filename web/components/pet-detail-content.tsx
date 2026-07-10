@@ -178,6 +178,10 @@ export function PetDetailContent({ pet, actions }: PetDetailContentProps) {
                 <dd className="text-sm font-medium">{pet.displayName || "—"}</dd>
               </div>
               <div>
+                <dt className="text-xs text-muted mb-0.5">{t("petVersion")}</dt>
+                <dd className="text-sm font-medium">v{pet.spriteVersionNumber}</dd>
+              </div>
+              <div>
                 <dt className="text-xs text-muted mb-0.5">{t("slug")}</dt>
                 <dd>
                   <code className="block max-w-full truncate font-mono text-xs text-text-secondary bg-surface px-1.5 py-0.5 rounded" title={pet.slugLabel}>

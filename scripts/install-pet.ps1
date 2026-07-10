@@ -20,7 +20,10 @@ function Install-CodexPet {
 
   if ($List) {
     $catalog = Invoke-RestMethod -Uri "$RawBase/pets.json"
-    $catalog | ForEach-Object { "{0} - {1}" -f $_.slug, $_.name }
+    $catalog | ForEach-Object {
+      $version = if ($null -eq $_.spriteVersionNumber) { 1 } else { $_.spriteVersionNumber }
+      "{0} - {1} (v{2})" -f $_.slug, $_.name, $version
+    }
     return
   }
 

@@ -98,6 +98,7 @@ const pets = readJson("pets.json").map((pet) => {
     ...pet,
     displayName: runtime.displayName ?? "",
     runtimeDescription: runtime.description ?? "",
+    spriteVersionNumber: runtime.spriteVersionNumber ?? 1,
     slugLabel: submission.slug,
     tags: submission.tags ?? [],
     sourceType: submission.source_type ?? "unknown",

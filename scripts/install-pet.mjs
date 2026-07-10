@@ -40,7 +40,9 @@ function listPets() {
     }
 
     const metadata = JSON.parse(readFileSync(metadataPath, "utf8"));
-    console.log(`${pet} - ${metadata.name ?? pet}`);
+    const runtimePath = join(petsDir, pet, "pet.json");
+    const runtime = existsSync(runtimePath) ? JSON.parse(readFileSync(runtimePath, "utf8")) : {};
+    console.log(`${pet} - ${metadata.name ?? pet} (v${runtime.spriteVersionNumber ?? 1})`);
   }
 }
 

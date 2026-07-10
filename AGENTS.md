@@ -8,6 +8,12 @@
 - 优先做出可提交的仓库改动，而不是只停留在分析。
 - 不要把过程产物混进最终 pet 包。
 
+## Pet Skill 版本
+
+- `$hatch-pet-v1` 是仓库保留的旧版产线，输出 `8x9`、`1536x1872` 的 v1 spritesheet；维护现有仓库 pet 时使用它。
+- `$hatch-pet-v2` 是从当前 Codex App 内置 skill 同步的 v2 产线，输出 `8x11`、`1536x2288` 的 spritesheet，并要求 `pet.json.spriteVersionNumber: 2` 与 16 个环视方向。
+- 调用时必须显式选择版本。v1 与 v2 都可以收录，但 `spriteVersionNumber`、图集尺寸和实际行数必须匹配。
+
 ## 1. 项目是什么
 
 `awesome-codex-pet` 是一个收集和分发 Codex 小宠物的仓库。
@@ -36,6 +42,8 @@ pets/<pet-slug>--<author-slug>/
 - 目录名格式固定为 `pet-slug--author-slug`
 - `pet.json.id` 必须与目录名完全一致
 - `pet.json.spritesheetPath` 固定为 `spritesheet.webp`
+- v1 的 `spriteVersionNumber` 可以省略或设为 `1`，`spritesheet.webp` 必须是 `1536x1872` 的 8x9 图集
+- v2 必须设置 `spriteVersionNumber: 2`，`spritesheet.webp` 必须是 `1536x2288` 的 8x11 图集，最后两行包含 16 个环视方向
 - `spritesheet.webp` 必须是最终运行时资源，不要放过程版
 
 不要把这些文件放进 `pets/<pet-id>/`：
@@ -93,7 +101,8 @@ pets/<pet-slug>--<author-slug>/
    - `pet.json`
    - `spritesheet.webp`
 2. 确认目录名、`pet.json.id`、作者 slug 一致。
-3. 运行：
+3. 确认 `spriteVersionNumber` 与 v1/v2 图集尺寸一致。
+4. 运行：
 
 ```bash
 npm run previews
@@ -102,10 +111,10 @@ npm run validate
 npm run lint
 ```
 
-4. 确认 README 中已出现该 pet。
-5. 确认 `pets.json` 已更新。
-6. 确认 `assets/previews/<pet-id>/` 已在本地或 CI 中生成。
-7. 确认 `pets/<pet-id>/` 里仍然只有三个文件。
+5. 确认 README 中已出现该 pet 和正确版本。
+6. 确认 `pets.json` 已更新。
+7. 确认 `assets/previews/<pet-id>/` 已在本地或 CI 中生成；v2 contact sheet 应包含 11 行。
+8. 确认 `pets/<pet-id>/` 里仍然只有三个文件。
 
 如果用户新增的是 hatch-pet 输出目录中的 pet，不要直接提交整个运行目录。应只把最终的 `spritesheet.webp` 和元数据落进正式 `pets/` 结构。
 
