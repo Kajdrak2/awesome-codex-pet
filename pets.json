@@ -5,7 +5,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": ["honkai-star-rail"],
     "license": "CC BY-NC 4.0",
     "description": "A pre-transformation Firefly fan-art Codex pet with a soft white, mint, and gold palette.",
     "spriteVersionNumber": 1
@@ -16,7 +17,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": ["honkai-star-rail"],
     "license": "CC BY-NC 4.0",
     "description": "An Acheron-inspired fan-art Codex pet with long dark-purple hair, a red hair accent, a tiny sword silhouette, and a calm lethal mood.",
     "spriteVersionNumber": 1
@@ -27,7 +29,8 @@
     "author": "cuNuo",
     "author_handle": "cuNuo",
     "author_url": "https://github.com/cuNuo",
-    "primary_category": "Original Characters",
+    "primary_category": "Mascots",
+    "collections": [],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -37,7 +40,8 @@
     "author": "tal",
     "author_handle": "xchangee",
     "author_url": "https://github.com/xchangee",
-    "primary_category": "Original Characters",
+    "primary_category": "Mascots",
+    "collections": [],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -47,7 +51,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": ["genshin-impact"],
     "license": "CC BY-NC 4.0",
     "description": "An Arlecchino-inspired fan-art Codex pet with white-and-black hair, a black-white-red palette, a short cloak silhouette, and a sharp chibi sprite identity.",
     "spriteVersionNumber": 1
@@ -57,7 +62,8 @@
     "name": "Azuma",
     "author": "tairazuma",
     "author_handle": "tairazuma",
-    "primary_category": "Original Characters",
+    "primary_category": "Human Avatars",
+    "collections": [],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A compact Codex digital pet inspired by Azuma, a gentle gyaru schoolgirl with long ash-blonde wavy hair, sleepy blue-gray eyes, a calm sweet expression, and a sailor school uniform with a lime neckerchief; simplify her into a chibi mascot while preserving her soft elegance.",
     "spriteVersionNumber": 1
@@ -69,6 +75,7 @@
     "author_handle": "NateWanggg",
     "author_url": "https://github.com/NateWanggg",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "CC BY-NC 4.0",
     "spriteVersionNumber": 1
   },
@@ -78,7 +85,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": ["honkai-star-rail"],
     "license": "CC BY-NC 4.0",
     "description": "A Black Swan-inspired fan-art Codex pet with a dark veil, lavender hair, and a mysterious diviner-like chibi identity.",
     "spriteVersionNumber": 1
@@ -89,7 +97,8 @@
     "author": "yurcek",
     "author_handle": "yurcek",
     "author_url": "",
-    "primary_category": "Animals",
+    "primary_category": "Game Characters",
+    "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A cute teal pixel-art companion inspired by the provided Buba reference.",
     "spriteVersionNumber": 1
@@ -101,6 +110,7 @@
     "author_handle": "gbn666",
     "author_url": "https://github.com/gbn666",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -110,7 +120,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": ["honkai-star-rail"],
     "license": "CC BY-NC 4.0",
     "description": "A Castorice-inspired fan-art Codex pet with a purple-black palette, butterfly motifs, long flowing hair, and a gentle mysterious mood.",
     "spriteVersionNumber": 1
@@ -121,6 +132,7 @@
     "author": "giiilberto_nm",
     "author_handle": "giiilberto-nm",
     "primary_category": "Robots",
+    "collections": [],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A tiny rusty helper robot pet with binocular eyes, tank treads, and clamp arms.",
     "spriteVersionNumber": 1
@@ -131,7 +143,8 @@
     "author": "XiangWang",
     "author_handle": "xiangking",
     "author_url": "https://github.com/xiangking",
-    "primary_category": "Original Characters",
+    "primary_category": "Mascots",
+    "collections": [],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -142,6 +155,7 @@
     "author_handle": "Dqd02",
     "author_url": "https://github.com/Dqd02",
     "primary_category": "Robots",
+    "collections": [],
     "license": "Original submission; permission granted for inclusion in the awesome-codex-pet gallery via issue #9",
     "spriteVersionNumber": 1
   },
@@ -152,6 +166,7 @@
     "author_handle": "cxian0928-afk",
     "author_url": "https://github.com/cxian0928-afk",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -161,7 +176,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": ["honkai-star-rail"],
     "license": "CC BY-NC 4.0",
     "description": "A Cyrene-inspired fan-art Codex pet with long pink-and-white hair, a white-pink-cyan dress, feather-like head ornaments, and a soft dreamy chibi identity.",
     "spriteVersionNumber": 1
@@ -171,7 +187,8 @@
     "name": "Dashun's Twinkle Twinkle",
     "author": "twinkletwinkle",
     "author_handle": "twinkletwinkle",
-    "primary_category": "Original Characters",
+    "primary_category": "Mascots",
+    "collections": [],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A tiny star-hooded yellow plush companion with a pink freckled face, striped socks, and warm shining energy.",
     "spriteVersionNumber": 1
@@ -183,6 +200,7 @@
     "author_handle": "zihualiu1997",
     "author_url": "https://github.com/zihualiu1997",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "MIT License",
     "description": "A bespectacled desk-worker otter mascot in a blue shirt, animated for Codex task states.",
     "spriteVersionNumber": 1
@@ -193,6 +211,7 @@
     "author": "AM",
     "author_handle": "am",
     "primary_category": "Original Characters",
+    "collections": [],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "Happy pale doll-like sci-fi child pet in a futuristic cobalt survival coat.",
     "spriteVersionNumber": 1
@@ -204,6 +223,7 @@
     "author_handle": "LLLucasXU",
     "author_url": "https://github.com/LLLucasXU",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -213,7 +233,8 @@
     "author": "D1a0y1bb",
     "author_handle": "D1a0y1bb",
     "author_url": "https://github.com/D1a0y1bb",
-    "primary_category": "Original Characters",
+    "primary_category": "Mascots",
+    "collections": [],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -222,7 +243,8 @@
     "name": "Dimo",
     "author": "god_wu",
     "author_handle": "god-wu",
-    "primary_category": "Original Characters",
+    "primary_category": "Game Characters",
+    "collections": [],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "Dimo is a lively blue-and-white small fantasy sprite, like a kitten-fox crossed with a baby dragon, brave and energetic.",
     "spriteVersionNumber": 1
@@ -233,7 +255,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": [],
     "license": "CC BY-NC 4.0",
     "description": "A compact Codex digital pet inspired by Doro, the vacant pink-haired Dorothy meme creature from Goddess of Victory: NIKKE.",
     "spriteVersionNumber": 1
@@ -244,6 +267,7 @@
     "author": "clembuilds",
     "author_handle": "clembuilds",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A tiny couple pet: Dudu the warm brown bear and Bubu the white panda-bear doing sweet little paired actions together.",
     "spriteVersionNumber": 1
@@ -254,6 +278,7 @@
     "author": "sehjk",
     "author_handle": "sehjk",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A tiny Codex digital pet inspired by Ella, a curious black-and-white cat with chartreuse eyes, a pink nose, mask-like face patches, white chest, and a warm orange flank patch. Hover variant: uses the waving animation when Codex triggers hover jump.",
     "spriteVersionNumber": 1
@@ -264,7 +289,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": ["honkai-star-rail"],
     "license": "CC BY-NC 4.0",
     "description": "A Feixiao-inspired fan-art Codex pet with white fox-like hair, teal military styling, gold trim, and a crisp athletic silhouette.",
     "spriteVersionNumber": 1
@@ -276,6 +302,7 @@
     "author_handle": "NateWanggg",
     "author_url": "https://github.com/NateWanggg",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "CC BY-NC 4.0",
     "spriteVersionNumber": 1
   },
@@ -286,6 +313,7 @@
     "author_handle": "AygunVarol",
     "author_url": "https://github.com/AygunVarol",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -296,6 +324,7 @@
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
     "primary_category": "Anime Characters",
+    "collections": [],
     "license": "CC BY-NC 4.0",
     "spriteVersionNumber": 1
   },
@@ -305,7 +334,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": ["genshin-impact"],
     "license": "CC BY-NC 4.0",
     "description": "A Furina-inspired fan-art Codex pet with a blue-white top hat, theatrical Fontaine styling, and a playful chibi sprite identity.",
     "spriteVersionNumber": 1
@@ -316,7 +346,8 @@
     "author": "rkwap",
     "author_handle": "rkwap",
     "author_url": "",
-    "primary_category": "Animals",
+    "primary_category": "Fantasy Creatures",
+    "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A cute compact Codex digital pet goblin with tiny ears and a mischievous friendly face.",
     "spriteVersionNumber": 1
@@ -326,7 +357,8 @@
     "name": "GPT-muse",
     "author": "opask",
     "author_handle": "opask",
-    "primary_category": "Original Characters",
+    "primary_category": "Mascots",
+    "collections": [],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A tiny aqua-white Codex companion with silver hair and teal accents.",
     "spriteVersionNumber": 1
@@ -338,6 +370,7 @@
     "author_handle": "zeyuwang1999",
     "author_url": "https://github.com/zeyuwang1999",
     "primary_category": "Original Characters",
+    "collections": [],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -348,6 +381,7 @@
     "author_handle": "initiatione",
     "author_url": "https://github.com/initiatione",
     "primary_category": "Original Characters",
+    "collections": [],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -357,7 +391,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": ["genshin-impact"],
     "license": "CC BY-NC 4.0",
     "description": "A Hu Tao-inspired fan-art Codex pet with a funeral parlor hat, plum-blossom eyes, a black-red palette, and a playful chibi sprite identity.",
     "spriteVersionNumber": 1
@@ -368,6 +403,7 @@
     "author": "Yena",
     "author_handle": "yena",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "Jiji is an original cute minimalist black-cat Codex pet with oversized ears, bright oval eyes, a tiny cream nose, slim whiskers, a compact chibi body, and a long expressive tail.",
     "spriteVersionNumber": 1
@@ -378,7 +414,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": ["genshin-impact"],
     "license": "CC BY-NC 4.0",
     "description": "A Kamisato Ayaka-inspired fan-art Codex pet with a blue-and-white palette, hime-cut silhouette, and a calm elegant chibi identity.",
     "spriteVersionNumber": 1
@@ -390,6 +427,7 @@
     "author_handle": "Thankyou-Cheems",
     "author_url": "https://github.com/Thankyou-Cheems",
     "primary_category": "Memes",
+    "collections": [],
     "license": "CC BY-NC 4.0",
     "spriteVersionNumber": 1
   },
@@ -400,6 +438,7 @@
     "author_handle": "andiac",
     "author_url": "",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "Kimoju 奇魔猪 is a cute dazed minimalist white line-art pig carrying a small yellow crossbody bag.",
     "spriteVersionNumber": 2
@@ -411,6 +450,7 @@
     "author_handle": "nyakku-shigure",
     "author_url": "",
     "primary_category": "Original Characters",
+    "collections": [],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A tiny Augury Bird fae adventurer with folded head wings and her wavy frost-sprite partner Lumi in her backpack.",
     "spriteVersionNumber": 1
@@ -420,7 +460,8 @@
     "name": "Little Black Mage",
     "author": "LIBERTIS",
     "author_handle": "libertis",
-    "primary_category": "Original Characters",
+    "primary_category": "Game Characters",
+    "collections": [],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A tiny original black-mage-inspired Codex companion with glowing eyes, an oversized floppy hat, a short coat, and small boots.",
     "spriteVersionNumber": 1
@@ -432,6 +473,7 @@
     "author_handle": "MingDong",
     "author_url": "",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "CC BY-NC 4.0. Original AI-assisted asset created by MingDong for Codex pet submission; no third-party source asset.",
     "spriteVersionNumber": 1
   },
@@ -441,7 +483,8 @@
     "author": "YoGazz",
     "author_handle": "YoGazz",
     "author_url": "https://github.com/YoGazz",
-    "primary_category": "Original Characters",
+    "primary_category": "Mascots",
+    "collections": [],
     "license": "CC BY-NC 4.0",
     "description": "A cheerful rounded yellow-orange 3D toy companion for Codex.",
     "spriteVersionNumber": 1
@@ -452,7 +495,8 @@
     "author": "Neve",
     "author_handle": "neve",
     "author_url": "",
-    "primary_category": "Animals",
+    "primary_category": "Fantasy Creatures",
+    "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A sweet white angel cat with soft gray eyes, a pink halo, tiny wings, a curled tail, and a pink blossom charm.",
     "spriteVersionNumber": 2
@@ -464,6 +508,7 @@
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
     "primary_category": "Anime Characters",
+    "collections": [],
     "license": "CC BY-NC 4.0",
     "spriteVersionNumber": 1
   },
@@ -474,6 +519,7 @@
     "author_handle": "DwDestiny",
     "author_url": "https://github.com/DwDestiny",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -484,6 +530,7 @@
     "author_handle": "sally-entr",
     "author_url": "",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A soft hand-drawn yellow duck companion restored one version further back, with corrected Codex pet rows and cleaned cutouts.",
     "spriteVersionNumber": 1
@@ -495,6 +542,7 @@
     "author_handle": "Hyoni1129",
     "author_url": "https://github.com/Hyoni1129",
     "primary_category": "Anime Characters",
+    "collections": [],
     "license": "CC BY-NC 4.0; unofficial fan-made non-commercial pet; no official ONIMAI artwork, screenshots, logos, or source assets are included; underlying character rights belong to their respective rights holders.",
     "spriteVersionNumber": 1
   },
@@ -505,6 +553,7 @@
     "author_handle": "ROTl24",
     "author_url": "https://github.com/ROTl24",
     "primary_category": "Original Characters",
+    "collections": [],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -515,6 +564,7 @@
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
     "primary_category": "Anime Characters",
+    "collections": [],
     "license": "CC BY-NC 4.0",
     "spriteVersionNumber": 1
   },
@@ -525,6 +575,7 @@
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
     "primary_category": "Anime Characters",
+    "collections": [],
     "license": "CC BY-NC 4.0",
     "spriteVersionNumber": 1
   },
@@ -535,6 +586,7 @@
     "author_handle": "Spacebody",
     "author_url": "https://github.com/Spacebody",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -545,6 +597,7 @@
     "author_handle": "Somnusochi",
     "author_url": "https://github.com/Somnusochi",
     "primary_category": "Original Characters",
+    "collections": [],
     "license": "MIT License",
     "description": "A mint-haired animated companion with nine activity animations and sixteen v2 look directions.",
     "spriteVersionNumber": 2
@@ -556,6 +609,7 @@
     "author_handle": "lemon-z",
     "author_url": "",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "Chú mèo kem mít ướt với bụng trắng lớn, nước mắt xanh và dáng lắc lư đáng yêu.",
     "spriteVersionNumber": 2
@@ -567,6 +621,7 @@
     "author_handle": "ping",
     "author_url": "",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A chibi tuxedo cat coding companion with laptop, yarn, review, jump, and error animations.",
     "spriteVersionNumber": 1
@@ -577,7 +632,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": ["genshin-impact"],
     "license": "CC BY-NC 4.0",
     "description": "A Nahida-inspired fan-art Codex pet with a white-and-mint palette, leaf ornaments, and a gentle forest-archon chibi identity.",
     "spriteVersionNumber": 1
@@ -588,7 +644,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": ["genshin-impact"],
     "license": "CC BY-NC 4.0",
     "description": "A Navia-inspired fan-art Codex pet with a black-and-gold outfit, ornate hat, and bright aristocratic chibi identity.",
     "spriteVersionNumber": 1
@@ -599,7 +656,8 @@
     "author": "netizenXuan",
     "author_handle": "netizenXuan",
     "author_url": "https://github.com/netizenXuan",
-    "primary_category": "Original Characters",
+    "primary_category": "Fantasy Creatures",
+    "collections": [],
     "license": "CC BY-NC 4.0",
     "spriteVersionNumber": 1
   },
@@ -609,7 +667,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": ["genshin-impact"],
     "license": "CC BY-NC 4.0",
     "spriteVersionNumber": 1
   },
@@ -620,6 +679,7 @@
     "author_handle": "Jason-Bai",
     "author_url": "https://github.com/Jason-Bai",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -629,7 +689,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": ["genshin-impact"],
     "license": "CC BY-NC 4.0",
     "description": "A Raiden Shogun-inspired fan-art Codex pet with long purple hair, electro violet accents, a kimono-like silhouette, and a dignified archon mood.",
     "spriteVersionNumber": 1
@@ -640,7 +701,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": [],
     "license": "CC BY-NC 4.0",
     "spriteVersionNumber": 1
   },
@@ -650,7 +712,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": ["honkai-star-rail"],
     "license": "CC BY-NC 4.0",
     "description": "A Robin-inspired fan-art Codex pet with a pale blue-and-white stage costume, split golden halo, wing ornaments, and a calm singer-like chibi identity.",
     "spriteVersionNumber": 1
@@ -661,6 +724,7 @@
     "author": "KlubByte",
     "author_handle": "klubbyte",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A tiny survivalist raccoon companion with a calm ready-for-anything attitude.",
     "spriteVersionNumber": 1
@@ -670,7 +734,8 @@
     "name": "Roxy Pixel",
     "author": "gravity",
     "author_handle": "gravity",
-    "primary_category": "Original Characters",
+    "primary_category": "Anime Characters",
+    "collections": [],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "Pixel Roxy mage pet with ornate long staff.",
     "spriteVersionNumber": 1
@@ -681,7 +746,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": ["honkai-star-rail"],
     "license": "CC BY-NC 4.0",
     "description": "A Ruan Mei-inspired fan-art Codex pet with a teal palette, floral hair ornament, and a calm, elegant chibi sprite identity.",
     "spriteVersionNumber": 1
@@ -693,6 +759,7 @@
     "author_handle": "ltmcliao-cmyk",
     "author_url": "https://github.com/ltmcliao-cmyk",
     "primary_category": "Original Characters",
+    "collections": [],
     "license": "CC BY-NC 4.0",
     "spriteVersionNumber": 1
   },
@@ -702,7 +769,8 @@
     "author": "rookie-09",
     "author_handle": "rookie-09",
     "author_url": "https://github.com/rookie-09",
-    "primary_category": "Original Characters",
+    "primary_category": "Mascots",
+    "collections": [],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -713,6 +781,7 @@
     "author_handle": "mistyShen",
     "author_url": "https://github.com/mistyShen",
     "primary_category": "Original Characters",
+    "collections": [],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -722,7 +791,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": ["honkai-star-rail"],
     "license": "CC BY-NC 4.0",
     "description": "A Silver Wolf-inspired fan-art Codex pet with short silver-lavender hair, gamer-hacker goggles, a black-and-purple techwear palette, and a compact chibi sprite identity.",
     "spriteVersionNumber": 1
@@ -733,7 +803,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": ["honkai-star-rail"],
     "license": "CC BY-NC 4.0",
     "description": "A Sparkle-inspired fan-art Codex pet with a playful red-black palette, twin tails, and a theatrical mask.",
     "spriteVersionNumber": 1
@@ -743,7 +814,8 @@
     "name": "Spellbook",
     "author": "seymour",
     "author_handle": "seymour",
-    "primary_category": "Others",
+    "primary_category": "Objects & Props",
+    "collections": [],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "An open magical book that talks without eyes, carrying quiet wisdom with small attached magic around its pages.",
     "spriteVersionNumber": 1
@@ -754,7 +826,8 @@
     "author": "Alter",
     "author_handle": "alterhq",
     "author_url": "https://github.com/alterhq",
-    "primary_category": "Animals",
+    "primary_category": "Fantasy Creatures",
+    "collections": ["animal-companions"],
     "license": "MIT License",
     "description": "A white chibi unicorn with a multicolor horn and a yellow star marking.",
     "spriteVersionNumber": 1
@@ -765,7 +838,8 @@
     "author": "Carl-312",
     "author_handle": "Carl-312",
     "author_url": "https://github.com/Carl-312",
-    "primary_category": "Original Characters",
+    "primary_category": "Human Avatars",
+    "collections": [],
     "license": "MIT License",
     "description": "A chibi big-headed girl pet with side-parted brown bob hair and glossy eyes.",
     "spriteVersionNumber": 1
@@ -777,6 +851,7 @@
     "author_handle": "danieloleary",
     "author_url": "https://github.com/danieloleary",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "Original; permission granted for inclusion in the awesome-codex-pet gallery",
     "spriteVersionNumber": 1
   },
@@ -787,6 +862,7 @@
     "author_handle": "D1a0y1bb",
     "author_url": "https://github.com/D1a0y1bb",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -796,7 +872,8 @@
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": ["honkai-star-rail"],
     "license": "CC BY-NC 4.0",
     "description": "A Tingyun-inspired fan-art Codex pet with fox ears, a plush tail, green eyes, and a warm gold-brown palette in a compact chibi sprite style.",
     "spriteVersionNumber": 1
@@ -806,7 +883,8 @@
     "name": "Tiny CRT",
     "author": "chochou",
     "author_handle": "chochou",
-    "primary_category": "Robots",
+    "primary_category": "Objects & Props",
+    "collections": [],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A tiny beige retro CRT terminal monitor with a green phosphor face for Codex, with no arms or legs.",
     "spriteVersionNumber": 1
@@ -817,7 +895,8 @@
     "author": "Wally Pet Contributors",
     "author_handle": "wally025",
     "author_url": "https://github.com/wally025",
-    "primary_category": "Original Characters",
+    "primary_category": "Mascots",
+    "collections": [],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -827,7 +906,8 @@
     "author": "qingyunAGI",
     "author_handle": "qingyunAGI",
     "author_url": "https://github.com/qingyunAGI",
-    "primary_category": "Original Characters",
+    "primary_category": "Fantasy Creatures",
+    "collections": [],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -838,6 +918,7 @@
     "author_handle": "gbn666",
     "author_url": "https://github.com/gbn666",
     "primary_category": "Original Characters",
+    "collections": [],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -847,7 +928,8 @@
     "author": "Gaming33",
     "author_handle": "Gaming33",
     "author_url": "https://github.com/Gaming33",
-    "primary_category": "Original Characters",
+    "primary_category": "Fantasy Creatures",
+    "collections": [],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -858,6 +940,7 @@
     "author_handle": "andy-meow",
     "author_url": "",
     "primary_category": "Original Characters",
+    "collections": [],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "An elegant, curious boundary-exploring research companion with calm confidence.",
     "spriteVersionNumber": 1
@@ -869,6 +952,7 @@
     "author_handle": "Keseras34938976",
     "author_url": "https://github.com/Keseras34938976",
     "primary_category": "Original Characters",
+    "collections": [],
     "license": "MIT License",
     "spriteVersionNumber": 1
   },
@@ -878,6 +962,7 @@
     "author": "jack",
     "author_handle": "jack",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "一只可爱、活泼、会发出奇怪叫声的兔子。",
     "spriteVersionNumber": 1
@@ -889,6 +974,7 @@
     "author_handle": "1wphantom",
     "author_url": "",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "一对安静聪明、专注协作的像素猫：圆润蓝猫围着数据流短围巾，略瘦白橙猫戴着危险预警灯。",
     "spriteVersionNumber": 2
@@ -898,7 +984,8 @@
     "name": "咕嘎",
     "author": "CIRCUS",
     "author_handle": "circus",
-    "primary_category": "Original Characters",
+    "primary_category": "Human Avatars",
+    "collections": [],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A rounder and cuter chibi penguin hoodie girl pet with a softer face and friendlier proportions.",
     "spriteVersionNumber": 1
@@ -910,6 +997,7 @@
     "author_handle": "JbBom",
     "author_url": "https://github.com/JbBom",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "MIT License",
     "description": "A soft, friendly orange-and-white shorthair kitten for Codex.",
     "spriteVersionNumber": 1
@@ -920,6 +1008,7 @@
     "author": "froggie",
     "author_handle": "froggie",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "多栋，一只疯疯癫癫、会使坏但可爱的比格犬桌面宠物。.",
     "spriteVersionNumber": 1
@@ -930,7 +1019,8 @@
     "author": "Aquaxyy",
     "author_handle": "aquaxyy",
     "author_url": "",
-    "primary_category": "Animals",
+    "primary_category": "Mascots",
+    "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A belly-laughing yellow milk frog pet with a round cream belly and green eyes.",
     "spriteVersionNumber": 1
@@ -941,7 +1031,8 @@
     "author": "QunBoo",
     "author_handle": "QunBoo",
     "author_url": "https://github.com/QunBoo",
-    "primary_category": "Anime Characters",
+    "primary_category": "Game Characters",
+    "collections": [],
     "license": "CC BY-NC 4.0",
     "spriteVersionNumber": 1
   },
@@ -952,6 +1043,7 @@
     "author_handle": "sandytruant",
     "author_url": "https://github.com/sandytruant",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "MIT License",
     "description": "A yellow pear-shaped pixel companion that laughs when hovered.",
     "spriteVersionNumber": 2
@@ -963,6 +1055,7 @@
     "author_handle": "jack",
     "author_url": "",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "一只有德、有趣又会说话的可爱猫咪。A cute, talkative cat with a kind and virtuous heart.",
     "spriteVersionNumber": 1
@@ -973,6 +1066,7 @@
     "author": "Brian",
     "author_handle": "brian-3",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "小麦（XiaoMai），一只绿眼睛、粉鼻子、狸花纹、白脸白胸和白袜子的家猫；不工作时会蜷着睡觉。",
     "spriteVersionNumber": 2
@@ -984,6 +1078,7 @@
     "author_handle": "jiushu",
     "author_url": "",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "水豚噜噜是一只戴着绿帽子的橙色小水豚，圆滚滚、软乎乎，喜欢陪你工作、思考和发呆。它会挥手、跳跃、等待，也会认真“干活”，是你桌面上可爱又治愈的Codex小伙伴。",
     "spriteVersionNumber": 1
@@ -995,6 +1090,7 @@
     "author_handle": "jarvis-2",
     "author_url": "",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "一只外表严肃、内心憨厚的黑白奶牛宠物，擅长思考、托腮、坐卧和打招呼。",
     "spriteVersionNumber": 2
@@ -1006,6 +1102,7 @@
     "author_handle": "Octane0411",
     "author_url": "https://github.com/Octane0411",
     "primary_category": "Memes",
+    "collections": [],
     "license": "CC BY 4.0",
     "description": "一只圆头飞机耳、粉鼻眯眼，凶萌又倔强的橘白猫。",
     "spriteVersionNumber": 2
@@ -1016,6 +1113,7 @@
     "author": "z.kzhang",
     "author_handle": "z-kzhang",
     "primary_category": "Animals",
+    "collections": ["animal-companions"],
     "license": "Original AI-generated Codex pet based on a user-provided plush-bear reference. This is not an official Nagano/Jikochu Kuma asset and does not include copied logos, text, or original copyrighted artwork. Permission granted by the creator/uploader for inclusion in the awesome-codex-pet gallery.",
     "spriteVersionNumber": 1
   },
@@ -1025,6 +1123,7 @@
     "author": "vanfff",
     "author_handle": "vanfff",
     "primary_category": "Original Characters",
+    "collections": [],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A tiny blonde chibi companion with a white wide hat, purple eyes, blue hair clip, blue neck ribbon, and a slightly smug sticker-expression personality.",
     "spriteVersionNumber": 1
@@ -1036,6 +1135,7 @@
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
     "primary_category": "Anime Characters",
+    "collections": [],
     "license": "CC BY-NC 4.0",
     "spriteVersionNumber": 1
   }

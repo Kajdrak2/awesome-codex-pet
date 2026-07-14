@@ -4,6 +4,20 @@
 
 This repository welcomes community-made Codex pet submissions.
 
+## Submit with Codex
+
+The website submission page includes a **Start in Codex** button. It opens a prepared task through `codex://new?prompt=...`. Codex first asks for the reference, pet name, author credit, source URL, and license, then carries the creation, validation, and pull request through end to end.
+
+You can also give Codex this task directly:
+
+```text
+Help me create and submit a Codex pet to https://github.com/legeling/awesome-codex-pet.
+
+Before starting, ask me for any missing character reference, pet name, author credit, source URL, and license. Do not submit an asset without explicit redistribution permission. Clone or open the repository, read AGENTS.md and the submission guide, then follow the repository-local .agents/skills/hatch-pet-v2/SKILL.md workflow. Do not assume that skill is globally installed. Keep only submission.json, pet.json, and spritesheet.webp in the final pet folder. Run npm run previews, npm run readmes, npm run validate, and npm run lint. When complete, create a focused branch and commit, then open one pull request containing only this pet.
+```
+
+AI assistance does not relax the licensing or attribution requirements. The submitter must still confirm redistribution rights and provide accurate authorship, source, and license information.
+
 ## Goals
 
 Each submission should be:
@@ -47,6 +61,19 @@ Please include:
 - Short description
 - Source or original post link if available
 - License for the asset
+- Optional collection slugs from `collections.json`
+
+## Collections
+
+Collections are repository metadata, not website-only configuration. Add the relevant collection slug to the pet's `submission.json`:
+
+```json
+{
+  "collections": ["genshin-impact"]
+}
+```
+
+Collection titles, descriptions, featured state, and cover pets live in the root [`collections.json`](../../collections.json). The website groups pets from these files during its build; do not maintain a separate frontend pet list.
 
 ## Review expectations
 

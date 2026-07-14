@@ -8,6 +8,7 @@
   "author_url": "https://github.com/JbBom",
   "primary_category": "Animals",
   "tags": ["cat", "kitten", "orange-white", "pixel-art", "codex"],
+  "collections": ["animal-companions"],
   "source_type": "github",
   "source_url": "https://github.com/JbBom/tuantuan-codex-pet",
   "license": "MIT License",

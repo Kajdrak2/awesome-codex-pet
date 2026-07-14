@@ -33,6 +33,18 @@ download() {
   curl -fsSL --retry 2 "$1" -o "$2"
 }
 
+new_event_id() {
+  if command -v uuidgen >/dev/null 2>&1; then
+    uuidgen | tr '[:upper:]' '[:lower:]' | tr -d '-'
+    return
+  fi
+  if command -v openssl >/dev/null 2>&1; then
+    openssl rand -hex 16
+    return
+  fi
+  printf '%s.%s.%s' "$(date +%s)" "$$" "${RANDOM:-0}"
+}
+
 list_pets() {
   need_command curl
   catalog="$(curl -fsSL --retry 2 "$RAW_BASE/pets.json")"
@@ -111,5 +123,10 @@ cp "$TMP_DIR/spritesheet.webp" "$TARGET_DIR/spritesheet.webp"
 echo "Installed $PET_ID to $TARGET_DIR"
 
 if [ "$NO_STATS" != "1" ]; then
-  curl -fsS -m 3 -X POST "$STATS_API/track/install?slug=$PET_ID" >/dev/null 2>&1 || true
+  EVENT_ID="$(new_event_id)"
+  curl -fsS -m 3 -X POST \
+    -H "X-Event-ID: $EVENT_ID" \
+    "$STATS_API/track/install?slug=$PET_ID" >/dev/null 2>&1 || {
+      printf 'Warning: installed successfully, but anonymous install statistics could not be reported.\n' >&2
+    }
 fi

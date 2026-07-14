@@ -24,11 +24,16 @@ body:
     attributes:
       label: Primary category
       options:
+        - Game Characters
         - Anime Characters
         - Original Characters
-        - Memes
+        - Mascots
         - Animals
+        - Fantasy Creatures
         - Robots
+        - Human Avatars
+        - Memes
+        - Objects & Props
         - Others
     validations:
       required: true
@@ -42,6 +47,12 @@ body:
         - v1 - legacy standard animations
     validations:
       required: true
+  - type: input
+    id: collections
+    attributes:
+      label: Collection slugs
+      description: Optional comma-separated slugs from collections.json, such as genshin-impact.
+      placeholder: genshin-impact
   - type: dropdown
     id: source_type
     attributes:
@@ -51,6 +62,8 @@ body:
         - fan-art
         - mascot
         - meme
+        - avatar
+        - object
   - type: input
     id: author
     attributes:
@@ -63,6 +76,20 @@ body:
     attributes:
       label: Source URL
       placeholder: https://example.com/original-post
+  - type: input
+    id: canonical_key
+    attributes:
+      label: Canonical character or concept key
+      description: Use a stable key such as genshin-impact/nahida; for an original use original/author/name. This is used to prevent duplicate collection.
+      placeholder: original/your-handle/your-character
+    validations:
+      required: true
+  - type: textarea
+    id: variant_note
+    attributes:
+      label: Variant or uniqueness note
+      description: Explain the material design or runtime difference if a similar character, mascot, or avatar already exists.
+      placeholder: This is a materially different design with a distinct v2 directional atlas.
   - type: textarea
     id: description
     attributes:

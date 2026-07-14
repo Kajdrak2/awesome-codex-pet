@@ -1,35 +1,29 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
+import { format } from "prettier";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const petsDir = join(repoRoot, "pets");
 const rawBase = "https://raw.githubusercontent.com/legeling/awesome-codex-pet/main";
 const websiteUrl = "https://awesome-codex-pet.pages.dev";
 
-const categories = [
-  "Anime Characters",
-  "Original Characters",
-  "Memes",
-  "Animals",
-  "Robots",
-  "Others",
-];
-
-const categoryZh = {
-  "Anime Characters": "动漫人物",
-  "Original Characters": "原创角色",
-  Memes: "表情包",
-  Animals: "动物",
-  Robots: "机器人",
-  Others: "其他",
-};
+const categoryCatalog = JSON.parse(
+  readFileSync(join(repoRoot, "categories.json"), "utf8"),
+);
+const categories = categoryCatalog.map((category) => category.name);
+const categoryZh = Object.fromEntries(
+  categoryCatalog.map((category) => [category.name, category.label.zh]),
+);
 
 const categoryAliases = {
   "Anime and Game Fan Art": "Anime Characters",
+  "Game Fan Art": "Game Characters",
   "Animals and Creatures": "Animals",
   "Robots and Mascots": "Robots",
   "Memes and Internet Icons": "Memes",
+  "Human Avatars and Profiles": "Human Avatars",
+  Objects: "Objects & Props",
 };
 
 const previewStates = [
@@ -182,6 +176,8 @@ pets/<pet-slug>--<author-slug>/
 
 Preview images are generated into \`assets/previews/<pet-id>/\` as local or CI build output, never inside the pet folder.
 
+Repository-defined collections live in \`collections.json\`. A pet joins a collection by listing its slug in \`submission.json.collections\`; the catalog and website are generated from that metadata.
+
 ## Pet Versions
 
 | Version | Atlas                            | Runtime metadata                            | Use                                                   |
@@ -332,6 +328,8 @@ pets/<pet-slug>--<author-slug>/
 
 预览图会作为本地或 CI 构建产物生成到 \`assets/previews/<pet-id>/\`，不会塞进宠物目录。
 
+仓库级合集统一维护在 \`collections.json\`。宠物通过 \`submission.json.collections\` 声明所属合集，目录与网站都会从这些元数据自动生成。
+
 ## Pet 版本
 
 | 版本 | 图集                      | 运行时元数据                          | 用途                           |
@@ -451,24 +449,19 @@ const pets = loadPets();
 writeFileSync(join(repoRoot, "README.md"), englishReadme(pets), "utf8");
 mkdirSync(join(repoRoot, "docs", "zh-CN"), { recursive: true });
 writeFileSync(join(repoRoot, "docs", "zh-CN", "README.md"), chineseReadme(pets), "utf8");
-writeFileSync(
-  join(repoRoot, "pets.json"),
-  `${JSON.stringify(
-    pets.map((pet) => ({
-      slug: pet.slug,
-      name: pet.name,
-      author: pet.author,
-      author_handle: pet.author_handle,
-      author_url: pet.author_url,
-      primary_category: normalizeCategory(pet.primary_category),
-      license: pet.license,
-      description: pet.description,
-      spriteVersionNumber: pet.spriteVersionNumber,
-    })),
-    null,
-    2,
-  )}\n`,
-  "utf8",
-);
+const catalog = pets.map((pet) => ({
+  slug: pet.slug,
+  name: pet.name,
+  author: pet.author,
+  author_handle: pet.author_handle,
+  author_url: pet.author_url,
+  primary_category: normalizeCategory(pet.primary_category),
+  collections: pet.collections ?? [],
+  license: pet.license,
+  description: pet.description,
+  spriteVersionNumber: pet.spriteVersionNumber,
+}));
+const formattedCatalog = await format(JSON.stringify(catalog), { parser: "json" });
+writeFileSync(join(repoRoot, "pets.json"), formattedCatalog, "utf8");
 
 console.log(`generated README files for ${pets.length} pet(s)`);

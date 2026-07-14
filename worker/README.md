@@ -1,79 +1,66 @@
 # awesome-codex-pet-stats Worker
 
-Cloudflare Worker that powers view + install counters for the Awesome Codex Pet gallery.
+Cloudflare Worker that powers privacy-conscious view, install, like, and seven-day trend statistics for the Awesome Codex Pet gallery.
 
 - **Production URL**: `https://awesome-codex-pet-stats.legeling.workers.dev`
-- **Storage**: a single Cloudflare KV namespace (`STATS`)
-- **Cost**: free tier (Workers 100k req/day, KV 1k writes/day) is enough for the current scale
+- **Storage**: Cloudflare D1 (`DB` binding)
+- **Caching**: Cloudflare Workers Cache API, five-minute edge TTL
+- **Cleanup**: daily Cron Trigger removes expired event receipts and rate-limit buckets
 
 ## Endpoints
 
-| Method | Path                           | Purpose                                                                             |
-| ------ | ------------------------------ | ----------------------------------------------------------------------------------- |
-| `POST` | `/track/view?slug=<pet-id>`    | Increment view counter for a pet                                                    |
-| `POST` | `/track/install?slug=<pet-id>` | Increment install counter for a pet                                                 |
-| `GET`  | `/stats`                       | Return all counters as JSON: `{ pets: { <slug>: { views, installs, updatedAt } } }` |
+| Method | Path                           | Purpose                                                                 |
+| ------ | ------------------------------ | ----------------------------------------------------------------------- |
+| `POST` | `/track/view?slug=<pet-id>`    | Count one browser view per pet and UTC day                              |
+| `POST` | `/track/install?slug=<pet-id>` | Count a completed install; `X-Event-ID` makes retries idempotent        |
+| `POST` | `/track/like?slug=<pet-id>`    | Count at most one like per source IP and pet                            |
+| `GET`  | `/stats`                       | Return lifetime counters, seven-day counters, and stable trending ranks |
 
-CORS: only the origins listed in `ALLOWED_ORIGINS` (see `wrangler.toml`) can call from the browser. The `POST` endpoints accept calls from anywhere (install scripts run outside browsers).
+The API never stores raw IP addresses or client event IDs. Metric receipts are salted and hashed before short-lived deduplication. Likes store only a salted, pet-scoped IP hash so the same IP cannot like one pet twice and cannot be correlated across different pets.
 
-## One-time setup
+## One-time production setup
 
 ```bash
 cd worker
 npm install
 npx wrangler login
-npx wrangler kv namespace create STATS
+npx wrangler d1 create awesome-codex-pet-stats-db
 ```
 
-`wrangler kv namespace create` prints something like:
-
-```
-[[kv_namespaces]]
-binding = "STATS"
-id = "abcdef0123456789..."
-```
-
-Open `worker/wrangler.toml` and uncomment the `kv_namespaces` block, pasting the printed `id`. Then:
+Put the returned database ID in `wrangler.toml`, then configure the hashing secret and migrate the existing data before deploying:
 
 ```bash
+openssl rand -hex 32 | npx wrangler secret put HASH_SALT
+npm run db:migrate:remote
+npm run db:sync -- --remote
 npm run deploy
 ```
 
-After the first deploy you should see:
+`db:sync` reads `../pets.json`, activates current slugs, and imports the largest known lifetime totals from the existing production `/stats` endpoint. Re-running it is safe: it never lowers D1 counters.
 
-```
-Published awesome-codex-pet-stats (x.x sec)
-  https://awesome-codex-pet-stats.legeling.workers.dev
-```
-
-## Updating
+## Local development
 
 ```bash
-cd worker
-npm run deploy
+npm run db:migrate:local
+npm run db:sync -- --local
+npm run dev -- --var HASH_SALT:local-development-hash-salt
 ```
 
-There is no GitHub Actions workflow for the Worker on purpose. Deploys happen locally on demand to keep CI minutes low.
-
-## Local dev
+Run checks with:
 
 ```bash
-npm run dev   # serves on http://localhost:8787
+npm test
+npx wrangler deploy --dry-run
 ```
 
-To point the web app at a local Worker, set `NEXT_PUBLIC_STATS_API=http://localhost:8787` before running the web dev server.
+To point the web app at the local Worker, set `NEXT_PUBLIC_STATS_API=http://localhost:8787` before starting the web development server.
 
-## Where the URL is referenced
+## Continuous deployment
 
-The default Worker URL (`https://awesome-codex-pet-stats.legeling.workers.dev`) is hard-coded as a fallback in:
+`.github/workflows/deploy-stats.yml` runs tests, applies D1 migrations, synchronizes the catalog, and deploys the Worker whenever `worker/**` or `pets.json` changes on `main`.
 
-- `web/lib/stats.ts` — overridden by `NEXT_PUBLIC_STATS_API`
-- `scripts/install-pet.sh` — overridden by `AWESOME_CODEX_PET_STATS_API`
-- `scripts/install-pet.ps1` — same env var
-- `scripts/install-pet.mjs` — same env var
+The repository must provide `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets. The token needs Workers Scripts and D1 edit permissions. The `HASH_SALT` value stays attached to the Worker as an encrypted Cloudflare secret and is not stored in GitHub.
 
-If you ever rename the Worker or move it to a custom domain, update those four files and redeploy.
+## Disabling statistics
 
-## Disabling stats
-
-Set `AWESOME_CODEX_PET_NO_STATS=1` in your shell to skip the install ping. The web client cannot be opted-out per-call right now; if you need that, swap `fetchStats`/`trackView` in `web/lib/stats.ts`.
+Set `AWESOME_CODEX_PET_NO_STATS=1` before running an installer to skip the anonymous install event. Browser detail views use a local anonymous visitor ID only for daily deduplication.

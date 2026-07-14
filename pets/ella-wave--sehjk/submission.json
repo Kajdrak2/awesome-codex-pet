@@ -7,6 +7,7 @@
   "author_handle": "sehjk",
   "primary_category": "Animals",
   "tags": ["codex-pets", "v1"],
+  "collections": ["animal-companions"],
   "source_type": "codex-pets-community-upload",
   "source_url": "https://codex-pets.net/share/ella-wave",
   "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",

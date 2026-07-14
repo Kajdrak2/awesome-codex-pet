@@ -5,9 +5,12 @@ import { join } from "node:path";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const petsDir = join(repoRoot, "pets");
+const collectionsPath = join(repoRoot, "collections.json");
+const categoriesPath = join(repoRoot, "categories.json");
 const requireGeneratedAssets = process.argv.includes("--require-generated-assets");
 
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*--[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const collectionSlugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const previewStates = ["idle", "waving", "running", "jumping", "review"];
 const v2PreviewStates = ["look-000-157", "look-180-337"];
 const maxSpritesheetBytesForPr = 5_000_000;
@@ -56,6 +59,74 @@ function readJson(path) {
   } catch (error) {
     errors.push(`${path}: ${error.message}`);
     return null;
+  }
+}
+
+const collectionCatalog = existsSync(collectionsPath)
+  ? readJson(collectionsPath)
+  : null;
+const collectionBySlug = new Map();
+const collectionMembers = new Map();
+const categoryCatalog = existsSync(categoriesPath) ? readJson(categoriesPath) : null;
+const allowedCategoryNames = new Set();
+
+if (!categoryCatalog) {
+  errors.push("missing categories.json");
+} else if (!Array.isArray(categoryCatalog)) {
+  errors.push("categories.json: root value must be an array");
+} else {
+  const categorySlugs = new Set();
+  for (const category of categoryCatalog) {
+    if (!category?.name || !category?.slug) {
+      errors.push("categories.json: every category needs a name and slug");
+      continue;
+    }
+    if (allowedCategoryNames.has(category.name)) {
+      errors.push(`categories.json: duplicate category name ${category.name}`);
+    }
+    if (categorySlugs.has(category.slug)) {
+      errors.push(`categories.json: duplicate category slug ${category.slug}`);
+    }
+    if (!category.label?.en || !category.label?.zh) {
+      errors.push(`${category.name}: category label must include en and zh`);
+    }
+    if (!category.description?.en || !category.description?.zh) {
+      errors.push(`${category.name}: category description must include en and zh`);
+    }
+    allowedCategoryNames.add(category.name);
+    categorySlugs.add(category.slug);
+  }
+}
+
+if (!collectionCatalog) {
+  errors.push("missing collections.json");
+} else if (!Array.isArray(collectionCatalog)) {
+  errors.push("collections.json: root value must be an array");
+} else {
+  for (const collection of collectionCatalog) {
+    const slug = collection?.slug;
+    if (typeof slug !== "string" || !collectionSlugPattern.test(slug)) {
+      errors.push("collections.json: every collection needs a kebab-case slug");
+      continue;
+    }
+    if (collectionBySlug.has(slug)) {
+      errors.push(`collections.json: duplicate collection slug ${slug}`);
+      continue;
+    }
+    if (!collection.title?.en || !collection.title?.zh) {
+      errors.push(`${slug}: collection title must include en and zh`);
+    }
+    if (!collection.description?.en || !collection.description?.zh) {
+      errors.push(`${slug}: collection description must include en and zh`);
+    }
+    if (collection.featured !== undefined && typeof collection.featured !== "boolean") {
+      errors.push(`${slug}: collection featured must be a boolean`);
+    }
+    if (!Array.isArray(collection.cover_pets)) {
+      errors.push(`${slug}: collection cover_pets must be an array`);
+    }
+    collectionBySlug.set(slug, collection);
+    collectionMembers.set(slug, new Set());
   }
 }
 
@@ -120,11 +191,14 @@ function readWebpDimensions(path) {
   throw new Error("spritesheet.webp has no supported VP8 image chunk");
 }
 
-for (const entry of readdirSync(petsDir)) {
-  if (entry.startsWith(".")) continue;
+const petEntries = readdirSync(petsDir).filter((entry) => {
+  if (entry.startsWith(".")) return false;
+  return statSync(join(petsDir, entry)).isDirectory();
+});
+const petSlugs = new Set(petEntries);
 
+for (const entry of petEntries) {
   const petDir = join(petsDir, entry);
-  if (!statSync(petDir).isDirectory()) continue;
 
   if (!slugPattern.test(entry)) {
     errors.push(`${entry}: folder name must use <pet-slug>--<author-slug>`);
@@ -172,6 +246,31 @@ for (const entry of readdirSync(petsDir)) {
         errors.push(`${entry}: submission.json missing ${key}`);
       }
     }
+
+    if (
+      submission.primary_category &&
+      !allowedCategoryNames.has(submission.primary_category)
+    ) {
+      errors.push(
+        `${entry}: unknown primary category ${submission.primary_category}`,
+      );
+    }
+
+    if (submission.collections !== undefined && !Array.isArray(submission.collections)) {
+      errors.push(`${entry}: submission.json collections must be an array`);
+    } else {
+      const memberships = submission.collections ?? [];
+      if (new Set(memberships).size !== memberships.length) {
+        errors.push(`${entry}: submission.json collections contains duplicates`);
+      }
+      for (const collectionSlug of memberships) {
+        if (!collectionBySlug.has(collectionSlug)) {
+          errors.push(`${entry}: unknown collection ${collectionSlug}`);
+          continue;
+        }
+        collectionMembers.get(collectionSlug).add(entry);
+      }
+    }
   }
 
   if (pet) {
@@ -198,6 +297,17 @@ for (const entry of readdirSync(petsDir)) {
       } catch (error) {
         errors.push(`${entry}: ${error.message}`);
       }
+    }
+  }
+}
+
+for (const [slug, collection] of collectionBySlug) {
+  if (!Array.isArray(collection.cover_pets)) continue;
+  for (const petSlug of collection.cover_pets) {
+    if (!petSlugs.has(petSlug)) {
+      errors.push(`${slug}: cover pet ${petSlug} does not exist`);
+    } else if (!collectionMembers.get(slug).has(petSlug)) {
+      errors.push(`${slug}: cover pet ${petSlug} does not declare this collection`);
     }
   }
 }

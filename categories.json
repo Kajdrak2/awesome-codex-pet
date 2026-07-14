@@ -1,0 +1,102 @@
+[
+  {
+    "slug": "game-characters",
+    "name": "Game Characters",
+    "label": { "en": "Game Characters", "zh": "游戏角色" },
+    "description": {
+      "en": "Characters originating from video games and game franchises.",
+      "zh": "来自电子游戏及游戏系列的角色。"
+    }
+  },
+  {
+    "slug": "anime-characters",
+    "name": "Anime Characters",
+    "label": { "en": "Anime Characters", "zh": "动漫角色" },
+    "description": {
+      "en": "Characters originating from anime, manga, light novels, and animation.",
+      "zh": "来自动漫、漫画、轻小说和动画作品的角色。"
+    }
+  },
+  {
+    "slug": "original-characters",
+    "name": "Original Characters",
+    "label": { "en": "Original Characters", "zh": "原创角色" },
+    "description": {
+      "en": "Creator-owned characters with an original identity and design.",
+      "zh": "由创作者拥有并具备原创身份与设计的角色。"
+    }
+  },
+  {
+    "slug": "mascots",
+    "name": "Mascots",
+    "label": { "en": "Mascots", "zh": "吉祥物" },
+    "description": {
+      "en": "Friendly brand, product, community, and personal mascot companions.",
+      "zh": "品牌、产品、社区或个人使用的吉祥物伙伴。"
+    }
+  },
+  {
+    "slug": "animals",
+    "name": "Animals",
+    "label": { "en": "Animals", "zh": "动物伙伴" },
+    "description": {
+      "en": "Pets based primarily on real-world animals and household companions.",
+      "zh": "以现实动物和日常陪伴动物为主体的宠物。"
+    }
+  },
+  {
+    "slug": "fantasy-creatures",
+    "name": "Fantasy Creatures",
+    "label": { "en": "Fantasy Creatures", "zh": "幻想生物" },
+    "description": {
+      "en": "Magical creatures, monsters, hybrids, and supernatural companions.",
+      "zh": "魔法生物、怪物、混合生物和超自然伙伴。"
+    }
+  },
+  {
+    "slug": "robots",
+    "name": "Robots",
+    "label": { "en": "Robots", "zh": "机器人" },
+    "description": {
+      "en": "Mechanical, robotic, AI, and coding-oriented companions.",
+      "zh": "机械、机器人、AI 和编程主题伙伴。"
+    }
+  },
+  {
+    "slug": "human-avatars",
+    "name": "Human Avatars",
+    "label": { "en": "Human Avatars", "zh": "人物头像" },
+    "description": {
+      "en": "Real-person likenesses, creator avatars, and profile companions with a clear permission trail.",
+      "zh": "有清晰授权链的真人形象、创作者头像和人物资料伙伴。"
+    }
+  },
+  {
+    "slug": "memes",
+    "name": "Memes",
+    "label": { "en": "Memes", "zh": "网络梗图" },
+    "description": {
+      "en": "Internet-native meme characters, reactions, and viral icons.",
+      "zh": "互联网原生的梗角色、反应形象和流行图标。"
+    }
+  },
+  {
+    "slug": "objects-props",
+    "name": "Objects & Props",
+    "label": { "en": "Objects & Props", "zh": "物件与道具" },
+    "description": {
+      "en": "Animated objects, tools, food, vehicles, and prop-like companions.",
+      "zh": "会活动的物件、工具、食物、载具和道具型伙伴。"
+    }
+  },
+  {
+    "slug": "others",
+    "name": "Others",
+    "label": { "en": "Others", "zh": "其他" },
+    "description": {
+      "en": "A temporary moderation fallback when no specific category fits.",
+      "zh": "没有具体分类适用时的临时审核兜底。"
+    },
+    "discoverable": false
+  }
+]

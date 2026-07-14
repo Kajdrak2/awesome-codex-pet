@@ -7,6 +7,7 @@
   "author_handle": "klubbyte",
   "primary_category": "Animals",
   "tags": ["animated", "animal", "chaotic", "codex-pets", "v1"],
+  "collections": ["animal-companions"],
   "source_type": "codex-pets-community-upload",
   "source_url": "https://codex-pets.net/share/rook",
   "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",

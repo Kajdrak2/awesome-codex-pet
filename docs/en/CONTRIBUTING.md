@@ -63,6 +63,7 @@ Use this repository-level schema:
   "name": "Mikoto",
   "author": "your-name-or-handle",
   "primary_category": "Anime Characters",
+  "canonical_key": "fictional/example/mikoto",
   "tags": ["anime", "electric", "schoolgirl"],
   "source_type": "fan-art",
   "source_url": "https://example.com/original-post",
@@ -74,6 +75,8 @@ Use this repository-level schema:
   }
 }
 ```
+
+`canonical_key` is the stable identity used for duplicate review. Use the same key for variants of the same character; use an `original/<author>/<name>` key for a creator-owned character. Existing pets without this field remain valid and are indexed from their names, tags, and source metadata during review.
 
 ## Pull request checklist
 
@@ -107,17 +110,23 @@ Maintainers may decline a submission if:
 - The licensing is unclear
 - The files are not installable
 - The categorization is misleading
-- The submission duplicates an existing pet too closely
+- The submission duplicates an existing canonical character or concept too closely
+- The visual design is interchangeable with an existing generic avatar or mascot
 
 ## Categories
 
 Current primary categories:
 
+- Game Characters
 - Anime Characters
 - Original Characters
-- Memes
+- Mascots
 - Animals
+- Fantasy Creatures
 - Robots
+- Human Avatars
+- Memes
+- Objects & Props
 - Others
 
 More detail is available in [categories.md](./categories.md).

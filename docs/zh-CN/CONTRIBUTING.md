@@ -63,6 +63,7 @@ v2 运行时清单示例：
   "name": "Mikoto",
   "author": "your-name-or-handle",
   "primary_category": "Anime Characters",
+  "canonical_key": "fictional/example/mikoto",
   "tags": ["anime", "electric", "schoolgirl"],
   "source_type": "fan-art",
   "source_url": "https://example.com/original-post",
@@ -74,6 +75,8 @@ v2 运行时清单示例：
   }
 }
 ```
+
+`canonical_key` 是去重审核使用的稳定身份键。同一个角色的不同版本使用同一个 key；创作者自有角色使用 `original/<作者>/<名称>`。没有这个字段的旧 pet 仍然有效，审核时会根据名称、tags 和来源元数据建立索引。
 
 ## PR 检查清单
 
@@ -107,17 +110,23 @@ npm run lint
 - 许可证不清楚
 - 文件无法安装
 - 分类有明显误导
-- 与现有 pet 过于重复
+- 与现有规范角色或概念过于重复
+- 和现有普通人物头像或吉祥物在视觉上可互换
 
 ## 分类
 
 当前主分类：
 
+- Game Characters
 - Anime Characters
 - Original Characters
-- Memes
+- Mascots
 - Animals
+- Fantasy Creatures
 - Robots
+- Human Avatars
+- Memes
+- Objects & Props
 - Others
 
 更多说明见 [categories.md](./categories.md)。

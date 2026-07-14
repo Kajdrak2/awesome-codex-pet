@@ -8,6 +8,7 @@
   "author_url": "https://github.com/zihualiu1997",
   "primary_category": "Animals",
   "tags": ["otter", "desk-worker", "glasses", "pixel-art", "codex"],
+  "collections": ["animal-companions"],
   "source_type": "github",
   "source_url": "https://github.com/zihualiu1997/dustin-otter-codex-pet",
   "license": "MIT License",

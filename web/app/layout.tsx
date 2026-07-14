@@ -4,6 +4,7 @@ import { Inter, Fira_Code } from "next/font/google";
 import "./globals.css";
 
 import { LocaleProvider } from "@/components/locale-provider";
+import { BackToTop } from "@/components/back-to-top";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider, themeInitScript } from "@/components/theme-provider";
@@ -111,6 +112,7 @@ export default function RootLayout({
             <SiteHeader />
             {children}
             <SiteFooter />
+            <BackToTop />
           </LocaleProvider>
         </ThemeProvider>
         <script

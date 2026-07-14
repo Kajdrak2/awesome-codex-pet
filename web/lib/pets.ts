@@ -15,11 +15,18 @@ type CatalogPet = {
   spriteVersionNumber: 1 | 2;
 };
 
+export type LocalizedCategoryLabel = {
+  en: string;
+  zh: string;
+};
+
 export type Pet = CatalogPet & {
+  categoryLabel: LocalizedCategoryLabel;
   displayName?: string;
   runtimeDescription?: string;
   slugLabel: string;
   tags: string[];
+  collections: string[];
   sourceType: string;
   sourceUrl: string;
   previewImage: string;
@@ -46,11 +53,14 @@ export function getPetBySlug(slug: string) {
 }
 
 export function getCategories(pets: Pet[]) {
-  return [...new Set(pets.map((pet) => pet.primary_category))];
-}
-
-export function getFeaturedPets(pets: Pet[]) {
-  return pets.slice(0, 4);
+  return Array.from(
+    new Map(
+      pets.map((pet) => [
+        pet.primary_category,
+        { name: pet.primary_category, label: pet.categoryLabel },
+      ]),
+    ).values(),
+  );
 }
 
 function titleCase(input: string) {

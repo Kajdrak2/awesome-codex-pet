@@ -4,6 +4,20 @@
 
 这个仓库欢迎社区制作的 Codex pet 投稿。
 
+## 用 Codex 完成投稿
+
+网站投稿页提供 **在 Codex 中开始** 按钮，会通过 `codex://new?prompt=...` 打开一条已经写好要求的新任务。Codex 会先向你索取参考图、宠物名称、作者署名、来源链接与许可证，再完成制作、校验和 Pull Request。
+
+也可以把下面这段任务直接交给 Codex：
+
+```text
+请帮我制作并投稿一只 Codex 宠物到 https://github.com/legeling/awesome-codex-pet。
+
+开始前先向我索取缺失的角色参考图、宠物名称、作者署名、来源链接和许可证信息；没有明确再分发许可的素材不得投稿。克隆或打开仓库后先阅读 AGENTS.md 和投稿指南，再严格按照仓库内的 .agents/skills/hatch-pet-v2/SKILL.md 制作，不要假设用户环境已经全局安装这个 skill。正式目录只能包含 submission.json、pet.json、spritesheet.webp，并运行 npm run previews、npm run readmes、npm run validate、npm run lint。完成后创建独立分支、提交，并发起一个只包含这只宠物的 PR。
+```
+
+AI 辅助不会降低授权与署名要求。提交者仍需确认素材可以再分发，作者、来源与许可证必须真实准确。
+
 ## 目标
 
 每份投稿都应该：
@@ -47,6 +61,19 @@ pet 目录只应该包含这三个文件。
 - 简短描述
 - 来源链接或原始发布链接
 - 资源许可证
+- 可选的 `collections.json` 合集 slug
+
+## 合集归属
+
+合集属于仓库元数据，不是网站前端单独维护的配置。请在宠物的 `submission.json` 中写入对应合集 slug：
+
+```json
+{
+  "collections": ["genshin-impact"]
+}
+```
+
+合集名称、描述、精选状态与封面宠物统一维护在仓库根目录的 [`collections.json`](../../collections.json)。网站构建时会据此自动归组，不应再维护一份前端宠物名单。
 
 ## 审核要求
 

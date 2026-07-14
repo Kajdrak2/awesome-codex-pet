@@ -32,6 +32,14 @@ export function SiteFooter() {
               <li>
                 <Link
                   className="text-muted hover:text-text transition-colors"
+                  href="/collections"
+                >
+                  {t("collections")}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-muted hover:text-text transition-colors"
                   href="/"
                 >
                   {t("gallery")}
@@ -72,14 +80,12 @@ export function SiteFooter() {
                 </a>
               </li>
               <li>
-                <a
+                <Link
                   className="text-muted hover:text-text transition-colors"
-                  href="https://github.com/legeling/awesome-codex-pet/issues/new?template=pet-submission.yml"
-                  target="_blank"
-                  rel="noreferrer"
+                  href="/guide"
                 >
                   {t("submitPet")}
-                </a>
+                </Link>
               </li>
               <li>
                 <Link

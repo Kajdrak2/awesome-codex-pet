@@ -8,6 +8,7 @@
   "author_url": "https://github.com/gbn666",
   "primary_category": "Animals",
   "tags": ["bear", "chibi", "pixel-art", "sleepy", "cute", "codex"],
+  "collections": ["animal-companions"],
   "source_type": "github",
   "source_url": "https://github.com/gbn666/codex-pets-bubuyier",
   "license": "MIT License",

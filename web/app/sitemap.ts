@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { getAllPets } from "@/lib/pets";
+import { getCollectionSlugs } from "@/lib/collection-catalog";
 import { siteConfig } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -8,6 +9,12 @@ export const dynamic = "force-static";
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const staticEntries: MetadataRoute.Sitemap = [
+    {
+      url: `${siteConfig.url}/collections`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
     {
       url: `${siteConfig.url}/`,
       lastModified: now,
@@ -33,5 +40,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
-  return [...staticEntries, ...petEntries];
+  const collectionEntries = getCollectionSlugs().map((slug) => ({
+    url: `${siteConfig.url}/collections/${slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.75,
+  }));
+  return [...staticEntries, ...collectionEntries, ...petEntries];
 }

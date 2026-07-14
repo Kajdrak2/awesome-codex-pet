@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { GuidePageContent } from "@/components/guide-page-content";
-import { getAllPets, getCategories } from "@/lib/pets";
+import { getCategoryCatalog } from "@/lib/categories";
 import { siteConfig } from "@/lib/site";
 
 const title = "Submit a Codex pet";
@@ -28,6 +28,6 @@ export const metadata: Metadata = {
 };
 
 export default function GuidePage() {
-  const categories = getCategories(getAllPets());
+  const categories = getCategoryCatalog();
   return <GuidePageContent categories={categories} />;
 }

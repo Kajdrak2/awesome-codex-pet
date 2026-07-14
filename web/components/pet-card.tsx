@@ -1,17 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import type { KeyboardEvent } from "react";
 
 import type { Pet } from "@/lib/pets";
-import { CopyCommandButton } from "@/components/copy-command-button";
+import { PetInstallMenu } from "@/components/pet-install-menu";
+import { PetLikeButton } from "@/components/pet-like-button";
+import { ShareMenu } from "@/components/share-menu";
 import { useLocale } from "@/components/locale-provider";
+import { getPetInstallPrompt } from "@/lib/codex-links";
+import { siteConfig } from "@/lib/site";
 
 type PetCardProps = {
   pet: Pet;
   views?: number;
   installs?: number;
+  likes?: number;
 };
 
 function formatCount(n: number): string {
@@ -20,42 +23,40 @@ function formatCount(n: number): string {
   return `${(n / 1000000).toFixed(1)}m`;
 }
 
-export function PetCard({ pet, views = 0, installs = 0 }: PetCardProps) {
-  const { t } = useLocale();
-  const router = useRouter();
+export function PetCard({
+  pet,
+  views = 0,
+  installs = 0,
+  likes = 0,
+}: PetCardProps) {
+  const { t, locale } = useLocale();
   const hasStats = views > 0 || installs > 0;
   const detailHref = `/pets/${pet.slug}`;
 
-  function openDetail() {
-    router.push(detailHref);
-  }
-
-  function handleKeyDown(event: KeyboardEvent<HTMLElement>) {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      openDetail();
-    }
-  }
-
   return (
     <article
-      className="group rounded-2xl border border-border bg-bg-elevated overflow-hidden flex flex-col transition-all duration-200 hover:shadow-lg hover:border-border-hover hover:-translate-y-0.5 cursor-pointer"
-      role="link"
-      tabIndex={0}
-      onClick={openDetail}
-      onKeyDown={handleKeyDown}
-      aria-label={`${t("view")} ${pet.name}`}
+      className="group relative z-0 flex h-full cursor-pointer flex-col rounded-2xl border border-border bg-bg-elevated transition-all duration-200 hover:z-20 hover:-translate-y-0.5 hover:border-border-hover hover:shadow-lg focus-within:z-30"
     >
+      <Link
+        className="absolute inset-0 z-10 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        href={detailHref}
+        aria-label={`${t("view")} ${pet.name}`}
+      />
+
       {/* Visual area */}
-      <div className="relative h-52 bg-bg-secondary flex items-center justify-center p-6">
+      <div className="relative h-52 rounded-t-2xl bg-bg-secondary flex items-center justify-center p-6">
         <img
           className="relative w-auto h-full max-w-full object-contain [image-rendering:pixelated] transition-transform duration-200 group-hover:scale-105"
           src={pet.animatedPreviewImage}
           alt={`${pet.name} preview`}
           loading="lazy"
+          decoding="async"
         />
+        <div className="absolute left-3 top-3 z-20">
+          <PetLikeButton slug={pet.slug} initialLikes={likes} />
+        </div>
         {hasStats ? (
-          <div className="absolute top-3 right-3 flex items-center gap-1.5">
+          <div className="absolute right-3 top-3 z-20 flex items-center gap-1.5">
             {views > 0 ? (
               <span
                 className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-bg/85 backdrop-blur border border-border text-[11px] text-text-secondary"
@@ -110,13 +111,13 @@ export function PetCard({ pet, views = 0, installs = 0 }: PetCardProps) {
       </div>
 
       {/* Body */}
-      <div className="p-5 flex flex-col flex-grow border-t border-border">
+      <div className="rounded-b-2xl p-5 flex flex-col flex-grow border-t border-border">
         <div className="flex items-start justify-between gap-2 mb-1">
-          <h2 className="text-base font-semibold text-text leading-tight">
+          <h2 className="min-w-0 truncate text-base font-semibold leading-tight text-text">
             {pet.name}
           </h2>
           <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-bg-secondary text-muted border border-border">
-            {pet.primary_category}
+            {pet.categoryLabel[locale]}
           </span>
         </div>
 
@@ -125,8 +126,7 @@ export function PetCard({ pet, views = 0, installs = 0 }: PetCardProps) {
           {pet.author_url ? (
             <a
               href={pet.author_url}
-              className="text-accent hover:underline relative z-10"
-              onClick={(event) => event.stopPropagation()}
+              className="relative z-20 text-accent hover:underline"
             >
               {pet.author_handle ?? pet.author}
             </a>
@@ -140,16 +140,22 @@ export function PetCard({ pet, views = 0, installs = 0 }: PetCardProps) {
         </p>
 
         <div
-          className="flex gap-2 mt-auto relative z-10"
-          onClick={(event) => event.stopPropagation()}
+          className="relative z-20 mt-auto flex gap-2"
         >
           <Link
-            className="flex-1 inline-flex items-center justify-center h-9 px-4 rounded-lg border border-transparent text-sm font-medium text-muted hover:text-text transition-colors"
+            className="inline-flex h-9 flex-1 items-center justify-center rounded-lg border border-border bg-bg-secondary px-3 text-sm font-medium text-text transition-colors hover:border-border-hover hover:bg-surface"
             href={detailHref}
           >
             {t("view")}
           </Link>
-          <CopyCommandButton command={pet.installCommand} label={t("installBtn")} />
+          <PetInstallMenu pet={pet} />
+          <ShareMenu
+            compact
+            title={pet.name}
+            url={`${siteConfig.url}${detailHref}`}
+            codexPrompt={getPetInstallPrompt(pet, locale)}
+            installCommand={pet.installCommand}
+          />
         </div>
       </div>
     </article>

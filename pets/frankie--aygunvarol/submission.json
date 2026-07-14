@@ -8,6 +8,7 @@
   "author_url": "https://github.com/AygunVarol",
   "primary_category": "Animals",
   "tags": ["dachshund", "dog", "sausage-dog", "cute", "brown", "codex"],
+  "collections": ["animal-companions"],
   "source_type": "github",
   "source_url": "https://github.com/AygunVarol/Codex-Pet-Frankie",
   "license": "MIT License",

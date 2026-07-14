@@ -8,6 +8,7 @@
   "author_url": "https://github.com/DwDestiny",
   "primary_category": "Animals",
   "tags": ["dog", "bichon", "puppy", "sunglasses", "cute", "codex"],
+  "collections": ["animal-companions"],
   "source_type": "github",
   "source_url": "https://github.com/DwDestiny/mai-codex-pet",
   "license": "MIT License",

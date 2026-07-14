@@ -8,6 +8,7 @@
   "author_url": "https://github.com/NateWanggg",
   "primary_category": "Animals",
   "tags": ["cat", "tabby", "becky", "original-pet", "dark-gray"],
+  "collections": ["animal-companions"],
   "source_type": "original",
   "source_url": "",
   "license": "CC BY-NC 4.0",

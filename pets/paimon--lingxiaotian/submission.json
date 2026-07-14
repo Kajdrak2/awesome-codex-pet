@@ -6,7 +6,7 @@
   "author": "Lingxiaotian",
   "author_handle": "legeling",
   "author_url": "https://github.com/legeling",
-  "primary_category": "Anime Characters",
+  "primary_category": "Game Characters",
   "tags": [
     "anime",
     "genshin-impact",
@@ -14,6 +14,7 @@
     "floating-companion",
     "white-hair"
   ],
+  "collections": ["genshin-impact"],
   "source_type": "fan-art",
   "source_url": "",
   "license": "CC BY-NC 4.0",

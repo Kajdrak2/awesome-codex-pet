@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 
+import { FeaturedCollections } from "@/components/featured-collections";
 import { HeroSection } from "@/components/hero-section";
 import { PetGallery } from "@/components/pet-gallery";
-import { getAllPets, getCategories, getFeaturedPets } from "@/lib/pets";
+import { getFeaturedCollections } from "@/lib/collection-catalog";
+import { getAllPets, getCategories } from "@/lib/pets";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -29,7 +31,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   const pets = getAllPets();
   const categories = getCategories(pets);
-  const featured = getFeaturedPets(pets);
+  const collections = getFeaturedCollections(pets);
 
   const collectionJsonLd = {
     "@context": "https://schema.org",
@@ -57,10 +59,11 @@ export default function HomePage() {
       <HeroSection
         petCount={pets.length}
         categoryCount={categories.length}
-        featured={featured}
+        featured={pets}
       />
       <section className="px-6 py-16">
-        <div className="max-w-[1200px] mx-auto">
+        <div className="mx-auto max-w-[1720px]">
+          <FeaturedCollections collections={collections} />
           <PetGallery pets={pets} categories={categories} />
         </div>
       </section>

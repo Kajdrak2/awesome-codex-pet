@@ -8,6 +8,7 @@
   "author_url": "",
   "primary_category": "Animals",
   "tags": ["cute", "codex-pets", "v2"],
+  "collections": ["animal-companions"],
   "source_type": "codex-pets-community-upload",
   "source_url": "https://codex-pets.net/share/niumou",
   "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",

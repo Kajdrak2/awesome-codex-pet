@@ -1,0 +1,59 @@
+[
+  {
+    "slug": "honkai-star-rail",
+    "title": {
+      "en": "Honkai: Star Rail",
+      "zh": "崩坏：星穹铁道"
+    },
+    "description": {
+      "en": "Community-made companions from across the Astral Express route.",
+      "zh": "来自星穹列车旅途的社区角色宠物合集。"
+    },
+    "featured": true,
+    "cover_pets": [
+      "acheron--lingxiaotian",
+      "firefly--lingxiaotian",
+      "silver-wolf--lingxiaotian",
+      "robin--lingxiaotian",
+      "sparkle--lingxiaotian"
+    ]
+  },
+  {
+    "slug": "genshin-impact",
+    "title": {
+      "en": "Genshin Impact",
+      "zh": "原神"
+    },
+    "description": {
+      "en": "A growing cast of community-made companions from Teyvat.",
+      "zh": "来自提瓦特大陆的社区角色宠物合集。"
+    },
+    "featured": true,
+    "cover_pets": [
+      "raiden-shogun--lingxiaotian",
+      "furina--lingxiaotian",
+      "nahida--lingxiaotian",
+      "hu-tao--lingxiaotian",
+      "paimon--lingxiaotian"
+    ]
+  },
+  {
+    "slug": "animal-companions",
+    "title": {
+      "en": "Animal Companions",
+      "zh": "动物伙伴"
+    },
+    "description": {
+      "en": "Cats, dogs, ducks, otters, and other friendly desk companions.",
+      "zh": "猫咪、狗狗、鸭子、水獭与更多桌面动物伙伴。"
+    },
+    "featured": true,
+    "cover_pets": [
+      "moomew-coder-cat--ping",
+      "desk-otter--zihualiu1997",
+      "corgi-companion--cxian0928-afk",
+      "mellow-duck--sally-entr",
+      "jiji--yena"
+    ]
+  }
+]

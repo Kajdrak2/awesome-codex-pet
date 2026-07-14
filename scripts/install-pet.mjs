@@ -1,6 +1,14 @@
 #!/usr/bin/env node
 
-import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, statSync } from "node:fs";
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  statSync,
+} from "node:fs";
+import { randomUUID } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { basename, join } from "node:path";
 import { homedir } from "node:os";
@@ -41,8 +49,12 @@ function listPets() {
 
     const metadata = JSON.parse(readFileSync(metadataPath, "utf8"));
     const runtimePath = join(petsDir, pet, "pet.json");
-    const runtime = existsSync(runtimePath) ? JSON.parse(readFileSync(runtimePath, "utf8")) : {};
-    console.log(`${pet} - ${metadata.name ?? pet} (v${runtime.spriteVersionNumber ?? 1})`);
+    const runtime = existsSync(runtimePath)
+      ? JSON.parse(readFileSync(runtimePath, "utf8"))
+      : {};
+    console.log(
+      `${pet} - ${metadata.name ?? pet} (v${runtime.spriteVersionNumber ?? 1})`,
+    );
   }
 }
 
@@ -105,11 +117,18 @@ if (process.env.AWESOME_CODEX_PET_NO_STATS !== "1") {
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 3000);
-    await fetch(`${statsApi}/track/install?slug=${encodeURIComponent(installId)}`, {
-      method: "POST",
-      signal: controller.signal,
-    }).finally(() => clearTimeout(timeout));
-  } catch {
-    // stats are best-effort; never fail installs
+    await fetch(
+      `${statsApi}/track/install?slug=${encodeURIComponent(installId)}`,
+      {
+        method: "POST",
+        headers: { "X-Event-ID": randomUUID() },
+        signal: controller.signal,
+      },
+    ).finally(() => clearTimeout(timeout));
+  } catch (error) {
+    console.warn(
+      "Installed successfully, but anonymous install statistics could not be reported.",
+      error instanceof Error ? error.stack : String(error),
+    );
   }
 }

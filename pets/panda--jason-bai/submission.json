@@ -8,6 +8,7 @@
   "author_url": "https://github.com/Jason-Bai",
   "primary_category": "Animals",
   "tags": ["panda", "soft", "healing", "cute", "gentle", "codex"],
+  "collections": ["animal-companions"],
   "source_type": "github",
   "source_url": "https://github.com/Jason-Bai/pet",
   "license": "MIT License",

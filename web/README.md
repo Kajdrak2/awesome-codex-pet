@@ -74,7 +74,7 @@ npx wrangler pages deploy out --project-name=awesome-codex-pet
 - **i18n**: Client-side locale detection (zh/en) with React Context
 - **Data**: Generated at build time from `pets.json` + individual pet metadata
 - **Hosting**: Cloudflare Pages (global CDN, free tier)
-- **Stats**: a separate Cloudflare Worker at `https://awesome-codex-pet-stats.legeling.workers.dev` powers view + install counters. See `worker/README.md`.
+- **Stats**: a separate Cloudflare Worker at `https://awesome-codex-pet-stats.legeling.workers.dev` powers view, install, and IP-limited like counters. See `worker/README.md`.
 
 ## Environment variables
 

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useLocale } from "@/components/locale-provider";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { SiteLogo } from "@/components/site-logo";
+import { SubmissionMenu } from "@/components/submission-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export function SiteHeader() {
@@ -13,16 +14,20 @@ export function SiteHeader() {
 
   const navItems: { href: string; label: string; matchPrefix?: string }[] = [
     { href: "/", label: t("gallery"), matchPrefix: "/pets" },
+    { href: "/collections", label: t("collections") },
     { href: "/install", label: t("install") },
     { href: "/guide", label: t("guide") },
   ];
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-bg/85 backdrop-blur-lg">
-      <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-14">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
         <Link href="/" className="flex items-center gap-2.5">
           <SiteLogo size={28} />
-          <span className="text-sm font-semibold tracking-tight text-text">
+          <span className="whitespace-nowrap text-sm font-semibold tracking-tight text-text sm:hidden">
+            Codex Pet
+          </span>
+          <span className="hidden whitespace-nowrap text-sm font-semibold tracking-tight text-text sm:inline">
             Awesome Codex Pet
           </span>
         </Link>
@@ -77,14 +82,7 @@ export function SiteHeader() {
 
           <LocaleSwitcher />
 
-          <Link
-            className="ml-1 inline-flex items-center px-3.5 py-1.5 text-sm font-medium rounded-full bg-accent text-white hover:bg-accent-hover transition-colors shadow-sm"
-            href="https://github.com/legeling/awesome-codex-pet/issues/new?template=pet-submission.yml"
-            target="_blank"
-            rel="noreferrer"
-          >
-            {t("submitPet")}
-          </Link>
+          <SubmissionMenu />
         </nav>
       </div>
     </header>

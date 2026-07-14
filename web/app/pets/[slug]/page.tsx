@@ -70,6 +70,10 @@ export default async function PetDetailPage({
   }
 
   const actions = getActionEntries(pet);
+  const pets = getAllPets();
+  const petIndex = pets.findIndex((item) => item.slug === pet.slug);
+  const previous = pets[(petIndex - 1 + pets.length) % pets.length];
+  const next = pets[(petIndex + 1) % pets.length];
   const url = `${siteConfig.url}/pets/${pet.slug}`;
   const previewImage = pet.previewImage?.startsWith("http")
     ? pet.previewImage
@@ -117,7 +121,15 @@ export default async function PetDetailPage({
 
   return (
     <>
-      <PetDetailContent pet={pet} actions={actions} />
+      <PetDetailContent
+        pet={pet}
+        actions={actions}
+        navigation={{
+          previous: { slug: previous.slug, name: previous.name },
+          next: { slug: next.slug, name: next.name },
+          slugs: pets.map((item) => item.slug),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(petJsonLd) }}

@@ -51,9 +51,10 @@ function Install-CodexPet {
       $statsApi = "https://awesome-codex-pet-stats.legeling.workers.dev"
     }
     try {
-      Invoke-WebRequest -UseBasicParsing -Method Post -TimeoutSec 3 -Uri "$statsApi/track/install?slug=$PetId" | Out-Null
+      $eventId = [guid]::NewGuid().ToString("N")
+      Invoke-WebRequest -UseBasicParsing -Method Post -TimeoutSec 3 -Headers @{ "X-Event-ID" = $eventId } -Uri "$statsApi/track/install?slug=$PetId" | Out-Null
     } catch {
-      # stats are best-effort; never fail installs
+      Write-Warning ("Installed successfully, but anonymous install statistics could not be reported: {0}`n{1}" -f $_.Exception.Message, $_.ScriptStackTrace)
     }
   }
 }

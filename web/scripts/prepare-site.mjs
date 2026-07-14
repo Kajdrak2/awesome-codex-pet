@@ -14,6 +14,11 @@ const webRoot = dirname(dirname(fileURLToPath(import.meta.url)));
 const repoRoot = join(webRoot, "..");
 const dataDir = join(webRoot, ".generated");
 const publicAssetsDir = join(webRoot, "public", "assets");
+const collectionCatalog = readJson("collections.json");
+const categoryCatalog = readJson("categories.json");
+const categoryByName = new Map(
+  categoryCatalog.map((category) => [category.name, category]),
+);
 
 // Canonical display order. Any action not listed here is appended alphabetically at the end.
 const actionOrder = [
@@ -96,11 +101,16 @@ const pets = readJson("pets.json").map((pet) => {
 
   return {
     ...pet,
+    categoryLabel: categoryByName.get(pet.primary_category)?.label ?? {
+      en: pet.primary_category,
+      zh: pet.primary_category,
+    },
     displayName: runtime.displayName ?? "",
     runtimeDescription: runtime.description ?? "",
     spriteVersionNumber: runtime.spriteVersionNumber ?? 1,
     slugLabel: submission.slug,
     tags: submission.tags ?? [],
+    collections: submission.collections ?? [],
     sourceType: submission.source_type ?? "unknown",
     sourceUrl: submission.source_url ?? "",
     previewImage: previewImageForPet(pet.slug, submission, gifs),
@@ -126,6 +136,26 @@ writeFileSync(
   `${JSON.stringify(pets, null, 2)}\n`,
   "utf8",
 );
+writeFileSync(
+  join(dataDir, "collections.generated.json"),
+  `${JSON.stringify(
+    collectionCatalog.map((collection) => ({
+      slug: collection.slug,
+      title: collection.title,
+      description: collection.description,
+      featured: collection.featured ?? false,
+      coverSlugs: collection.cover_pets ?? [],
+    })),
+    null,
+    2,
+  )}\n`,
+  "utf8",
+);
+writeFileSync(
+  join(dataDir, "categories.generated.json"),
+  `${JSON.stringify(categoryCatalog, null, 2)}\n`,
+  "utf8",
+);
 
 rmSync(publicAssetsDir, { recursive: true, force: true });
 mkdirSync(publicAssetsDir, { recursive: true });
@@ -133,6 +163,14 @@ mkdirSync(publicAssetsDir, { recursive: true });
 const previewsSrc = join(repoRoot, "assets", "previews");
 if (existsSync(previewsSrc)) {
   cpSync(previewsSrc, join(publicAssetsDir, "previews"), {
+    recursive: true,
+    filter: (src) => !src.endsWith(".DS_Store"),
+  });
+}
+
+const brandAssetsSrc = join(repoRoot, "assets", "brand");
+if (existsSync(brandAssetsSrc)) {
+  cpSync(brandAssetsSrc, join(publicAssetsDir, "brand"), {
     recursive: true,
     filter: (src) => !src.endsWith(".DS_Store"),
   });

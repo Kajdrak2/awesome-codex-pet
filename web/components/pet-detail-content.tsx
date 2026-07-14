@@ -1,238 +1,270 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
-import { useLocale } from "@/components/locale-provider";
-import { CopyCommandButton } from "@/components/copy-command-button";
-import { trackView } from "@/lib/stats";
-import { translations, type TranslationKey } from "@/lib/i18n";
-import type { Pet, PreviewAction } from "@/lib/pets";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-type ActionEntry = {
-  action: PreviewAction;
-  title: string;
-  image: string;
+import { CopyCommandButton } from "@/components/copy-command-button";
+import { PetInstallMenu } from "@/components/pet-install-menu";
+import { PetLikeButton } from "@/components/pet-like-button";
+import {
+  PetPlayground,
+  type PlaygroundAction,
+} from "@/components/pet-playground";
+import { ShareMenu } from "@/components/share-menu";
+import { useLocale } from "@/components/locale-provider";
+import { getPetInstallPrompt } from "@/lib/codex-links";
+import type { Pet } from "@/lib/pets";
+import { siteConfig } from "@/lib/site";
+import { fetchStats, trackView } from "@/lib/stats";
+
+export type PetNavigation = {
+  previous: { slug: string; name: string };
+  next: { slug: string; name: string };
+  slugs: string[];
 };
 
 type PetDetailContentProps = {
   pet: Pet;
-  actions: ActionEntry[];
+  actions: PlaygroundAction[];
+  navigation: PetNavigation;
 };
 
-const knownActionKeys = new Set(Object.keys(translations.en));
+type DetailStats = { views: number; installs: number };
 
-export function PetDetailContent({ pet, actions }: PetDetailContentProps) {
-  const { t } = useLocale();
+function formatCount(value: number) {
+  return new Intl.NumberFormat(undefined, { notation: "compact" }).format(
+    value,
+  );
+}
+
+export function PetDetailContent({
+  pet,
+  actions,
+  navigation,
+}: PetDetailContentProps) {
+  const { t, locale } = useLocale();
+  const router = useRouter();
+  const [stats, setStats] = useState<DetailStats>({ views: 0, installs: 0 });
 
   useEffect(() => {
     trackView(pet.slug);
+    const controller = new AbortController();
+    void fetchStats(controller.signal)
+      .then((payload) => {
+        const current = payload.pets[pet.slug];
+        setStats({
+          views: current?.views ?? 0,
+          installs: current?.installs ?? 0,
+        });
+      })
+      .catch((error: unknown) => {
+        if (!controller.signal.aborted) {
+          console.warn(
+            "Unable to load pet detail statistics",
+            error instanceof Error ? error.stack : String(error),
+          );
+        }
+      });
+    return () => controller.abort();
   }, [pet.slug]);
 
+  function shufflePet() {
+    const candidates = navigation.slugs.filter((slug) => slug !== pet.slug);
+    if (candidates.length === 0) return;
+    const slug = candidates[Math.floor(Math.random() * candidates.length)];
+    router.push(`/pets/${slug}`);
+  }
+
   return (
-    <main className="max-w-[1080px] mx-auto px-6 pb-20 overflow-hidden">
-      {/* Breadcrumb */}
-      <div className="py-6">
+    <main className="mx-auto max-w-[1480px] overflow-hidden px-6 pb-24">
+      <nav className="flex items-center justify-between gap-4 py-6" aria-label={t("petNavigation")}>
         <Link
-          className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-text transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-text"
           href="/"
         >
-          <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
           {t("backToGallery")}
         </Link>
-      </div>
+        <div className="flex items-center gap-2">
+          <Link
+            className="inline-flex h-9 max-w-44 items-center gap-2 rounded-lg border border-border bg-bg-elevated px-3 text-sm text-muted transition-colors hover:border-border-hover hover:bg-surface hover:text-text"
+            href={`/pets/${navigation.previous.slug}`}
+            title={navigation.previous.name}
+          >
+            <span aria-hidden="true">←</span>
+            <span className="hidden truncate sm:inline">{navigation.previous.name}</span>
+          </Link>
+          <button
+            className="inline-flex size-9 cursor-pointer items-center justify-center rounded-lg border border-border bg-bg-elevated text-muted transition-colors hover:border-border-hover hover:bg-surface hover:text-text"
+            type="button"
+            title={t("shufflePet")}
+            aria-label={t("shufflePet")}
+            onClick={shufflePet}
+          >
+            <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
+            </svg>
+          </button>
+          <Link
+            className="inline-flex h-9 max-w-44 items-center gap-2 rounded-lg border border-border bg-bg-elevated px-3 text-sm text-muted transition-colors hover:border-border-hover hover:bg-surface hover:text-text"
+            href={`/pets/${navigation.next.slug}`}
+            title={navigation.next.name}
+          >
+            <span className="hidden truncate sm:inline">{navigation.next.name}</span>
+            <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+      </nav>
 
-      <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_300px]">
-        {/* Main content */}
-        <div className="min-w-0">
-          {/* Preview - solid color background, no shadow */}
-          <div className="rounded-2xl bg-bg-secondary border border-border p-8 flex justify-center items-center min-h-[280px] mb-8">
-            <img
-              className="max-w-full max-h-[260px] object-contain [image-rendering:pixelated]"
-              src={pet.previewImage}
-              alt={`${pet.name} preview`}
-            />
-          </div>
+      <section className="grid gap-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(340px,0.75fr)] lg:items-start">
+        <PetPlayground pet={pet} actions={actions} />
 
-          {/* Info */}
-          <div className="flex items-center gap-3 mb-4">
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-accent-light text-accent">
-              {pet.primary_category}
+        <div className="min-w-0 lg:sticky lg:top-24 lg:border-l lg:border-border lg:pl-10">
+          <div className="mb-5 flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center rounded-md bg-accent-light px-2.5 py-1 text-xs font-medium text-accent">
+              {pet.categoryLabel[locale]}
             </span>
-            <span className="text-sm text-muted">{pet.license}</span>
+            <span className="text-xs text-muted">v{pet.spriteVersionNumber}</span>
+            <span className="text-xs text-muted">{pet.license}</span>
           </div>
 
-          <h1 className="text-4xl font-semibold tracking-tight mb-3">
+          <h1 className="mb-4 text-5xl font-semibold leading-none tracking-tight text-text sm:text-6xl">
             {pet.name}
           </h1>
-
-          <p className="max-w-3xl text-base text-muted leading-relaxed mb-8">
+          <p className="mb-7 max-w-2xl text-base leading-relaxed text-muted">
             {pet.description ?? pet.runtimeDescription ?? t("defaultDesc")}
           </p>
 
-          {/* Action buttons */}
-          <div className="flex flex-wrap gap-3 mb-12">
+          <div className="mb-7 flex flex-wrap gap-2">
+            <PetInstallMenu pet={pet} variant="detail" />
+            <PetLikeButton slug={pet.slug} variant="button" />
+            <ShareMenu
+              title={pet.name}
+              url={`${siteConfig.url}/pets/${pet.slug}`}
+              codexPrompt={getPetInstallPrompt(pet, locale)}
+              installCommand={pet.installCommand}
+            />
             <a
-              className="inline-flex items-center justify-center gap-2 h-9 px-4 rounded-lg border border-border text-sm font-medium text-text hover:bg-surface transition-colors"
+              className="inline-flex h-9 items-center justify-center gap-2 rounded-lg border border-border bg-bg-elevated px-3 text-sm font-medium text-text transition-colors hover:bg-surface"
               href={pet.repositoryPath}
               target="_blank"
               rel="noreferrer"
             >
-              <svg className="size-4" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="size-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
               </svg>
               {t("source")}
             </a>
           </div>
 
-          <section className="rounded-2xl border border-border bg-bg-elevated p-6 mb-12 min-w-0">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-muted mb-4">
-              {t("installCommands")}
-            </h2>
-
-            <div className="space-y-4">
-              <div>
-                <span className="text-xs text-muted block mb-1.5">Bash</span>
-                <CommandField
-                  command={pet.installCommand}
-                  copyLabel={t("copyBashInstall")}
-                />
+          <div className="mb-8 grid grid-cols-2 border-y border-border py-4">
+            <div>
+              <div className="font-mono text-xl font-semibold tabular-nums text-text">
+                {formatCount(stats.installs)}
               </div>
-
-              <div>
-                <span className="text-xs text-muted block mb-1.5">PowerShell</span>
-                <CommandField
-                  command={pet.installCommandPowerShell}
-                  copyLabel={t("copyPowerShell")}
-                />
-              </div>
+              <div className="text-xs text-muted">{t("detailInstalls")}</div>
             </div>
-          </section>
-
-          {/* Action previews */}
-          <section>
-            <h2 className="text-xl font-semibold tracking-tight mb-1">
-              {t("actionPreviews")}
-            </h2>
-            <p className="text-sm text-muted mb-6">
-              {t("actionPreviewsDesc")}
-            </p>
-
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-              {actions.map((item) => {
-                const known = knownActionKeys.has(item.action);
-                const label = known
-                  ? t(item.action as TranslationKey)
-                  : item.title;
-                return (
-                  <div
-                    className="rounded-xl border border-border bg-bg-secondary p-4 hover:border-border-hover transition-colors overflow-hidden"
-                    key={item.action}
-                  >
-                    <span className="text-xs font-medium text-muted uppercase tracking-wide mb-3 block">
-                      {label}
-                    </span>
-                    <div className="flex h-64 items-center justify-center overflow-hidden rounded-lg bg-bg-elevated">
-                      <img
-                        className="max-h-full max-w-full object-contain [image-rendering:pixelated]"
-                        src={item.image}
-                        alt={`${pet.name} ${item.title}`}
-                        loading="lazy"
-                      />
-                    </div>
-                  </div>
-                );
-              })}
+            <div className="border-l border-border pl-5">
+              <div className="font-mono text-xl font-semibold tabular-nums text-text">
+                {formatCount(stats.views)}
+              </div>
+              <div className="text-xs text-muted">{t("detailViews")}</div>
             </div>
-          </section>
-        </div>
-
-        {/* Sidebar */}
-        <aside className="min-w-0 space-y-6">
-          {/* Metadata */}
-          <div className="rounded-2xl border border-border p-6 overflow-hidden">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-muted mb-4">
-              {t("metadata")}
-            </h2>
-
-            <dl className="space-y-4">
-              <div>
-                <dt className="text-xs text-muted mb-0.5">{t("author")}</dt>
-                <dd className="text-sm font-medium">
-                  {pet.author_url ? (
-                    <a href={pet.author_url} className="text-accent hover:underline">
-                      {pet.author_handle ?? pet.author}
-                    </a>
-                  ) : (
-                    pet.author
-                  )}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-xs text-muted mb-0.5">{t("license")}</dt>
-                <dd className="text-sm font-medium">{pet.license}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-muted mb-0.5">{t("displayName")}</dt>
-                <dd className="text-sm font-medium">{pet.displayName || "—"}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-muted mb-0.5">{t("petVersion")}</dt>
-                <dd className="text-sm font-medium">v{pet.spriteVersionNumber}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-muted mb-0.5">{t("slug")}</dt>
-                <dd>
-                  <code className="block max-w-full truncate font-mono text-xs text-text-secondary bg-surface px-1.5 py-0.5 rounded" title={pet.slugLabel}>
-                    {pet.slugLabel}
-                  </code>
-                </dd>
-              </div>
-              <div>
-                <dt className="text-xs text-muted mb-0.5">{t("tags")}</dt>
-                <dd>
-                  {pet.tags.length ? (
-                    <div className="flex flex-wrap gap-1.5 min-w-0">
-                      {pet.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="inline-flex max-w-full px-2 py-0.5 rounded-md bg-surface text-xs text-text-secondary"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  ) : (
-                    <span className="text-sm text-muted">—</span>
-                  )}
-                </dd>
-              </div>
-            </dl>
           </div>
-        </aside>
-      </div>
+
+          <dl className="grid grid-cols-2 gap-x-5 gap-y-5 text-sm">
+            <div>
+              <dt className="mb-1 text-xs text-muted">{t("author")}</dt>
+              <dd className="font-medium text-text">
+                {pet.author_url ? (
+                  <a className="text-accent hover:underline" href={pet.author_url}>
+                    {pet.author_handle ?? pet.author}
+                  </a>
+                ) : (
+                  pet.author
+                )}
+              </dd>
+            </div>
+            <div>
+              <dt className="mb-1 text-xs text-muted">{t("displayName")}</dt>
+              <dd className="font-medium text-text">{pet.displayName || "—"}</dd>
+            </div>
+            <div className="col-span-2 min-w-0">
+              <dt className="mb-1 text-xs text-muted">{t("slug")}</dt>
+              <dd>
+                <code className="block truncate rounded-md bg-bg-secondary px-2 py-1 font-mono text-xs text-text-secondary" title={pet.slugLabel}>
+                  {pet.slugLabel}
+                </code>
+              </dd>
+            </div>
+          </dl>
+
+          {pet.tags.length > 0 ? (
+            <div className="mt-7 flex flex-wrap gap-1.5">
+              {pet.tags.map((tag) => (
+                <span className="rounded-md bg-bg-secondary px-2 py-1 text-xs text-text-secondary" key={tag}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+          ) : null}
+        </div>
+      </section>
+
+      <section className="mt-20 grid gap-8 border-y border-border py-10 lg:grid-cols-[minmax(240px,0.35fr)_minmax(0,0.65fr)]">
+        <div>
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-accent">
+            {t("installationGuide")}
+          </p>
+          <h2 className="mb-3 text-2xl font-semibold tracking-tight text-text">
+            {t("installCommands")}
+          </h2>
+          <p className="max-w-sm text-sm leading-relaxed text-muted">
+            {t("detailInstallDesc")}
+          </p>
+        </div>
+        <div className="min-w-0 space-y-4">
+          <CommandField
+            label="Bash · macOS / Linux"
+            command={pet.installCommand}
+            copyLabel={t("copyBashInstall")}
+          />
+          <CommandField
+            label="PowerShell · Windows"
+            command={pet.installCommandPowerShell}
+            copyLabel={t("copyPowerShell")}
+          />
+        </div>
+      </section>
     </main>
   );
 }
 
 function CommandField({
+  label,
   command,
   copyLabel,
 }: {
+  label: string;
   command: string;
   copyLabel: string;
 }) {
   return (
-    <div className="flex min-w-0 flex-col overflow-hidden rounded-lg bg-bg-secondary border border-border sm:flex-row">
-      <div className="min-w-0 flex-1 overflow-x-auto px-3 py-3 font-mono text-xs text-text-secondary">
-        <code className="block whitespace-nowrap">{command}</code>
+    <div className="min-w-0">
+      <span className="mb-1.5 block text-xs font-medium text-muted">{label}</span>
+      <div className="flex min-w-0 flex-col overflow-hidden rounded-lg border border-border bg-bg-secondary sm:flex-row">
+        <div className="min-w-0 flex-1 overflow-x-auto px-3 py-3 font-mono text-xs text-text-secondary">
+          <code className="block whitespace-nowrap">{command}</code>
+        </div>
+        <CopyCommandButton
+          command={command}
+          label={copyLabel}
+          className="h-10 flex-none shrink-0 rounded-none border-x-0 border-b-0 border-t bg-bg-elevated px-3 text-xs sm:h-auto sm:rounded-r-lg sm:border-y-0 sm:border-r-0 sm:border-l"
+        />
       </div>
-      <CopyCommandButton
-        command={command}
-        label={copyLabel}
-        className="h-10 flex-none shrink-0 rounded-none border-x-0 border-b-0 border-t bg-bg-elevated px-3 text-xs sm:h-auto sm:rounded-r-lg sm:border-y-0 sm:border-r-0 sm:border-l"
-      />
     </div>
   );
 }

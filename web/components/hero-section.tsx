@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useLocale } from "@/components/locale-provider";
 import type { Pet } from "@/lib/pets";
+import { fetchStats } from "@/lib/stats";
 
 type HeroSectionProps = {
   petCount: number;
@@ -18,28 +19,49 @@ export function HeroSection({
 }: HeroSectionProps) {
   const { t } = useLocale();
   const [mounted, setMounted] = useState(false);
+  const [hotPets, setHotPets] = useState(() => featured.slice(0, 6));
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    const controller = new AbortController();
+    void fetchStats(controller.signal)
+      .then((payload) => {
+        setHotPets(
+          [...featured]
+            .sort((a, b) => {
+              const aStats = payload.pets[a.slug];
+              const bStats = payload.pets[b.slug];
+              return (
+                (bStats?.trendingScore ?? 0) -
+                  (aStats?.trendingScore ?? 0) ||
+                (bStats?.installs7d ?? 0) - (aStats?.installs7d ?? 0) ||
+                (bStats?.installs ?? 0) - (aStats?.installs ?? 0) ||
+                (bStats?.views ?? 0) - (aStats?.views ?? 0) ||
+                a.name.localeCompare(b.name)
+              );
+            })
+            .slice(0, 6),
+        );
+      })
+      .catch((error: unknown) => {
+        if (!controller.signal.aborted) {
+          console.warn(
+            "Unable to rank hero pets",
+            error instanceof Error ? error.stack : String(error),
+          );
+        }
+      });
+    return () => controller.abort();
+  }, [featured]);
 
   return (
     <section className="relative isolate overflow-hidden pt-20 pb-24 px-6">
-      {/* Backdrop: grid + glow */}
+      {/* Subtle grid backdrop */}
       <div
         aria-hidden="true"
         className="absolute inset-0 -z-10 [background-image:linear-gradient(to_right,var(--color-border)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-border)_1px,transparent_1px)] [background-size:40px_40px] opacity-40 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]"
       />
-      <div
-        aria-hidden="true"
-        className="absolute -top-32 left-1/2 -translate-x-1/2 -z-10 size-[640px] rounded-full bg-accent/15 blur-3xl"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute top-20 right-0 -z-10 size-[420px] rounded-full bg-accent/10 blur-3xl"
-      />
-
-      <div className="max-w-[1200px] mx-auto">
+      <div className="mx-auto max-w-[1720px]">
         <div className="max-w-3xl mx-auto text-center">
           {/* Badge */}
           <div
@@ -62,7 +84,7 @@ export function HeroSection({
           >
             {t("heroTitle1")}
             <br />
-            <span className="bg-gradient-to-r from-accent to-accent-hover bg-clip-text text-transparent">
+            <span className="text-accent">
               {t("heroTitle2")}
             </span>
           </h1>
@@ -145,34 +167,36 @@ export function HeroSection({
         </div>
 
         {/* Featured pets */}
-        {featured.length > 0 ? (
+        {hotPets.length > 0 ? (
           <div
             className={`mt-20 transition-all duration-1000 delay-500 ${
               mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}
           >
-            <div className="flex flex-wrap items-end justify-center gap-6 sm:gap-10">
-              {featured.map((pet, i) => (
+            <div className="mx-auto grid max-w-5xl grid-cols-4 items-end gap-3 sm:gap-8 md:grid-cols-5 lg:grid-cols-6">
+              {hotPets.map((pet, i) => (
                 <Link
                   key={pet.slug}
                   href={`/pets/${pet.slug}`}
-                  className="group flex flex-col items-center gap-2"
+                  className={`group min-w-0 flex-col items-center gap-2 ${
+                    i === 4 ? "hidden md:flex" : i === 5 ? "hidden lg:flex" : ""
+                  } ${i < 4 ? "flex" : ""}`}
                 >
                   <div
-                    className="relative size-24 sm:size-28 rounded-2xl bg-bg-elevated border border-border flex items-center justify-center overflow-hidden transition-all duration-300 group-hover:border-border-hover group-hover:shadow-xl group-hover:-translate-y-1"
+                    className="relative flex size-16 items-center justify-center overflow-hidden rounded-xl border border-border bg-bg-elevated transition-all duration-300 group-hover:-translate-y-1 group-hover:border-border-hover group-hover:shadow-xl sm:size-24 sm:rounded-2xl lg:size-28"
                     style={{
                       animation: `float 3.6s ease-in-out ${i * 0.45}s infinite`,
                     }}
                   >
                     <img
-                      className="size-20 sm:size-24 object-contain [image-rendering:pixelated]"
+                      className="size-14 object-contain [image-rendering:pixelated] sm:size-20 lg:size-24"
                       src={pet.animatedPreviewImage}
                       alt={pet.name}
                       loading="lazy"
                     />
                     <div className="pointer-events-none absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
-                  <span className="text-xs font-medium text-muted group-hover:text-text transition-colors">
+                  <span className="max-w-full truncate text-xs font-medium text-muted transition-colors group-hover:text-text">
                     {pet.name}
                   </span>
                 </Link>
