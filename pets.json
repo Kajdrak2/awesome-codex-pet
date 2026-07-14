@@ -84,6 +84,17 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "buba--yurcek",
+    "name": "Buba",
+    "author": "yurcek",
+    "author_handle": "yurcek",
+    "author_url": "",
+    "primary_category": "Animals",
+    "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
+    "description": "A cute teal pixel-art companion inspired by the provided Buba reference.",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "bubu--gbn666",
     "name": "Bubu",
     "author": "Guo Beining",
@@ -300,6 +311,17 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "goblin--rkwap",
+    "name": "Goblin",
+    "author": "rkwap",
+    "author_handle": "rkwap",
+    "author_url": "",
+    "primary_category": "Animals",
+    "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
+    "description": "A cute compact Codex digital pet goblin with tiny ears and a mischievous friendly face.",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "gpt-muse--opask",
     "name": "GPT-muse",
     "author": "opask",
@@ -372,6 +394,28 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "kimoju--andiac",
+    "name": "Kimoju",
+    "author": "andiac",
+    "author_handle": "andiac",
+    "author_url": "",
+    "primary_category": "Animals",
+    "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
+    "description": "Kimoju 奇魔猪 is a cute dazed minimalist white line-art pig carrying a small yellow crossbody bag.",
+    "spriteVersionNumber": 2
+  },
+  {
+    "slug": "linnea--nyakku-shigure",
+    "name": "Linnea",
+    "author": "Nyakku Shigure",
+    "author_handle": "nyakku-shigure",
+    "author_url": "",
+    "primary_category": "Original Characters",
+    "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
+    "description": "A tiny Augury Bird fae adventurer with folded head wings and her wavy frost-sprite partner Lumi in her backpack.",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "little-black-mage--libertis",
     "name": "Little Black Mage",
     "author": "LIBERTIS",
@@ -403,6 +447,17 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "luna-angel-cat--neve",
+    "name": "luna_angel cat",
+    "author": "Neve",
+    "author_handle": "neve",
+    "author_url": "",
+    "primary_category": "Animals",
+    "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
+    "description": "A sweet white angel cat with soft gray eyes, a pink halo, tiny wings, a curled tail, and a pink blossom charm.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "mahiro--lingxiaotian",
     "name": "Mahiro",
     "author": "Lingxiaotian",
@@ -420,6 +475,17 @@
     "author_url": "https://github.com/DwDestiny",
     "primary_category": "Animals",
     "license": "MIT License",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "mellow-duck--sally-entr",
+    "name": "Mellow Duck",
+    "author": "sally_entr",
+    "author_handle": "sally-entr",
+    "author_url": "",
+    "primary_category": "Animals",
+    "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
+    "description": "A soft hand-drawn yellow duck companion restored one version further back, with corrected Codex pet rows and cleaned cutouts.",
     "spriteVersionNumber": 1
   },
   {
@@ -482,6 +548,28 @@
     "license": "MIT License",
     "description": "A mint-haired animated companion with nine activity animations and sixteen v2 look directions.",
     "spriteVersionNumber": 2
+  },
+  {
+    "slug": "miu-meo--lemon-z",
+    "name": "Miu Meu",
+    "author": "LemonZ",
+    "author_handle": "lemon-z",
+    "author_url": "",
+    "primary_category": "Animals",
+    "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
+    "description": "Chú mèo kem mít ướt với bụng trắng lớn, nước mắt xanh và dáng lắc lư đáng yêu.",
+    "spriteVersionNumber": 2
+  },
+  {
+    "slug": "moomew-coder-cat--ping",
+    "name": "MooMew Coder",
+    "author": "ping",
+    "author_handle": "ping",
+    "author_url": "",
+    "primary_category": "Animals",
+    "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
+    "description": "A chibi tuxedo cat coding companion with laptop, yarn, review, jump, and error animations.",
+    "spriteVersionNumber": 1
   },
   {
     "slug": "nahida--lingxiaotian",
@@ -764,6 +852,17 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "yume-boundary--andy-meow",
+    "name": "Yume",
+    "author": "AndyMeow",
+    "author_handle": "andy-meow",
+    "author_url": "",
+    "primary_category": "Original Characters",
+    "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
+    "description": "An elegant, curious boundary-exploring research companion with calm confidence.",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "yuzubou--keseras34938976",
     "name": "Yuzubou",
     "author": "Keseras34938976",
@@ -782,6 +881,17 @@
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "一只可爱、活泼、会发出奇怪叫声的兔子。",
     "spriteVersionNumber": 1
+  },
+  {
+    "slug": "dai-dai-nai-you--1wphantom",
+    "name": "呆呆奶油",
+    "author": "1wphantom",
+    "author_handle": "1wphantom",
+    "author_url": "",
+    "primary_category": "Animals",
+    "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
+    "description": "一对安静聪明、专注协作的像素猫：圆润蓝猫围着数据流短围巾，略瘦白橙猫戴着危险预警灯。",
+    "spriteVersionNumber": 2
   },
   {
     "slug": "guga--circus",
@@ -815,6 +925,17 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "happynailong--aquaxyy",
+    "name": "大笑奶龙",
+    "author": "Aquaxyy",
+    "author_handle": "aquaxyy",
+    "author_url": "",
+    "primary_category": "Animals",
+    "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
+    "description": "A belly-laughing yellow milk frog pet with a round cream belly and green eyes.",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "dnf-female-ammo--qunboo",
     "name": "女弹药Q",
     "author": "QunBoo",
@@ -836,6 +957,17 @@
     "spriteVersionNumber": 2
   },
   {
+    "slug": "xiaoba-cat--jack",
+    "name": "小八猫",
+    "author": "jack",
+    "author_handle": "jack",
+    "author_url": "",
+    "primary_category": "Animals",
+    "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
+    "description": "一只有德、有趣又会说话的可爱猫咪。A cute, talkative cat with a kind and virtuous heart.",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "xiaomai--brian-3",
     "name": "小麦 XiaoMai",
     "author": "Brian",
@@ -843,6 +975,28 @@
     "primary_category": "Animals",
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "小麦（XiaoMai），一只绿眼睛、粉鼻子、狸花纹、白脸白胸和白袜子的家猫；不工作时会蜷着睡觉。",
+    "spriteVersionNumber": 2
+  },
+  {
+    "slug": "capybara-lulu--jiushu",
+    "name": "水豚噜噜",
+    "author": "jiushu",
+    "author_handle": "jiushu",
+    "author_url": "",
+    "primary_category": "Animals",
+    "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
+    "description": "水豚噜噜是一只戴着绿帽子的橙色小水豚，圆滚滚、软乎乎，喜欢陪你工作、思考和发呆。它会挥手、跳跃、等待，也会认真“干活”，是你桌面上可爱又治愈的Codex小伙伴。",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "niumou--jarvis-2",
+    "name": "牛哞",
+    "author": "Jarvis",
+    "author_handle": "jarvis-2",
+    "author_url": "",
+    "primary_category": "Animals",
+    "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
+    "description": "一只外表严肃、内心憨厚的黑白奶牛宠物，擅长思考、托腮、坐卧和打招呼。",
     "spriteVersionNumber": 2
   },
   {
