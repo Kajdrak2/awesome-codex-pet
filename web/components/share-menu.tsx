@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { ActionDropdown } from "@/components/action-dropdown";
-import { CodexIcon } from "@/components/codex-icon";
+import { ChatGPTIcon } from "@/components/chatgpt-icon";
 import { useLocale } from "@/components/locale-provider";
 import { buildCodexUrl } from "@/lib/codex-links";
 
@@ -11,6 +11,7 @@ type ShareMenuProps = {
   title: string;
   url: string;
   codexPrompt: string;
+  codexMode?: "install" | "create";
   installCommand?: string;
   compact?: boolean;
 };
@@ -26,11 +27,14 @@ export function ShareMenu({
   title,
   url,
   codexPrompt,
+  codexMode = "install",
   installCommand,
   compact = false,
 }: ShareMenuProps) {
   const { t } = useLocale();
-  const [copied, setCopied] = useState<"install" | "share" | null>(null);
+  const [copied, setCopied] = useState<
+    "install" | "link" | "share" | "markdown" | null
+  >(null);
   const [canNativeShare, setCanNativeShare] = useState(false);
   const shareMessage = t("shareMessage", { title });
   const shareContent = `${shareMessage}\n\n${url}`;
@@ -39,14 +43,17 @@ export function ShareMenu({
     setCanNativeShare(typeof navigator.share === "function");
   }, []);
 
-  async function copyText(value: string, type: "install" | "share") {
+  async function copyText(
+    value: string,
+    type: "install" | "link" | "share" | "markdown",
+  ) {
     try {
       await navigator.clipboard.writeText(value);
       setCopied(type);
       window.setTimeout(() => setCopied(null), 1400);
     } catch (error: unknown) {
       logActionError(
-        type === "install" ? "copy install command" : "copy share text",
+        type === "install" ? "copy install command" : `copy ${type}`,
         error,
       );
     }
@@ -90,10 +97,14 @@ export function ShareMenu({
         href={buildCodexUrl(codexPrompt)}
         role="menuitem"
       >
-        <CodexIcon className="size-6" />
+        <ChatGPTIcon className="size-6" />
         <span>
-          <span className="block font-medium">{t("openInCodex")}</span>
-          <span className="block text-xs text-muted">{t("codexRunsInstall")}</span>
+          <span className="block font-medium">
+            {codexMode === "create" ? t("startInCodex") : t("openInCodex")}
+          </span>
+          <span className="block text-xs text-muted">
+            {codexMode === "create" ? t("codexStartsCreation") : t("codexRunsInstall")}
+          </span>
         </span>
       </a>
 
@@ -115,14 +126,36 @@ export function ShareMenu({
         className="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2.5 text-left text-sm text-text transition-colors hover:bg-surface"
         type="button"
         role="menuitem"
-        onClick={() => void copyText(shareContent, "share")}
+        onClick={() => void copyText(url, "link")}
       >
         <svg className="size-4 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-1.5 1.5a4.5 4.5 0 01-6.364-6.364l.75-.75m3.492 4.994a4.5 4.5 0 01-1.242-7.244l1.5-1.5a4.5 4.5 0 016.364 6.364l-.75.75" />
         </svg>
+        <span>{copied === "link" ? t("copied") : t("copyPageLink")}</span>
+      </button>
+
+      <button
+        className="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2.5 text-left text-sm text-text transition-colors hover:bg-surface"
+        type="button"
+        role="menuitem"
+        onClick={() => void copyText(shareContent, "share")}
+      >
+        <svg className="size-4 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h8m-8 4h5M7.5 3.75h7.25L19 8v12.25H5V3.75h2.5z" />
+        </svg>
         <span>
           {copied === "share" ? t("copied") : t("copyShareText")}
         </span>
+      </button>
+
+      <button
+        className="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2.5 text-left text-sm text-text transition-colors hover:bg-surface"
+        type="button"
+        role="menuitem"
+        onClick={() => void copyText(`[${title}](${url})`, "markdown")}
+      >
+        <span className="w-4 text-center font-mono text-xs text-muted">M↓</span>
+        <span>{copied === "markdown" ? t("copied") : t("copyMarkdownLink")}</span>
       </button>
 
       <div className="my-1 border-t border-border" />

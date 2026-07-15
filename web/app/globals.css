@@ -88,13 +88,103 @@ html[data-theme="dark"] {
   color: var(--color-text);
 }
 
-/* Float animation for featured pets */
-@keyframes float {
+/* Featured pets: taller stage, gentle idle movement, and a stronger hover response. */
+@keyframes heroPetFloat {
   0%, 100% {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-8px);
+    transform: translateY(-7px);
+  }
+}
+
+.hero-pet-frame {
+  transform: perspective(700px) rotateX(0deg) translateY(0);
+  transform-origin: center bottom;
+  transform-style: preserve-3d;
+  transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.hero-pet-float {
+  animation: heroPetFloat 3.6s ease-in-out infinite;
+}
+
+.hero-pet-character {
+  transform-origin: center bottom;
+  transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a:hover > .hero-pet-frame {
+    transform: perspective(700px) rotateX(4deg) translateY(-7px) scale(1.035);
+  }
+
+  a:hover .hero-pet-character {
+    transform: translateY(-4px) scale(1.08);
+  }
+}
+
+/* Gallery cards use pointer-driven variables for subtle, readable 3D depth. */
+.pet-card {
+  --pet-rotate-x: 0deg;
+  --pet-rotate-y: 0deg;
+  --pet-lift: 0px;
+  --pet-shift-x: 0px;
+  --pet-shift-y: 0px;
+  transform: perspective(1100px) rotateX(var(--pet-rotate-x))
+    rotateY(var(--pet-rotate-y)) translateY(var(--pet-lift));
+  transform-style: preserve-3d;
+  transition: transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 180ms ease, box-shadow 180ms ease;
+  will-change: transform;
+}
+
+.pet-card__visual,
+.pet-card__body {
+  transform-style: preserve-3d;
+}
+
+.pet-card__character-stage {
+  transform: translate3d(var(--pet-shift-x), var(--pet-shift-y), 28px);
+  transition: transform 160ms ease-out;
+}
+
+.pet-card__character {
+  transform-origin: center bottom;
+}
+
+@keyframes petCardCharacterHover {
+  0%, 100% {
+    transform: translateY(0) rotate(-0.6deg) scale(1.045);
+  }
+  50% {
+    transform: translateY(-7px) rotate(0.8deg) scale(1.075);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pet-card:hover {
+    --pet-lift: -6px;
+  }
+
+  .pet-card:hover .pet-card__character {
+    animation: petCardCharacterHover 1.65s ease-in-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-pet-float,
+  .pet-card:hover .pet-card__character {
+    animation: none;
+  }
+
+  .hero-pet-frame,
+  .hero-pet-character,
+  .pet-card,
+  .pet-card__character-stage {
+    transform: none;
+    transition: none;
   }
 }
 

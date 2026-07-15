@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { useRef, type PointerEvent } from "react";
 
 import type { Pet } from "@/lib/pets";
 import { PetInstallMenu } from "@/components/pet-install-menu";
 import { PetLikeButton } from "@/components/pet-like-button";
 import { ShareMenu } from "@/components/share-menu";
 import { useLocale } from "@/components/locale-provider";
-import { getPetInstallPrompt } from "@/lib/codex-links";
+import { getLocalizedPetName, getPetInstallPrompt } from "@/lib/codex-links";
 import { siteConfig } from "@/lib/site";
 
 type PetCardProps = {
@@ -32,26 +33,61 @@ export function PetCard({
   const { t, locale } = useLocale();
   const hasStats = views > 0 || installs > 0;
   const detailHref = `/pets/${pet.slug}`;
+  const localizedName = getLocalizedPetName(pet, locale);
+  const cardRef = useRef<HTMLElement>(null);
+
+  function updateCardTilt(event: PointerEvent<HTMLElement>) {
+    if (event.pointerType === "touch") return;
+    const card = cardRef.current;
+    if (!card || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    const bounds = card.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+    card.style.setProperty("--pet-rotate-x", `${(-y * 6).toFixed(2)}deg`);
+    card.style.setProperty("--pet-rotate-y", `${(x * 8).toFixed(2)}deg`);
+    card.style.setProperty("--pet-shift-x", `${(x * 10).toFixed(2)}px`);
+    card.style.setProperty("--pet-shift-y", `${(y * 7).toFixed(2)}px`);
+  }
+
+  function resetCardTilt() {
+    const card = cardRef.current;
+    if (!card) return;
+    card.style.setProperty("--pet-rotate-x", "0deg");
+    card.style.setProperty("--pet-rotate-y", "0deg");
+    card.style.setProperty("--pet-shift-x", "0px");
+    card.style.setProperty("--pet-shift-y", "0px");
+  }
 
   return (
     <article
-      className="group relative z-0 flex h-full cursor-pointer flex-col rounded-2xl border border-border bg-bg-elevated transition-all duration-200 hover:z-20 hover:-translate-y-0.5 hover:border-border-hover hover:shadow-lg focus-within:z-30"
+      ref={cardRef}
+      className="pet-card group relative z-0 flex h-full cursor-pointer flex-col rounded-lg border border-border bg-bg-elevated hover:z-20 hover:border-border-hover hover:shadow-xl focus-within:z-30"
+      onPointerMove={updateCardTilt}
+      onPointerLeave={resetCardTilt}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) resetCardTilt();
+      }}
     >
       <Link
-        className="absolute inset-0 z-10 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        className="absolute inset-0 z-10 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         href={detailHref}
-        aria-label={`${t("view")} ${pet.name}`}
+        aria-label={`${t("view")} ${localizedName}`}
       />
 
       {/* Visual area */}
-      <div className="relative h-52 rounded-t-2xl bg-bg-secondary flex items-center justify-center p-6">
-        <img
-          className="relative w-auto h-full max-w-full object-contain [image-rendering:pixelated] transition-transform duration-200 group-hover:scale-105"
-          src={pet.animatedPreviewImage}
-          alt={`${pet.name} preview`}
-          loading="lazy"
-          decoding="async"
-        />
+      <div className="pet-card__visual relative flex h-56 items-center justify-center overflow-hidden rounded-t-lg bg-bg-secondary p-4 xl:h-60">
+        <div className="pet-card__character-stage flex size-full items-center justify-center">
+          <img
+            className="pet-card__character relative h-full w-auto max-w-full object-contain [image-rendering:pixelated]"
+            src={pet.animatedPreviewImage}
+            alt={`${localizedName} preview`}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
         <div className="absolute left-3 top-3 z-20">
           <PetLikeButton slug={pet.slug} initialLikes={likes} />
         </div>
@@ -111,10 +147,10 @@ export function PetCard({
       </div>
 
       {/* Body */}
-      <div className="rounded-b-2xl p-5 flex flex-col flex-grow border-t border-border">
+      <div className="pet-card__body flex flex-grow flex-col rounded-b-lg border-t border-border p-5">
         <div className="flex items-start justify-between gap-2 mb-1">
           <h2 className="min-w-0 truncate text-base font-semibold leading-tight text-text">
-            {pet.name}
+            {localizedName}
           </h2>
           <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-bg-secondary text-muted border border-border">
             {pet.categoryLabel[locale]}
@@ -151,7 +187,7 @@ export function PetCard({
           <PetInstallMenu pet={pet} />
           <ShareMenu
             compact
-            title={pet.name}
+            title={localizedName}
             url={`${siteConfig.url}${detailHref}`}
             codexPrompt={getPetInstallPrompt(pet, locale)}
             installCommand={pet.installCommand}

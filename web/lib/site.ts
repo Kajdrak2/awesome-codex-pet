@@ -4,9 +4,9 @@ export const siteConfig = {
   title: "Awesome Codex Pet",
   altName: "Codex Pet Gallery",
   description:
-    "Discover and install community-made Codex pets. A curated open-source gallery with animated pixel-art pets, one-command install for macOS, Linux, and Windows, and GitHub-native submissions.",
+    "Discover carefully selected community-made Codex pets. Inspect complete animations, meet the creators, install in one step on macOS, Linux, or Windows, and submit through a quality-focused GitHub workflow.",
   shortDescription:
-    "A curated gallery of community-made Codex pets with animated previews and one-command install.",
+    "A selective gallery of beautifully made Codex pets with complete animation previews and one-step installation.",
   ogImage: "/assets/cover/awesome-codex-pet-cover.png",
   repo: "https://github.com/legeling/awesome-codex-pet",
   keywords: [

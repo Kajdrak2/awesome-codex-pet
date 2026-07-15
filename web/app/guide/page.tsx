@@ -4,9 +4,9 @@ import { GuidePageContent } from "@/components/guide-page-content";
 import { getCategoryCatalog } from "@/lib/categories";
 import { siteConfig } from "@/lib/site";
 
-const title = "Submit a Codex pet";
+const title = "Craft and submit a selected Codex pet";
 const description =
-  "Submission guide for the Awesome Codex Pet gallery: categories, folder layout, reviewer checklist, and how generated previews land in the repo.";
+  "A complete guide to Codex pet V1 and V2, action-by-action craft, transparent edge cleanup, packaging, review, submission, and community sharing.";
 
 export const metadata: Metadata = {
   title,

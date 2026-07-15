@@ -7,12 +7,14 @@ type CopyCommandButtonProps = {
   command: string;
   label: string;
   className?: string;
+  grow?: boolean;
 };
 
 export function CopyCommandButton({
   command,
   label,
   className = "",
+  grow = true,
 }: CopyCommandButtonProps) {
   const { t } = useLocale();
   const [copied, setCopied] = useState(false);
@@ -31,7 +33,7 @@ export function CopyCommandButton({
 
   return (
     <button
-      className={`flex-1 inline-flex items-center justify-center gap-1.5 h-9 px-4 rounded-lg border border-border bg-bg-elevated text-sm font-medium text-text hover:border-border-hover hover:bg-bg-secondary transition-colors cursor-pointer ${className}`}
+      className={`${grow ? "flex-1" : ""} inline-flex h-9 cursor-pointer items-center justify-center gap-1.5 rounded-lg border border-border bg-bg-elevated px-4 text-sm font-medium text-text transition-colors hover:border-border-hover hover:bg-bg-secondary ${className}`}
       type="button"
       onClick={handleCopy}
     >

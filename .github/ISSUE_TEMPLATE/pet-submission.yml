@@ -15,10 +15,33 @@ body:
   - type: input
     id: pet_name
     attributes:
-      label: Pet name
+      label: Default pet name
+      description: Choose the canonical fallback name shown when no matching localized name is available.
       placeholder: Mikoto
     validations:
       required: true
+  - type: dropdown
+    id: bilingual_names
+    attributes:
+      label: Name language support
+      description: Choose whether this pet uses only the default name or supplies both English and Chinese names.
+      options:
+        - Single-language default name
+        - Bilingual English and Chinese names
+    validations:
+      required: true
+  - type: input
+    id: pet_name_en
+    attributes:
+      label: English name
+      description: Required only when bilingual naming is selected.
+      placeholder: Mikoto
+  - type: input
+    id: pet_name_zh
+    attributes:
+      label: Chinese name
+      description: Required only when bilingual naming is selected.
+      placeholder: 御坂美琴
   - type: dropdown
     id: primary_category
     attributes:
@@ -51,7 +74,7 @@ body:
     id: collections
     attributes:
       label: Collection slugs
-      description: Optional comma-separated slugs from collections.json, such as genshin-impact.
+      description: Optional comma-separated franchise or theme slugs from collections.json, such as genshin-impact or animal-companions.
       placeholder: genshin-impact
   - type: dropdown
     id: source_type

@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 import { ActionDropdown } from "@/components/action-dropdown";
-import { CodexIcon } from "@/components/codex-icon";
+import { ChatGPTIcon } from "@/components/chatgpt-icon";
 import { useLocale } from "@/components/locale-provider";
 import { buildCodexUrl, getSubmissionPrompt } from "@/lib/codex-links";
 
@@ -32,7 +32,7 @@ export function SubmissionMenu() {
         href={buildCodexUrl(getSubmissionPrompt(locale))}
         role="menuitem"
       >
-        <CodexIcon className="size-7" />
+        <ChatGPTIcon className="size-7" />
         <span>
           <span className="block font-medium">{t("aiSubmission")}</span>
           <span className="mt-0.5 block text-xs leading-relaxed text-muted">{t("aiSubmissionDesc")}</span>

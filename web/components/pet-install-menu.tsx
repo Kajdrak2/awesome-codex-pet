@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { ActionDropdown } from "@/components/action-dropdown";
-import { CodexIcon } from "@/components/codex-icon";
+import { ChatGPTIcon } from "@/components/chatgpt-icon";
 import { useLocale } from "@/components/locale-provider";
 import { buildCodexUrl, getPetInstallPrompt } from "@/lib/codex-links";
 import type { Pet } from "@/lib/pets";
@@ -67,7 +67,7 @@ export function PetInstallMenu({
         href={buildCodexUrl(getPetInstallPrompt(pet, locale))}
         role="menuitem"
       >
-        <CodexIcon className="size-7" />
+        <ChatGPTIcon className="size-7" />
         <span>
           <span className="block font-medium">{t("openInCodex")}</span>
           <span className="block text-xs text-muted">{t("codexRunsInstall")}</span>

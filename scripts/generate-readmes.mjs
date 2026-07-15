@@ -103,21 +103,26 @@ function powershellInstallCommand(slug) {
   return `powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -UseB ${rawBase}/scripts/install-pet.ps1 | iex; Install-CodexPet ${slug}"`;
 }
 
+function localizedPetName(pet, lang) {
+  return pet.localized_names?.[lang] || pet.name;
+}
+
 function petBlock(pet, lang) {
   const rootPrefix = lang === "zh" ? "../.." : ".";
   const labels = lang === "zh" ? ["名称", "安装", "动作", "预览"] : ["Name", "Install", "Action", "Preview"];
   const by = lang === "zh" ? "作者" : "by";
   const category = normalizeCategory(pet.primary_category);
   const categoryName = lang === "zh" ? categoryZh[category] || category : category;
+  const displayName = localizedPetName(pet, lang);
   const stateNames = previewStates.map((state) => (lang === "zh" ? state[2] : state[1]));
   const gifs = previewStates.map(([state]) => {
     const path = `${websiteUrl}/assets/previews/${pet.slug}/gifs/${state}.gif`;
-    return `<img src="${path}" alt="${pet.name} ${state}" width="120" height="130">`;
+    return `<img src="${path}" alt="${displayName} ${state}" width="120" height="130">`;
   });
 
   return [
     `<table>`,
-    `<tr><th>${labels[0]}</th><td colspan="5"><a href="${rootPrefix}/pets/${pet.slug}">${pet.name}</a> · ${by} ${authorLink(pet)} · ${categoryName} · v${pet.spriteVersionNumber}</td></tr>`,
+    `<tr><th>${labels[0]}</th><td colspan="5"><a href="${rootPrefix}/pets/${pet.slug}">${displayName}</a> · ${by} ${authorLink(pet)} · ${categoryName} · v${pet.spriteVersionNumber}</td></tr>`,
     `<tr><th>${labels[1]}</th><td colspan="5"><code>${bashInstallCommand(pet.slug)}</code></td></tr>`,
     `<tr><th>${labels[2]}</th>${stateNames.map((name) => `<td><strong>${name}</strong></td>`).join("")}</tr>`,
     `<tr><th>${labels[3]}</th>${gifs.map((gif) => `<td>${gif}</td>`).join("")}</tr>`,
@@ -150,18 +155,18 @@ function englishReadme(pets) {
 
 ${badges(pets)}
 
-[**🌐 Live gallery**](${websiteUrl}) · [**⚡ Install guide**](${websiteUrl}/install) · [**📖 Submit a pet**](${websiteUrl}/guide)
+[**🌐 Selected pet gallery**](${websiteUrl}) · [**⚡ Install guide**](${websiteUrl}/install) · [**📖 Craft and submit**](${websiteUrl}/guide)
 
 ![Awesome Codex Pet cover](./assets/cover/awesome-codex-pet-cover.png)
 
 </div>
 
-A curated gallery of community-made Codex pets. Browse animations on the [website](${websiteUrl}), install with one command, and submit your own pet through GitHub.
+A selective gallery of beautifully made community Codex pets. Inspect complete animations and creator credits on the [website](${websiteUrl}), install in one step, or follow the craft guide to contribute a polished pet.
 
 ## Highlights
 
 - **One-command install** — no clone, no manual setup, works on macOS / Linux / Windows
-- **Live gallery** — animated previews, filtering, and view/install counters at [awesome-codex-pet.pages.dev](${websiteUrl})
+- **Selected pet gallery** — complete animation previews, collections, creator credits, sharing, and community statistics at [awesome-codex-pet.pages.dev](${websiteUrl})
 - **GitHub-native submissions** — open an issue or PR, the rest is automated
 - **Open licensing** — code under MIT, pet assets under CC BY-NC 4.0
 
@@ -176,7 +181,9 @@ pets/<pet-slug>--<author-slug>/
 
 Preview images are generated into \`assets/previews/<pet-id>/\` as local or CI build output, never inside the pet folder.
 
-Repository-defined collections live in \`collections.json\`. A pet joins a collection by listing its slug in \`submission.json.collections\`; the catalog and website are generated from that metadata.
+Repository-defined series and collections live in \`collections.json\`. Use \`kind: franchise\` for pets from the same original work and \`kind: theme\` for cross-franchise groups connected by a shared subject or style. A pet joins either by listing its slug in \`submission.json.collections\`; the catalog and website are generated from that metadata.
+
+\`submission.json.name\` is the required fallback name. Creators may keep a pet single-language by omitting \`localized_names\`, or opt into bilingual naming by providing both \`localized_names.en\` and \`localized_names.zh\`. The website follows the visitor's selected language and never invents a translation.
 
 ## Pet Versions
 
@@ -302,18 +309,18 @@ function chineseReadme(pets) {
 
 ${badges(pets)}
 
-[**🌐 在线画廊**](${websiteUrl}) · [**⚡ 安装指南**](${websiteUrl}/install) · [**📖 投稿指南**](${websiteUrl}/guide)
+[**🌐 精品宠物画廊**](${websiteUrl}) · [**⚡ 安装指南**](${websiteUrl}/install) · [**📖 制作与投稿指南**](${websiteUrl}/guide)
 
 ![Awesome Codex Pet 封面](../../assets/cover/awesome-codex-pet-cover.png)
 
 </div>
 
-社区精选的 Codex 小宠物画廊。在[在线画廊](${websiteUrl})里浏览动画，一条命令完成安装，通过 GitHub 提交你自己的宠物。
+专门收录制作精良的社区 Codex 宠物。在[精品画廊](${websiteUrl})中查看完整动作、作者与合集，一键安装喜欢的伙伴，也可以按照制作指南投稿自己的精品宠物。
 
 ## 亮点
 
 - **一条命令安装** — 不需要克隆仓库，macOS / Linux / Windows 全平台支持
-- **在线画廊** — [awesome-codex-pet.pages.dev](${websiteUrl}) 提供动画预览、筛选、浏览/安装统计
+- **精品宠物画廊** — [awesome-codex-pet.pages.dev](${websiteUrl}) 提供完整动作预览、合集、作者署名、便捷分享和社区统计
 - **GitHub 原生投稿** — 提 issue 或 PR，剩下的全自动
 - **明确许可** — 代码 MIT，宠物资源 CC BY-NC 4.0
 
@@ -328,7 +335,9 @@ pets/<pet-slug>--<author-slug>/
 
 预览图会作为本地或 CI 构建产物生成到 \`assets/previews/<pet-id>/\`，不会塞进宠物目录。
 
-仓库级合集统一维护在 \`collections.json\`。宠物通过 \`submission.json.collections\` 声明所属合集，目录与网站都会从这些元数据自动生成。
+仓库级作品系列与主题系列统一维护在 \`collections.json\`：\`kind: franchise\` 表示来自同一原作的作品系列，\`kind: theme\` 表示按题材、风格或伙伴类型组织的跨作品主题系列。宠物通过 \`submission.json.collections\` 声明归属，目录与网站都会从这些元数据自动生成。
+
+\`submission.json.name\` 是必填的默认名称。投稿者可以省略 \`localized_names\`，只使用一种语言；也可以选择双语，并同时填写 \`localized_names.en\` 与 \`localized_names.zh\`。网站会跟随访客选择的语言展示，不会擅自生成翻译。
 
 ## Pet 版本
 
@@ -386,7 +395,7 @@ ${categorySections(pets, "zh")}
 
 ## 投稿
 
-最快的方式是看[网站上的投稿指南](${websiteUrl}/guide)，里面有分类、目录结构和审核清单。
+最快的方式是打开[网站上的制作与投稿指南](${websiteUrl}/guide)。里面讲清 V1 / V2、逐动作精修、紫边绿边处理、成品结构、授权署名和精品验收标准，也可以一键在 ChatGPT 中打开完整的 Codex 任务。
 
 也可以直接基于仓库工作：
 
@@ -452,6 +461,7 @@ writeFileSync(join(repoRoot, "docs", "zh-CN", "README.md"), chineseReadme(pets),
 const catalog = pets.map((pet) => ({
   slug: pet.slug,
   name: pet.name,
+  localized_names: pet.localized_names,
   author: pet.author,
   author_handle: pet.author_handle,
   author_url: pet.author_url,

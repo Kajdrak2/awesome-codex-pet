@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useLocale } from "@/components/locale-provider";
+import { getLocalizedPetName } from "@/lib/codex-links";
 import type { Pet } from "@/lib/pets";
 import { fetchStats } from "@/lib/stats";
 
@@ -17,7 +18,7 @@ export function HeroSection({
   categoryCount,
   featured,
 }: HeroSectionProps) {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const [mounted, setMounted] = useState(false);
   const [hotPets, setHotPets] = useState(() => featured.slice(0, 6));
 
@@ -173,7 +174,7 @@ export function HeroSection({
               mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}
           >
-            <div className="mx-auto grid max-w-5xl grid-cols-4 items-end gap-3 sm:gap-8 md:grid-cols-5 lg:grid-cols-6">
+            <div className="mx-auto grid max-w-6xl grid-cols-4 items-end gap-3 sm:gap-7 md:grid-cols-5 lg:grid-cols-6">
               {hotPets.map((pet, i) => (
                 <Link
                   key={pet.slug}
@@ -182,22 +183,23 @@ export function HeroSection({
                     i === 4 ? "hidden md:flex" : i === 5 ? "hidden lg:flex" : ""
                   } ${i < 4 ? "flex" : ""}`}
                 >
-                  <div
-                    className="relative flex size-16 items-center justify-center overflow-hidden rounded-xl border border-border bg-bg-elevated transition-all duration-300 group-hover:-translate-y-1 group-hover:border-border-hover group-hover:shadow-xl sm:size-24 sm:rounded-2xl lg:size-28"
-                    style={{
-                      animation: `float 3.6s ease-in-out ${i * 0.45}s infinite`,
-                    }}
-                  >
-                    <img
-                      className="size-14 object-contain [image-rendering:pixelated] sm:size-20 lg:size-24"
-                      src={pet.animatedPreviewImage}
-                      alt={pet.name}
-                      loading="lazy"
-                    />
-                    <div className="pointer-events-none absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="hero-pet-frame relative flex h-24 w-20 items-end justify-center overflow-hidden rounded-lg border border-border bg-bg-elevated px-1 pb-2 pt-1 shadow-sm transition-[border-color,box-shadow] duration-300 group-hover:border-border-hover group-hover:shadow-xl sm:h-36 sm:w-28 lg:h-44 lg:w-36">
+                    <div
+                      className="hero-pet-float flex size-full items-end justify-center"
+                      style={{
+                        animationDelay: `${i * 0.45}s`,
+                      }}
+                    >
+                      <img
+                        className="hero-pet-character max-h-full max-w-full object-contain [image-rendering:pixelated]"
+                        src={pet.animatedPreviewImage}
+                        alt={getLocalizedPetName(pet, locale)}
+                        loading="lazy"
+                      />
+                    </div>
                   </div>
                   <span className="max-w-full truncate text-xs font-medium text-muted transition-colors group-hover:text-text">
-                    {pet.name}
+                    {getLocalizedPetName(pet, locale)}
                   </span>
                 </Link>
               ))}

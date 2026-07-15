@@ -61,6 +61,10 @@ Use this repository-level schema:
   "pet_slug": "mikoto",
   "author_slug": "lingxiaotian",
   "name": "Mikoto",
+  "localized_names": {
+    "en": "Mikoto",
+    "zh": "御坂美琴"
+  },
   "author": "your-name-or-handle",
   "primary_category": "Anime Characters",
   "canonical_key": "fictional/example/mikoto",
@@ -75,6 +79,8 @@ Use this repository-level schema:
   }
 }
 ```
+
+`name` is always required and acts as the canonical fallback. Bilingual naming is optional. To enable it, add `localized_names` with both non-empty `en` and `zh` values; the website then follows the visitor's selected language. For a single-language pet, omit `localized_names` entirely. The creator chooses these names; the website does not machine-translate them.
 
 `canonical_key` is the stable identity used for duplicate review. Use the same key for variants of the same character; use an `original/<author>/<name>` key for a creator-owned character. Existing pets without this field remain valid and are indexed from their names, tags, and source metadata during review.
 

@@ -105,6 +105,7 @@ const pets = readJson("pets.json").map((pet) => {
       en: pet.primary_category,
       zh: pet.primary_category,
     },
+    localizedNames: submission.localized_names ?? {},
     displayName: runtime.displayName ?? "",
     runtimeDescription: runtime.description ?? "",
     spriteVersionNumber: runtime.spriteVersionNumber ?? 1,
@@ -141,6 +142,7 @@ writeFileSync(
   `${JSON.stringify(
     collectionCatalog.map((collection) => ({
       slug: collection.slug,
+      kind: collection.kind,
       title: collection.title,
       description: collection.description,
       featured: collection.featured ?? false,

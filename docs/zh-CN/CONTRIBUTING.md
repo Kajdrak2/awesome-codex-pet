@@ -61,6 +61,10 @@ v2 运行时清单示例：
   "pet_slug": "mikoto",
   "author_slug": "lingxiaotian",
   "name": "Mikoto",
+  "localized_names": {
+    "en": "Mikoto",
+    "zh": "御坂美琴"
+  },
   "author": "your-name-or-handle",
   "primary_category": "Anime Characters",
   "canonical_key": "fictional/example/mikoto",
@@ -75,6 +79,8 @@ v2 运行时清单示例：
   }
 }
 ```
+
+`name` 始终必填，作为没有匹配语言时使用的默认名称。双语名称是可选能力：选择支持双语时，添加 `localized_names`，并同时提供非空的 `en` 与 `zh`；网站会跟随访客当前选择的语言展示。只使用一种语言时，完全省略 `localized_names` 即可。名称由投稿者自己确定，网站不会擅自机器翻译。
 
 `canonical_key` 是去重审核使用的稳定身份键。同一个角色的不同版本使用同一个 key；创作者自有角色使用 `original/<作者>/<名称>`。没有这个字段的旧 pet 仍然有效，审核时会根据名称、tags 和来源元数据建立索引。
 

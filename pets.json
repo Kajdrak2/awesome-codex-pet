@@ -2,6 +2,7 @@
   {
     "slug": "firefly--lingxiaotian",
     "name": "Firefly",
+    "localized_names": { "en": "Firefly", "zh": "流萤" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -14,6 +15,7 @@
   {
     "slug": "acheron--lingxiaotian",
     "name": "Acheron",
+    "localized_names": { "en": "Acheron", "zh": "黄泉" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -48,6 +50,7 @@
   {
     "slug": "arlecchino--lingxiaotian",
     "name": "Arlecchino",
+    "localized_names": { "en": "Arlecchino", "zh": "阿蕾奇诺" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -82,6 +85,7 @@
   {
     "slug": "black-swan--lingxiaotian",
     "name": "Black Swan",
+    "localized_names": { "en": "Black Swan", "zh": "黑天鹅" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -98,7 +102,7 @@
     "author_handle": "yurcek",
     "author_url": "",
     "primary_category": "Game Characters",
-    "collections": ["animal-companions"],
+    "collections": [],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A cute teal pixel-art companion inspired by the provided Buba reference.",
     "spriteVersionNumber": 1
@@ -117,6 +121,7 @@
   {
     "slug": "castorice--lingxiaotian",
     "name": "Castorice",
+    "localized_names": { "en": "Castorice", "zh": "遐蝶" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -173,6 +178,7 @@
   {
     "slug": "cyrene--lingxiaotian",
     "name": "Cyrene",
+    "localized_names": { "en": "Cyrene", "zh": "昔涟" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -252,6 +258,7 @@
   {
     "slug": "doro--lingxiaotian",
     "name": "Doro",
+    "localized_names": { "en": "Doro", "zh": "桃乐丝（Doro）" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -286,6 +293,7 @@
   {
     "slug": "feixiao--lingxiaotian",
     "name": "Feixiao",
+    "localized_names": { "en": "Feixiao", "zh": "飞霄" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -320,6 +328,7 @@
   {
     "slug": "frieren--lingxiaotian",
     "name": "Frieren",
+    "localized_names": { "en": "Frieren", "zh": "芙莉莲" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -331,6 +340,7 @@
   {
     "slug": "furina--lingxiaotian",
     "name": "Furina",
+    "localized_names": { "en": "Furina", "zh": "芙宁娜" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -347,7 +357,7 @@
     "author_handle": "rkwap",
     "author_url": "",
     "primary_category": "Fantasy Creatures",
-    "collections": ["animal-companions"],
+    "collections": [],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A cute compact Codex digital pet goblin with tiny ears and a mischievous friendly face.",
     "spriteVersionNumber": 1
@@ -388,6 +398,7 @@
   {
     "slug": "hu-tao--lingxiaotian",
     "name": "Hu Tao",
+    "localized_names": { "en": "Hu Tao", "zh": "胡桃" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -411,6 +422,7 @@
   {
     "slug": "kamisato-ayaka--lingxiaotian",
     "name": "Kamisato Ayaka",
+    "localized_names": { "en": "Kamisato Ayaka", "zh": "神里绫华" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -504,11 +516,12 @@
   {
     "slug": "mahiro--lingxiaotian",
     "name": "Mahiro",
+    "localized_names": { "en": "Mahiro", "zh": "绪山真寻" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["onimai"],
     "license": "CC BY-NC 4.0",
     "spriteVersionNumber": 1
   },
@@ -542,7 +555,7 @@
     "author_handle": "Hyoni1129",
     "author_url": "https://github.com/Hyoni1129",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["onimai"],
     "license": "CC BY-NC 4.0; unofficial fan-made non-commercial pet; no official ONIMAI artwork, screenshots, logos, or source assets are included; underlying character rights belong to their respective rights holders.",
     "spriteVersionNumber": 1
   },
@@ -560,6 +573,7 @@
   {
     "slug": "mikoto--lingxiaotian",
     "name": "Mikoto",
+    "localized_names": { "en": "Mikoto", "zh": "御坂美琴" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -571,6 +585,7 @@
   {
     "slug": "miku--lingxiaotian",
     "name": "Miku",
+    "localized_names": { "en": "Miku", "zh": "初音未来" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -629,6 +644,7 @@
   {
     "slug": "nahida--lingxiaotian",
     "name": "Nahida",
+    "localized_names": { "en": "Nahida", "zh": "纳西妲" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -641,6 +657,7 @@
   {
     "slug": "navia--lingxiaotian",
     "name": "Navia",
+    "localized_names": { "en": "Navia", "zh": "娜维娅" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -664,6 +681,7 @@
   {
     "slug": "paimon--lingxiaotian",
     "name": "Paimon",
+    "localized_names": { "en": "Paimon", "zh": "派蒙" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -686,6 +704,7 @@
   {
     "slug": "raiden-shogun--lingxiaotian",
     "name": "Raiden Shogun",
+    "localized_names": { "en": "Raiden Shogun", "zh": "雷电将军" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -698,6 +717,7 @@
   {
     "slug": "reimu--lingxiaotian",
     "name": "Reimu",
+    "localized_names": { "en": "Reimu", "zh": "博丽灵梦" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -721,6 +741,7 @@
   {
     "slug": "robin--lingxiaotian",
     "name": "Robin",
+    "localized_names": { "en": "Robin", "zh": "知更鸟" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -755,6 +776,7 @@
   {
     "slug": "ruan-mei--lingxiaotian",
     "name": "Ruan Mei",
+    "localized_names": { "en": "Ruan Mei", "zh": "阮·梅" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -800,6 +822,7 @@
   {
     "slug": "silver-wolf--lingxiaotian",
     "name": "Silver Wolf",
+    "localized_names": { "en": "Silver Wolf", "zh": "银狼" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -812,6 +835,7 @@
   {
     "slug": "sparkle--lingxiaotian",
     "name": "Sparkle",
+    "localized_names": { "en": "Sparkle", "zh": "花火" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -881,6 +905,7 @@
   {
     "slug": "tingyun--lingxiaotian",
     "name": "Tingyun",
+    "localized_names": { "en": "Tingyun", "zh": "停云" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
@@ -1143,6 +1168,7 @@
   {
     "slug": "bocchi--lingxiaotian",
     "name": "Bocchi",
+    "localized_names": { "en": "Bocchi", "zh": "后藤独" },
     "author": "Lingxiaotian",
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",

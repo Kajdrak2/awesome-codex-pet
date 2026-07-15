@@ -6,18 +6,18 @@
 
 ![pets: 101](https://img.shields.io/badge/pets-101-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN](https://img.shields.io/badge/languages-en%20%7C%20zh--CN-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
 
-[**🌐 Live gallery**](https://awesome-codex-pet.pages.dev) · [**⚡ Install guide**](https://awesome-codex-pet.pages.dev/install) · [**📖 Submit a pet**](https://awesome-codex-pet.pages.dev/guide)
+[**🌐 Selected pet gallery**](https://awesome-codex-pet.pages.dev) · [**⚡ Install guide**](https://awesome-codex-pet.pages.dev/install) · [**📖 Craft and submit**](https://awesome-codex-pet.pages.dev/guide)
 
 ![Awesome Codex Pet cover](./assets/cover/awesome-codex-pet-cover.png)
 
 </div>
 
-A curated gallery of community-made Codex pets. Browse animations on the [website](https://awesome-codex-pet.pages.dev), install with one command, and submit your own pet through GitHub.
+A selective gallery of beautifully made community Codex pets. Inspect complete animations and creator credits on the [website](https://awesome-codex-pet.pages.dev), install in one step, or follow the craft guide to contribute a polished pet.
 
 ## Highlights
 
 - **One-command install** — no clone, no manual setup, works on macOS / Linux / Windows
-- **Live gallery** — animated previews, filtering, and view/install counters at [awesome-codex-pet.pages.dev](https://awesome-codex-pet.pages.dev)
+- **Selected pet gallery** — complete animation previews, collections, creator credits, sharing, and community statistics at [awesome-codex-pet.pages.dev](https://awesome-codex-pet.pages.dev)
 - **GitHub-native submissions** — open an issue or PR, the rest is automated
 - **Open licensing** — code under MIT, pet assets under CC BY-NC 4.0
 
@@ -32,7 +32,9 @@ pets/<pet-slug>--<author-slug>/
 
 Preview images are generated into `assets/previews/<pet-id>/` as local or CI build output, never inside the pet folder.
 
-Repository-defined collections live in `collections.json`. A pet joins a collection by listing its slug in `submission.json.collections`; the catalog and website are generated from that metadata.
+Repository-defined series and collections live in `collections.json`. Use `kind: franchise` for pets from the same original work and `kind: theme` for cross-franchise groups connected by a shared subject or style. A pet joins either by listing its slug in `submission.json.collections`; the catalog and website are generated from that metadata.
+
+`submission.json.name` is the required fallback name. Creators may keep a pet single-language by omitting `localized_names`, or opt into bilingual naming by providing both `localized_names.en` and `localized_names.zh`. The website follows the visitor's selected language and never invents a translation.
 
 ## Pet Versions
 

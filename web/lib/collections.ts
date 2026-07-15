@@ -2,9 +2,11 @@ import type { Locale } from "@/lib/i18n";
 import type { Pet } from "@/lib/pets";
 
 export type LocalizedText = Record<Locale, string>;
+export type CollectionKind = "franchise" | "theme";
 
 export type CollectionCatalogEntry = {
   slug: string;
+  kind: CollectionKind;
   title: LocalizedText;
   description: LocalizedText;
   featured: boolean;

@@ -20,8 +20,14 @@ export type LocalizedCategoryLabel = {
   zh: string;
 };
 
+export type LocalizedPetNames = {
+  en?: string;
+  zh?: string;
+};
+
 export type Pet = CatalogPet & {
   categoryLabel: LocalizedCategoryLabel;
+  localizedNames: LocalizedPetNames;
   displayName?: string;
   runtimeDescription?: string;
   slugLabel: string;

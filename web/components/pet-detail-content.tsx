@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { CopyCommandButton } from "@/components/copy-command-button";
+import { ChatGPTIcon } from "@/components/chatgpt-icon";
 import { PetInstallMenu } from "@/components/pet-install-menu";
 import { PetLikeButton } from "@/components/pet-like-button";
 import {
@@ -13,7 +14,11 @@ import {
 } from "@/components/pet-playground";
 import { ShareMenu } from "@/components/share-menu";
 import { useLocale } from "@/components/locale-provider";
-import { getPetInstallPrompt } from "@/lib/codex-links";
+import {
+  buildCodexUrl,
+  getLocalizedPetName,
+  getPetInstallPrompt,
+} from "@/lib/codex-links";
 import type { Pet } from "@/lib/pets";
 import { siteConfig } from "@/lib/site";
 import { fetchStats, trackView } from "@/lib/stats";
@@ -46,6 +51,7 @@ export function PetDetailContent({
   const { t, locale } = useLocale();
   const router = useRouter();
   const [stats, setStats] = useState<DetailStats>({ views: 0, installs: 0 });
+  const localizedName = getLocalizedPetName(pet, locale);
 
   useEffect(() => {
     trackView(pet.slug);
@@ -119,10 +125,12 @@ export function PetDetailContent({
         </div>
       </nav>
 
-      <section className="grid gap-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(340px,0.75fr)] lg:items-start">
-        <PetPlayground pet={pet} actions={actions} />
-
-        <div className="min-w-0 lg:sticky lg:top-24 lg:border-l lg:border-border lg:pl-10">
+      <section>
+        <PetPlayground
+          pet={pet}
+          actions={actions}
+          sidebar={(
+            <div className="min-w-0 lg:sticky lg:top-24 lg:border-l lg:border-border lg:pl-10">
           <div className="mb-5 flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center rounded-md bg-accent-light px-2.5 py-1 text-xs font-medium text-accent">
               {pet.categoryLabel[locale]}
@@ -132,7 +140,7 @@ export function PetDetailContent({
           </div>
 
           <h1 className="mb-4 text-5xl font-semibold leading-none tracking-tight text-text sm:text-6xl">
-            {pet.name}
+            {localizedName}
           </h1>
           <p className="mb-7 max-w-2xl text-base leading-relaxed text-muted">
             {pet.description ?? pet.runtimeDescription ?? t("defaultDesc")}
@@ -142,7 +150,7 @@ export function PetDetailContent({
             <PetInstallMenu pet={pet} variant="detail" />
             <PetLikeButton slug={pet.slug} variant="button" />
             <ShareMenu
-              title={pet.name}
+              title={localizedName}
               url={`${siteConfig.url}/pets/${pet.slug}`}
               codexPrompt={getPetInstallPrompt(pet, locale)}
               installCommand={pet.installCommand}
@@ -190,7 +198,11 @@ export function PetDetailContent({
             </div>
             <div>
               <dt className="mb-1 text-xs text-muted">{t("displayName")}</dt>
-              <dd className="font-medium text-text">{pet.displayName || "—"}</dd>
+              <dd className="font-medium text-text">
+                {pet.localizedNames?.zh && pet.localizedNames?.en
+                  ? `${pet.localizedNames.zh} / ${pet.localizedNames.en}`
+                  : localizedName}
+              </dd>
             </div>
             <div className="col-span-2 min-w-0">
               <dt className="mb-1 text-xs text-muted">{t("slug")}</dt>
@@ -211,11 +223,13 @@ export function PetDetailContent({
               ))}
             </div>
           ) : null}
-        </div>
+            </div>
+          )}
+        />
       </section>
 
-      <section className="mt-20 grid gap-8 border-y border-border py-10 lg:grid-cols-[minmax(240px,0.35fr)_minmax(0,0.65fr)]">
-        <div>
+      <section className="mt-20 border-y border-border py-10">
+        <div className="mb-7 max-w-2xl">
           <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-accent">
             {t("installationGuide")}
           </p>
@@ -226,45 +240,69 @@ export function PetDetailContent({
             {t("detailInstallDesc")}
           </p>
         </div>
-        <div className="min-w-0 space-y-4">
-          <CommandField
-            label="Bash · macOS / Linux"
+
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <a
+            className="group flex min-h-32 flex-col justify-between rounded-lg border border-border bg-bg-elevated p-4 transition-colors hover:border-border-hover hover:bg-surface"
+            href={buildCodexUrl(getPetInstallPrompt(pet, locale))}
+          >
+            <ChatGPTIcon className="size-8" />
+            <span className="mt-5">
+              <span className="block text-sm font-semibold text-text">{t("openInCodex")}</span>
+              <span className="mt-1 block text-xs leading-relaxed text-muted">{t("codexRunsInstall")}</span>
+            </span>
+          </a>
+
+          <InstallCopyMethod
+            icon=">_"
+            title={t("copyBashInstall")}
+            description={t("bashInstallDesc")}
             command={pet.installCommand}
-            copyLabel={t("copyBashInstall")}
           />
-          <CommandField
-            label="PowerShell · Windows"
+          <InstallCopyMethod
+            icon="PS"
+            title={t("copyPowerShell")}
+            description={t("powerShellInstallDesc")}
             command={pet.installCommandPowerShell}
-            copyLabel={t("copyPowerShell")}
           />
+
+          <Link
+            className="group flex min-h-32 flex-col justify-between rounded-lg border border-border bg-bg-elevated p-4 transition-colors hover:border-border-hover hover:bg-surface"
+            href="/install"
+          >
+            <svg className="size-7 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c.301-.293.515-.63.643-1.003a4.5 4.5 0 117.495 4.692c-.755.758-1.707 1.154-2.723 1.154H15m-3 4.5h.008v.008H12v-.008z" />
+            </svg>
+            <span className="mt-5">
+              <span className="block text-sm font-semibold text-text">{t("installationGuide")}</span>
+              <span className="mt-1 block text-xs leading-relaxed text-muted">{t("installGuideDesc")}</span>
+            </span>
+          </Link>
         </div>
       </section>
     </main>
   );
 }
 
-function CommandField({
-  label,
+function InstallCopyMethod({
+  icon,
+  title,
+  description,
   command,
-  copyLabel,
 }: {
-  label: string;
+  icon: string;
+  title: string;
+  description: string;
   command: string;
-  copyLabel: string;
 }) {
   return (
-    <div className="min-w-0">
-      <span className="mb-1.5 block text-xs font-medium text-muted">{label}</span>
-      <div className="flex min-w-0 flex-col overflow-hidden rounded-lg border border-border bg-bg-secondary sm:flex-row">
-        <div className="min-w-0 flex-1 overflow-x-auto px-3 py-3 font-mono text-xs text-text-secondary">
-          <code className="block whitespace-nowrap">{command}</code>
-        </div>
-        <CopyCommandButton
-          command={command}
-          label={copyLabel}
-          className="h-10 flex-none shrink-0 rounded-none border-x-0 border-b-0 border-t bg-bg-elevated px-3 text-xs sm:h-auto sm:rounded-r-lg sm:border-y-0 sm:border-r-0 sm:border-l"
-        />
+    <div className="flex min-h-32 flex-col rounded-lg border border-border bg-bg-elevated p-4">
+      <span className="font-mono text-sm font-semibold text-muted">{icon}</span>
+      <div className="mb-4 mt-5">
+        <span className="block text-sm font-semibold text-text">{title}</span>
+        <span className="mt-1 block text-xs leading-relaxed text-muted">{description}</span>
       </div>
+      <CopyCommandButton command={command} label={title} grow={false} className="mt-auto w-full" />
     </div>
   );
 }

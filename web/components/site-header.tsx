@@ -20,8 +20,8 @@ export function SiteHeader() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-bg/85 backdrop-blur-lg">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
+    <header className="sticky top-0 z-50 border-b border-border bg-bg/85 px-6 backdrop-blur-lg">
+      <div className="mx-auto flex h-14 max-w-[1720px] items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5">
           <SiteLogo size={28} />
           <span className="whitespace-nowrap text-sm font-semibold tracking-tight text-text sm:hidden">

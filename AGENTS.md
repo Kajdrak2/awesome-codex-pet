@@ -141,6 +141,8 @@ npm run lint
 - `CONTRIBUTING.md`
 - `.github/ISSUE_TEMPLATE/`
 
+宠物名称以 `submission.json.name` 作为必填默认值。投稿者可以选择是否支持双语：支持时添加 `localized_names`，并同时提供非空的 `en` 与 `zh`；不支持时省略该字段。网站必须根据当前语言选择名称，并在缺少匹配语言时回退到 `name`，不得自动臆造翻译。
+
 ## 7. 安装链路规则
 
 本仓库的对外安装方式优先是远程直装，而不是要求用户 clone 仓库。

@@ -27,7 +27,7 @@ export async function generateMetadata({
   const description =
     pet.description ??
     pet.runtimeDescription ??
-    `Install ${pet.name}, a community-made Codex pet by ${pet.author}, with one command.`;
+    `Meet ${pet.name}, a selected community Codex pet by ${pet.author}. Preview every action and install it in one step.`;
   const canonical = `/pets/${pet.slug}`;
   const url = `${siteConfig.url}${canonical}`;
 

@@ -9,12 +9,12 @@ import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: {
-    absolute: `${siteConfig.title} — community-made Codex pets`,
+    absolute: `${siteConfig.title} — selected community Codex pets`,
   },
   description: siteConfig.description,
   alternates: { canonical: "/" },
   openGraph: {
-    title: `${siteConfig.title} — community-made Codex pets`,
+    title: `${siteConfig.title} — selected community Codex pets`,
     description: siteConfig.description,
     url: siteConfig.url,
     type: "website",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.title} — community-made Codex pets`,
+    title: `${siteConfig.title} — selected community Codex pets`,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
   },
@@ -36,7 +36,7 @@ export default function HomePage() {
   const collectionJsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: `${siteConfig.title} — gallery`,
+    name: `${siteConfig.title} — selected pet gallery`,
     description: siteConfig.description,
     url: siteConfig.url,
     inLanguage: ["en", "zh-CN"],

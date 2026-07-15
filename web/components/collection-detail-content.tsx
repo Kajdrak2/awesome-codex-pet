@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 import { CollectionPetStage } from "@/components/collection-pet-stage";
-import { CodexIcon } from "@/components/codex-icon";
+import { ChatGPTIcon } from "@/components/chatgpt-icon";
 import { PetGallery } from "@/components/pet-gallery";
 import { ShareMenu } from "@/components/share-menu";
 import { useLocale } from "@/components/locale-provider";
@@ -39,6 +39,8 @@ export function CollectionDetailContent({ collection }: { collection: PetCollect
         <div className="grid min-h-64 items-center gap-8 p-7 md:grid-cols-[minmax(0,0.8fr)_minmax(360px,1.2fr)] md:p-10">
           <div>
             <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-accent">
+              {t(collection.kind === "franchise" ? "franchiseSeries" : "themeCollection")}
+              {" · "}
               {t("collectionPetCount", { count: collection.pets.length })}
             </p>
             <h1 className="mb-4 text-4xl font-semibold tracking-tight sm:text-5xl">{title}</h1>
@@ -56,7 +58,7 @@ export function CollectionDetailContent({ collection }: { collection: PetCollect
                   ),
                 )}
               >
-                <CodexIcon className="size-6" />
+                <ChatGPTIcon className="size-6" />
                 {t("openCollectionInCodex")}
               </a>
               <ShareMenu
@@ -70,7 +72,7 @@ export function CollectionDetailContent({ collection }: { collection: PetCollect
               />
             </div>
           </div>
-          <div className="min-h-48 overflow-hidden">
+          <div className="h-48 overflow-hidden sm:h-56 md:h-64">
             <CollectionPetStage pets={coverPets} variant="hero" />
           </div>
         </div>

@@ -5,9 +5,9 @@ import { getCollections } from "@/lib/collection-catalog";
 import { getAllPets } from "@/lib/pets";
 import { siteConfig } from "@/lib/site";
 
-const title = "Codex pet collections";
+const title = "Codex pet series and themed collections";
 const description =
-  "Browse themed Codex pet collections, including Genshin Impact, Honkai: Star Rail, and community animal companions.";
+  "Browse franchise series and themed Codex pet collections, including Genshin Impact, Honkai: Star Rail, ONIMAI, and community animal companions.";
 
 export const metadata: Metadata = {
   title,

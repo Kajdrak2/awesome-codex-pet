@@ -116,6 +116,9 @@ if (!collectionCatalog) {
     if (!collection.title?.en || !collection.title?.zh) {
       errors.push(`${slug}: collection title must include en and zh`);
     }
+    if (!new Set(["franchise", "theme"]).has(collection.kind)) {
+      errors.push(`${slug}: collection kind must be franchise or theme`);
+    }
     if (!collection.description?.en || !collection.description?.zh) {
       errors.push(`${slug}: collection description must include en and zh`);
     }
@@ -247,6 +250,26 @@ for (const entry of petEntries) {
       }
     }
 
+    if (submission.localized_names !== undefined) {
+      const localizedNames = submission.localized_names;
+      if (
+        !localizedNames ||
+        Array.isArray(localizedNames) ||
+        typeof localizedNames !== "object"
+      ) {
+        errors.push(`${entry}: submission.json localized_names must be an object`);
+      } else if (
+        typeof localizedNames.en !== "string" ||
+        !localizedNames.en.trim() ||
+        typeof localizedNames.zh !== "string" ||
+        !localizedNames.zh.trim()
+      ) {
+        errors.push(
+          `${entry}: bilingual localized_names must include non-empty en and zh names`,
+        );
+      }
+    }
+
     if (
       submission.primary_category &&
       !allowedCategoryNames.has(submission.primary_category)
@@ -267,6 +290,15 @@ for (const entry of petEntries) {
         if (!collectionBySlug.has(collectionSlug)) {
           errors.push(`${entry}: unknown collection ${collectionSlug}`);
           continue;
+        }
+        const collection = collectionBySlug.get(collectionSlug);
+        if (
+          collection.kind === "franchise" &&
+          (!Array.isArray(submission.tags) || !submission.tags.includes(collectionSlug))
+        ) {
+          errors.push(
+            `${entry}: franchise collection ${collectionSlug} must also appear in submission.json tags`,
+          );
         }
         collectionMembers.get(collectionSlug).add(entry);
       }

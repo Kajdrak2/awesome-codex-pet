@@ -34,6 +34,9 @@ export function CollectionCard({ collection }: { collection: PetCollection }) {
       </div>
 
       <Link className="relative z-10 block bg-bg-elevated p-5" href={href}>
+        <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-accent">
+          {t(collection.kind === "franchise" ? "franchiseSeries" : "themeCollection")}
+        </p>
         <div className="mb-2 flex items-center justify-between gap-4">
           <h3 className="text-base font-semibold text-text">{title}</h3>
           <span className="shrink-0 text-[11px] font-medium uppercase tracking-wider text-muted">
