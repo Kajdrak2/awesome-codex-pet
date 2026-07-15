@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, type PointerEvent } from "react";
+import { useRouter } from "next/navigation";
+import { useRef, type MouseEvent, type PointerEvent } from "react";
 
 import type { Pet } from "@/lib/pets";
 import { PetInstallMenu } from "@/components/pet-install-menu";
@@ -35,6 +36,13 @@ export function PetCard({
   const detailHref = `/pets/${pet.slug}`;
   const localizedName = getLocalizedPetName(pet, locale);
   const cardRef = useRef<HTMLElement>(null);
+  const router = useRouter();
+
+  function openDetailFromCard(event: MouseEvent<HTMLElement>) {
+    const target = event.target;
+    if (target instanceof Element && target.closest("a, button")) return;
+    router.push(detailHref);
+  }
 
   function updateCardTilt(event: PointerEvent<HTMLElement>) {
     if (event.pointerType === "touch") return;
@@ -67,12 +75,13 @@ export function PetCard({
       className="pet-card group relative z-0 flex h-full cursor-pointer flex-col rounded-lg border border-border bg-bg-elevated hover:z-20 hover:border-border-hover hover:shadow-xl focus-within:z-30"
       onPointerMove={updateCardTilt}
       onPointerLeave={resetCardTilt}
+      onClick={openDetailFromCard}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) resetCardTilt();
       }}
     >
       <Link
-        className="absolute inset-0 z-10 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        className="pointer-events-none absolute inset-0 z-10 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         href={detailHref}
         aria-label={`${t("view")} ${localizedName}`}
       />
