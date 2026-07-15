@@ -108,7 +108,8 @@ export function ActionDropdown({
         aria-label={label}
         aria-expanded={open}
         aria-haspopup="menu"
-        onClick={() => {
+        onClick={(event) => {
+          event.stopPropagation();
           setPosition((current) => ({ ...current, visible: false }));
           setOpen((current) => !current);
         }}
