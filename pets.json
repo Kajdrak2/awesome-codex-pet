@@ -707,6 +707,18 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "rinami--siiverash",
+    "name": "Rinami Himesaki",
+    "author": "SiIverAsh",
+    "author_handle": "SiIverAsh",
+    "author_url": "https://github.com/SiIverAsh",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "CC BY-NC 4.0",
+    "description": "A Rinami Himesaki-inspired fan-art Codex pet with long wavy light-brown hair, crown-braid styling, a navy-and-gold school-uniform palette, and a compact chibi pixel sprite identity.",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "robin--lingxiaotian",
     "name": "Robin",
     "author": "Lingxiaotian",
