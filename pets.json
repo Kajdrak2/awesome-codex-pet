@@ -420,6 +420,15 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "joker--oytyo",
+    "name": "Joker",
+    "author": "oYTYo",
+    "primary_category": "Original Characters",
+    "collections": [],
+    "license": "CC BY-NC 4.0",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "kamisato-ayaka--lingxiaotian",
     "name": "Kamisato Ayaka",
     "localized_names": { "en": "Kamisato Ayaka", "zh": "神里绫华" },
@@ -1027,6 +1036,17 @@
     "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "一对安静聪明、专注协作的像素猫：圆润蓝猫围着数据流短围巾，略瘦白橙猫戴着危险预警灯。",
+    "spriteVersionNumber": 2
+  },
+  {
+    "slug": "gudong--rank",
+    "name": "咕咚",
+    "author": "Rank",
+    "author_handle": "Rank",
+    "primary_category": "Original Characters",
+    "collections": [],
+    "license": "CC BY 4.0",
+    "description": "An original crown-wearing rabbit king with a leafy forelock, burgundy cape, and playful oversized eyes.",
     "spriteVersionNumber": 2
   },
   {
