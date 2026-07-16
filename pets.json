@@ -639,6 +639,19 @@
     "spriteVersionNumber": 2
   },
   {
+    "slug": "misaka-network--ldl1234",
+    "name": "Misaka Network",
+    "localized_names": { "en": "Misaka Network", "zh": "御坂网络" },
+    "author": "LyuDonglian",
+    "author_handle": "ldl1234",
+    "author_url": "https://github.com/ldl1234",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "MIT",
+    "description": "A v2 pixel-art Misaka Network fan pet with a beige school uniform, black cat, mechanical equipment, electric effects, a giant turbine, and 16 look directions.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "miu-meo--lemon-z",
     "name": "Miu Meu",
     "author": "LemonZ",
