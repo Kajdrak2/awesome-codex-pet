@@ -1167,6 +1167,18 @@
     "spriteVersionNumber": 2
   },
   {
+    "slug": "koukou-penguin--hoody",
+    "name": "扣扣企鹅",
+    "author": "hoody",
+    "author_handle": "hoody",
+    "author_url": "",
+    "primary_category": "Animals",
+    "collections": ["animal-companions"],
+    "license": "CC BY-NC 4.0. Original asset created by hoody; no third-party source asset.",
+    "description": "一只戴着红围巾、会眨眼的圆滚滚黑白企鹅伙伴。",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "capybara-lulu--jiushu",
     "name": "水豚噜噜",
     "author": "jiushu",
