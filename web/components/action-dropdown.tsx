@@ -90,12 +90,10 @@ export function ActionDropdown({
     document.addEventListener("pointerdown", closeOnOutsidePointer);
     document.addEventListener("keydown", closeOnEscape);
     window.addEventListener("resize", close);
-    window.addEventListener("scroll", close, true);
     return () => {
       document.removeEventListener("pointerdown", closeOnOutsidePointer);
       document.removeEventListener("keydown", closeOnEscape);
       window.removeEventListener("resize", close);
-      window.removeEventListener("scroll", close, true);
     };
   }, [open]);
 
@@ -108,6 +106,7 @@ export function ActionDropdown({
         aria-label={label}
         aria-expanded={open}
         aria-haspopup="menu"
+        onPointerDown={(event) => event.stopPropagation()}
         onClick={(event) => {
           event.stopPropagation();
           setPosition((current) => ({ ...current, visible: false }));

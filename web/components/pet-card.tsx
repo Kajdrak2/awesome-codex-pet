@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useRef, type MouseEvent, type PointerEvent } from "react";
+import { useRef, type PointerEvent } from "react";
 
 import type { Pet } from "@/lib/pets";
 import { PetInstallMenu } from "@/components/pet-install-menu";
@@ -36,13 +35,6 @@ export function PetCard({
   const detailHref = `/pets/${pet.slug}`;
   const localizedName = getLocalizedPetName(pet, locale);
   const cardRef = useRef<HTMLElement>(null);
-  const router = useRouter();
-
-  function openDetailFromCard(event: MouseEvent<HTMLElement>) {
-    const target = event.target;
-    if (target instanceof Element && target.closest("a, button")) return;
-    router.push(detailHref);
-  }
 
   function updateCardTilt(event: PointerEvent<HTMLElement>) {
     if (event.pointerType === "touch") return;
@@ -72,23 +64,21 @@ export function PetCard({
   return (
     <article
       ref={cardRef}
-      className="pet-card group relative z-0 flex h-full cursor-pointer flex-col rounded-lg border border-border bg-bg-elevated hover:z-20 hover:border-border-hover hover:shadow-xl focus-within:z-30"
+      className="pet-card group relative z-0 flex h-full flex-col rounded-lg border border-border bg-bg-elevated hover:z-20 hover:border-border-hover hover:shadow-xl focus-within:z-30"
       onPointerMove={updateCardTilt}
       onPointerLeave={resetCardTilt}
-      onClick={openDetailFromCard}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) resetCardTilt();
       }}
     >
-      <Link
-        className="pointer-events-none absolute inset-0 z-10 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-        href={detailHref}
-        aria-label={`${t("view")} ${localizedName}`}
-      />
-
       {/* Visual area */}
       <div className="pet-card__visual relative flex h-56 items-center justify-center overflow-hidden rounded-t-lg bg-bg-secondary p-4 xl:h-60">
-        <div className="pet-card__character-stage flex size-full items-center justify-center">
+        <Link
+          className="absolute inset-0 z-10 rounded-t-lg focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-accent"
+          href={detailHref}
+          aria-label={`${t("view")} ${localizedName}`}
+        />
+        <div className="pet-card__character-stage pointer-events-none flex size-full items-center justify-center">
           <img
             className="pet-card__character relative h-full w-auto max-w-full object-contain [image-rendering:pixelated]"
             src={pet.animatedPreviewImage}
@@ -159,7 +149,9 @@ export function PetCard({
       <div className="pet-card__body flex flex-grow flex-col rounded-b-lg border-t border-border p-5">
         <div className="flex items-start justify-between gap-2 mb-1">
           <h2 className="min-w-0 truncate text-base font-semibold leading-tight text-text">
-            {localizedName}
+            <Link className="hover:underline" href={detailHref}>
+              {localizedName}
+            </Link>
           </h2>
           <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-bg-secondary text-muted border border-border">
             {pet.categoryLabel[locale]}
