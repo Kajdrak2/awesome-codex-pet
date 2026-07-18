@@ -4,7 +4,7 @@
 
 简体中文 | [English](../../README.md)
 
-![pets: 151](https://img.shields.io/badge/pets-151-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN](https://img.shields.io/badge/languages-en%20%7C%20zh--CN-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
+![pets: 121](https://img.shields.io/badge/pets-121-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN](https://img.shields.io/badge/languages-en%20%7C%20zh--CN-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
 
 [**🌐 精品宠物画廊**](https://awesome-codex-pet.pages.dev) · [**⚡ 安装指南**](https://awesome-codex-pet.pages.dev/install) · [**📖 制作与投稿指南**](https://awesome-codex-pet.pages.dev/guide)
 
@@ -133,13 +133,6 @@ curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scr
 </table>
 
 <table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/chen--chenxin-dlut">陈</a> · 作者 <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · 游戏角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- chen--chenxin-dlut</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chen--chenxin-dlut/gifs/idle.gif" alt="陈 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chen--chenxin-dlut/gifs/waving.gif" alt="陈 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chen--chenxin-dlut/gifs/running-right.gif" alt="陈 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chen--chenxin-dlut/gifs/waiting.gif" alt="陈 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chen--chenxin-dlut/gifs/review.gif" alt="陈 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
 <tr><th>名称</th><td colspan="5"><a href="../../pets/cyrene--lingxiaotian">昔涟</a> · 作者 <a href="https://github.com/legeling">@legeling</a> · 游戏角色 · v1</td></tr>
 <tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- cyrene--lingxiaotian</code></td></tr>
 <tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
@@ -175,13 +168,6 @@ curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scr
 </table>
 
 <table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/ganyu--chenxin-dlut">甘雨</a> · 作者 <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · 游戏角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- ganyu--chenxin-dlut</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/ganyu--chenxin-dlut/gifs/idle.gif" alt="甘雨 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/ganyu--chenxin-dlut/gifs/waving.gif" alt="甘雨 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/ganyu--chenxin-dlut/gifs/running-right.gif" alt="甘雨 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/ganyu--chenxin-dlut/gifs/waiting.gif" alt="甘雨 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/ganyu--chenxin-dlut/gifs/review.gif" alt="甘雨 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
 <tr><th>名称</th><td colspan="5"><a href="../../pets/hu-tao--lingxiaotian">胡桃</a> · 作者 <a href="https://github.com/legeling">@legeling</a> · 游戏角色 · v1</td></tr>
 <tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- hu-tao--lingxiaotian</code></td></tr>
 <tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
@@ -196,31 +182,10 @@ curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scr
 </table>
 
 <table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/klee--chenxin-dlut">可莉</a> · 作者 <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · 游戏角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- klee--chenxin-dlut</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/klee--chenxin-dlut/gifs/idle.gif" alt="可莉 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/klee--chenxin-dlut/gifs/waving.gif" alt="可莉 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/klee--chenxin-dlut/gifs/running-right.gif" alt="可莉 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/klee--chenxin-dlut/gifs/waiting.gif" alt="可莉 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/klee--chenxin-dlut/gifs/review.gif" alt="可莉 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/lappland--chenxin-dlut">拉普兰德</a> · 作者 <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · 游戏角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- lappland--chenxin-dlut</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/lappland--chenxin-dlut/gifs/idle.gif" alt="拉普兰德 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/lappland--chenxin-dlut/gifs/waving.gif" alt="拉普兰德 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/lappland--chenxin-dlut/gifs/running-right.gif" alt="拉普兰德 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/lappland--chenxin-dlut/gifs/waiting.gif" alt="拉普兰德 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/lappland--chenxin-dlut/gifs/review.gif" alt="拉普兰德 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
 <tr><th>名称</th><td colspan="5"><a href="../../pets/little-black-mage--libertis">Little Black Mage</a> · 作者 @libertis · 游戏角色 · v1</td></tr>
 <tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- little-black-mage--libertis</code></td></tr>
 <tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
 <tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/little-black-mage--libertis/gifs/idle.gif" alt="Little Black Mage idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/little-black-mage--libertis/gifs/waving.gif" alt="Little Black Mage waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/little-black-mage--libertis/gifs/running-right.gif" alt="Little Black Mage running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/little-black-mage--libertis/gifs/waiting.gif" alt="Little Black Mage waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/little-black-mage--libertis/gifs/review.gif" alt="Little Black Mage review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/march-7th--chenxin-dlut">三月七</a> · 作者 <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · 游戏角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- march-7th--chenxin-dlut</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/march-7th--chenxin-dlut/gifs/idle.gif" alt="三月七 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/march-7th--chenxin-dlut/gifs/waving.gif" alt="三月七 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/march-7th--chenxin-dlut/gifs/running-right.gif" alt="三月七 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/march-7th--chenxin-dlut/gifs/waiting.gif" alt="三月七 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/march-7th--chenxin-dlut/gifs/review.gif" alt="三月七 review" width="120" height="130"></td></tr>
 </table>
 
 <table>
@@ -249,13 +214,6 @@ curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scr
 <tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- paimon--lingxiaotian</code></td></tr>
 <tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
 <tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/paimon--lingxiaotian/gifs/idle.gif" alt="派蒙 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/paimon--lingxiaotian/gifs/waving.gif" alt="派蒙 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/paimon--lingxiaotian/gifs/running-right.gif" alt="派蒙 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/paimon--lingxiaotian/gifs/waiting.gif" alt="派蒙 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/paimon--lingxiaotian/gifs/review.gif" alt="派蒙 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/phoebe--chenxin-dlut">菲比</a> · 作者 <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · 游戏角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- phoebe--chenxin-dlut</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/phoebe--chenxin-dlut/gifs/idle.gif" alt="菲比 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/phoebe--chenxin-dlut/gifs/waving.gif" alt="菲比 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/phoebe--chenxin-dlut/gifs/running-right.gif" alt="菲比 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/phoebe--chenxin-dlut/gifs/waiting.gif" alt="菲比 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/phoebe--chenxin-dlut/gifs/review.gif" alt="菲比 review" width="120" height="130"></td></tr>
 </table>
 
 <table>
@@ -294,13 +252,6 @@ curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scr
 </table>
 
 <table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/sonetto--chenxin-dlut">十四行诗</a> · 作者 <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · 游戏角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- sonetto--chenxin-dlut</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/sonetto--chenxin-dlut/gifs/idle.gif" alt="十四行诗 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/sonetto--chenxin-dlut/gifs/waving.gif" alt="十四行诗 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/sonetto--chenxin-dlut/gifs/running-right.gif" alt="十四行诗 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/sonetto--chenxin-dlut/gifs/waiting.gif" alt="十四行诗 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/sonetto--chenxin-dlut/gifs/review.gif" alt="十四行诗 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
 <tr><th>名称</th><td colspan="5"><a href="../../pets/sparkle--lingxiaotian">花火</a> · 作者 <a href="https://github.com/legeling">@legeling</a> · 游戏角色 · v1</td></tr>
 <tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- sparkle--lingxiaotian</code></td></tr>
 <tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
@@ -315,45 +266,10 @@ curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scr
 </table>
 
 <table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/vertin--chenxin-dlut">维尔汀</a> · 作者 <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · 游戏角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- vertin--chenxin-dlut</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/vertin--chenxin-dlut/gifs/idle.gif" alt="维尔汀 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/vertin--chenxin-dlut/gifs/waving.gif" alt="维尔汀 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/vertin--chenxin-dlut/gifs/running-right.gif" alt="维尔汀 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/vertin--chenxin-dlut/gifs/waiting.gif" alt="维尔汀 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/vertin--chenxin-dlut/gifs/review.gif" alt="维尔汀 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/yoimiya--chenxin-dlut">宵宫</a> · 作者 <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · 游戏角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- yoimiya--chenxin-dlut</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/yoimiya--chenxin-dlut/gifs/idle.gif" alt="宵宫 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/yoimiya--chenxin-dlut/gifs/waving.gif" alt="宵宫 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/yoimiya--chenxin-dlut/gifs/running-right.gif" alt="宵宫 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/yoimiya--chenxin-dlut/gifs/waiting.gif" alt="宵宫 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/yoimiya--chenxin-dlut/gifs/review.gif" alt="宵宫 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/zani--chenxin-dlut">赞妮</a> · 作者 <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · 游戏角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- zani--chenxin-dlut</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zani--chenxin-dlut/gifs/idle.gif" alt="赞妮 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zani--chenxin-dlut/gifs/waving.gif" alt="赞妮 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zani--chenxin-dlut/gifs/running-right.gif" alt="赞妮 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zani--chenxin-dlut/gifs/waiting.gif" alt="赞妮 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zani--chenxin-dlut/gifs/review.gif" alt="赞妮 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
 <tr><th>名称</th><td colspan="5"><a href="../../pets/dnf-female-ammo--qunboo">女弹药Q</a> · 作者 <a href="https://github.com/QunBoo">@QunBoo</a> · 游戏角色 · v1</td></tr>
 <tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- dnf-female-ammo--qunboo</code></td></tr>
 <tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
 <tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/dnf-female-ammo--qunboo/gifs/idle.gif" alt="女弹药Q idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/dnf-female-ammo--qunboo/gifs/waving.gif" alt="女弹药Q waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/dnf-female-ammo--qunboo/gifs/running-right.gif" alt="女弹药Q running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/dnf-female-ammo--qunboo/gifs/waiting.gif" alt="女弹药Q waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/dnf-female-ammo--qunboo/gifs/review.gif" alt="女弹药Q review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/new-covenant-exusiai--chenxin-dlut">新约能天使</a> · 作者 <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · 游戏角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- new-covenant-exusiai--chenxin-dlut</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/new-covenant-exusiai--chenxin-dlut/gifs/idle.gif" alt="新约能天使 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/new-covenant-exusiai--chenxin-dlut/gifs/waving.gif" alt="新约能天使 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/new-covenant-exusiai--chenxin-dlut/gifs/running-right.gif" alt="新约能天使 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/new-covenant-exusiai--chenxin-dlut/gifs/waiting.gif" alt="新约能天使 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/new-covenant-exusiai--chenxin-dlut/gifs/review.gif" alt="新约能天使 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/regulus-star-antimony--chenxin-dlut">星锑</a> · 作者 <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · 游戏角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- regulus-star-antimony--chenxin-dlut</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/regulus-star-antimony--chenxin-dlut/gifs/idle.gif" alt="星锑 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/regulus-star-antimony--chenxin-dlut/gifs/waving.gif" alt="星锑 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/regulus-star-antimony--chenxin-dlut/gifs/running-right.gif" alt="星锑 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/regulus-star-antimony--chenxin-dlut/gifs/waiting.gif" alt="星锑 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/regulus-star-antimony--chenxin-dlut/gifs/review.gif" alt="星锑 review" width="120" height="130"></td></tr>
 </table>
 
 <table>
@@ -366,38 +282,10 @@ curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scr
 ### 动漫角色
 
 <table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/zero-two--mingqingmozhao">02</a> · 作者 @mingqingmozhao · 动漫角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- zero-two--mingqingmozhao</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zero-two--mingqingmozhao/gifs/idle.gif" alt="02 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zero-two--mingqingmozhao/gifs/waving.gif" alt="02 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zero-two--mingqingmozhao/gifs/running-right.gif" alt="02 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zero-two--mingqingmozhao/gifs/waiting.gif" alt="02 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zero-two--mingqingmozhao/gifs/review.gif" alt="02 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/anya--chenxin-dlut">阿尼亚</a> · 作者 <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · 动漫角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- anya--chenxin-dlut</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/anya--chenxin-dlut/gifs/idle.gif" alt="阿尼亚 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/anya--chenxin-dlut/gifs/waving.gif" alt="阿尼亚 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/anya--chenxin-dlut/gifs/running-right.gif" alt="阿尼亚 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/anya--chenxin-dlut/gifs/waiting.gif" alt="阿尼亚 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/anya--chenxin-dlut/gifs/review.gif" alt="阿尼亚 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
 <tr><th>名称</th><td colspan="5"><a href="../../pets/asuka--maxg24">明日香</a> · 作者 <a href="https://codex-pets.net/users/maxg24">@maxg24</a> · 动漫角色 · v1</td></tr>
 <tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- asuka--maxg24</code></td></tr>
 <tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
 <tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/asuka--maxg24/gifs/idle.gif" alt="明日香 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/asuka--maxg24/gifs/waving.gif" alt="明日香 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/asuka--maxg24/gifs/running-right.gif" alt="明日香 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/asuka--maxg24/gifs/waiting.gif" alt="明日香 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/asuka--maxg24/gifs/review.gif" alt="明日香 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/chibi-rei-pet--bendy">绫波丽</a> · 作者 @Bendy · 动漫角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- chibi-rei-pet--bendy</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chibi-rei-pet--bendy/gifs/idle.gif" alt="绫波丽 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chibi-rei-pet--bendy/gifs/waving.gif" alt="绫波丽 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chibi-rei-pet--bendy/gifs/running-right.gif" alt="绫波丽 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chibi-rei-pet--bendy/gifs/waiting.gif" alt="绫波丽 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chibi-rei-pet--bendy/gifs/review.gif" alt="绫波丽 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/conan--chenxin-dlut">江户川柯南</a> · 作者 <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · 动漫角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- conan--chenxin-dlut</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/conan--chenxin-dlut/gifs/idle.gif" alt="江户川柯南 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/conan--chenxin-dlut/gifs/waving.gif" alt="江户川柯南 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/conan--chenxin-dlut/gifs/running-right.gif" alt="江户川柯南 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/conan--chenxin-dlut/gifs/waiting.gif" alt="江户川柯南 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/conan--chenxin-dlut/gifs/review.gif" alt="江户川柯南 review" width="120" height="130"></td></tr>
 </table>
 
 <table>
@@ -450,13 +338,6 @@ curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scr
 </table>
 
 <table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/kid--chenxin-dlut">怪盗基德</a> · 作者 <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · 动漫角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- kid--chenxin-dlut</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/kid--chenxin-dlut/gifs/idle.gif" alt="怪盗基德 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/kid--chenxin-dlut/gifs/waving.gif" alt="怪盗基德 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/kid--chenxin-dlut/gifs/running-right.gif" alt="怪盗基德 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/kid--chenxin-dlut/gifs/waiting.gif" alt="怪盗基德 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/kid--chenxin-dlut/gifs/review.gif" alt="怪盗基德 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
 <tr><th>名称</th><td colspan="5"><a href="../../pets/kid-goku--julianhuang">小悟空</a> · 作者 <a href="https://codex-pets.net/users/julianhuang">@julianhuang</a> · 动漫角色 · v1</td></tr>
 <tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- kid-goku--julianhuang</code></td></tr>
 <tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
@@ -482,20 +363,6 @@ curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scr
 <tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- mahiro--lingxiaotian</code></td></tr>
 <tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
 <tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/mahiro--lingxiaotian/gifs/idle.gif" alt="绪山真寻 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/mahiro--lingxiaotian/gifs/waving.gif" alt="绪山真寻 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/mahiro--lingxiaotian/gifs/running-right.gif" alt="绪山真寻 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/mahiro--lingxiaotian/gifs/waiting.gif" alt="绪山真寻 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/mahiro--lingxiaotian/gifs/review.gif" alt="绪山真寻 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/makimamini--1sh1ro">玛奇玛</a> · 作者 @1sh1ro · 动漫角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- makimamini--1sh1ro</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makimamini--1sh1ro/gifs/idle.gif" alt="玛奇玛 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makimamini--1sh1ro/gifs/waving.gif" alt="玛奇玛 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makimamini--1sh1ro/gifs/running-right.gif" alt="玛奇玛 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makimamini--1sh1ro/gifs/waiting.gif" alt="玛奇玛 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makimamini--1sh1ro/gifs/review.gif" alt="玛奇玛 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/makisekurisu--m1gr4ine">牧濑红莉栖</a> · 作者 @m1gr4ine · 动漫角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- makisekurisu--m1gr4ine</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makisekurisu--m1gr4ine/gifs/idle.gif" alt="牧濑红莉栖 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makisekurisu--m1gr4ine/gifs/waving.gif" alt="牧濑红莉栖 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makisekurisu--m1gr4ine/gifs/running-right.gif" alt="牧濑红莉栖 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makisekurisu--m1gr4ine/gifs/waiting.gif" alt="牧濑红莉栖 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makisekurisu--m1gr4ine/gifs/review.gif" alt="牧濑红莉栖 review" width="120" height="130"></td></tr>
 </table>
 
 <table>
@@ -555,80 +422,10 @@ curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scr
 </table>
 
 <table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/saber--petdex-zhenyou-ling">阿尔托莉雅</a> · 作者 @真宵 绫. · 动漫角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- saber--petdex-zhenyou-ling</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/saber--petdex-zhenyou-ling/gifs/idle.gif" alt="阿尔托莉雅 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/saber--petdex-zhenyou-ling/gifs/waving.gif" alt="阿尔托莉雅 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/saber--petdex-zhenyou-ling/gifs/running-right.gif" alt="阿尔托莉雅 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/saber--petdex-zhenyou-ling/gifs/waiting.gif" alt="阿尔托莉雅 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/saber--petdex-zhenyou-ling/gifs/review.gif" alt="阿尔托莉雅 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/gintoki-pixel--yuu-m">坂田银时</a> · 作者 @Yuu M. · 动漫角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- gintoki-pixel--yuu-m</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/gintoki-pixel--yuu-m/gifs/idle.gif" alt="坂田银时 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/gintoki-pixel--yuu-m/gifs/waving.gif" alt="坂田银时 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/gintoki-pixel--yuu-m/gifs/running-right.gif" alt="坂田银时 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/gintoki-pixel--yuu-m/gifs/waiting.gif" alt="坂田银时 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/gintoki-pixel--yuu-m/gifs/review.gif" alt="坂田银时 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/shinchan--chenxin-dlut">野原新之助</a> · 作者 <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · 动漫角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- shinchan--chenxin-dlut</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinchan--chenxin-dlut/gifs/idle.gif" alt="野原新之助 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinchan--chenxin-dlut/gifs/waving.gif" alt="野原新之助 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinchan--chenxin-dlut/gifs/running-right.gif" alt="野原新之助 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinchan--chenxin-dlut/gifs/waiting.gif" alt="野原新之助 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinchan--chenxin-dlut/gifs/review.gif" alt="野原新之助 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
 <tr><th>名称</th><td colspan="5"><a href="../../pets/violet--lazenca">薇尔莉特</a> · 作者 <a href="https://codex-pets.net/users/lazenca">@lazenca</a> · 动漫角色 · v1</td></tr>
 <tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- violet--lazenca</code></td></tr>
 <tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
 <tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/violet--lazenca/gifs/idle.gif" alt="薇尔莉特 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/violet--lazenca/gifs/waving.gif" alt="薇尔莉特 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/violet--lazenca/gifs/running-right.gif" alt="薇尔莉特 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/violet--lazenca/gifs/waiting.gif" alt="薇尔莉特 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/violet--lazenca/gifs/review.gif" alt="薇尔莉特 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/inosuke-hashibira--wangfan002">嘴平伊之助</a> · 作者 @wangfan002 · 动漫角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- inosuke-hashibira--wangfan002</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/inosuke-hashibira--wangfan002/gifs/idle.gif" alt="嘴平伊之助 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/inosuke-hashibira--wangfan002/gifs/waving.gif" alt="嘴平伊之助 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/inosuke-hashibira--wangfan002/gifs/running-right.gif" alt="嘴平伊之助 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/inosuke-hashibira--wangfan002/gifs/waiting.gif" alt="嘴平伊之助 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/inosuke-hashibira--wangfan002/gifs/review.gif" alt="嘴平伊之助 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/zenitsu-agatsuma--wangfan002">我妻善逸</a> · 作者 @wangfan002 · 动漫角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- zenitsu-agatsuma--wangfan002</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zenitsu-agatsuma--wangfan002/gifs/idle.gif" alt="我妻善逸 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zenitsu-agatsuma--wangfan002/gifs/waving.gif" alt="我妻善逸 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zenitsu-agatsuma--wangfan002/gifs/running-right.gif" alt="我妻善逸 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zenitsu-agatsuma--wangfan002/gifs/waiting.gif" alt="我妻善逸 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zenitsu-agatsuma--wangfan002/gifs/review.gif" alt="我妻善逸 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/giyu-tomioka--wangfan002">富冈义勇</a> · 作者 @wangfan002 · 动漫角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- giyu-tomioka--wangfan002</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/giyu-tomioka--wangfan002/gifs/idle.gif" alt="富冈义勇 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/giyu-tomioka--wangfan002/gifs/waving.gif" alt="富冈义勇 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/giyu-tomioka--wangfan002/gifs/running-right.gif" alt="富冈义勇 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/giyu-tomioka--wangfan002/gifs/waiting.gif" alt="富冈义勇 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/giyu-tomioka--wangfan002/gifs/review.gif" alt="富冈义勇 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/muichiro-tokito--wangfan002">时透无一郎</a> · 作者 @wangfan002 · 动漫角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- muichiro-tokito--wangfan002</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/muichiro-tokito--wangfan002/gifs/idle.gif" alt="时透无一郎 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/muichiro-tokito--wangfan002/gifs/waving.gif" alt="时透无一郎 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/muichiro-tokito--wangfan002/gifs/running-right.gif" alt="时透无一郎 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/muichiro-tokito--wangfan002/gifs/waiting.gif" alt="时透无一郎 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/muichiro-tokito--wangfan002/gifs/review.gif" alt="时透无一郎 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/tanjiro-kamado--wangfan002">灶门炭治郎</a> · 作者 @wangfan002 · 动漫角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- tanjiro-kamado--wangfan002</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/tanjiro-kamado--wangfan002/gifs/idle.gif" alt="灶门炭治郎 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/tanjiro-kamado--wangfan002/gifs/waving.gif" alt="灶门炭治郎 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/tanjiro-kamado--wangfan002/gifs/running-right.gif" alt="灶门炭治郎 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/tanjiro-kamado--wangfan002/gifs/waiting.gif" alt="灶门炭治郎 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/tanjiro-kamado--wangfan002/gifs/review.gif" alt="灶门炭治郎 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/nezuko-kamado--wangfan002">灶门祢豆子</a> · 作者 @wangfan002 · 动漫角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- nezuko-kamado--wangfan002</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/nezuko-kamado--wangfan002/gifs/idle.gif" alt="灶门祢豆子 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/nezuko-kamado--wangfan002/gifs/waving.gif" alt="灶门祢豆子 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/nezuko-kamado--wangfan002/gifs/running-right.gif" alt="灶门祢豆子 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/nezuko-kamado--wangfan002/gifs/waiting.gif" alt="灶门祢豆子 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/nezuko-kamado--wangfan002/gifs/review.gif" alt="灶门祢豆子 review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/shinobu-kocho--wangfan002">蝴蝶忍</a> · 作者 @wangfan002 · 动漫角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- shinobu-kocho--wangfan002</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinobu-kocho--wangfan002/gifs/idle.gif" alt="蝴蝶忍 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinobu-kocho--wangfan002/gifs/waving.gif" alt="蝴蝶忍 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinobu-kocho--wangfan002/gifs/running-right.gif" alt="蝴蝶忍 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinobu-kocho--wangfan002/gifs/waiting.gif" alt="蝴蝶忍 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinobu-kocho--wangfan002/gifs/review.gif" alt="蝴蝶忍 review" width="120" height="130"></td></tr>
 </table>
 
 <table>
@@ -639,13 +436,6 @@ curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scr
 </table>
 
 ### 原创角色
-
-<table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/aiko--chenxin-dlut">爱子</a> · 作者 <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · 原创角色 · v1</td></tr>
-<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- aiko--chenxin-dlut</code></td></tr>
-<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
-<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/aiko--chenxin-dlut/gifs/idle.gif" alt="爱子 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/aiko--chenxin-dlut/gifs/waving.gif" alt="爱子 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/aiko--chenxin-dlut/gifs/running-right.gif" alt="爱子 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/aiko--chenxin-dlut/gifs/waiting.gif" alt="爱子 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/aiko--chenxin-dlut/gifs/review.gif" alt="爱子 review" width="120" height="130"></td></tr>
-</table>
 
 <table>
 <tr><th>名称</th><td colspan="5"><a href="../../pets/diana--am">Diana</a> · 作者 @am · 原创角色 · v1</td></tr>

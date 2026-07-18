@@ -4,7 +4,7 @@
 
 [简体中文](./docs/zh-CN/README.md) | English
 
-![pets: 151](https://img.shields.io/badge/pets-151-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN](https://img.shields.io/badge/languages-en%20%7C%20zh--CN-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
+![pets: 121](https://img.shields.io/badge/pets-121-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN](https://img.shields.io/badge/languages-en%20%7C%20zh--CN-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
 
 [**🌐 Selected pet gallery**](https://awesome-codex-pet.pages.dev) · [**⚡ Install guide**](https://awesome-codex-pet.pages.dev/install) · [**📖 Craft and submit**](https://awesome-codex-pet.pages.dev/guide)
 
@@ -133,13 +133,6 @@ The **Update** action is an AI-assisted v1-to-v2 conversion, not a download noti
 </table>
 
 <table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/chen--chenxin-dlut">Ch'en</a> · by <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · Game Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- chen--chenxin-dlut</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chen--chenxin-dlut/gifs/idle.gif" alt="Ch'en idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chen--chenxin-dlut/gifs/waving.gif" alt="Ch'en waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chen--chenxin-dlut/gifs/running-right.gif" alt="Ch'en running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chen--chenxin-dlut/gifs/waiting.gif" alt="Ch'en waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chen--chenxin-dlut/gifs/review.gif" alt="Ch'en review" width="120" height="130"></td></tr>
-</table>
-
-<table>
 <tr><th>Name</th><td colspan="5"><a href="./pets/cyrene--lingxiaotian">Cyrene</a> · by <a href="https://github.com/legeling">@legeling</a> · Game Characters · v1</td></tr>
 <tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- cyrene--lingxiaotian</code></td></tr>
 <tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
@@ -175,13 +168,6 @@ The **Update** action is an AI-assisted v1-to-v2 conversion, not a download noti
 </table>
 
 <table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/ganyu--chenxin-dlut">Ganyu</a> · by <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · Game Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- ganyu--chenxin-dlut</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/ganyu--chenxin-dlut/gifs/idle.gif" alt="Ganyu idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/ganyu--chenxin-dlut/gifs/waving.gif" alt="Ganyu waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/ganyu--chenxin-dlut/gifs/running-right.gif" alt="Ganyu running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/ganyu--chenxin-dlut/gifs/waiting.gif" alt="Ganyu waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/ganyu--chenxin-dlut/gifs/review.gif" alt="Ganyu review" width="120" height="130"></td></tr>
-</table>
-
-<table>
 <tr><th>Name</th><td colspan="5"><a href="./pets/hu-tao--lingxiaotian">Hu Tao</a> · by <a href="https://github.com/legeling">@legeling</a> · Game Characters · v1</td></tr>
 <tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- hu-tao--lingxiaotian</code></td></tr>
 <tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
@@ -196,31 +182,10 @@ The **Update** action is an AI-assisted v1-to-v2 conversion, not a download noti
 </table>
 
 <table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/klee--chenxin-dlut">Klee</a> · by <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · Game Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- klee--chenxin-dlut</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/klee--chenxin-dlut/gifs/idle.gif" alt="Klee idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/klee--chenxin-dlut/gifs/waving.gif" alt="Klee waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/klee--chenxin-dlut/gifs/running-right.gif" alt="Klee running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/klee--chenxin-dlut/gifs/waiting.gif" alt="Klee waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/klee--chenxin-dlut/gifs/review.gif" alt="Klee review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/lappland--chenxin-dlut">Lappland</a> · by <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · Game Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- lappland--chenxin-dlut</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/lappland--chenxin-dlut/gifs/idle.gif" alt="Lappland idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/lappland--chenxin-dlut/gifs/waving.gif" alt="Lappland waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/lappland--chenxin-dlut/gifs/running-right.gif" alt="Lappland running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/lappland--chenxin-dlut/gifs/waiting.gif" alt="Lappland waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/lappland--chenxin-dlut/gifs/review.gif" alt="Lappland review" width="120" height="130"></td></tr>
-</table>
-
-<table>
 <tr><th>Name</th><td colspan="5"><a href="./pets/little-black-mage--libertis">Little Black Mage</a> · by @libertis · Game Characters · v1</td></tr>
 <tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- little-black-mage--libertis</code></td></tr>
 <tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
 <tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/little-black-mage--libertis/gifs/idle.gif" alt="Little Black Mage idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/little-black-mage--libertis/gifs/waving.gif" alt="Little Black Mage waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/little-black-mage--libertis/gifs/running-right.gif" alt="Little Black Mage running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/little-black-mage--libertis/gifs/waiting.gif" alt="Little Black Mage waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/little-black-mage--libertis/gifs/review.gif" alt="Little Black Mage review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/march-7th--chenxin-dlut">March 7th</a> · by <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · Game Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- march-7th--chenxin-dlut</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/march-7th--chenxin-dlut/gifs/idle.gif" alt="March 7th idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/march-7th--chenxin-dlut/gifs/waving.gif" alt="March 7th waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/march-7th--chenxin-dlut/gifs/running-right.gif" alt="March 7th running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/march-7th--chenxin-dlut/gifs/waiting.gif" alt="March 7th waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/march-7th--chenxin-dlut/gifs/review.gif" alt="March 7th review" width="120" height="130"></td></tr>
 </table>
 
 <table>
@@ -249,13 +214,6 @@ The **Update** action is an AI-assisted v1-to-v2 conversion, not a download noti
 <tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- paimon--lingxiaotian</code></td></tr>
 <tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
 <tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/paimon--lingxiaotian/gifs/idle.gif" alt="Paimon idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/paimon--lingxiaotian/gifs/waving.gif" alt="Paimon waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/paimon--lingxiaotian/gifs/running-right.gif" alt="Paimon running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/paimon--lingxiaotian/gifs/waiting.gif" alt="Paimon waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/paimon--lingxiaotian/gifs/review.gif" alt="Paimon review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/phoebe--chenxin-dlut">Phoebe</a> · by <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · Game Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- phoebe--chenxin-dlut</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/phoebe--chenxin-dlut/gifs/idle.gif" alt="Phoebe idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/phoebe--chenxin-dlut/gifs/waving.gif" alt="Phoebe waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/phoebe--chenxin-dlut/gifs/running-right.gif" alt="Phoebe running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/phoebe--chenxin-dlut/gifs/waiting.gif" alt="Phoebe waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/phoebe--chenxin-dlut/gifs/review.gif" alt="Phoebe review" width="120" height="130"></td></tr>
 </table>
 
 <table>
@@ -294,13 +252,6 @@ The **Update** action is an AI-assisted v1-to-v2 conversion, not a download noti
 </table>
 
 <table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/sonetto--chenxin-dlut">Sonetto</a> · by <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · Game Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- sonetto--chenxin-dlut</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/sonetto--chenxin-dlut/gifs/idle.gif" alt="Sonetto idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/sonetto--chenxin-dlut/gifs/waving.gif" alt="Sonetto waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/sonetto--chenxin-dlut/gifs/running-right.gif" alt="Sonetto running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/sonetto--chenxin-dlut/gifs/waiting.gif" alt="Sonetto waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/sonetto--chenxin-dlut/gifs/review.gif" alt="Sonetto review" width="120" height="130"></td></tr>
-</table>
-
-<table>
 <tr><th>Name</th><td colspan="5"><a href="./pets/sparkle--lingxiaotian">Sparkle</a> · by <a href="https://github.com/legeling">@legeling</a> · Game Characters · v1</td></tr>
 <tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- sparkle--lingxiaotian</code></td></tr>
 <tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
@@ -315,45 +266,10 @@ The **Update** action is an AI-assisted v1-to-v2 conversion, not a download noti
 </table>
 
 <table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/vertin--chenxin-dlut">Vertin</a> · by <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · Game Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- vertin--chenxin-dlut</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/vertin--chenxin-dlut/gifs/idle.gif" alt="Vertin idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/vertin--chenxin-dlut/gifs/waving.gif" alt="Vertin waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/vertin--chenxin-dlut/gifs/running-right.gif" alt="Vertin running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/vertin--chenxin-dlut/gifs/waiting.gif" alt="Vertin waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/vertin--chenxin-dlut/gifs/review.gif" alt="Vertin review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/yoimiya--chenxin-dlut">Yoimiya</a> · by <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · Game Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- yoimiya--chenxin-dlut</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/yoimiya--chenxin-dlut/gifs/idle.gif" alt="Yoimiya idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/yoimiya--chenxin-dlut/gifs/waving.gif" alt="Yoimiya waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/yoimiya--chenxin-dlut/gifs/running-right.gif" alt="Yoimiya running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/yoimiya--chenxin-dlut/gifs/waiting.gif" alt="Yoimiya waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/yoimiya--chenxin-dlut/gifs/review.gif" alt="Yoimiya review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/zani--chenxin-dlut">Zani</a> · by <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · Game Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- zani--chenxin-dlut</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zani--chenxin-dlut/gifs/idle.gif" alt="Zani idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zani--chenxin-dlut/gifs/waving.gif" alt="Zani waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zani--chenxin-dlut/gifs/running-right.gif" alt="Zani running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zani--chenxin-dlut/gifs/waiting.gif" alt="Zani waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zani--chenxin-dlut/gifs/review.gif" alt="Zani review" width="120" height="130"></td></tr>
-</table>
-
-<table>
 <tr><th>Name</th><td colspan="5"><a href="./pets/dnf-female-ammo--qunboo">女弹药Q</a> · by <a href="https://github.com/QunBoo">@QunBoo</a> · Game Characters · v1</td></tr>
 <tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- dnf-female-ammo--qunboo</code></td></tr>
 <tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
 <tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/dnf-female-ammo--qunboo/gifs/idle.gif" alt="女弹药Q idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/dnf-female-ammo--qunboo/gifs/waving.gif" alt="女弹药Q waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/dnf-female-ammo--qunboo/gifs/running-right.gif" alt="女弹药Q running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/dnf-female-ammo--qunboo/gifs/waiting.gif" alt="女弹药Q waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/dnf-female-ammo--qunboo/gifs/review.gif" alt="女弹药Q review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/new-covenant-exusiai--chenxin-dlut">Exusiai the New Covenant</a> · by <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · Game Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- new-covenant-exusiai--chenxin-dlut</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/new-covenant-exusiai--chenxin-dlut/gifs/idle.gif" alt="Exusiai the New Covenant idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/new-covenant-exusiai--chenxin-dlut/gifs/waving.gif" alt="Exusiai the New Covenant waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/new-covenant-exusiai--chenxin-dlut/gifs/running-right.gif" alt="Exusiai the New Covenant running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/new-covenant-exusiai--chenxin-dlut/gifs/waiting.gif" alt="Exusiai the New Covenant waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/new-covenant-exusiai--chenxin-dlut/gifs/review.gif" alt="Exusiai the New Covenant review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/regulus-star-antimony--chenxin-dlut">Regulus</a> · by <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · Game Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- regulus-star-antimony--chenxin-dlut</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/regulus-star-antimony--chenxin-dlut/gifs/idle.gif" alt="Regulus idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/regulus-star-antimony--chenxin-dlut/gifs/waving.gif" alt="Regulus waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/regulus-star-antimony--chenxin-dlut/gifs/running-right.gif" alt="Regulus running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/regulus-star-antimony--chenxin-dlut/gifs/waiting.gif" alt="Regulus waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/regulus-star-antimony--chenxin-dlut/gifs/review.gif" alt="Regulus review" width="120" height="130"></td></tr>
 </table>
 
 <table>
@@ -366,38 +282,10 @@ The **Update** action is an AI-assisted v1-to-v2 conversion, not a download noti
 ### Anime Characters
 
 <table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/zero-two--mingqingmozhao">Zero Two</a> · by @mingqingmozhao · Anime Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- zero-two--mingqingmozhao</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zero-two--mingqingmozhao/gifs/idle.gif" alt="Zero Two idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zero-two--mingqingmozhao/gifs/waving.gif" alt="Zero Two waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zero-two--mingqingmozhao/gifs/running-right.gif" alt="Zero Two running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zero-two--mingqingmozhao/gifs/waiting.gif" alt="Zero Two waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zero-two--mingqingmozhao/gifs/review.gif" alt="Zero Two review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/anya--chenxin-dlut">Anya</a> · by <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · Anime Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- anya--chenxin-dlut</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/anya--chenxin-dlut/gifs/idle.gif" alt="Anya idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/anya--chenxin-dlut/gifs/waving.gif" alt="Anya waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/anya--chenxin-dlut/gifs/running-right.gif" alt="Anya running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/anya--chenxin-dlut/gifs/waiting.gif" alt="Anya waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/anya--chenxin-dlut/gifs/review.gif" alt="Anya review" width="120" height="130"></td></tr>
-</table>
-
-<table>
 <tr><th>Name</th><td colspan="5"><a href="./pets/asuka--maxg24">Asuka</a> · by <a href="https://codex-pets.net/users/maxg24">@maxg24</a> · Anime Characters · v1</td></tr>
 <tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- asuka--maxg24</code></td></tr>
 <tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
 <tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/asuka--maxg24/gifs/idle.gif" alt="Asuka idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/asuka--maxg24/gifs/waving.gif" alt="Asuka waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/asuka--maxg24/gifs/running-right.gif" alt="Asuka running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/asuka--maxg24/gifs/waiting.gif" alt="Asuka waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/asuka--maxg24/gifs/review.gif" alt="Asuka review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/chibi-rei-pet--bendy">Rei Ayanami</a> · by @Bendy · Anime Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- chibi-rei-pet--bendy</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chibi-rei-pet--bendy/gifs/idle.gif" alt="Rei Ayanami idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chibi-rei-pet--bendy/gifs/waving.gif" alt="Rei Ayanami waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chibi-rei-pet--bendy/gifs/running-right.gif" alt="Rei Ayanami running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chibi-rei-pet--bendy/gifs/waiting.gif" alt="Rei Ayanami waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/chibi-rei-pet--bendy/gifs/review.gif" alt="Rei Ayanami review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/conan--chenxin-dlut">Conan Edogawa</a> · by <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · Anime Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- conan--chenxin-dlut</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/conan--chenxin-dlut/gifs/idle.gif" alt="Conan Edogawa idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/conan--chenxin-dlut/gifs/waving.gif" alt="Conan Edogawa waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/conan--chenxin-dlut/gifs/running-right.gif" alt="Conan Edogawa running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/conan--chenxin-dlut/gifs/waiting.gif" alt="Conan Edogawa waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/conan--chenxin-dlut/gifs/review.gif" alt="Conan Edogawa review" width="120" height="130"></td></tr>
 </table>
 
 <table>
@@ -450,13 +338,6 @@ The **Update** action is an AI-assisted v1-to-v2 conversion, not a download noti
 </table>
 
 <table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/kid--chenxin-dlut">Kaito Kid</a> · by <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · Anime Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- kid--chenxin-dlut</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/kid--chenxin-dlut/gifs/idle.gif" alt="Kaito Kid idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/kid--chenxin-dlut/gifs/waving.gif" alt="Kaito Kid waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/kid--chenxin-dlut/gifs/running-right.gif" alt="Kaito Kid running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/kid--chenxin-dlut/gifs/waiting.gif" alt="Kaito Kid waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/kid--chenxin-dlut/gifs/review.gif" alt="Kaito Kid review" width="120" height="130"></td></tr>
-</table>
-
-<table>
 <tr><th>Name</th><td colspan="5"><a href="./pets/kid-goku--julianhuang">Kid Goku</a> · by <a href="https://codex-pets.net/users/julianhuang">@julianhuang</a> · Anime Characters · v1</td></tr>
 <tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- kid-goku--julianhuang</code></td></tr>
 <tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
@@ -482,20 +363,6 @@ The **Update** action is an AI-assisted v1-to-v2 conversion, not a download noti
 <tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- mahiro--lingxiaotian</code></td></tr>
 <tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
 <tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/mahiro--lingxiaotian/gifs/idle.gif" alt="Mahiro idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/mahiro--lingxiaotian/gifs/waving.gif" alt="Mahiro waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/mahiro--lingxiaotian/gifs/running-right.gif" alt="Mahiro running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/mahiro--lingxiaotian/gifs/waiting.gif" alt="Mahiro waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/mahiro--lingxiaotian/gifs/review.gif" alt="Mahiro review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/makimamini--1sh1ro">Makima</a> · by @1sh1ro · Anime Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- makimamini--1sh1ro</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makimamini--1sh1ro/gifs/idle.gif" alt="Makima idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makimamini--1sh1ro/gifs/waving.gif" alt="Makima waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makimamini--1sh1ro/gifs/running-right.gif" alt="Makima running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makimamini--1sh1ro/gifs/waiting.gif" alt="Makima waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makimamini--1sh1ro/gifs/review.gif" alt="Makima review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/makisekurisu--m1gr4ine">Makise Kurisu</a> · by @m1gr4ine · Anime Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- makisekurisu--m1gr4ine</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makisekurisu--m1gr4ine/gifs/idle.gif" alt="Makise Kurisu idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makisekurisu--m1gr4ine/gifs/waving.gif" alt="Makise Kurisu waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makisekurisu--m1gr4ine/gifs/running-right.gif" alt="Makise Kurisu running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makisekurisu--m1gr4ine/gifs/waiting.gif" alt="Makise Kurisu waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/makisekurisu--m1gr4ine/gifs/review.gif" alt="Makise Kurisu review" width="120" height="130"></td></tr>
 </table>
 
 <table>
@@ -555,80 +422,10 @@ The **Update** action is an AI-assisted v1-to-v2 conversion, not a download noti
 </table>
 
 <table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/saber--petdex-zhenyou-ling">Saber</a> · by @真宵 绫. · Anime Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- saber--petdex-zhenyou-ling</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/saber--petdex-zhenyou-ling/gifs/idle.gif" alt="Saber idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/saber--petdex-zhenyou-ling/gifs/waving.gif" alt="Saber waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/saber--petdex-zhenyou-ling/gifs/running-right.gif" alt="Saber running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/saber--petdex-zhenyou-ling/gifs/waiting.gif" alt="Saber waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/saber--petdex-zhenyou-ling/gifs/review.gif" alt="Saber review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/gintoki-pixel--yuu-m">Sakata Gintoki</a> · by @Yuu M. · Anime Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- gintoki-pixel--yuu-m</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/gintoki-pixel--yuu-m/gifs/idle.gif" alt="Sakata Gintoki idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/gintoki-pixel--yuu-m/gifs/waving.gif" alt="Sakata Gintoki waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/gintoki-pixel--yuu-m/gifs/running-right.gif" alt="Sakata Gintoki running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/gintoki-pixel--yuu-m/gifs/waiting.gif" alt="Sakata Gintoki waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/gintoki-pixel--yuu-m/gifs/review.gif" alt="Sakata Gintoki review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/shinchan--chenxin-dlut">Shin-chan</a> · by <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · Anime Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- shinchan--chenxin-dlut</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinchan--chenxin-dlut/gifs/idle.gif" alt="Shin-chan idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinchan--chenxin-dlut/gifs/waving.gif" alt="Shin-chan waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinchan--chenxin-dlut/gifs/running-right.gif" alt="Shin-chan running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinchan--chenxin-dlut/gifs/waiting.gif" alt="Shin-chan waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinchan--chenxin-dlut/gifs/review.gif" alt="Shin-chan review" width="120" height="130"></td></tr>
-</table>
-
-<table>
 <tr><th>Name</th><td colspan="5"><a href="./pets/violet--lazenca">Violet</a> · by <a href="https://codex-pets.net/users/lazenca">@lazenca</a> · Anime Characters · v1</td></tr>
 <tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- violet--lazenca</code></td></tr>
 <tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
 <tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/violet--lazenca/gifs/idle.gif" alt="Violet idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/violet--lazenca/gifs/waving.gif" alt="Violet waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/violet--lazenca/gifs/running-right.gif" alt="Violet running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/violet--lazenca/gifs/waiting.gif" alt="Violet waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/violet--lazenca/gifs/review.gif" alt="Violet review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/inosuke-hashibira--wangfan002">Inosuke Hashibira</a> · by @wangfan002 · Anime Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- inosuke-hashibira--wangfan002</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/inosuke-hashibira--wangfan002/gifs/idle.gif" alt="Inosuke Hashibira idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/inosuke-hashibira--wangfan002/gifs/waving.gif" alt="Inosuke Hashibira waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/inosuke-hashibira--wangfan002/gifs/running-right.gif" alt="Inosuke Hashibira running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/inosuke-hashibira--wangfan002/gifs/waiting.gif" alt="Inosuke Hashibira waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/inosuke-hashibira--wangfan002/gifs/review.gif" alt="Inosuke Hashibira review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/zenitsu-agatsuma--wangfan002">Zenitsu Agatsuma</a> · by @wangfan002 · Anime Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- zenitsu-agatsuma--wangfan002</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zenitsu-agatsuma--wangfan002/gifs/idle.gif" alt="Zenitsu Agatsuma idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zenitsu-agatsuma--wangfan002/gifs/waving.gif" alt="Zenitsu Agatsuma waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zenitsu-agatsuma--wangfan002/gifs/running-right.gif" alt="Zenitsu Agatsuma running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zenitsu-agatsuma--wangfan002/gifs/waiting.gif" alt="Zenitsu Agatsuma waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/zenitsu-agatsuma--wangfan002/gifs/review.gif" alt="Zenitsu Agatsuma review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/giyu-tomioka--wangfan002">Giyu Tomioka</a> · by @wangfan002 · Anime Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- giyu-tomioka--wangfan002</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/giyu-tomioka--wangfan002/gifs/idle.gif" alt="Giyu Tomioka idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/giyu-tomioka--wangfan002/gifs/waving.gif" alt="Giyu Tomioka waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/giyu-tomioka--wangfan002/gifs/running-right.gif" alt="Giyu Tomioka running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/giyu-tomioka--wangfan002/gifs/waiting.gif" alt="Giyu Tomioka waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/giyu-tomioka--wangfan002/gifs/review.gif" alt="Giyu Tomioka review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/muichiro-tokito--wangfan002">Muichiro Tokito</a> · by @wangfan002 · Anime Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- muichiro-tokito--wangfan002</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/muichiro-tokito--wangfan002/gifs/idle.gif" alt="Muichiro Tokito idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/muichiro-tokito--wangfan002/gifs/waving.gif" alt="Muichiro Tokito waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/muichiro-tokito--wangfan002/gifs/running-right.gif" alt="Muichiro Tokito running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/muichiro-tokito--wangfan002/gifs/waiting.gif" alt="Muichiro Tokito waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/muichiro-tokito--wangfan002/gifs/review.gif" alt="Muichiro Tokito review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/tanjiro-kamado--wangfan002">Tanjiro Kamado</a> · by @wangfan002 · Anime Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- tanjiro-kamado--wangfan002</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/tanjiro-kamado--wangfan002/gifs/idle.gif" alt="Tanjiro Kamado idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/tanjiro-kamado--wangfan002/gifs/waving.gif" alt="Tanjiro Kamado waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/tanjiro-kamado--wangfan002/gifs/running-right.gif" alt="Tanjiro Kamado running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/tanjiro-kamado--wangfan002/gifs/waiting.gif" alt="Tanjiro Kamado waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/tanjiro-kamado--wangfan002/gifs/review.gif" alt="Tanjiro Kamado review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/nezuko-kamado--wangfan002">Nezuko Kamado</a> · by @wangfan002 · Anime Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- nezuko-kamado--wangfan002</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/nezuko-kamado--wangfan002/gifs/idle.gif" alt="Nezuko Kamado idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/nezuko-kamado--wangfan002/gifs/waving.gif" alt="Nezuko Kamado waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/nezuko-kamado--wangfan002/gifs/running-right.gif" alt="Nezuko Kamado running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/nezuko-kamado--wangfan002/gifs/waiting.gif" alt="Nezuko Kamado waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/nezuko-kamado--wangfan002/gifs/review.gif" alt="Nezuko Kamado review" width="120" height="130"></td></tr>
-</table>
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/shinobu-kocho--wangfan002">Shinobu Kocho</a> · by @wangfan002 · Anime Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- shinobu-kocho--wangfan002</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinobu-kocho--wangfan002/gifs/idle.gif" alt="Shinobu Kocho idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinobu-kocho--wangfan002/gifs/waving.gif" alt="Shinobu Kocho waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinobu-kocho--wangfan002/gifs/running-right.gif" alt="Shinobu Kocho running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinobu-kocho--wangfan002/gifs/waiting.gif" alt="Shinobu Kocho waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/shinobu-kocho--wangfan002/gifs/review.gif" alt="Shinobu Kocho review" width="120" height="130"></td></tr>
 </table>
 
 <table>
@@ -639,13 +436,6 @@ The **Update** action is an AI-assisted v1-to-v2 conversion, not a download noti
 </table>
 
 ### Original Characters
-
-<table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/aiko--chenxin-dlut">Aiko</a> · by <a href="https://github.com/chenxin-dlut">@chenxin-dlut</a> · Original Characters · v1</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- aiko--chenxin-dlut</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/aiko--chenxin-dlut/gifs/idle.gif" alt="Aiko idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/aiko--chenxin-dlut/gifs/waving.gif" alt="Aiko waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/aiko--chenxin-dlut/gifs/running-right.gif" alt="Aiko running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/aiko--chenxin-dlut/gifs/waiting.gif" alt="Aiko waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/aiko--chenxin-dlut/gifs/review.gif" alt="Aiko review" width="120" height="130"></td></tr>
-</table>
 
 <table>
 <tr><th>Name</th><td colspan="5"><a href="./pets/diana--am">Diana</a> · by @am · Original Characters · v1</td></tr>
