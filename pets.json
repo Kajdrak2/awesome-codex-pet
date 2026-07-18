@@ -13,6 +13,17 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "zero-two--mingqingmozhao",
+    "name": "02",
+    "localized_names": { "en": "Zero Two", "zh": "02" },
+    "author": "mingqingmozhao",
+    "author_handle": "mingqingmozhao",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Source author terms; personal non-commercial use only",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "acheron--lingxiaotian",
     "name": "Acheron",
     "localized_names": { "en": "Acheron", "zh": "黄泉" },
@@ -37,6 +48,30 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "aiko--chenxin-dlut",
+    "name": "Aiko",
+    "localized_names": { "en": "Aiko", "zh": "爱子" },
+    "author": "Xin Chen",
+    "author_handle": "chenxin-dlut",
+    "author_url": "https://github.com/chenxin-dlut",
+    "primary_category": "Original Characters",
+    "collections": [],
+    "license": "Personal non-commercial fan use",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "anya--chenxin-dlut",
+    "name": "Anya",
+    "localized_names": { "en": "Anya", "zh": "阿尼亚" },
+    "author": "Xin Chen",
+    "author_handle": "chenxin-dlut",
+    "author_url": "https://github.com/chenxin-dlut",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Personal non-commercial fan use",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "apu--xchangee",
     "name": "Apu",
     "author": "tal",
@@ -58,6 +93,19 @@
     "collections": ["genshin-impact"],
     "license": "CC BY-NC 4.0",
     "description": "An Arlecchino-inspired fan-art Codex pet with white-and-black hair, a black-white-red palette, a short cloak silhouette, and a sharp chibi sprite identity.",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "asuka--maxg24",
+    "name": "Asuka",
+    "localized_names": { "en": "Asuka", "zh": "明日香" },
+    "author": "maxg24",
+    "author_handle": "maxg24",
+    "author_url": "https://codex-pets.net/users/maxg24",
+    "primary_category": "Anime Characters",
+    "collections": ["evangelion"],
+    "license": "Non-commercial repository redistribution authorized by the original asset creator; permission confirmed by the repository maintainer on 2026-07-18.",
+    "description": "A fiery chibi mecha pilot digital pet inspired by Asuka from Evangelion.",
     "spriteVersionNumber": 1
   },
   {
@@ -132,6 +180,29 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "chen--chenxin-dlut",
+    "name": "Chen",
+    "localized_names": { "en": "Ch'en", "zh": "陈" },
+    "author": "Xin Chen",
+    "author_handle": "chenxin-dlut",
+    "author_url": "https://github.com/chenxin-dlut",
+    "primary_category": "Game Characters",
+    "collections": [],
+    "license": "Personal non-commercial fan use",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "chibi-rei-pet--bendy",
+    "name": "Chibi Rei Pet",
+    "localized_names": { "en": "Rei Ayanami", "zh": "绫波丽" },
+    "author": "Bendy",
+    "author_handle": "Bendy",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Source author terms; personal non-commercial use only",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "chispa--giiilberto-nm",
     "name": "Chispa",
     "author": "giiilberto_nm",
@@ -162,6 +233,18 @@
     "primary_category": "Robots",
     "collections": [],
     "license": "Original submission; permission granted for inclusion in the awesome-codex-pet gallery via issue #9",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "conan--chenxin-dlut",
+    "name": "Conan",
+    "localized_names": { "en": "Conan Edogawa", "zh": "江户川柯南" },
+    "author": "Xin Chen",
+    "author_handle": "chenxin-dlut",
+    "author_url": "https://github.com/chenxin-dlut",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
   },
   {
@@ -256,6 +339,19 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "doraemon--xueshi",
+    "name": "Doraemon",
+    "localized_names": { "en": "Doraemon", "zh": "哆啦A梦" },
+    "author": "xueshi",
+    "author_handle": "xueshi",
+    "author_url": "https://codex-pets.net/users/xueshi",
+    "primary_category": "Anime Characters",
+    "collections": ["doraemon"],
+    "license": "Non-commercial repository redistribution authorized by the original asset creator; permission confirmed by the repository maintainer on 2026-07-18.",
+    "description": "A compact blue robot-cat Codex pet inspired by 哆啦A梦, simplified into a pixel-adjacent desktop mascot.",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "doro--lingxiaotian",
     "name": "Doro",
     "localized_names": { "en": "Doro", "zh": "桃乐丝（Doro）" },
@@ -280,6 +376,19 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "elaina--nyakku-shigure",
+    "name": "Elaina",
+    "localized_names": { "en": "Elaina", "zh": "伊蕾娜" },
+    "author": "Nyakku Shigure",
+    "author_handle": "nyakku-shigure",
+    "author_url": "https://codex-pets.net/users/nyakku-shigure",
+    "primary_category": "Anime Characters",
+    "collections": ["wandering-witch"],
+    "license": "Non-commercial repository redistribution authorized by the original asset creator; permission confirmed by the repository maintainer on 2026-07-18.",
+    "description": "A tiny Ashen Witch digital pet inspired by Elaina, the cute self-confident traveling witch who rides her broom.",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "ella-wave--sehjk",
     "name": "Ella Wave",
     "author": "sehjk",
@@ -288,6 +397,19 @@
     "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A tiny Codex digital pet inspired by Ella, a curious black-and-white cat with chartreuse eyes, a pink nose, mask-like face patches, white chest, and a warm orange flank patch. Hover variant: uses the waving animation when Codex triggers hover jump.",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "eren--ash-sw",
+    "name": "Eren",
+    "localized_names": { "en": "Eren", "zh": "艾伦" },
+    "author": "Ash-Sw",
+    "author_handle": "ash-sw",
+    "author_url": "https://codex-pets.net/users/ash-sw",
+    "primary_category": "Anime Characters",
+    "collections": ["attack-on-titan"],
+    "license": "Non-commercial repository redistribution authorized by the original asset creator; permission confirmed by the repository maintainer on 2026-07-18.",
+    "description": "A stern anime-scout-inspired Codex pet with a green cloak and determined expression.",
     "spriteVersionNumber": 1
   },
   {
@@ -351,6 +473,18 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "ganyu--chenxin-dlut",
+    "name": "Ganyu",
+    "localized_names": { "en": "Ganyu", "zh": "甘雨" },
+    "author": "Xin Chen",
+    "author_handle": "chenxin-dlut",
+    "author_url": "https://github.com/chenxin-dlut",
+    "primary_category": "Game Characters",
+    "collections": ["genshin-impact"],
+    "license": "Personal non-commercial fan use",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "goblin--rkwap",
     "name": "Goblin",
     "author": "rkwap",
@@ -360,6 +494,19 @@
     "collections": [],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A cute compact Codex digital pet goblin with tiny ears and a mischievous friendly face.",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "gojo--lilokhalikfa",
+    "name": "Gojo",
+    "localized_names": { "en": "Gojo", "zh": "五条悟" },
+    "author": "lilokhalikfa",
+    "author_handle": "lilokhalikfa",
+    "author_url": "https://codex-pets.net/users/lilokhalikfa",
+    "primary_category": "Anime Characters",
+    "collections": ["jujutsu-kaisen"],
+    "license": "Non-commercial repository redistribution authorized by the original asset creator; permission confirmed by the repository maintainer on 2026-07-18.",
+    "description": "A tiny blindfolded white-haired chibi sorcerer companion in Codex digital pet style.",
     "spriteVersionNumber": 1
   },
   {
@@ -406,6 +553,19 @@
     "collections": ["genshin-impact"],
     "license": "CC BY-NC 4.0",
     "description": "A Hu Tao-inspired fan-art Codex pet with a funeral parlor hat, plum-blossom eyes, a black-red palette, and a playful chibi sprite identity.",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "ikaros--icarus-alpha",
+    "name": "Ikaros",
+    "localized_names": { "en": "Ikaros", "zh": "伊卡洛斯" },
+    "author": "Icarus_Alpha",
+    "author_handle": "icarus-alpha",
+    "author_url": "https://codex-pets.net/users/icarus-alpha",
+    "primary_category": "Anime Characters",
+    "collections": ["heavens-lost-property"],
+    "license": "Non-commercial repository redistribution authorized by the original asset creator; permission confirmed by the repository maintainer on 2026-07-18.",
+    "description": "A chibi Ikaros desktop pet inspired by Heaven's Lost Property, with pink hair, teal eyes, small wings, white mechanical outfit, chain collar, clear four-finger chibi hands, and a complete round watermelon prop.",
     "spriteVersionNumber": 1
   },
   {
@@ -465,6 +625,31 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "kid--chenxin-dlut",
+    "name": "Kid",
+    "localized_names": { "en": "Kaito Kid", "zh": "怪盗基德" },
+    "author": "Xin Chen",
+    "author_handle": "chenxin-dlut",
+    "author_url": "https://github.com/chenxin-dlut",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Personal non-commercial fan use",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "kid-goku--julianhuang",
+    "name": "Kid Goku",
+    "localized_names": { "en": "Kid Goku", "zh": "小悟空" },
+    "author": "JulianHuang",
+    "author_handle": "julianhuang",
+    "author_url": "https://codex-pets.net/users/julianhuang",
+    "primary_category": "Anime Characters",
+    "collections": ["dragon-ball"],
+    "license": "Non-commercial repository redistribution authorized by the original asset creator; permission confirmed by the repository maintainer on 2026-07-18.",
+    "description": "A tiny Codex pet based on kid Son Goku with classic Dragon Ball action rows.",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "kimoju--andiac",
     "name": "Kimoju",
     "author": "andiac",
@@ -475,6 +660,43 @@
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "Kimoju 奇魔猪 is a cute dazed minimalist white line-art pig carrying a small yellow crossbody bag.",
     "spriteVersionNumber": 2
+  },
+  {
+    "slug": "klee--chenxin-dlut",
+    "name": "Klee",
+    "localized_names": { "en": "Klee", "zh": "可莉" },
+    "author": "Xin Chen",
+    "author_handle": "chenxin-dlut",
+    "author_url": "https://github.com/chenxin-dlut",
+    "primary_category": "Game Characters",
+    "collections": ["genshin-impact"],
+    "license": "Personal non-commercial fan use",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "lappland--chenxin-dlut",
+    "name": "Lappland",
+    "localized_names": { "en": "Lappland", "zh": "拉普兰德" },
+    "author": "Xin Chen",
+    "author_handle": "chenxin-dlut",
+    "author_url": "https://github.com/chenxin-dlut",
+    "primary_category": "Game Characters",
+    "collections": [],
+    "license": "Personal non-commercial fan use",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "levi--emrecb",
+    "name": "Levi",
+    "localized_names": { "en": "Levi", "zh": "利威尔" },
+    "author": "emrecb",
+    "author_handle": "emrecb",
+    "author_url": "https://codex-pets.net/users/emrecb",
+    "primary_category": "Anime Characters",
+    "collections": ["attack-on-titan"],
+    "license": "Non-commercial repository redistribution authorized by the original asset creator; permission confirmed by the repository maintainer on 2026-07-18.",
+    "description": "A tiny airborne sword fighter who jumps, spins, and swings twin blades.",
+    "spriteVersionNumber": 1
   },
   {
     "slug": "linnea--nyakku-shigure",
@@ -508,6 +730,19 @@
     "primary_category": "Animals",
     "collections": ["animal-companions"],
     "license": "CC BY-NC 4.0. Original AI-assisted asset created by MingDong for Codex pet submission; no third-party source asset.",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "luffy-gear-5--jordsshmords1",
+    "name": "Luffy Gear 5",
+    "localized_names": { "en": "Luffy Gear 5", "zh": "五档路飞" },
+    "author": "jordsshmords1",
+    "author_handle": "jordsshmords1",
+    "author_url": "https://codex-pets.net/users/jordsshmords1",
+    "primary_category": "Anime Characters",
+    "collections": ["one-piece"],
+    "license": "Non-commercial repository redistribution authorized by the original asset creator; permission confirmed by the repository maintainer on 2026-07-18.",
+    "description": "A tiny chibi Codex pet version of Monkey D. Luffy in Gear 5, simplified into a readable animated sprite mascot.",
     "spriteVersionNumber": 1
   },
   {
@@ -555,6 +790,40 @@
     "primary_category": "Animals",
     "collections": ["animal-companions"],
     "license": "MIT License",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "makimamini--1sh1ro",
+    "name": "MakimaMini",
+    "localized_names": { "en": "Makima", "zh": "玛奇玛" },
+    "author": "1sh1ro",
+    "author_handle": "1sh1ro",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Source author terms; personal non-commercial use only",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "makisekurisu--m1gr4ine",
+    "name": "Makise Kurisu",
+    "localized_names": { "en": "Makise Kurisu", "zh": "牧濑红莉栖" },
+    "author": "m1gr4ine",
+    "author_handle": "m1gr4ine",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Source author terms; personal non-commercial use only",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "march-7th--chenxin-dlut",
+    "name": "March 7th",
+    "localized_names": { "en": "March 7th", "zh": "三月七" },
+    "author": "Xin Chen",
+    "author_handle": "chenxin-dlut",
+    "author_url": "https://github.com/chenxin-dlut",
+    "primary_category": "Game Characters",
+    "collections": ["honkai-star-rail"],
+    "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
   },
   {
@@ -664,6 +933,19 @@
     "spriteVersionNumber": 2
   },
   {
+    "slug": "miyabi--eric-terminal",
+    "name": "Miyabi",
+    "localized_names": { "en": "Miyabi", "zh": "星见雅" },
+    "author": "Eric-Terminal",
+    "author_handle": "eric-terminal",
+    "author_url": "https://codex-pets.net/users/eric-terminal",
+    "primary_category": "Game Characters",
+    "collections": ["zenless-zone-zero"],
+    "license": "Non-commercial repository redistribution authorized by the original asset creator; permission confirmed by the repository maintainer on 2026-07-18.",
+    "description": "A chibi Hoshimi Miyabi desktop pet from Zenless Zone Zero: a composed Section 6 swordswoman with long black hair, fox ears, and vivid red eyes.",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "moomew-coder-cat--ping",
     "name": "MooMew Coder",
     "author": "ping",
@@ -713,6 +995,19 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "nimbus--soraberu",
+    "name": "Nimbus",
+    "localized_names": { "en": "Nimbus", "zh": "筋斗云悟空" },
+    "author": "soraberu",
+    "author_handle": "soraberu",
+    "author_url": "https://codex-pets.net/users/soraberu",
+    "primary_category": "Anime Characters",
+    "collections": ["dragon-ball"],
+    "license": "Non-commercial repository redistribution authorized by the original asset creator; permission confirmed by the repository maintainer on 2026-07-18.",
+    "description": "A tiny chibi martial-arts kid riding a golden cloud companion.",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "paimon--lingxiaotian",
     "name": "Paimon",
     "localized_names": { "en": "Paimon", "zh": "派蒙" },
@@ -733,6 +1028,18 @@
     "primary_category": "Animals",
     "collections": ["animal-companions"],
     "license": "MIT License",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "phoebe--chenxin-dlut",
+    "name": "Phoebe",
+    "localized_names": { "en": "Phoebe", "zh": "菲比" },
+    "author": "Xin Chen",
+    "author_handle": "chenxin-dlut",
+    "author_url": "https://github.com/chenxin-dlut",
+    "primary_category": "Game Characters",
+    "collections": [],
+    "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
   },
   {
@@ -758,6 +1065,19 @@
     "primary_category": "Game Characters",
     "collections": [],
     "license": "CC BY-NC 4.0",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "rem--l1",
+    "name": "Rem",
+    "localized_names": { "en": "Rem", "zh": "蕾姆" },
+    "author": "l1",
+    "author_handle": "l1",
+    "author_url": "https://codex-pets.net/users/l1",
+    "primary_category": "Anime Characters",
+    "collections": ["re-zero"],
+    "license": "Non-commercial repository redistribution authorized by the original asset creator; permission confirmed by the repository maintainer on 2026-07-18.",
+    "description": "Just a cute Rem that loves ice cream. 一只喜欢冰淇淋的可爱蕾姆。Балмұздақты жақсы көретін сүйкімді Рем.",
     "spriteVersionNumber": 1
   },
   {
@@ -832,6 +1152,28 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "saber--petdex-zhenyou-ling",
+    "name": "Saber",
+    "localized_names": { "en": "Saber", "zh": "阿尔托莉雅" },
+    "author": "真宵 绫.",
+    "author_handle": "真宵 绫.",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Source author terms; personal non-commercial use only",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "gintoki-pixel--yuu-m",
+    "name": "Sakata Gintoki",
+    "localized_names": { "en": "Sakata Gintoki", "zh": "坂田银时" },
+    "author": "Yuu M.",
+    "author_handle": "Yuu M.",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Source author terms; personal non-commercial use only",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "saki--rookie-09",
     "name": "Saki",
     "author": "rookie-09",
@@ -854,6 +1196,18 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "shinchan--chenxin-dlut",
+    "name": "Shinchan",
+    "localized_names": { "en": "Shin-chan", "zh": "野原新之助" },
+    "author": "Xin Chen",
+    "author_handle": "chenxin-dlut",
+    "author_url": "https://github.com/chenxin-dlut",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Personal non-commercial fan use",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "silver-wolf--lingxiaotian",
     "name": "Silver Wolf",
     "localized_names": { "en": "Silver Wolf", "zh": "银狼" },
@@ -864,6 +1218,18 @@
     "collections": ["honkai-star-rail"],
     "license": "CC BY-NC 4.0",
     "description": "A Silver Wolf-inspired fan-art Codex pet with short silver-lavender hair, gamer-hacker goggles, a black-and-purple techwear palette, and a compact chibi sprite identity.",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "sonetto--chenxin-dlut",
+    "name": "Sonetto",
+    "localized_names": { "en": "Sonetto", "zh": "十四行诗" },
+    "author": "Xin Chen",
+    "author_handle": "chenxin-dlut",
+    "author_url": "https://github.com/chenxin-dlut",
+    "primary_category": "Game Characters",
+    "collections": [],
+    "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
   },
   {
@@ -961,6 +1327,31 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "vertin--chenxin-dlut",
+    "name": "Vertin",
+    "localized_names": { "en": "Vertin", "zh": "维尔汀" },
+    "author": "Xin Chen",
+    "author_handle": "chenxin-dlut",
+    "author_url": "https://github.com/chenxin-dlut",
+    "primary_category": "Game Characters",
+    "collections": [],
+    "license": "Personal non-commercial fan use",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "violet--lazenca",
+    "name": "Violet",
+    "localized_names": { "en": "Violet", "zh": "薇尔莉特" },
+    "author": "Lazenca",
+    "author_handle": "lazenca",
+    "author_url": "https://codex-pets.net/users/lazenca",
+    "primary_category": "Anime Characters",
+    "collections": ["violet-evergarden"],
+    "license": "Non-commercial repository redistribution authorized by the original asset creator; permission confirmed by the repository maintainer on 2026-07-18.",
+    "description": "A tiny chibi digital pet inspired by Violet Evergarden with blonde hair, blue eyes, ribboned dress, and delicate mechanical gloves.",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "wally--wally025",
     "name": "Wally",
     "author": "Wally Pet Contributors",
@@ -991,6 +1382,18 @@
     "primary_category": "Original Characters",
     "collections": [],
     "license": "MIT License",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "yoimiya--chenxin-dlut",
+    "name": "Yoimiya",
+    "localized_names": { "en": "Yoimiya", "zh": "宵宫" },
+    "author": "Xin Chen",
+    "author_handle": "chenxin-dlut",
+    "author_url": "https://github.com/chenxin-dlut",
+    "primary_category": "Game Characters",
+    "collections": ["genshin-impact"],
+    "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
   },
   {
@@ -1028,6 +1431,18 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "zani--chenxin-dlut",
+    "name": "Zani",
+    "localized_names": { "en": "Zani", "zh": "赞妮" },
+    "author": "Xin Chen",
+    "author_handle": "chenxin-dlut",
+    "author_url": "https://github.com/chenxin-dlut",
+    "primary_category": "Game Characters",
+    "collections": [],
+    "license": "Personal non-commercial fan use",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "zhengyin--noonwake",
     "name": "Zhengyin",
     "localized_names": { "en": "Zhengyin", "zh": "正音" },
@@ -1049,6 +1464,17 @@
     "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "一只可爱、活泼、会发出奇怪叫声的兔子。",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "inosuke-hashibira--wangfan002",
+    "name": "伊之助 Q版 丰富动作",
+    "localized_names": { "en": "Inosuke Hashibira", "zh": "嘴平伊之助" },
+    "author": "wangfan002",
+    "author_handle": "wangfan002",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Source author terms; personal non-commercial use only",
     "spriteVersionNumber": 1
   },
   {
@@ -1083,6 +1509,17 @@
     "collections": [],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A rounder and cuter chibi penguin hoodie girl pet with a softer face and friendlier proportions.",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "zenitsu-agatsuma--wangfan002",
+    "name": "善逸 Q版 丰富动作",
+    "localized_names": { "en": "Zenitsu Agatsuma", "zh": "我妻善逸" },
+    "author": "wangfan002",
+    "author_handle": "wangfan002",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Source author terms; personal non-commercial use only",
     "spriteVersionNumber": 1
   },
   {
@@ -1144,6 +1581,17 @@
     "spriteVersionNumber": 2
   },
   {
+    "slug": "giyu-tomioka--wangfan002",
+    "name": "富冈义勇 Q版 丰富动作",
+    "localized_names": { "en": "Giyu Tomioka", "zh": "富冈义勇" },
+    "author": "wangfan002",
+    "author_handle": "wangfan002",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Source author terms; personal non-commercial use only",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "xiaoba-cat--jack",
     "name": "小八猫",
     "author": "jack",
@@ -1179,6 +1627,41 @@
     "spriteVersionNumber": 2
   },
   {
+    "slug": "new-covenant-exusiai--chenxin-dlut",
+    "name": "新约能天使",
+    "localized_names": { "en": "Exusiai the New Covenant", "zh": "新约能天使" },
+    "author": "Xin Chen",
+    "author_handle": "chenxin-dlut",
+    "author_url": "https://github.com/chenxin-dlut",
+    "primary_category": "Game Characters",
+    "collections": [],
+    "license": "Personal non-commercial fan use",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "muichiro-tokito--wangfan002",
+    "name": "时透无一郎 Q版 空灵动作",
+    "localized_names": { "en": "Muichiro Tokito", "zh": "时透无一郎" },
+    "author": "wangfan002",
+    "author_handle": "wangfan002",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Source author terms; personal non-commercial use only",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "regulus-star-antimony--chenxin-dlut",
+    "name": "星锑",
+    "localized_names": { "en": "Regulus", "zh": "星锑" },
+    "author": "Xin Chen",
+    "author_handle": "chenxin-dlut",
+    "author_url": "https://github.com/chenxin-dlut",
+    "primary_category": "Game Characters",
+    "collections": [],
+    "license": "Personal non-commercial fan use",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "capybara-lulu--jiushu",
     "name": "水豚噜噜",
     "author": "jiushu",
@@ -1188,6 +1671,17 @@
     "collections": ["animal-companions"],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "水豚噜噜是一只戴着绿帽子的橙色小水豚，圆滚滚、软乎乎，喜欢陪你工作、思考和发呆。它会挥手、跳跃、等待，也会认真“干活”，是你桌面上可爱又治愈的Codex小伙伴。",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "tanjiro-kamado--wangfan002",
+    "name": "炭治郎 Q版 丰富动作",
+    "localized_names": { "en": "Tanjiro Kamado", "zh": "灶门炭治郎" },
+    "author": "wangfan002",
+    "author_handle": "wangfan002",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Source author terms; personal non-commercial use only",
     "spriteVersionNumber": 1
   },
   {
@@ -1201,6 +1695,17 @@
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "一只外表严肃、内心憨厚的黑白奶牛宠物，擅长思考、托腮、坐卧和打招呼。",
     "spriteVersionNumber": 2
+  },
+  {
+    "slug": "nezuko-kamado--wangfan002",
+    "name": "祢豆子 Q版 丰富动作",
+    "localized_names": { "en": "Nezuko Kamado", "zh": "灶门祢豆子" },
+    "author": "wangfan002",
+    "author_handle": "wangfan002",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Source author terms; personal non-commercial use only",
+    "spriteVersionNumber": 1
   },
   {
     "slug": "maodie--octane0411",
@@ -1233,6 +1738,17 @@
     "collections": [],
     "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
     "description": "A tiny blonde chibi companion with a white wide hat, purple eyes, blue hair clip, blue neck ribbon, and a slightly smug sticker-expression personality.",
+    "spriteVersionNumber": 1
+  },
+  {
+    "slug": "shinobu-kocho--wangfan002",
+    "name": "蝴蝶忍 Q版 华丽动作",
+    "localized_names": { "en": "Shinobu Kocho", "zh": "蝴蝶忍" },
+    "author": "wangfan002",
+    "author_handle": "wangfan002",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Source author terms; personal non-commercial use only",
     "spriteVersionNumber": 1
   },
   {

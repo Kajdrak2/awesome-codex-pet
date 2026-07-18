@@ -72,5 +72,159 @@
       "mellow-duck--sally-entr",
       "jiji--yena"
     ]
+  },
+  {
+    "slug": "evangelion",
+    "kind": "franchise",
+    "title": {
+      "en": "Evangelion",
+      "zh": "新世纪福音战士"
+    },
+    "description": {
+      "en": "Community companions inspired by the pilots and world of Evangelion.",
+      "zh": "来自《新世纪福音战士》驾驶员与世界观的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["asuka--maxg24"]
+  },
+  {
+    "slug": "re-zero",
+    "kind": "franchise",
+    "title": {
+      "en": "Re:ZERO",
+      "zh": "Re：从零开始的异世界生活"
+    },
+    "description": {
+      "en": "Community companions from the looping fantasy world of Re:ZERO.",
+      "zh": "来自《Re：从零开始的异世界生活》的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["rem--l1"]
+  },
+  {
+    "slug": "doraemon",
+    "kind": "franchise",
+    "title": {
+      "en": "Doraemon",
+      "zh": "哆啦A梦"
+    },
+    "description": {
+      "en": "Community companions inspired by Doraemon and his everyday adventures.",
+      "zh": "来自《哆啦A梦》与日常冒险的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["doraemon--xueshi"]
+  },
+  {
+    "slug": "wandering-witch",
+    "kind": "franchise",
+    "title": {
+      "en": "Wandering Witch",
+      "zh": "魔女之旅"
+    },
+    "description": {
+      "en": "Community companions from Elaina's travels through distant countries.",
+      "zh": "来自伊蕾娜游历各国旅程的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["elaina--nyakku-shigure"]
+  },
+  {
+    "slug": "attack-on-titan",
+    "kind": "franchise",
+    "title": {
+      "en": "Attack on Titan",
+      "zh": "进击的巨人"
+    },
+    "description": {
+      "en": "Community companions inspired by the Survey Corps and the world beyond the walls.",
+      "zh": "来自调查兵团与墙外世界的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["levi--emrecb", "eren--ash-sw"]
+  },
+  {
+    "slug": "jujutsu-kaisen",
+    "kind": "franchise",
+    "title": {
+      "en": "Jujutsu Kaisen",
+      "zh": "咒术回战"
+    },
+    "description": {
+      "en": "Community companions inspired by jujutsu sorcerers and cursed energy.",
+      "zh": "来自咒术师与咒力世界的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["gojo--lilokhalikfa"]
+  },
+  {
+    "slug": "heavens-lost-property",
+    "kind": "franchise",
+    "title": {
+      "en": "Heaven's Lost Property",
+      "zh": "天降之物"
+    },
+    "description": {
+      "en": "Community companions inspired by Angeloids from Heaven's Lost Property.",
+      "zh": "来自《天降之物》人造天使角色的社区宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["ikaros--icarus-alpha"]
+  },
+  {
+    "slug": "dragon-ball",
+    "kind": "franchise",
+    "title": {
+      "en": "Dragon Ball",
+      "zh": "龙珠"
+    },
+    "description": {
+      "en": "Community companions inspired by Goku's early adventures and classic techniques.",
+      "zh": "来自悟空早期冒险与经典招式的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["kid-goku--julianhuang", "nimbus--soraberu"]
+  },
+  {
+    "slug": "one-piece",
+    "kind": "franchise",
+    "title": {
+      "en": "One Piece",
+      "zh": "海贼王"
+    },
+    "description": {
+      "en": "Community companions inspired by the Straw Hat crew's grand voyage.",
+      "zh": "来自草帽一伙伟大航路旅程的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["luffy-gear-5--jordsshmords1"]
+  },
+  {
+    "slug": "zenless-zone-zero",
+    "kind": "franchise",
+    "title": {
+      "en": "Zenless Zone Zero",
+      "zh": "绝区零"
+    },
+    "description": {
+      "en": "Community companions from New Eridu and its specialist factions.",
+      "zh": "来自新艾利都及各专业阵营的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["miyabi--eric-terminal"]
+  },
+  {
+    "slug": "violet-evergarden",
+    "kind": "franchise",
+    "title": {
+      "en": "Violet Evergarden",
+      "zh": "紫罗兰永恒花园"
+    },
+    "description": {
+      "en": "Community companions inspired by Auto Memory Dolls and their letters.",
+      "zh": "来自自动手记人偶与书信故事的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["violet--lazenca"]
   }
 ]
