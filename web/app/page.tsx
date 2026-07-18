@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { FeaturedCollections } from "@/components/featured-collections";
 import { HeroSection } from "@/components/hero-section";
 import { PetGallery } from "@/components/pet-gallery";
-import { getFeaturedCollections } from "@/lib/collection-catalog";
+import { getCollections } from "@/lib/collection-catalog";
 import { getAllPets, getCategories } from "@/lib/pets";
 import { siteConfig } from "@/lib/site";
 
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   const pets = getAllPets();
   const categories = getCategories(pets);
-  const collections = getFeaturedCollections(pets);
+  const collections = getCollections(pets);
 
   const collectionJsonLd = {
     "@context": "https://schema.org",

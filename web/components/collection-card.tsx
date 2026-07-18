@@ -16,7 +16,7 @@ export function CollectionCard({ collection }: { collection: PetCollection }) {
   const href = `/collections/${collection.slug}`;
 
   return (
-    <article className="group overflow-visible rounded-lg border border-border bg-bg-elevated transition-colors hover:border-border-hover">
+    <article className="group flex h-full flex-col overflow-visible rounded-lg border border-border bg-bg-elevated transition-colors hover:border-border-hover">
       <div className="relative h-52 rounded-t-lg bg-bg-secondary px-5 pt-5">
         <CollectionPetStage pets={coverPets} />
         <div className="absolute right-3 top-3">
@@ -33,7 +33,7 @@ export function CollectionCard({ collection }: { collection: PetCollection }) {
         </div>
       </div>
 
-      <Link className="relative z-10 block bg-bg-elevated p-5" href={href}>
+      <Link className="relative z-10 block flex-1 bg-bg-elevated p-5" href={href}>
         <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-accent">
           {t(collection.kind === "franchise" ? "franchiseSeries" : "themeCollection")}
         </p>
