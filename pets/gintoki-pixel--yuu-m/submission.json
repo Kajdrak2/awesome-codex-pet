@@ -11,7 +11,7 @@
   "author_handle": "Yuu M.",
   "primary_category": "Anime Characters",
   "tags": ["gintama", "pixel-art", "chibi"],
-  "collections": [],
+  "collections": ["gintama"],
   "source_type": "petdex",
   "source_url": "https://petdex.dev/pets/gintoki-pixel",
   "source_pet_json": "https://assets.petdex.dev/pets/gintoki-pixel-1aa533ffd207/petjson.json",

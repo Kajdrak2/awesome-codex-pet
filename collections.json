@@ -226,5 +226,299 @@
     },
     "featured": false,
     "cover_pets": ["violet--lazenca"]
+  },
+  {
+    "slug": "arknights",
+    "kind": "franchise",
+    "title": {
+      "en": "Arknights",
+      "zh": "明日方舟"
+    },
+    "description": {
+      "en": "Community companions inspired by the operators and factions of Terra.",
+      "zh": "来自泰拉大陆干员与阵营的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": [
+      "chen--chenxin-dlut",
+      "lappland--chenxin-dlut",
+      "new-covenant-exusiai--chenxin-dlut"
+    ]
+  },
+  {
+    "slug": "demon-slayer",
+    "kind": "franchise",
+    "title": {
+      "en": "Demon Slayer",
+      "zh": "鬼灭之刃"
+    },
+    "description": {
+      "en": "Community companions inspired by the Demon Slayer Corps and its journeys.",
+      "zh": "来自鬼杀队成员与旅途故事的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": [
+      "tanjiro-kamado--wangfan002",
+      "nezuko-kamado--wangfan002",
+      "zenitsu-agatsuma--wangfan002",
+      "inosuke-hashibira--wangfan002",
+      "shinobu-kocho--wangfan002"
+    ]
+  },
+  {
+    "slug": "reverse-1999",
+    "kind": "franchise",
+    "title": {
+      "en": "Reverse: 1999",
+      "zh": "重返未来：1999"
+    },
+    "description": {
+      "en": "Community companions from the time-twisting world of Reverse: 1999.",
+      "zh": "来自《重返未来：1999》时代风暴世界的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": [
+      "regulus-star-antimony--chenxin-dlut",
+      "sonetto--chenxin-dlut",
+      "vertin--chenxin-dlut"
+    ]
+  },
+  {
+    "slug": "spy-x-family",
+    "kind": "franchise",
+    "title": {
+      "en": "SPY x FAMILY",
+      "zh": "间谍过家家"
+    },
+    "description": {
+      "en": "Community companions inspired by the Forger family's secret-filled daily life.",
+      "zh": "来自福杰一家秘密日常的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["anya--chenxin-dlut"]
+  },
+  {
+    "slug": "bocchi-the-rock",
+    "kind": "franchise",
+    "title": {
+      "en": "BOCCHI THE ROCK!",
+      "zh": "孤独摇滚！"
+    },
+    "description": {
+      "en": "Community companions inspired by Kessoku Band and its music.",
+      "zh": "来自纽带乐队与音乐故事的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["bocchi--lingxiaotian"]
+  },
+  {
+    "slug": "nikke",
+    "kind": "franchise",
+    "title": {
+      "en": "GODDESS OF VICTORY: NIKKE",
+      "zh": "胜利女神：妮姬"
+    },
+    "description": {
+      "en": "Community companions inspired by the Nikkes and their world.",
+      "zh": "来自妮姬角色与其世界的社区宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["doro--lingxiaotian"]
+  },
+  {
+    "slug": "frieren",
+    "kind": "franchise",
+    "title": {
+      "en": "Frieren: Beyond Journey's End",
+      "zh": "葬送的芙莉莲"
+    },
+    "description": {
+      "en": "Community companions inspired by Frieren's journey after the adventure.",
+      "zh": "来自芙莉莲冒险之后旅程的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["frieren--lingxiaotian"]
+  },
+  {
+    "slug": "gintama",
+    "kind": "franchise",
+    "title": {
+      "en": "Gintama",
+      "zh": "银魂"
+    },
+    "description": {
+      "en": "Community companions inspired by Odd Jobs Gin and Edo's eccentric residents.",
+      "zh": "来自万事屋与江户居民的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["gintoki-pixel--yuu-m"]
+  },
+  {
+    "slug": "detective-conan",
+    "kind": "franchise",
+    "title": {
+      "en": "Detective Conan",
+      "zh": "名侦探柯南"
+    },
+    "description": {
+      "en": "Community companions inspired by detectives, thieves, and long-running mysteries.",
+      "zh": "来自侦探、怪盗与连环谜案的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["conan--chenxin-dlut", "kid--chenxin-dlut"]
+  },
+  {
+    "slug": "chainsaw-man",
+    "kind": "franchise",
+    "title": {
+      "en": "Chainsaw Man",
+      "zh": "电锯人"
+    },
+    "description": {
+      "en": "Community companions inspired by devil hunters and their dangerous contracts.",
+      "zh": "来自恶魔猎人与危险契约的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["makimamini--1sh1ro"]
+  },
+  {
+    "slug": "steins-gate",
+    "kind": "franchise",
+    "title": {
+      "en": "Steins;Gate",
+      "zh": "命运石之门"
+    },
+    "description": {
+      "en": "Community companions inspired by the Future Gadget Laboratory and its world lines.",
+      "zh": "来自未来道具研究所与世界线故事的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["makisekurisu--m1gr4ine"]
+  },
+  {
+    "slug": "a-certain-scientific-railgun",
+    "kind": "franchise",
+    "title": {
+      "en": "A Certain Scientific Railgun",
+      "zh": "某科学的超电磁炮"
+    },
+    "description": {
+      "en": "Community companions inspired by Academy City's electric heroines.",
+      "zh": "来自学园都市电击系角色的社区宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["mikoto--lingxiaotian", "misaka-network--ldl1234"]
+  },
+  {
+    "slug": "touhou-project",
+    "kind": "franchise",
+    "title": {
+      "en": "Touhou Project",
+      "zh": "东方Project"
+    },
+    "description": {
+      "en": "Community companions inspired by the residents and incidents of Gensokyo.",
+      "zh": "来自幻想乡居民与异变故事的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["reimu--lingxiaotian", "youmu--ai-generated"]
+  },
+  {
+    "slug": "fate",
+    "kind": "franchise",
+    "title": {
+      "en": "Fate",
+      "zh": "Fate系列"
+    },
+    "description": {
+      "en": "Community companions inspired by heroic spirits and the Holy Grail conflicts.",
+      "zh": "来自英灵与圣杯战争故事的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["saber--petdex-zhenyou-ling"]
+  },
+  {
+    "slug": "crayon-shinchan",
+    "kind": "franchise",
+    "title": {
+      "en": "Crayon Shin-chan",
+      "zh": "蜡笔小新"
+    },
+    "description": {
+      "en": "Community companions inspired by Shin-chan and his Kasukabe adventures.",
+      "zh": "来自小新与春日部日常冒险的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["shinchan--chenxin-dlut"]
+  },
+  {
+    "slug": "darling-in-the-franxx",
+    "kind": "franchise",
+    "title": {
+      "en": "DARLING in the FRANXX",
+      "zh": "DARLING in the FRANXX"
+    },
+    "description": {
+      "en": "Community companions inspired by the pilots and world of FRANXX.",
+      "zh": "来自 FRANXX 驾驶员与世界观的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["zero-two--mingqingmozhao"]
+  },
+  {
+    "slug": "wuthering-waves",
+    "kind": "franchise",
+    "title": {
+      "en": "Wuthering Waves",
+      "zh": "鸣潮"
+    },
+    "description": {
+      "en": "Community companions inspired by the resonators of Solaris-3.",
+      "zh": "来自索拉里斯世界共鸣者的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["phoebe--chenxin-dlut", "zani--chenxin-dlut"]
+  },
+  {
+    "slug": "dungeon-fighter-online",
+    "kind": "franchise",
+    "title": {
+      "en": "Dungeon Fighter Online",
+      "zh": "地下城与勇士"
+    },
+    "description": {
+      "en": "Community companions inspired by adventurers from Dungeon Fighter Online.",
+      "zh": "来自《地下城与勇士》冒险家的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["dnf-female-ammo--qunboo"]
+  },
+  {
+    "slug": "kamitsubaki-studio",
+    "kind": "franchise",
+    "title": {
+      "en": "KAMITSUBAKI STUDIO",
+      "zh": "神椿工作室"
+    },
+    "description": {
+      "en": "Community companions inspired by artists from KAMITSUBAKI STUDIO.",
+      "zh": "来自神椿工作室旗下艺术家的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["isekaijoucho--siiverash"]
+  },
+  {
+    "slug": "gakuen-idolmaster",
+    "kind": "franchise",
+    "title": {
+      "en": "Gakuen IDOLM@STER",
+      "zh": "学园偶像大师"
+    },
+    "description": {
+      "en": "Community companions inspired by the idols of Hatsuboshi Academy.",
+      "zh": "来自初星学园偶像们的社区角色宠物。"
+    },
+    "featured": false,
+    "cover_pets": ["rinami--siiverash"]
   }
 ]

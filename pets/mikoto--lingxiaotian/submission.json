@@ -8,7 +8,14 @@
   "author_handle": "legeling",
   "author_url": "https://github.com/legeling",
   "primary_category": "Anime Characters",
-  "tags": ["anime", "electric", "schoolgirl", "misaka-mikoto"],
+  "tags": [
+    "anime",
+    "a-certain-scientific-railgun",
+    "electric",
+    "schoolgirl",
+    "misaka-mikoto"
+  ],
+  "collections": ["a-certain-scientific-railgun"],
   "source_type": "fan-art",
   "source_url": "",
   "license": "CC BY-NC 4.0",

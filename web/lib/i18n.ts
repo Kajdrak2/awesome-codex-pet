@@ -59,6 +59,12 @@ export const translations = {
     collectionsPageTitle: "Explore series and themed collections",
     collectionsPageSubtitle:
       "Follow pets from the same fictional world, or discover companions connected by a shared theme.",
+    collectionSearchPlaceholder: "Search collections or pets...",
+    clearCollectionSearch: "Clear collection search",
+    filterCollections: "Filter collections",
+    allCollections: "All collections",
+    noCollectionsFound: "No collections match your search.",
+    noCollectionsFoundHint: "Try another title, character, or collection type.",
     franchiseSeriesTitle: "Franchise series",
     franchiseSeriesDesc:
       "Characters from the same game, animation, film, or other original work, organized from repository metadata.",
@@ -251,7 +257,7 @@ export const translations = {
       "Generated previews land in assets/previews/<pet-id>/ and are produced by the build pipeline.",
     guideCollectionsTitle: "Series and collection membership",
     guideCollectionsDesc:
-      "Use submission.json.collections to reference franchise series or theme slugs from the repository's collections.json. The website groups the pet automatically.",
+      "Use submission.json.collections to reference franchise series or theme slugs from the repository's collections.json. The website groups pets automatically and publishes a collection after it reaches three members.",
     guideVersionsEyebrow: "Runtime contract",
     guideVersionsTitle: "Choose the version before drawing",
     guideVersionsDesc:
@@ -382,6 +388,12 @@ export const translations = {
     themeCollection: "主题系列",
     collectionsPageTitle: "探索作品系列与主题系列",
     collectionsPageSubtitle: "沿着同一部作品寻找熟悉角色，也可以按共同主题发现跨作品的桌面伙伴。",
+    collectionSearchPlaceholder: "搜索合集或宠物...",
+    clearCollectionSearch: "清除合集搜索",
+    filterCollections: "筛选合集",
+    allCollections: "全部合集",
+    noCollectionsFound: "没有找到匹配的合集",
+    noCollectionsFoundHint: "试试其他作品名、角色名或合集类型",
     franchiseSeriesTitle: "作品系列",
     franchiseSeriesDesc: "按游戏、动画、影视等原作归档，同一世界观的角色会自动组成作品系列。",
     themeCollectionsTitle: "主题系列",
@@ -547,7 +559,7 @@ export const translations = {
       "自动生成的预览会落在 assets/previews/<pet-id>/，由构建流水线生成。",
     guideCollectionsTitle: "作品系列与主题系列",
     guideCollectionsDesc:
-      "在 submission.json.collections 中填写仓库 collections.json 已定义的作品系列或主题系列 slug，网站会自动完成归组。",
+      "在 submission.json.collections 中填写仓库 collections.json 已定义的作品系列或主题系列 slug；网站会自动归组，并在合集达到 3 只宠物后公开展示。",
     guideVersionsEyebrow: "先确定运行时规格",
     guideVersionsTitle: "动笔之前，先选对版本",
     guideVersionsDesc:

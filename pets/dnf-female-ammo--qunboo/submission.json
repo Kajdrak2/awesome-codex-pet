@@ -7,7 +7,15 @@
   "author_handle": "QunBoo",
   "author_url": "https://github.com/QunBoo",
   "primary_category": "Game Characters",
-  "tags": ["dnf", "dungeon-fighter", "female-ammo", "game", "chibi"],
+  "tags": [
+    "dnf",
+    "dungeon-fighter",
+    "dungeon-fighter-online",
+    "female-ammo",
+    "game",
+    "chibi"
+  ],
+  "collections": ["dungeon-fighter-online"],
   "source_type": "fan-art",
   "source_url": "",
   "license": "CC BY-NC 4.0",

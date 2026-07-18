@@ -181,7 +181,7 @@ pets/<pet-slug>--<author-slug>/
 
 Preview images are generated into \`assets/previews/<pet-id>/\` as local or CI build output, never inside the pet folder.
 
-Repository-defined series and collections live in \`collections.json\`. Use \`kind: franchise\` for pets from the same original work and \`kind: theme\` for cross-franchise groups connected by a shared subject or style. A pet joins either by listing its slug in \`submission.json.collections\`; the catalog and website are generated from that metadata.
+Repository-defined series and collections live in \`collections.json\`. Use \`kind: franchise\` for pets from the same original work and \`kind: theme\` for cross-franchise groups connected by a shared subject or style. A pet joins either by listing its slug in \`submission.json.collections\`; the catalog and website are generated from that metadata. Membership is recorded immediately, while the website publishes a collection only after it has at least three pets.
 
 \`submission.json.name\` is the required fallback name. Creators may keep a pet single-language by omitting \`localized_names\`, or opt into bilingual naming by providing both \`localized_names.en\` and \`localized_names.zh\`. The website follows the visitor's selected language and never invents a translation.
 
@@ -335,7 +335,7 @@ pets/<pet-slug>--<author-slug>/
 
 预览图会作为本地或 CI 构建产物生成到 \`assets/previews/<pet-id>/\`，不会塞进宠物目录。
 
-仓库级作品系列与主题系列统一维护在 \`collections.json\`：\`kind: franchise\` 表示来自同一原作的作品系列，\`kind: theme\` 表示按题材、风格或伙伴类型组织的跨作品主题系列。宠物通过 \`submission.json.collections\` 声明归属，目录与网站都会从这些元数据自动生成。
+仓库级作品系列与主题系列统一维护在 \`collections.json\`：\`kind: franchise\` 表示来自同一原作的作品系列，\`kind: theme\` 表示按题材、风格或伙伴类型组织的跨作品主题系列。宠物通过 \`submission.json.collections\` 声明归属，目录与网站都会从这些元数据自动生成。归属信息会立即记录，但只有达到至少 3 只宠物的合集才会在网站公开展示。
 
 \`submission.json.name\` 是必填的默认名称。投稿者可以省略 \`localized_names\`，只使用一种语言；也可以选择双语，并同时填写 \`localized_names.en\` 与 \`localized_names.zh\`。网站会跟随访客选择的语言展示，不会擅自生成翻译。
 

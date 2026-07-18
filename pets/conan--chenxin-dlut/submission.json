@@ -12,7 +12,7 @@
   "author_url": "https://github.com/chenxin-dlut",
   "primary_category": "Anime Characters",
   "tags": ["detective-conan", "pixel-art", "chibi"],
-  "collections": [],
+  "collections": ["detective-conan"],
   "source_type": "github",
   "source_url": "https://github.com/chenxin-dlut/codex-anime-pets/tree/main/pets/conan",
   "source_pet_json": "https://raw.githubusercontent.com/chenxin-dlut/codex-anime-pets/main/pets/conan/pet.json",

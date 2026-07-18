@@ -8,7 +8,15 @@
   "author_handle": "legeling",
   "author_url": "https://github.com/legeling",
   "primary_category": "Game Characters",
-  "tags": ["anime", "touhou", "shrine-maiden", "reimu", "hakurei-reimu"],
+  "tags": [
+    "anime",
+    "touhou",
+    "touhou-project",
+    "shrine-maiden",
+    "reimu",
+    "hakurei-reimu"
+  ],
+  "collections": ["touhou-project"],
   "source_type": "fan-art",
   "source_url": "",
   "license": "CC BY-NC 4.0",

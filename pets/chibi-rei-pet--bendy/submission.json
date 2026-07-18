@@ -11,7 +11,7 @@
   "author_handle": "Bendy",
   "primary_category": "Anime Characters",
   "tags": ["evangelion", "pixel-art", "chibi"],
-  "collections": [],
+  "collections": ["evangelion"],
   "source_type": "petdex",
   "source_url": "https://petdex.dev/pets/chibi-rei-pet",
   "source_pet_json": "https://assets.petdex.dev/pets/chibi-rei-pet-9b744cc092b8/petjson.json",

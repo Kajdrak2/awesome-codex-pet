@@ -128,7 +128,7 @@ Add any matching slugs to `submission.json`. A pet may belong to more than one s
 }
 ```
 
-The website groups pets automatically at build time; do not maintain a second frontend-only list. Add or change the definition in `collections.json` when a new repository-level series or theme is needed.
+The website groups pets automatically at build time; do not maintain a second frontend-only list. Add or change the definition in `collections.json` when a new repository-level series or theme is needed. Membership can be recorded from the first pet, but the public website hides a collection until it contains at least three pets. The collection appears automatically when the third member is added.
 
 ## Preview, validate, and test installation
 

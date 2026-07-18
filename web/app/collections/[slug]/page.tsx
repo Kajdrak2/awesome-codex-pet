@@ -7,7 +7,7 @@ import { getAllPets } from "@/lib/pets";
 import { siteConfig } from "@/lib/site";
 
 export function generateStaticParams() {
-  return getCollectionSlugs().map((slug) => ({ slug }));
+  return getCollectionSlugs(getAllPets()).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({

@@ -16,6 +16,7 @@
     "pixel-art",
     "hatch-pet"
   ],
+  "collections": ["kamitsubaki-studio"],
   "source_type": "fan-art",
   "source_url": "https://kamitsubaki.jp/artist/isekaijoucho/",
   "license": "CC BY-NC 4.0",

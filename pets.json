@@ -19,7 +19,7 @@
     "author": "mingqingmozhao",
     "author_handle": "mingqingmozhao",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["darling-in-the-franxx"],
     "license": "Source author terms; personal non-commercial use only",
     "spriteVersionNumber": 1
   },
@@ -67,7 +67,7 @@
     "author_handle": "chenxin-dlut",
     "author_url": "https://github.com/chenxin-dlut",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["spy-x-family"],
     "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
   },
@@ -187,7 +187,7 @@
     "author_handle": "chenxin-dlut",
     "author_url": "https://github.com/chenxin-dlut",
     "primary_category": "Game Characters",
-    "collections": [],
+    "collections": ["arknights"],
     "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
   },
@@ -198,7 +198,7 @@
     "author": "Bendy",
     "author_handle": "Bendy",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["evangelion"],
     "license": "Source author terms; personal non-commercial use only",
     "spriteVersionNumber": 1
   },
@@ -243,7 +243,7 @@
     "author_handle": "chenxin-dlut",
     "author_url": "https://github.com/chenxin-dlut",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["detective-conan"],
     "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
   },
@@ -359,7 +359,7 @@
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
     "primary_category": "Game Characters",
-    "collections": [],
+    "collections": ["nikke"],
     "license": "CC BY-NC 4.0",
     "description": "A compact Codex digital pet inspired by Doro, the vacant pink-haired Dorothy meme creature from Goddess of Victory: NIKKE.",
     "spriteVersionNumber": 1
@@ -455,7 +455,7 @@
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["frieren"],
     "license": "CC BY-NC 4.0",
     "spriteVersionNumber": 1
   },
@@ -575,7 +575,7 @@
     "author_handle": "SiIverAsh",
     "author_url": "https://github.com/SiIverAsh",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["kamitsubaki-studio"],
     "license": "CC BY-NC 4.0",
     "description": "An Isekaijoucho-inspired fan-art Codex pet with long wavy silver hair, a vivid blue flower ornament, a white-and-ice-blue dress palette, and a compact chibi pixel sprite identity.",
     "spriteVersionNumber": 1
@@ -632,7 +632,7 @@
     "author_handle": "chenxin-dlut",
     "author_url": "https://github.com/chenxin-dlut",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["detective-conan"],
     "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
   },
@@ -681,7 +681,7 @@
     "author_handle": "chenxin-dlut",
     "author_url": "https://github.com/chenxin-dlut",
     "primary_category": "Game Characters",
-    "collections": [],
+    "collections": ["arknights"],
     "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
   },
@@ -799,7 +799,7 @@
     "author": "1sh1ro",
     "author_handle": "1sh1ro",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["chainsaw-man"],
     "license": "Source author terms; personal non-commercial use only",
     "spriteVersionNumber": 1
   },
@@ -810,7 +810,7 @@
     "author": "m1gr4ine",
     "author_handle": "m1gr4ine",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["steins-gate"],
     "license": "Source author terms; personal non-commercial use only",
     "spriteVersionNumber": 1
   },
@@ -868,7 +868,7 @@
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["a-certain-scientific-railgun"],
     "license": "CC BY-NC 4.0",
     "spriteVersionNumber": 1
   },
@@ -915,7 +915,7 @@
     "author_handle": "ldl1234",
     "author_url": "https://github.com/ldl1234",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["a-certain-scientific-railgun"],
     "license": "MIT",
     "description": "A v2 pixel-art Misaka Network fan pet with a beige school uniform, black cat, mechanical equipment, electric effects, a giant turbine, and 16 look directions.",
     "spriteVersionNumber": 2
@@ -1038,7 +1038,7 @@
     "author_handle": "chenxin-dlut",
     "author_url": "https://github.com/chenxin-dlut",
     "primary_category": "Game Characters",
-    "collections": [],
+    "collections": ["wuthering-waves"],
     "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
   },
@@ -1063,7 +1063,7 @@
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
     "primary_category": "Game Characters",
-    "collections": [],
+    "collections": ["touhou-project"],
     "license": "CC BY-NC 4.0",
     "spriteVersionNumber": 1
   },
@@ -1087,7 +1087,7 @@
     "author_handle": "SiIverAsh",
     "author_url": "https://github.com/SiIverAsh",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["gakuen-idolmaster"],
     "license": "CC BY-NC 4.0",
     "description": "A Rinami Himesaki-inspired fan-art Codex pet with long wavy light-brown hair, crown-braid styling, a navy-and-gold school-uniform palette, and a compact chibi pixel sprite identity.",
     "spriteVersionNumber": 1
@@ -1158,7 +1158,7 @@
     "author": "真宵 绫.",
     "author_handle": "真宵 绫.",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["fate"],
     "license": "Source author terms; personal non-commercial use only",
     "spriteVersionNumber": 1
   },
@@ -1169,7 +1169,7 @@
     "author": "Yuu M.",
     "author_handle": "Yuu M.",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["gintama"],
     "license": "Source author terms; personal non-commercial use only",
     "spriteVersionNumber": 1
   },
@@ -1203,7 +1203,7 @@
     "author_handle": "chenxin-dlut",
     "author_url": "https://github.com/chenxin-dlut",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["crayon-shinchan"],
     "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
   },
@@ -1228,7 +1228,7 @@
     "author_handle": "chenxin-dlut",
     "author_url": "https://github.com/chenxin-dlut",
     "primary_category": "Game Characters",
-    "collections": [],
+    "collections": ["reverse-1999"],
     "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
   },
@@ -1334,7 +1334,7 @@
     "author_handle": "chenxin-dlut",
     "author_url": "https://github.com/chenxin-dlut",
     "primary_category": "Game Characters",
-    "collections": [],
+    "collections": ["reverse-1999"],
     "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
   },
@@ -1438,7 +1438,7 @@
     "author_handle": "chenxin-dlut",
     "author_url": "https://github.com/chenxin-dlut",
     "primary_category": "Game Characters",
-    "collections": [],
+    "collections": ["wuthering-waves"],
     "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
   },
@@ -1473,7 +1473,7 @@
     "author": "wangfan002",
     "author_handle": "wangfan002",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["demon-slayer"],
     "license": "Source author terms; personal non-commercial use only",
     "spriteVersionNumber": 1
   },
@@ -1518,7 +1518,7 @@
     "author": "wangfan002",
     "author_handle": "wangfan002",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["demon-slayer"],
     "license": "Source author terms; personal non-commercial use only",
     "spriteVersionNumber": 1
   },
@@ -1564,7 +1564,7 @@
     "author_handle": "QunBoo",
     "author_url": "https://github.com/QunBoo",
     "primary_category": "Game Characters",
-    "collections": [],
+    "collections": ["dungeon-fighter-online"],
     "license": "CC BY-NC 4.0",
     "spriteVersionNumber": 1
   },
@@ -1587,7 +1587,7 @@
     "author": "wangfan002",
     "author_handle": "wangfan002",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["demon-slayer"],
     "license": "Source author terms; personal non-commercial use only",
     "spriteVersionNumber": 1
   },
@@ -1634,7 +1634,7 @@
     "author_handle": "chenxin-dlut",
     "author_url": "https://github.com/chenxin-dlut",
     "primary_category": "Game Characters",
-    "collections": [],
+    "collections": ["arknights"],
     "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
   },
@@ -1645,7 +1645,7 @@
     "author": "wangfan002",
     "author_handle": "wangfan002",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["demon-slayer"],
     "license": "Source author terms; personal non-commercial use only",
     "spriteVersionNumber": 1
   },
@@ -1657,7 +1657,7 @@
     "author_handle": "chenxin-dlut",
     "author_url": "https://github.com/chenxin-dlut",
     "primary_category": "Game Characters",
-    "collections": [],
+    "collections": ["reverse-1999"],
     "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
   },
@@ -1680,7 +1680,7 @@
     "author": "wangfan002",
     "author_handle": "wangfan002",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["demon-slayer"],
     "license": "Source author terms; personal non-commercial use only",
     "spriteVersionNumber": 1
   },
@@ -1703,7 +1703,7 @@
     "author": "wangfan002",
     "author_handle": "wangfan002",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["demon-slayer"],
     "license": "Source author terms; personal non-commercial use only",
     "spriteVersionNumber": 1
   },
@@ -1747,7 +1747,7 @@
     "author": "wangfan002",
     "author_handle": "wangfan002",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["demon-slayer"],
     "license": "Source author terms; personal non-commercial use only",
     "spriteVersionNumber": 1
   },
@@ -1756,7 +1756,7 @@
     "name": "魂魄妖梦",
     "author": "AI 生成（Gemini）",
     "primary_category": "Game Characters",
-    "collections": [],
+    "collections": ["touhou-project"],
     "license": "Non-commercial use only. AI-generated with Gemini; the submitter confirms the right to include this asset in the repository.",
     "description": "基于用户提供的 Gemini AI 生成参考图制作的魂魄妖梦 Codex 宠物；保留银发、绿色制服、佩刀与半灵特征，仅限非商业使用。",
     "spriteVersionNumber": 2
@@ -1769,7 +1769,7 @@
     "author_handle": "legeling",
     "author_url": "https://github.com/legeling",
     "primary_category": "Anime Characters",
-    "collections": [],
+    "collections": ["bocchi-the-rock"],
     "license": "CC BY-NC 4.0",
     "spriteVersionNumber": 1
   }

@@ -11,7 +11,7 @@
   "author_handle": "m1gr4ine",
   "primary_category": "Anime Characters",
   "tags": ["steins-gate", "pixel-art", "chibi"],
-  "collections": [],
+  "collections": ["steins-gate"],
   "source_type": "petdex",
   "source_url": "https://petdex.dev/pets/makisekurisu",
   "source_pet_json": "https://assets.petdex.dev/pets/makisekurisu-d846c5fd8aa7/petjson.json",

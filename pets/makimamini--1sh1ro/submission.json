@@ -11,7 +11,7 @@
   "author_handle": "1sh1ro",
   "primary_category": "Anime Characters",
   "tags": ["chainsaw-man", "pixel-art", "chibi"],
-  "collections": [],
+  "collections": ["chainsaw-man"],
   "source_type": "petdex",
   "source_url": "https://petdex.dev/pets/makimamini",
   "source_pet_json": "https://assets.petdex.dev/pets/makimamini-39abfe4ef2b7/petjson.json",

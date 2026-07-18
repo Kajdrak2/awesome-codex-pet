@@ -14,6 +14,7 @@
     "sword",
     "ghost"
   ],
+  "collections": ["touhou-project"],
   "source_type": "ai-generated",
   "source_url": "",
   "license": "Non-commercial use only. AI-generated with Gemini; the submitter confirms the right to include this asset in the repository.",

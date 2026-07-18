@@ -11,7 +11,7 @@
   "author_handle": "wangfan002",
   "primary_category": "Anime Characters",
   "tags": ["demon-slayer", "pixel-art", "chibi"],
-  "collections": [],
+  "collections": ["demon-slayer"],
   "source_type": "petdex",
   "source_url": "https://petdex.dev/pets/giyu-tomioka",
   "source_pet_json": "https://assets.petdex.dev/pets/giyu-tomioka-46aa072bd625/petjson.json",

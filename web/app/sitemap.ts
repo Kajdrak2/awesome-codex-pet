@@ -40,7 +40,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
-  const collectionEntries = getCollectionSlugs().map((slug) => ({
+  const collectionEntries = getCollectionSlugs(getAllPets()).map((slug) => ({
     url: `${siteConfig.url}/collections/${slug}`,
     lastModified: now,
     changeFrequency: "weekly" as const,
