@@ -13,9 +13,9 @@
 - v2：15
 - 有历史修复或复核证据：85
 - 待建立人工基线：66
-- 本轮透明边缘逐只复核通过：139
+- 本轮透明边缘逐只复核通过：140
 - 本轮透明边缘逐只复核需修复：0
-- 透明边缘未审查：12
+- 透明边缘未审查：11
 
 “待建立人工基线”不等于图片有问题，只表示仓库里还没有足够明确、可追溯的逐只审查记录。
 
@@ -81,9 +81,9 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 
 ## 透明边缘复核记录
 
-2026-07-19 已对 139 只宠物完成本轮逐只复核。每只宠物都单独打开当前 `spritesheet.webp`，分别合成到白色、中灰和黑色背景上查看全部动作行；颜色检测脚本没有被用作通过结论，也没有对任何宠物执行批量清色。
+2026-07-19 已对 140 只宠物完成本轮逐只复核。每只宠物都单独打开当前 `spritesheet.webp`，分别合成到白色、中灰和黑色背景上查看全部动作行；颜色检测脚本没有被用作通过结论，也没有对任何宠物执行批量清色。
 
-本轮结论：139 只通过，当前已审查范围内没有待修复项。银狼的紫色和蓝色发梢、昔涟的粉色和青色服装、绿色角色及其他角色本色均按主体细节保留，没有因为颜色相似而判作背景残留。
+本轮结论：140 只通过，当前已审查范围内没有待修复项。银狼的紫色和蓝色发梢、昔涟的粉色和青色服装、绿色角色及其他角色本色均按主体细节保留，没有因为颜色相似而判作背景残留。
 
 本轮已完成修复：
 
@@ -96,6 +96,7 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 - `acheron--lingxiaotian`：仅移除第 6 行第 2、3、4、7 帧与主体完全断开的紫色裁切残片，共 4578 个可见像素；其余图集解码像素未改变，全部 9 行完成三背景复核，紫色长发、洋红边缘明暗、红色发饰、佩剑和服装均保留。证据：本提交 `fix(pet): remove Acheron crop fragments`。
 - `becky--natewanggg`：逐帧移除第 2、3、5 行 15 个帧格内来自相邻猫姿态的断开裁切残片，共 19412 个可见像素；其余图集解码像素未改变，全部 9 行完成三背景复核，主体虎斑纹、蝴蝶、胡须、烟雾和动作轮廓均保留。证据：本提交 `fix(pet): remove Becky crop fragments`。
 - `fleta--natewanggg`：仅移除第 5 行第 3 帧左侧一块与主体和蝴蝶均断开的相邻帧裁切残片，共 120 个可见像素；其余图集解码像素未改变，全部 9 行完成三背景复核，银白毛色、灰色条纹、蝴蝶、胡须、气泡和动作轮廓均保留。证据：本提交 `fix(pet): remove Fleta crop fragment`。
+- `tingyun--lingxiaotian`：仅移除第 2 行第 2–7 帧与主体断开的相邻帧尾巴和紫色裁切残片，共 2024 个可见像素；目标区域以外的解码像素未改变，全部 9 行完成三背景复核，棕发、狐耳、完整尾巴、金红服装、紫色明暗和跑步姿态均保留。证据：本提交 `fix(pet): remove Tingyun crop fragments`。
 
 本轮新增逐只复核通过：
 
@@ -116,7 +117,7 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 - `mikoto--lingxiaotian`、`miyabi--eric-terminal`、`nimbus--soraberu`、`rem--l1`、`rinami--siiverash`：逐只查看全部 9 行，并在白色、中灰和黑色背景上确认棕发电弧、黑发青衣、黑发紫衣黄云、蓝发女仆和棕发蓝裙均为主体设计，没有可见色键残边、底色块或游离残片；Mikoto 的青色电弧与 Miyabi 的紫黑描边均连续表达角色设计，不按颜色误删。证据：本提交 `docs: record five color-sensitive edge reviews`。
 - `rook--klubbyte`、`roxy-pixel--gravity`、`ruruka--ltmcliao-cmyk`、`saki--rookie-09`、`shian-helper--mistyshen`：逐只查看全部 9 行，并在白色、中灰和黑色背景上确认 Rook 的灰棕毛色、Roxy 的蓝发和法杖光焰、Ruruka 的黑发猫耳及情绪符号、Saki 的蓝白机体与音符、Shian Helper 的浅金发和动作特效均为主体或动作设计，没有可见色键残边、底色块或游离裁切残片。证据：本提交 `docs: record five final edge reviews`。
 
-当前已审查范围内没有仍待修复的宠物；未审查的 12 只仍需按相同方法逐只建立结论。
+当前已审查范围内没有仍待修复的宠物；未审查的 11 只仍需按相同方法逐只建立结论。
 
 ## 快速索引
 
@@ -130,7 +131,7 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 - `xiaomai--brian-3`：running-left 第 7、8 帧三块裁切残片已定点移除，并完成全部 11 行与 16 个环视方向的三背景复核，证据：本提交 `fix(pet): remove XiaoMai crop fragments`。
 - `zhengyin--noonwake`：2026-07-19 完成全部 11 行、16 个环视方向和三背景透明边缘复核，证据：本提交 `docs: finish v2 pet edge reviews`。
 
-### 边缘已审查通过：v1（124）
+### 边缘已审查通过：v1（125）
 
 - `apu--xchangee`、`arlecchino--lingxiaotian`、`black-swan--lingxiaotian`、`bocchi--lingxiaotian`、`bubu--gbn666`、`claude--xiangking`、`codenono--dq02`、`corgi-companion--cxian0928-afk`、`cyrene--lingxiaotian`、`diaoyi-baobao--d1a0y1bb`、`firefly--lingxiaotian`、`frankie--aygunvarol`、`frieren--lingxiaotian`、`hu-tao--lingxiaotian`、`kamisato-ayaka--lingxiaotian`、`katana-cheems--thankyou-cheems`、`mai--dwdestiny`、`miku--lingxiaotian`、`mimi--spacebody`、`nahida--lingxiaotian`、`navia--lingxiaotian`、`night-neko--netizenxuan`、`paimon--lingxiaotian`、`panda--jason-bai`、`raiden-shogun--lingxiaotian`、`robin--lingxiaotian`、`ruan-mei--lingxiaotian`、`silver-wolf--lingxiaotian`、`sparkle--lingxiaotian`、`tian-hua-hua--d1a0y1bb`、`wally--wally025`、`xian-xiao-lu--qingyunagi`、`yier--gbn666`、`yuanzai--gaming33`：透明边缘修复批次，证据 `1b537c1`。
 - `buba--yurcek`、`capybara-lulu--jiushu`、`goblin--rkwap`、`happynailong--aquaxyy`、`linnea--nyakku-shigure`、`mellow-duck--sally-entr`、`xiaoba-cat--jack`：批次边缘和动作复核，证据 `663794d`。
@@ -158,6 +159,7 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 - `little-sheep--mingdong`、`luffy-gear-5--jordsshmords1`、`lulu--yogazz`、`mihari--hyoni1129`、`mika--rotl24`：2026-07-19 逐只完成全部 9 行三背景透明边缘复核，证据：本提交 `docs: record five light-character edge reviews`。
 - `mikoto--lingxiaotian`、`miyabi--eric-terminal`、`nimbus--soraberu`、`rem--l1`、`rinami--siiverash`：2026-07-19 逐只完成全部 9 行三背景透明边缘复核，证据：本提交 `docs: record five color-sensitive edge reviews`。
 - `rook--klubbyte`、`roxy-pixel--gravity`、`ruruka--ltmcliao-cmyk`、`saki--rookie-09`、`shian-helper--mistyshen`：2026-07-19 逐只完成全部 9 行三背景透明边缘复核，证据：本提交 `docs: record five final edge reviews`。
+- `tingyun--lingxiaotian`：第 2 行第 2–7 帧相邻帧尾巴和紫色裁切残片已定点移除，并完成全部 9 行三背景复核，证据：本提交 `fix(pet): remove Tingyun crop fragments`。
 
 ### 边缘已审查需修复：v1（0）
 
@@ -173,9 +175,9 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 
 - 无。
 
-### 待基线复核、边缘未审查：v1（12）
+### 待基线复核、边缘未审查：v1（11）
 
-- `spellbook--seymour`、`starcorn--alterhq`、`tangdouren--carl312`、`teddy--danieloleary`、`tingyun--lingxiaotian`、`tiny-crt--chochou`
+- `spellbook--seymour`、`starcorn--alterhq`、`tangdouren--carl312`、`teddy--danieloleary`、`tiny-crt--chochou`
 - `tuantuan--jbbom`、`twinkle-twinkle--twinkletwinkle`、`usachi--jack`、`violet--lazenca`、`yuzubou--keseras34938976`、`zichao-xiong--z-kzhang`
 
 ## 每轮维护流程
