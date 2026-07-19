@@ -7,13 +7,13 @@
 ## 当前快照
 
 - 快照日期：2026-07-19
-- 对应仓库提交：`4421036`
-- 宠物总数：151
+- 对应仓库提交：PR #32 合并后补录
+- 宠物总数：152
 - v1：136
-- v2：15
-- 有历史修复或复核证据：85
-- 待建立人工基线：66
-- 本轮透明边缘逐只复核通过：151
+- v2：16
+- 有历史修复或复核证据：152
+- 待建立人工基线：0
+- 本轮透明边缘逐只复核通过：152
 - 本轮透明边缘逐只复核需修复：0
 - 透明边缘未审查：0
 
@@ -81,9 +81,9 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 
 ## 透明边缘复核记录
 
-2026-07-19 已对全部 151 只宠物完成本轮逐只复核。每只宠物都单独打开当前 `spritesheet.webp`，分别合成到白色、中灰和黑色背景上查看全部动作行；颜色检测脚本没有被用作通过结论，也没有对任何宠物执行批量清色。
+2026-07-19 已对全部 152 只宠物完成本轮逐只复核。每只宠物都单独打开当前 `spritesheet.webp`，分别合成到白色、中灰和黑色背景上查看全部动作行；颜色检测脚本没有被用作通过结论，也没有对任何宠物执行批量清色。
 
-本轮结论：151 只通过，没有未审查或待修复项。银狼的紫色和蓝色发梢、昔涟的粉色和青色服装、绿色角色及其他角色本色均按主体细节保留，没有因为颜色相似而判作背景残留。
+本轮结论：152 只通过，没有未审查或待修复项。银狼的紫色和蓝色发梢、昔涟的粉色和青色服装、绿色角色及其他角色本色均按主体细节保留，没有因为颜色相似而判作背景残留。
 
 本轮已完成修复：
 
@@ -118,12 +118,13 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 - `rook--klubbyte`、`roxy-pixel--gravity`、`ruruka--ltmcliao-cmyk`、`saki--rookie-09`、`shian-helper--mistyshen`：逐只查看全部 9 行，并在白色、中灰和黑色背景上确认 Rook 的灰棕毛色、Roxy 的蓝发和法杖光焰、Ruruka 的黑发猫耳及情绪符号、Saki 的蓝白机体与音符、Shian Helper 的浅金发和动作特效均为主体或动作设计，没有可见色键残边、底色块或游离裁切残片。证据：本提交 `docs: record five final edge reviews`。
 - `spellbook--seymour`、`starcorn--alterhq`、`tangdouren--carl312`、`teddy--danieloleary`：逐只查看全部 9 行，并在白色、中灰和黑色背景上确认 Spellbook 的紫金封边、Starcorn 的彩虹鬃毛和紫黑像素外圈、Tangdouren 的棕发肤色、Teddy 的橙色毛发和深蓝服装均为主体设计，没有可见色键残边、底色块或游离裁切残片。证据：本提交 `docs: record four final edge reviews`。
 - `tiny-crt--chochou`、`tuantuan--jbbom`、`twinkle-twinkle--twinkletwinkle`、`usachi--jack`、`violet--lazenca`、`yuzubou--keseras34938976`、`zichao-xiong--z-kzhang`：逐只查看全部 9 行，并在白色、中灰和黑色背景上确认 Tiny CRT 的紫黑线缆、Tuantuan 的橘色毛发、Twinkle Twinkle 的星光、Usachi 的粉色耳朵、Violet 的蓝色缎带、Yuzubou 的绿色叶片和自嘲熊的白色绒毛均为主体或动作设计，没有可见色键残边、底色块或游离裁切残片。证据：本提交 `docs: finish all pet edge reviews`。
+- `wakaba-mutsumi--carambola`：查看全部 11 行和最后 16 个环视方向，并在白色、中灰和黑色背景上确认浅薄荷色长发、红黑服装、黄绿色眼睛和黄瓜道具均为主体或动作设计；左右跑步方向和四肢交替正确，环视顺序连续，没有可见色键残边、底色块或游离裁切残片。证据：PR #32 及本提交 `chore: complete Wakaba Mutsumi intake`。
 
-当前 151 只宠物均已完成本轮透明边缘复核，没有仍待修复或未审查的宠物。
+当前 152 只宠物均已完成本轮透明边缘复核，没有仍待修复或未审查的宠物。
 
 ## 快速索引
 
-### 边缘已审查通过：v2（15）
+### 边缘已审查通过：v2（16）
 
 - `dai-dai-nai-you--1wphantom`、`kimoju--andiac`、`luna-angel-cat--neve`、`miu-meo--lemon-z`、`niumou--jarvis-2`：批次边缘和动作复核，证据 `663794d`。
 - `misaka-network--ldl1234`：v2 修复与复核，证据 `f22a370`。
@@ -132,6 +133,7 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 - `joker--oytyo`、`koukou-penguin--hoody`、`maodie--octane0411`、`minty--somnusochi`、`naiwa--sandytruant`：2026-07-19 逐只完成全部 11 行、16 个环视方向和三背景透明边缘复核，证据：本提交 `docs: record five v2 pet edge reviews`。
 - `xiaomai--brian-3`：running-left 第 7、8 帧三块裁切残片已定点移除，并完成全部 11 行与 16 个环视方向的三背景复核，证据：本提交 `fix(pet): remove XiaoMai crop fragments`。
 - `zhengyin--noonwake`：2026-07-19 完成全部 11 行、16 个环视方向和三背景透明边缘复核，证据：本提交 `docs: finish v2 pet edge reviews`。
+- `wakaba-mutsumi--carambola`：2026-07-19 完成全部 11 行、左右跑步、16 个环视方向和三背景透明边缘复核，证据：PR #32 及本提交 `chore: complete Wakaba Mutsumi intake`。
 
 ### 边缘已审查通过：v1（136）
 

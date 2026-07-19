@@ -30,5 +30,6 @@
   "codex_install": {
     "pet_json": "pet.json",
     "spritesheet": "spritesheet.webp"
-  }
+  },
+  "spritesheet_sha256": "cf6e6fe0561d93e15d278fb0e1f443025f50e38635e3160c51bf97fa34230bb0"
 }
