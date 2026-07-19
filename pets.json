@@ -1639,6 +1639,16 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "hance-woniu--korn",
+    "name": "旱厕蜗牛",
+    "author": "korn",
+    "primary_category": "Memes",
+    "collections": [],
+    "license": "CC BY-NC 4.0 (korn's original three-view artwork and this Codex pet adaptation only; no claim over third-party meme materials)",
+    "description": "一个憨憨微笑、嘴角挂着蓝色口水的白色圆头网络梗宠物。",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "muichiro-tokito--wangfan002",
     "name": "时透无一郎 Q版 空灵动作",
     "localized_names": { "en": "Muichiro Tokito", "zh": "时透无一郎" },
