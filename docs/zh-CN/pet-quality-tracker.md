@@ -13,9 +13,9 @@
 - v2：15
 - 有历史修复或复核证据：85
 - 待建立人工基线：66
-- 本轮透明边缘逐只复核通过：85
+- 本轮透明边缘逐只复核通过：86
 - 本轮透明边缘逐只复核需修复：0
-- 透明边缘未审查：66
+- 透明边缘未审查：65
 
 “待建立人工基线”不等于图片有问题，只表示仓库里还没有足够明确、可追溯的逐只审查记录。
 
@@ -81,9 +81,9 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 
 ## 透明边缘复核记录
 
-2026-07-19 已对 85 只宠物完成本轮逐只复核。每只宠物都单独打开当前 `spritesheet.webp`，分别合成到白色、中灰和黑色背景上查看全部动作行；颜色检测脚本没有被用作通过结论，也没有对任何宠物执行批量清色。
+2026-07-19 已对 86 只宠物完成本轮逐只复核。每只宠物都单独打开当前 `spritesheet.webp`，分别合成到白色、中灰和黑色背景上查看全部动作行；颜色检测脚本没有被用作通过结论，也没有对任何宠物执行批量清色。
 
-本轮结论：85 只通过，当前已审查范围内没有待修复项。银狼的紫色和蓝色发梢、昔涟的粉色和青色服装、绿色角色及其他角色本色均按主体细节保留，没有因为颜色相似而判作背景残留。
+本轮结论：86 只通过，当前已审查范围内没有待修复项。银狼的紫色和蓝色发梢、昔涟的粉色和青色服装、绿色角色及其他角色本色均按主体细节保留，没有因为颜色相似而判作背景残留。
 
 本轮已完成修复：
 
@@ -91,6 +91,7 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 - `moomew-coder-cat--ping`：逐帧移除原始图集自带的不透明白色贴纸边，并单独删除 waving 第 1、3 帧残留的白底竖块；全部 57 个使用帧完成白色、中灰和黑色背景复核，白毛、白爪、道具、高光和状态特效均保留。证据：本提交 `fix(pet): remove MooMew white matte`。
 - `yume-boundary--andy-meow`：逐帧移除浅色底边与 running-left、review 行的游离竖向残片；对人工确认的绿色色键污染使用相邻黑紫发色局部校正并保留原 alpha，没有全局删除绿色。全部 57 个使用帧完成三背景复核，紫色头发高光保留。证据：本提交 `fix(pet): clean Yume matte and green spill`。
 - `gintoki-pixel--yuu-m`：仅移除 running-left 第 7 帧右侧与主体完全断开的重复头发残片，共 364 个可见像素；其余图集解码像素未改变，全部 9 行完成白色、中灰和黑色背景复核，银蓝头发和深紫描边均保留。证据：本提交 `fix(pet): remove Gintoki detached hair fragment`。
+- `gudong--rank`：逐帧移除第 6 行 8 处与主体完全断开的白色裁切竖片，共 355 个可见像素；其余图集解码像素未改变，全部 11 行完成白色、中灰和黑色背景复核，白耳、王冠高光、绿色叶片、披风和 16 个环视方向均保留。证据：本提交 `fix(pet): remove Gudong crop slivers`。
 
 本轮新增逐只复核通过：
 
@@ -100,15 +101,16 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 - `nezuko-kamado--wangfan002`、`phoebe--chenxin-dlut`、`regulus-star-antimony--chenxin-dlut`、`saber--petdex-zhenyou-ling`、`shinchan--chenxin-dlut`：逐只查看全部 9 行，并在白色、中灰和黑色背景上确认绿色竹筒、粉色火焰、白色帽服、金发和纯黑轮廓均为主体或动作设计，没有可见色键残边、底色块或游离残片。证据：本提交 `docs: record another five pet edge reviews`。
 - `shinobu-kocho--wangfan002`、`sonetto--chenxin-dlut`、`tanjiro-kamado--wangfan002`、`vertin--chenxin-dlut`、`yoimiya--chenxin-dlut`、`zani--chenxin-dlut`、`zenitsu-agatsuma--wangfan002`、`zero-two--mingqingmozhao`：逐只查看全部 9 行，并在白色、中灰和黑色背景上确认紫色蝶饰、青色发梢、火焰雷电、银白发、粉发和黑色角尾均为主体或动作设计，没有可见色键残边、底色块或游离残片。证据：本提交 `docs: finish intake pet edge reviews`。
 
-当前已审查范围内没有仍待修复的宠物；未审查的 66 只仍需按相同方法逐只建立结论。
+当前已审查范围内没有仍待修复的宠物；未审查的 65 只仍需按相同方法逐只建立结论。
 
 ## 快速索引
 
-### 边缘已审查通过：v2（7）
+### 边缘已审查通过：v2（8）
 
 - `dai-dai-nai-you--1wphantom`、`kimoju--andiac`、`luna-angel-cat--neve`、`miu-meo--lemon-z`、`niumou--jarvis-2`：批次边缘和动作复核，证据 `663794d`。
 - `misaka-network--ldl1234`：v2 修复与复核，证据 `f22a370`。
 - `youmu--ai-generated`：方向修复与使用说明更新，证据 `e939f69`。
+- `gudong--rank`：第 6 行 8 处白色裁切竖片已逐帧定点移除，并完成全部 11 行与 16 个环视方向的三背景复核，证据：本提交 `fix(pet): remove Gudong crop slivers`。
 
 ### 边缘已审查通过：v1（78）
 
@@ -137,9 +139,9 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 
 - 无。
 
-### 待基线复核、边缘未审查：v2（8）
+### 待基线复核、边缘未审查：v2（7）
 
-- `gudong--rank`、`joker--oytyo`、`koukou-penguin--hoody`、`maodie--octane0411`
+- `joker--oytyo`、`koukou-penguin--hoody`、`maodie--octane0411`
 - `minty--somnusochi`、`naiwa--sandytruant`、`xiaomai--brian-3`、`zhengyin--noonwake`
 
 ### 待基线复核、边缘未审查：v1（58）
