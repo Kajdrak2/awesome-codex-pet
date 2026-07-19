@@ -13,8 +13,8 @@
 - v2：15
 - 有历史修复或复核证据：85
 - 待建立人工基线：66
-- 本轮透明边缘逐只复核通过：52
-- 本轮透明边缘逐只复核需修复：3
+- 本轮透明边缘逐只复核通过：53
+- 本轮透明边缘逐只复核需修复：2
 - 透明边缘未审查：96
 
 “待建立人工基线”不等于图片有问题，只表示仓库里还没有足够明确、可追溯的逐只审查记录。
@@ -83,15 +83,18 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 
 2026-07-19 对历史上有明确修复记录的 55 只宠物进行了本轮逐只复核。每只宠物都单独打开当前 `spritesheet.webp`，分别合成到白色、中灰和黑色背景上查看全部动作行；颜色检测脚本没有被用作通过结论，也没有对任何宠物执行批量清色。
 
-本轮结论：52 只通过，3 只需要修复。银狼的紫色和蓝色发梢、昔涟的粉色和青色服装、绿色角色及其他角色本色均按主体细节保留，没有因为颜色相似而判作背景残留。
+本轮结论：53 只通过，2 只需要修复。银狼的紫色和蓝色发梢、昔涟的粉色和青色服装、绿色角色及其他角色本色均按主体细节保留，没有因为颜色相似而判作背景残留。
 
-需要修复的三只：
+本轮已完成修复：
 
-- `furina--lingxiaotian`：running-left 行的部分帧在主体左侧和单元格边缘存在脱离主体的蓝色、深色碎片。
+- `furina--lingxiaotian`：逐帧删除 running-left 行第 1–5 帧和第 6 帧左侧与主体完全断开的游离碎片；白色、中灰和黑色背景复核通过，角色本身的蓝色发梢、帽饰和白色轮廓均保留。证据：本提交 `fix(pet): clean Furina running-left fragments`。
+
+仍需要修复的两只：
+
 - `moomew-coder-cat--ping`：多帧保留整圈白色底边，部分帧还能看到矩形白色底块，黑色和中灰背景下非常明显。
 - `yume-boundary--andy-meow`：多数帧保留整圈浅色底边；running-right 行可见绿色残边，底部若干帧还有竖向残片。
 
-这三只当前只记录问题，不在本轮自动清理；修复时必须逐帧确认，避免破坏角色本身的蓝色、白色、绿色或紫色细节。
+余下两只修复时必须逐帧确认，避免破坏角色本身的白色、绿色或紫色细节。
 
 ## 快速索引
 
@@ -106,12 +109,12 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 - `apu--xchangee`、`arlecchino--lingxiaotian`、`black-swan--lingxiaotian`、`bocchi--lingxiaotian`、`bubu--gbn666`、`claude--xiangking`、`codenono--dq02`、`corgi-companion--cxian0928-afk`、`cyrene--lingxiaotian`、`diaoyi-baobao--d1a0y1bb`、`firefly--lingxiaotian`、`frankie--aygunvarol`、`frieren--lingxiaotian`、`hu-tao--lingxiaotian`、`kamisato-ayaka--lingxiaotian`、`katana-cheems--thankyou-cheems`、`mai--dwdestiny`、`miku--lingxiaotian`、`mimi--spacebody`、`nahida--lingxiaotian`、`navia--lingxiaotian`、`night-neko--netizenxuan`、`paimon--lingxiaotian`、`panda--jason-bai`、`raiden-shogun--lingxiaotian`、`robin--lingxiaotian`、`ruan-mei--lingxiaotian`、`silver-wolf--lingxiaotian`、`sparkle--lingxiaotian`、`tian-hua-hua--d1a0y1bb`、`wally--wally025`、`xian-xiao-lu--qingyunagi`、`yier--gbn666`、`yuanzai--gaming33`：透明边缘修复批次，证据 `1b537c1`。
 - `buba--yurcek`、`capybara-lulu--jiushu`、`goblin--rkwap`、`happynailong--aquaxyy`、`linnea--nyakku-shigure`、`mellow-duck--sally-entr`、`xiaoba-cat--jack`：批次边缘和动作复核，证据 `663794d`。
 - `doro--lingxiaotian`：running 方向修复，证据 `d15d116`。
+- `furina--lingxiaotian`：running-left 游离碎片逐帧修复并完成三背景复核，证据：本提交 `fix(pet): clean Furina running-left fragments`。
 - `mahiro--lingxiaotian`、`reimu--lingxiaotian`：动作和预览修复，证据 `a157ca8`。
 - `isekaijoucho--siiverash`：透明边缘和动画修复，证据 `3a2f8a6`。
 
-### 已修复并复核、边缘已审查需修复：v1（3）
+### 已修复并复核、边缘已审查需修复：v1（2）
 
-- `furina--lingxiaotian`：历史修复证据 `1b537c1`；本轮发现 running-left 行仍有游离碎片。
 - `moomew-coder-cat--ping`、`yume-boundary--andy-meow`：历史复核证据 `663794d`；本轮确认仍有底色边缘或底块。
 
 ### 收录时已复核、边缘未审查：v1（30）
