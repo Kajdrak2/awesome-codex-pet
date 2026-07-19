@@ -13,9 +13,9 @@
 - v2：15
 - 有历史修复或复核证据：85
 - 待建立人工基线：66
-- 本轮透明边缘逐只复核通过：144
+- 本轮透明边缘逐只复核通过：151
 - 本轮透明边缘逐只复核需修复：0
-- 透明边缘未审查：7
+- 透明边缘未审查：0
 
 “待建立人工基线”不等于图片有问题，只表示仓库里还没有足够明确、可追溯的逐只审查记录。
 
@@ -81,9 +81,9 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 
 ## 透明边缘复核记录
 
-2026-07-19 已对 144 只宠物完成本轮逐只复核。每只宠物都单独打开当前 `spritesheet.webp`，分别合成到白色、中灰和黑色背景上查看全部动作行；颜色检测脚本没有被用作通过结论，也没有对任何宠物执行批量清色。
+2026-07-19 已对全部 151 只宠物完成本轮逐只复核。每只宠物都单独打开当前 `spritesheet.webp`，分别合成到白色、中灰和黑色背景上查看全部动作行；颜色检测脚本没有被用作通过结论，也没有对任何宠物执行批量清色。
 
-本轮结论：144 只通过，当前已审查范围内没有待修复项。银狼的紫色和蓝色发梢、昔涟的粉色和青色服装、绿色角色及其他角色本色均按主体细节保留，没有因为颜色相似而判作背景残留。
+本轮结论：151 只通过，没有未审查或待修复项。银狼的紫色和蓝色发梢、昔涟的粉色和青色服装、绿色角色及其他角色本色均按主体细节保留，没有因为颜色相似而判作背景残留。
 
 本轮已完成修复：
 
@@ -117,8 +117,9 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 - `mikoto--lingxiaotian`、`miyabi--eric-terminal`、`nimbus--soraberu`、`rem--l1`、`rinami--siiverash`：逐只查看全部 9 行，并在白色、中灰和黑色背景上确认棕发电弧、黑发青衣、黑发紫衣黄云、蓝发女仆和棕发蓝裙均为主体设计，没有可见色键残边、底色块或游离残片；Mikoto 的青色电弧与 Miyabi 的紫黑描边均连续表达角色设计，不按颜色误删。证据：本提交 `docs: record five color-sensitive edge reviews`。
 - `rook--klubbyte`、`roxy-pixel--gravity`、`ruruka--ltmcliao-cmyk`、`saki--rookie-09`、`shian-helper--mistyshen`：逐只查看全部 9 行，并在白色、中灰和黑色背景上确认 Rook 的灰棕毛色、Roxy 的蓝发和法杖光焰、Ruruka 的黑发猫耳及情绪符号、Saki 的蓝白机体与音符、Shian Helper 的浅金发和动作特效均为主体或动作设计，没有可见色键残边、底色块或游离裁切残片。证据：本提交 `docs: record five final edge reviews`。
 - `spellbook--seymour`、`starcorn--alterhq`、`tangdouren--carl312`、`teddy--danieloleary`：逐只查看全部 9 行，并在白色、中灰和黑色背景上确认 Spellbook 的紫金封边、Starcorn 的彩虹鬃毛和紫黑像素外圈、Tangdouren 的棕发肤色、Teddy 的橙色毛发和深蓝服装均为主体设计，没有可见色键残边、底色块或游离裁切残片。证据：本提交 `docs: record four final edge reviews`。
+- `tiny-crt--chochou`、`tuantuan--jbbom`、`twinkle-twinkle--twinkletwinkle`、`usachi--jack`、`violet--lazenca`、`yuzubou--keseras34938976`、`zichao-xiong--z-kzhang`：逐只查看全部 9 行，并在白色、中灰和黑色背景上确认 Tiny CRT 的紫黑线缆、Tuantuan 的橘色毛发、Twinkle Twinkle 的星光、Usachi 的粉色耳朵、Violet 的蓝色缎带、Yuzubou 的绿色叶片和自嘲熊的白色绒毛均为主体或动作设计，没有可见色键残边、底色块或游离裁切残片。证据：本提交 `docs: finish all pet edge reviews`。
 
-当前已审查范围内没有仍待修复的宠物；未审查的 7 只仍需按相同方法逐只建立结论。
+当前 151 只宠物均已完成本轮透明边缘复核，没有仍待修复或未审查的宠物。
 
 ## 快速索引
 
@@ -132,7 +133,7 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 - `xiaomai--brian-3`：running-left 第 7、8 帧三块裁切残片已定点移除，并完成全部 11 行与 16 个环视方向的三背景复核，证据：本提交 `fix(pet): remove XiaoMai crop fragments`。
 - `zhengyin--noonwake`：2026-07-19 完成全部 11 行、16 个环视方向和三背景透明边缘复核，证据：本提交 `docs: finish v2 pet edge reviews`。
 
-### 边缘已审查通过：v1（129）
+### 边缘已审查通过：v1（136）
 
 - `apu--xchangee`、`arlecchino--lingxiaotian`、`black-swan--lingxiaotian`、`bocchi--lingxiaotian`、`bubu--gbn666`、`claude--xiangking`、`codenono--dq02`、`corgi-companion--cxian0928-afk`、`cyrene--lingxiaotian`、`diaoyi-baobao--d1a0y1bb`、`firefly--lingxiaotian`、`frankie--aygunvarol`、`frieren--lingxiaotian`、`hu-tao--lingxiaotian`、`kamisato-ayaka--lingxiaotian`、`katana-cheems--thankyou-cheems`、`mai--dwdestiny`、`miku--lingxiaotian`、`mimi--spacebody`、`nahida--lingxiaotian`、`navia--lingxiaotian`、`night-neko--netizenxuan`、`paimon--lingxiaotian`、`panda--jason-bai`、`raiden-shogun--lingxiaotian`、`robin--lingxiaotian`、`ruan-mei--lingxiaotian`、`silver-wolf--lingxiaotian`、`sparkle--lingxiaotian`、`tian-hua-hua--d1a0y1bb`、`wally--wally025`、`xian-xiao-lu--qingyunagi`、`yier--gbn666`、`yuanzai--gaming33`：透明边缘修复批次，证据 `1b537c1`。
 - `buba--yurcek`、`capybara-lulu--jiushu`、`goblin--rkwap`、`happynailong--aquaxyy`、`linnea--nyakku-shigure`、`mellow-duck--sally-entr`、`xiaoba-cat--jack`：批次边缘和动作复核，证据 `663794d`。
@@ -162,6 +163,7 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 - `rook--klubbyte`、`roxy-pixel--gravity`、`ruruka--ltmcliao-cmyk`、`saki--rookie-09`、`shian-helper--mistyshen`：2026-07-19 逐只完成全部 9 行三背景透明边缘复核，证据：本提交 `docs: record five final edge reviews`。
 - `tingyun--lingxiaotian`：第 2 行第 2–7 帧相邻帧尾巴和紫色裁切残片已定点移除，并完成全部 9 行三背景复核，证据：本提交 `fix(pet): remove Tingyun crop fragments`。
 - `spellbook--seymour`、`starcorn--alterhq`、`tangdouren--carl312`、`teddy--danieloleary`：2026-07-19 逐只完成全部 9 行三背景透明边缘复核，证据：本提交 `docs: record four final edge reviews`。
+- `tiny-crt--chochou`、`tuantuan--jbbom`、`twinkle-twinkle--twinkletwinkle`、`usachi--jack`、`violet--lazenca`、`yuzubou--keseras34938976`、`zichao-xiong--z-kzhang`：2026-07-19 逐只完成全部 9 行三背景透明边缘复核，证据：本提交 `docs: finish all pet edge reviews`。
 
 ### 边缘已审查需修复：v1（0）
 
@@ -177,9 +179,9 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 
 - 无。
 
-### 待基线复核、边缘未审查：v1（7）
+### 待基线复核、边缘未审查：v1（0）
 
-- `tiny-crt--chochou`、`tuantuan--jbbom`、`twinkle-twinkle--twinkletwinkle`、`usachi--jack`、`violet--lazenca`、`yuzubou--keseras34938976`、`zichao-xiong--z-kzhang`
+- 无。
 
 ## 每轮维护流程
 
