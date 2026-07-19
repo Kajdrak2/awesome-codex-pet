@@ -1352,6 +1352,18 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "wakaba-mutsumi--carambola",
+    "name": "Wakaba Mutsumi",
+    "localized_names": { "en": "Wakaba Mutsumi", "zh": "若叶睦" },
+    "author": "Carambola",
+    "author_handle": "Carambola",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Non-commercial only. AI-assisted fan-art Codex pet submission by Carambola; no official affiliation or commercial use permitted.",
+    "description": "A chibi fan-art Codex pet inspired by Wakaba Mutsumi, with pale mint hair, sleepy gold eyes, gothic stage styling, and a cucumber-eating jumping animation.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "wally--wally025",
     "name": "Wally",
     "author": "Wally Pet Contributors",
