@@ -13,9 +13,9 @@
 - v2：15
 - 有历史修复或复核证据：85
 - 待建立人工基线：66
-- 本轮透明边缘逐只复核通过：91
+- 本轮透明边缘逐只复核通过：92
 - 本轮透明边缘逐只复核需修复：0
-- 透明边缘未审查：60
+- 透明边缘未审查：59
 
 “待建立人工基线”不等于图片有问题，只表示仓库里还没有足够明确、可追溯的逐只审查记录。
 
@@ -81,9 +81,9 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 
 ## 透明边缘复核记录
 
-2026-07-19 已对 91 只宠物完成本轮逐只复核。每只宠物都单独打开当前 `spritesheet.webp`，分别合成到白色、中灰和黑色背景上查看全部动作行；颜色检测脚本没有被用作通过结论，也没有对任何宠物执行批量清色。
+2026-07-19 已对 92 只宠物完成本轮逐只复核。每只宠物都单独打开当前 `spritesheet.webp`，分别合成到白色、中灰和黑色背景上查看全部动作行；颜色检测脚本没有被用作通过结论，也没有对任何宠物执行批量清色。
 
-本轮结论：91 只通过，当前已审查范围内没有待修复项。银狼的紫色和蓝色发梢、昔涟的粉色和青色服装、绿色角色及其他角色本色均按主体细节保留，没有因为颜色相似而判作背景残留。
+本轮结论：92 只通过，当前已审查范围内没有待修复项。银狼的紫色和蓝色发梢、昔涟的粉色和青色服装、绿色角色及其他角色本色均按主体细节保留，没有因为颜色相似而判作背景残留。
 
 本轮已完成修复：
 
@@ -92,6 +92,7 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 - `yume-boundary--andy-meow`：逐帧移除浅色底边与 running-left、review 行的游离竖向残片；对人工确认的绿色色键污染使用相邻黑紫发色局部校正并保留原 alpha，没有全局删除绿色。全部 57 个使用帧完成三背景复核，紫色头发高光保留。证据：本提交 `fix(pet): clean Yume matte and green spill`。
 - `gintoki-pixel--yuu-m`：仅移除 running-left 第 7 帧右侧与主体完全断开的重复头发残片，共 364 个可见像素；其余图集解码像素未改变，全部 9 行完成白色、中灰和黑色背景复核，银蓝头发和深紫描边均保留。证据：本提交 `fix(pet): remove Gintoki detached hair fragment`。
 - `gudong--rank`：逐帧移除第 6 行 8 处与主体完全断开的白色裁切竖片，共 355 个可见像素；其余图集解码像素未改变，全部 11 行完成白色、中灰和黑色背景复核，白耳、王冠高光、绿色叶片、披风和 16 个环视方向均保留。证据：本提交 `fix(pet): remove Gudong crop slivers`。
+- `xiaomai--brian-3`：仅移除 running-left 第 7、8 帧三块与主体完全断开的重复猫脸、身体和白爪裁切残片，共 2130 个可见像素；其余图集解码像素未改变，全部 11 行完成三背景复核，狸花纹、白脸白胸白爪、胡须和 16 个环视方向均保留。证据：本提交 `fix(pet): remove XiaoMai crop fragments`。
 
 本轮新增逐只复核通过：
 
@@ -102,17 +103,18 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 - `shinobu-kocho--wangfan002`、`sonetto--chenxin-dlut`、`tanjiro-kamado--wangfan002`、`vertin--chenxin-dlut`、`yoimiya--chenxin-dlut`、`zani--chenxin-dlut`、`zenitsu-agatsuma--wangfan002`、`zero-two--mingqingmozhao`：逐只查看全部 9 行，并在白色、中灰和黑色背景上确认紫色蝶饰、青色发梢、火焰雷电、银白发、粉发和黑色角尾均为主体或动作设计，没有可见色键残边、底色块或游离残片。证据：本提交 `docs: finish intake pet edge reviews`。
 - `joker--oytyo`、`koukou-penguin--hoody`、`maodie--octane0411`、`minty--somnusochi`、`naiwa--sandytruant`：逐只查看全部 11 行和最后 16 个环视方向，并在白色、中灰和黑色背景上确认绿色头发、黑色身体、橘色毛发、青绿色发饰和黄色主体均为角色本色，没有可见色键残边、底色块或游离残片。证据：本提交 `docs: record five v2 pet edge reviews`。
 
-当前已审查范围内没有仍待修复的宠物；未审查的 60 只仍需按相同方法逐只建立结论。
+当前已审查范围内没有仍待修复的宠物；未审查的 59 只仍需按相同方法逐只建立结论。
 
 ## 快速索引
 
-### 边缘已审查通过：v2（13）
+### 边缘已审查通过：v2（14）
 
 - `dai-dai-nai-you--1wphantom`、`kimoju--andiac`、`luna-angel-cat--neve`、`miu-meo--lemon-z`、`niumou--jarvis-2`：批次边缘和动作复核，证据 `663794d`。
 - `misaka-network--ldl1234`：v2 修复与复核，证据 `f22a370`。
 - `youmu--ai-generated`：方向修复与使用说明更新，证据 `e939f69`。
 - `gudong--rank`：第 6 行 8 处白色裁切竖片已逐帧定点移除，并完成全部 11 行与 16 个环视方向的三背景复核，证据：本提交 `fix(pet): remove Gudong crop slivers`。
 - `joker--oytyo`、`koukou-penguin--hoody`、`maodie--octane0411`、`minty--somnusochi`、`naiwa--sandytruant`：2026-07-19 逐只完成全部 11 行、16 个环视方向和三背景透明边缘复核，证据：本提交 `docs: record five v2 pet edge reviews`。
+- `xiaomai--brian-3`：running-left 第 7、8 帧三块裁切残片已定点移除，并完成全部 11 行与 16 个环视方向的三背景复核，证据：本提交 `fix(pet): remove XiaoMai crop fragments`。
 
 ### 边缘已审查通过：v1（78）
 
@@ -141,9 +143,9 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 
 - 无。
 
-### 待基线复核、边缘未审查：v2（2）
+### 待基线复核、边缘未审查：v2（1）
 
-- `xiaomai--brian-3`、`zhengyin--noonwake`
+- `zhengyin--noonwake`
 
 ### 待基线复核、边缘未审查：v1（58）
 
