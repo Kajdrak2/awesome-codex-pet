@@ -13,9 +13,9 @@
 - v2：15
 - 有历史修复或复核证据：85
 - 待建立人工基线：66
-- 本轮透明边缘逐只复核通过：95
+- 本轮透明边缘逐只复核通过：98
 - 本轮透明边缘逐只复核需修复：0
-- 透明边缘未审查：56
+- 透明边缘未审查：53
 
 “待建立人工基线”不等于图片有问题，只表示仓库里还没有足够明确、可追溯的逐只审查记录。
 
@@ -81,9 +81,9 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 
 ## 透明边缘复核记录
 
-2026-07-19 已对 95 只宠物完成本轮逐只复核。每只宠物都单独打开当前 `spritesheet.webp`，分别合成到白色、中灰和黑色背景上查看全部动作行；颜色检测脚本没有被用作通过结论，也没有对任何宠物执行批量清色。
+2026-07-19 已对 98 只宠物完成本轮逐只复核。每只宠物都单独打开当前 `spritesheet.webp`，分别合成到白色、中灰和黑色背景上查看全部动作行；颜色检测脚本没有被用作通过结论，也没有对任何宠物执行批量清色。
 
-本轮结论：95 只通过，当前已审查范围内没有待修复项。银狼的紫色和蓝色发梢、昔涟的粉色和青色服装、绿色角色及其他角色本色均按主体细节保留，没有因为颜色相似而判作背景残留。
+本轮结论：98 只通过，当前已审查范围内没有待修复项。银狼的紫色和蓝色发梢、昔涟的粉色和青色服装、绿色角色及其他角色本色均按主体细节保留，没有因为颜色相似而判作背景残留。
 
 本轮已完成修复：
 
@@ -105,8 +105,9 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 - `shinobu-kocho--wangfan002`、`sonetto--chenxin-dlut`、`tanjiro-kamado--wangfan002`、`vertin--chenxin-dlut`、`yoimiya--chenxin-dlut`、`zani--chenxin-dlut`、`zenitsu-agatsuma--wangfan002`、`zero-two--mingqingmozhao`：逐只查看全部 9 行，并在白色、中灰和黑色背景上确认紫色蝶饰、青色发梢、火焰雷电、银白发、粉发和黑色角尾均为主体或动作设计，没有可见色键残边、底色块或游离残片。证据：本提交 `docs: finish intake pet edge reviews`。
 - `joker--oytyo`、`koukou-penguin--hoody`、`maodie--octane0411`、`minty--somnusochi`、`naiwa--sandytruant`：逐只查看全部 11 行和最后 16 个环视方向，并在白色、中灰和黑色背景上确认绿色头发、黑色身体、橘色毛发、青绿色发饰和黄色主体均为角色本色，没有可见色键残边、底色块或游离残片。证据：本提交 `docs: record five v2 pet edge reviews`。
 - `zhengyin--noonwake`：查看全部 11 行和最后 16 个环视方向，并在白色、中灰和黑色背景上确认绿色汉服、浅色长袖和黑发均为主体配色，没有可见色键残边、底色块或游离残片。证据：本提交 `docs: finish v2 pet edge reviews`。
+- `aemeath-mini--cunuo`、`asuka--maxg24`、`azuma--tairazuma`：逐只查看全部 9 行，并在白色、中灰和黑色背景上确认 Aemeath 的青色头饰与服装描边、Asuka 的橙发红衣、Azuma 的浅金发均为主体设计，没有可见色键残边、底色块或游离残片；Aemeath 完全透明像素内的 RGB 数据在三背景合成后不可见，且当前图集与作者上游原版哈希一致。证据：本提交 `docs: record three pet edge reviews`。
 
-当前已审查范围内没有仍待修复的宠物；未审查的 56 只仍需按相同方法逐只建立结论。
+当前已审查范围内没有仍待修复的宠物；未审查的 53 只仍需按相同方法逐只建立结论。
 
 ## 快速索引
 
@@ -120,7 +121,7 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 - `xiaomai--brian-3`：running-left 第 7、8 帧三块裁切残片已定点移除，并完成全部 11 行与 16 个环视方向的三背景复核，证据：本提交 `fix(pet): remove XiaoMai crop fragments`。
 - `zhengyin--noonwake`：2026-07-19 完成全部 11 行、16 个环视方向和三背景透明边缘复核，证据：本提交 `docs: finish v2 pet edge reviews`。
 
-### 边缘已审查通过：v1（80）
+### 边缘已审查通过：v1（83）
 
 - `apu--xchangee`、`arlecchino--lingxiaotian`、`black-swan--lingxiaotian`、`bocchi--lingxiaotian`、`bubu--gbn666`、`claude--xiangking`、`codenono--dq02`、`corgi-companion--cxian0928-afk`、`cyrene--lingxiaotian`、`diaoyi-baobao--d1a0y1bb`、`firefly--lingxiaotian`、`frankie--aygunvarol`、`frieren--lingxiaotian`、`hu-tao--lingxiaotian`、`kamisato-ayaka--lingxiaotian`、`katana-cheems--thankyou-cheems`、`mai--dwdestiny`、`miku--lingxiaotian`、`mimi--spacebody`、`nahida--lingxiaotian`、`navia--lingxiaotian`、`night-neko--netizenxuan`、`paimon--lingxiaotian`、`panda--jason-bai`、`raiden-shogun--lingxiaotian`、`robin--lingxiaotian`、`ruan-mei--lingxiaotian`、`silver-wolf--lingxiaotian`、`sparkle--lingxiaotian`、`tian-hua-hua--d1a0y1bb`、`wally--wally025`、`xian-xiao-lu--qingyunagi`、`yier--gbn666`、`yuanzai--gaming33`：透明边缘修复批次，证据 `1b537c1`。
 - `buba--yurcek`、`capybara-lulu--jiushu`、`goblin--rkwap`、`happynailong--aquaxyy`、`linnea--nyakku-shigure`、`mellow-duck--sally-entr`、`xiaoba-cat--jack`：批次边缘和动作复核，证据 `663794d`。
@@ -138,6 +139,7 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 - `shinobu-kocho--wangfan002`、`sonetto--chenxin-dlut`、`tanjiro-kamado--wangfan002`、`vertin--chenxin-dlut`、`yoimiya--chenxin-dlut`、`zani--chenxin-dlut`、`zenitsu-agatsuma--wangfan002`、`zero-two--mingqingmozhao`：2026-07-19 逐只完成全部 9 行三背景透明边缘复核，证据：本提交 `docs: finish intake pet edge reviews`。
 - `acheron--lingxiaotian`：第 6 行第 2、3、4、7 帧紫色裁切残片已定点移除，并完成全部 9 行三背景复核，证据：本提交 `fix(pet): remove Acheron crop fragments`。
 - `becky--natewanggg`：第 2、3、5 行 15 个帧格内来自相邻猫姿态的裁切残片已逐帧定点移除，并完成全部 9 行三背景复核，证据：本提交 `fix(pet): remove Becky crop fragments`。
+- `aemeath-mini--cunuo`、`asuka--maxg24`、`azuma--tairazuma`：2026-07-19 逐只完成全部 9 行三背景透明边缘复核，证据：本提交 `docs: record three pet edge reviews`。
 
 ### 边缘已审查需修复：v1（0）
 
@@ -153,9 +155,9 @@ v1 仍是受支持格式，不因版本较旧就自动判定为不合格。满�
 
 - 无。
 
-### 待基线复核、边缘未审查：v1（56）
+### 待基线复核、边缘未审查：v1（53）
 
-- `aemeath-mini--cunuo`、`asuka--maxg24`、`azuma--tairazuma`、`castorice--lingxiaotian`、`chispa--giiilberto-nm`、`desk-otter--zihualiu1997`、`diana--am`、`diandian--lllucasxu`
+- `castorice--lingxiaotian`、`chispa--giiilberto-nm`、`desk-otter--zihualiu1997`、`diana--am`、`diandian--lllucasxu`
 - `dimo-stand--god-wu`、`dnf-female-ammo--qunboo`、`doraemon--xueshi`、`dudu-bubu--clembuilds`、`duodong--froggie`、`elaina--nyakku-shigure`、`ella-wave--sehjk`、`eren--ash-sw`、`feibi--vanfff`、`feixiao--lingxiaotian`
 - `fleta--natewanggg`、`gojo--lilokhalikfa`、`gpt-muse--opask`、`guga--circus`、`hajimi--zeyuwang1999`、`hana2--initiatione`、`ikaros--icarus-alpha`、`jiji--yena`、`kid-goku--julianhuang`、`levi--emrecb`
 - `little-black-mage--libertis`、`little-sheep--mingdong`、`luffy-gear-5--jordsshmords1`、`lulu--yogazz`、`mihari--hyoni1129`、`mika--rotl24`、`mikoto--lingxiaotian`、`miyabi--eric-terminal`、`nimbus--soraberu`、`rem--l1`
