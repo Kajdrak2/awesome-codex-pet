@@ -1150,6 +1150,13 @@ curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scr
 </table>
 
 <table>
+<tr><th>名称</th><td colspan="5"><a href="../../pets/hance-woniu--korn">旱厕蜗牛</a> · 作者 @korn · 网络梗图 · v2</td></tr>
+<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- hance-woniu--korn</code></td></tr>
+<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
+<tr><th>预览</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/hance-woniu--korn/gifs/idle.gif" alt="旱厕蜗牛 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/hance-woniu--korn/gifs/waving.gif" alt="旱厕蜗牛 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/hance-woniu--korn/gifs/running-right.gif" alt="旱厕蜗牛 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/hance-woniu--korn/gifs/waiting.gif" alt="旱厕蜗牛 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/hance-woniu--korn/gifs/review.gif" alt="旱厕蜗牛 review" width="120" height="130"></td></tr>
+</table>
+
+<table>
 <tr><th>名称</th><td colspan="5"><a href="../../pets/maodie--octane0411">耄耋</a> · 作者 <a href="https://github.com/Octane0411">@Octane0411</a> · 网络梗图 · v2</td></tr>
 <tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- maodie--octane0411</code></td></tr>
 <tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>

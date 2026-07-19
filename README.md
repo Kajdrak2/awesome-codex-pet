@@ -1150,6 +1150,13 @@ The **Update** action is an AI-assisted v1-to-v2 conversion, not a download noti
 </table>
 
 <table>
+<tr><th>Name</th><td colspan="5"><a href="./pets/hance-woniu--korn">旱厕蜗牛</a> · by @korn · Memes · v2</td></tr>
+<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- hance-woniu--korn</code></td></tr>
+<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
+<tr><th>Preview</th><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/hance-woniu--korn/gifs/idle.gif" alt="旱厕蜗牛 idle" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/hance-woniu--korn/gifs/waving.gif" alt="旱厕蜗牛 waving" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/hance-woniu--korn/gifs/running-right.gif" alt="旱厕蜗牛 running-right" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/hance-woniu--korn/gifs/waiting.gif" alt="旱厕蜗牛 waiting" width="120" height="130"></td><td><img src="https://awesome-codex-pet.pages.dev/assets/previews/hance-woniu--korn/gifs/review.gif" alt="旱厕蜗牛 review" width="120" height="130"></td></tr>
+</table>
+
+<table>
 <tr><th>Name</th><td colspan="5"><a href="./pets/maodie--octane0411">耄耋</a> · by <a href="https://github.com/Octane0411">@Octane0411</a> · Memes · v2</td></tr>
 <tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- maodie--octane0411</code></td></tr>
 <tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
