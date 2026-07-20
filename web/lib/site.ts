@@ -1,6 +1,5 @@
 export const siteConfig = {
-  url:
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://awesome-codex-pet.pages.dev",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://codexpet.top",
   title: "Awesome Codex Pet",
   altName: "Codex Pet Gallery",
   description:

@@ -10,7 +10,7 @@ import {
 } from "../src/index.js";
 
 const env = {
-  ALLOWED_ORIGINS: "https://awesome-codex-pet.pages.dev,http://localhost:3000",
+  ALLOWED_ORIGINS: "https://codexpet.top,http://localhost:3000",
   HASH_SALT: "test-only-hash-salt-value",
 };
 
@@ -22,7 +22,7 @@ test("origin checks allow scripts and configured browser origins", () => {
   assert.equal(
     isOriginAllowed(
       new Request("https://stats.example/stats", {
-        headers: { Origin: "https://awesome-codex-pet.pages.dev" },
+        headers: { Origin: "https://codexpet.top" },
       }),
       env,
     ),

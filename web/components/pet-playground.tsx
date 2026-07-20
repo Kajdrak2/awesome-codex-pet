@@ -309,7 +309,7 @@ export function PetPlayground({
             const selected = item.action === activeAction?.action;
             return (
               <button
-                className={`group flex min-h-24 min-w-0 cursor-pointer items-center gap-2.5 rounded-lg border p-2.5 text-left transition-[border-color,background-color,transform] duration-200 hover:-translate-y-0.5 ${
+                className={`group flex min-h-32 min-w-0 cursor-pointer flex-col items-stretch gap-2 rounded-lg border p-2 text-center transition-[border-color,background-color,transform] duration-200 hover:-translate-y-0.5 ${
                   selected
                     ? "border-accent bg-accent-light"
                     : "border-border bg-bg-elevated hover:border-border-hover hover:bg-surface"
@@ -323,7 +323,7 @@ export function PetPlayground({
                   setSelectedAction(item.action);
                 }}
               >
-                <span className="flex size-[4.5rem] shrink-0 items-center justify-center overflow-hidden rounded-md bg-bg-secondary">
+                <span className="flex h-20 w-full shrink-0 items-center justify-center overflow-hidden rounded-md bg-bg-secondary">
                   <img
                     className="max-h-full max-w-full object-contain [image-rendering:pixelated]"
                     src={item.image}
@@ -331,7 +331,7 @@ export function PetPlayground({
                     loading="lazy"
                   />
                 </span>
-                <span className="min-w-0 text-xs font-medium leading-snug text-text">
+                <span className="min-w-0 whitespace-normal break-words px-1 text-xs font-medium leading-snug text-text">
                   {actionLabel(item)}
                 </span>
               </button>

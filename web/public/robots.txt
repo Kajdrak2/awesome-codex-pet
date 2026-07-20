@@ -5,4 +5,4 @@ Allow: /
 User-agent: *
 Disallow: /_next/
 
-Sitemap: https://awesome-codex-pet.pages.dev/sitemap.xml
+Sitemap: https://codexpet.top/sitemap.xml

@@ -53,11 +53,12 @@ This means README preview links can point at the deployed site while the reposit
 
 ### Custom Domain
 
-After the first deploy:
+The production site uses [codexpet.top](https://codexpet.top). After the first deploy:
 
 1. Go to Cloudflare Dashboard → Workers & Pages → awesome-codex-pet
 2. Custom domains → Add a custom domain
-3. If your domain is already on Cloudflare DNS, it auto-configures. Otherwise, update your DNS records.
+3. Add `codexpet.top`. If the domain is already on Cloudflare DNS, Pages configures the required record automatically. Otherwise, update the DNS records shown by Cloudflare.
+4. Set `NEXT_PUBLIC_SITE_URL=https://codexpet.top` for production builds so canonical, OpenGraph, sitemap, and share URLs use the custom domain.
 
 ### Manual Deploy (optional)
 
@@ -81,7 +82,7 @@ npx wrangler pages deploy out --project-name=awesome-codex-pet
 
 | Variable                               | Default                                                | Used in                            |
 | -------------------------------------- | ------------------------------------------------------ | ---------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`                 | `https://awesome-codex-pet.pages.dev`                  | `app/layout.tsx` metadata base     |
+| `NEXT_PUBLIC_SITE_URL`                 | `https://codexpet.top`                                 | `app/layout.tsx` metadata base     |
 | `NEXT_PUBLIC_STATS_API`                | `https://awesome-codex-pet-stats.legeling.workers.dev` | `lib/stats.ts`                     |
 | `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | _unset_                                                | Google Search Console verification |
 | `NEXT_PUBLIC_BING_SITE_VERIFICATION`   | _unset_                                                | Bing Webmaster verification        |
@@ -94,7 +95,7 @@ The site is configured for indexing out of the box: per-page titles, description
 
 To actually surface in search results, do this once after the first deploy:
 
-1. **Google Search Console** — [search.google.com/search-console](https://search.google.com/search-console). Add the property, choose the HTML tag method, drop the verification token into `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`, redeploy, then submit the sitemap (`https://your-domain/sitemap.xml`).
+1. **Google Search Console** — [search.google.com/search-console](https://search.google.com/search-console). Add the property, choose the HTML tag method, drop the verification token into `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`, redeploy, then submit `https://codexpet.top/sitemap.xml`.
 2. **Bing Webmaster Tools** — [bing.com/webmasters](https://www.bing.com/webmasters). Same idea via `NEXT_PUBLIC_BING_SITE_VERIFICATION`.
-3. **Custom domain** — `*.pages.dev` ranks lower than your own domain. Bind a custom domain in Cloudflare Pages and update `NEXT_PUBLIC_SITE_URL`. This is the single biggest lever for organic traffic.
+3. **Canonical domain** — keep `NEXT_PUBLIC_SITE_URL` set to `https://codexpet.top` and permanently redirect the default Pages hostname to it so search engines see one authoritative origin.
 4. **External links** — once a few real sites link to the gallery (X, Reddit, GitHub topic pages, awesome-\* lists), Google will pick the site up much faster.

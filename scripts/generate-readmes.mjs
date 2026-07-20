@@ -6,7 +6,7 @@ import { format } from "prettier";
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const petsDir = join(repoRoot, "pets");
 const rawBase = "https://raw.githubusercontent.com/legeling/awesome-codex-pet/main";
-const websiteUrl = "https://awesome-codex-pet.pages.dev";
+const websiteUrl = "https://codexpet.top";
 
 const categoryCatalog = JSON.parse(
   readFileSync(join(repoRoot, "categories.json"), "utf8"),
@@ -153,20 +153,24 @@ function englishReadme(pets) {
 
 [简体中文](./docs/zh-CN/README.md) | English
 
+<h2><a href="${websiteUrl}">Open the curated gallery at codexpet.top →</a></h2>
+
+<p><strong>The website is the primary experience.</strong> Browse complete animations, collections, creator pages, community favorites, and install any pet without cloning this repository.</p>
+
+<p><a href="${websiteUrl}"><strong>Browse pets</strong></a> · <a href="${websiteUrl}/install"><strong>Install a pet</strong></a> · <a href="${websiteUrl}/guide"><strong>Craft and submit</strong></a></p>
+
+<a href="${websiteUrl}"><img src="./assets/cover/awesome-codex-pet-cover.png" alt="Open the Awesome Codex Pet gallery"></a>
+
 ${badges(pets)}
-
-[**🌐 Selected pet gallery**](${websiteUrl}) · [**⚡ Install guide**](${websiteUrl}/install) · [**📖 Craft and submit**](${websiteUrl}/guide)
-
-![Awesome Codex Pet cover](./assets/cover/awesome-codex-pet-cover.png)
 
 </div>
 
-A selective gallery of beautifully made community Codex pets. Inspect complete animations and creator credits on the [website](${websiteUrl}), install in one step, or follow the craft guide to contribute a polished pet.
+This repository is the source catalog behind [codexpet.top](${websiteUrl}): it keeps installable pet packages, creator attribution, collection metadata, validation tools, and contribution history. For browsing and installing pets, start with the website.
 
 ## Highlights
 
 - **One-command install** — no clone, no manual setup, works on macOS / Linux / Windows
-- **Selected pet gallery** — complete animation previews, collections, creator credits, sharing, and community statistics at [awesome-codex-pet.pages.dev](${websiteUrl})
+- **Selected pet gallery** — complete animation previews, collections, creator credits, sharing, and community statistics at [codexpet.top](${websiteUrl})
 - **GitHub-native submissions** — open an issue or PR, the rest is automated
 - **Open licensing** — code under MIT, pet assets under CC BY-NC 4.0
 
@@ -307,20 +311,24 @@ function chineseReadme(pets) {
 
 简体中文 | [English](../../README.md)
 
+<h2><a href="${websiteUrl}">进入 Codex 精品宠物画廊：codexpet.top →</a></h2>
+
+<p><strong>网站是浏览和安装宠物的主要入口。</strong>你可以直接查看完整动作、作品与主题合集、作者主页和社区热度，无需克隆仓库即可安装喜欢的宠物。</p>
+
+<p><a href="${websiteUrl}"><strong>挑选宠物</strong></a> · <a href="${websiteUrl}/install"><strong>安装宠物</strong></a> · <a href="${websiteUrl}/guide"><strong>制作与投稿</strong></a></p>
+
+<a href="${websiteUrl}"><img src="../../assets/cover/awesome-codex-pet-cover.png" alt="进入 Awesome Codex Pet 精品画廊"></a>
+
 ${badges(pets)}
-
-[**🌐 精品宠物画廊**](${websiteUrl}) · [**⚡ 安装指南**](${websiteUrl}/install) · [**📖 制作与投稿指南**](${websiteUrl}/guide)
-
-![Awesome Codex Pet 封面](../../assets/cover/awesome-codex-pet-cover.png)
 
 </div>
 
-专门收录制作精良的社区 Codex 宠物。在[精品画廊](${websiteUrl})中查看完整动作、作者与合集，一键安装喜欢的伙伴，也可以按照制作指南投稿自己的精品宠物。
+本仓库是 [codexpet.top](${websiteUrl}) 背后的宠物目录，负责保存可安装成品、作者与来源信息、合集元数据、校验工具和贡献记录。挑选与安装宠物时，请优先使用网站。
 
 ## 亮点
 
 - **一条命令安装** — 不需要克隆仓库，macOS / Linux / Windows 全平台支持
-- **精品宠物画廊** — [awesome-codex-pet.pages.dev](${websiteUrl}) 提供完整动作预览、合集、作者署名、便捷分享和社区统计
+- **精品宠物画廊** — [codexpet.top](${websiteUrl}) 提供完整动作预览、合集、作者署名、便捷分享和社区统计
 - **GitHub 原生投稿** — 提 issue 或 PR，剩下的全自动
 - **非商用原则** — 正式许可证可选；没有正式许可证时必须明确禁止商用
 

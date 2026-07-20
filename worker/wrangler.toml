@@ -13,4 +13,4 @@ crons = ["17 3 * * *"]
 
 [vars]
 # Comma separated list of allowed origins for CORS.
-ALLOWED_ORIGINS = "https://awesome-codex-pet.pages.dev,http://localhost:3000,http://localhost:3001"
+ALLOWED_ORIGINS = "https://codexpet.top,http://localhost:3000,http://localhost:3001"
