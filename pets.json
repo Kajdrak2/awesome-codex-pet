@@ -1043,6 +1043,18 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "pixel-duck--flamurmaliqi",
+    "name": "Pixel Duck",
+    "author": "Flamur Maliqi",
+    "author_handle": "FlamurMaliqi",
+    "author_url": "https://github.com/FlamurMaliqi",
+    "primary_category": "Animals",
+    "collections": ["animal-companions"],
+    "license": "CC BY 4.0",
+    "description": "An original pixel duck that spins through the same eight-frame loop in every Codex state.",
+    "spriteVersionNumber": 1
+  },
+  {
     "slug": "raiden-shogun--lingxiaotian",
     "name": "Raiden Shogun",
     "localized_names": { "en": "Raiden Shogun", "zh": "雷电将军" },
