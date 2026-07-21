@@ -581,6 +581,18 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "issac--foggy-whale",
+    "name": "issac",
+    "author": "Foggywhale",
+    "author_handle": "Foggy-whale",
+    "author_url": "https://github.com/Foggy-whale",
+    "primary_category": "Game Characters",
+    "collections": [],
+    "license": "由投稿者本人制作；仅限非商业使用，禁止商用。",
+    "description": "由 Foggywhale 制作，以《The Binding of Isaac》中的 Isaac 为原型的像素风 Codex 宠物。",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "jiji--yena",
     "name": "Jiji",
     "author": "Yena",
