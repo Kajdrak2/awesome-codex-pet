@@ -193,10 +193,10 @@ The **Update** action is an AI-assisted v1-to-v2 conversion, not a download noti
 </table>
 
 <table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/issac--foggy-whale">issac</a> · by <a href="https://github.com/Foggy-whale">@Foggy-whale</a> · Game Characters · v2</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- issac--foggy-whale</code></td></tr>
+<tr><th>Name</th><td colspan="5"><a href="./pets/isaac--foggy-whale">Isaac</a> · by <a href="https://github.com/Foggy-whale">@Foggy-whale</a> · Game Characters · v2</td></tr>
+<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- isaac--foggy-whale</code></td></tr>
 <tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://codexpet.top/assets/previews/issac--foggy-whale/gifs/idle.gif" alt="issac idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/issac--foggy-whale/gifs/waving.gif" alt="issac waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/issac--foggy-whale/gifs/running-right.gif" alt="issac running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/issac--foggy-whale/gifs/waiting.gif" alt="issac waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/issac--foggy-whale/gifs/review.gif" alt="issac review" width="120" height="130"></td></tr>
+<tr><th>Preview</th><td><img src="https://codexpet.top/assets/previews/isaac--foggy-whale/gifs/idle.gif" alt="Isaac idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/isaac--foggy-whale/gifs/waving.gif" alt="Isaac waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/isaac--foggy-whale/gifs/running-right.gif" alt="Isaac running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/isaac--foggy-whale/gifs/waiting.gif" alt="Isaac waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/isaac--foggy-whale/gifs/review.gif" alt="Isaac review" width="120" height="130"></td></tr>
 </table>
 
 <table>
