@@ -23,6 +23,7 @@ const STATS_API =
   process.env.NEXT_PUBLIC_STATS_API ??
   "https://awesome-codex-pet-stats.legeling.workers.dev";
 const VISITOR_ID_KEY = "awesome-codex-pet:stats:visitor-id";
+const LIKE_TIMEOUT_MS = 8_000;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -139,33 +140,43 @@ export function hasLikedPet(slug: string) {
 }
 
 export async function likePet(slug: string): Promise<LikeResult> {
-  const response = await fetch(
-    `${STATS_API}/track/like?slug=${encodeURIComponent(slug)}`,
-    { method: "POST" },
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(
+    () => controller.abort(),
+    LIKE_TIMEOUT_MS,
   );
-  if (!response.ok) {
-    throw new Error(`Like API returned HTTP ${response.status}`);
-  }
-
-  const payload: unknown = await response.json();
-  if (!isRecord(payload) || payload.slug !== slug) {
-    throw new Error("Like API returned an invalid payload");
-  }
-
-  const result = {
-    slug,
-    likes: asNonNegativeNumber(payload.likes),
-    liked: payload.liked === true,
-    counted: payload.counted === true,
-  };
-  if (!result.liked) {
-    throw new Error("Like API did not confirm the like");
-  }
 
   try {
-    window.localStorage.setItem(likedMarker(slug), "1");
-  } catch (error: unknown) {
-    logStatsError("Unable to persist anonymous like receipt", error);
+    const response = await fetch(
+      `${STATS_API}/track/like?slug=${encodeURIComponent(slug)}`,
+      { method: "POST", signal: controller.signal },
+    );
+    if (!response.ok) {
+      throw new Error(`Like API returned HTTP ${response.status}`);
+    }
+
+    const payload: unknown = await response.json();
+    if (!isRecord(payload) || payload.slug !== slug) {
+      throw new Error("Like API returned an invalid payload");
+    }
+
+    const result = {
+      slug,
+      likes: asNonNegativeNumber(payload.likes),
+      liked: payload.liked === true,
+      counted: payload.counted === true,
+    };
+    if (!result.liked) {
+      throw new Error("Like API did not confirm the like");
+    }
+
+    try {
+      window.localStorage.setItem(likedMarker(slug), "1");
+    } catch (error: unknown) {
+      logStatsError("Unable to persist anonymous like receipt", error);
+    }
+    return result;
+  } finally {
+    window.clearTimeout(timeoutId);
   }
-  return result;
 }

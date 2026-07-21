@@ -52,12 +52,16 @@ export function PetLikeButton({
 
   async function handleLike() {
     if (pending || liked) return;
+    const previousLikes = likes;
     setPending(true);
+    setLiked(true);
+    setLikes((current) => current + 1);
     try {
       const result = await likePet(slug);
       setLikes(result.likes);
-      setLiked(true);
     } catch (error: unknown) {
+      setLikes(previousLikes);
+      setLiked(false);
       console.warn(
         "Unable to like pet",
         error instanceof Error ? error.stack : String(error),

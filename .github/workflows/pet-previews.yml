@@ -16,6 +16,8 @@ concurrency:
 
 jobs:
   previews:
+    outputs:
+      catalog-changed: ${{ steps.commit-generated.outputs.catalog-changed }}
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
@@ -61,18 +63,25 @@ jobs:
           npm run lint
 
       - name: Commit generated files on main
+        id: commit-generated
         if: github.event_name == 'push'
         run: |
           git fetch origin main
           if [ "$(git rev-parse origin/main)" != "$GITHUB_SHA" ]; then
             echo "main moved ahead while this run was executing; skip generated commit from stale run."
+            echo "catalog-changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md docs/zh-CN/README.md pets.json
+          catalog_changed=false
+          if git diff --cached --name-only | grep -Fxq pets.json; then
+            catalog_changed=true
+          fi
           git diff --cached --quiet || git commit -m "chore: update generated previews and readmes"
           git push
+          echo "catalog-changed=$catalog_changed" >> "$GITHUB_OUTPUT"
 
       - name: Upload generated previews
         if: always() && github.event_name == 'push'
@@ -80,6 +89,12 @@ jobs:
         with:
           name: pet-previews
           path: assets/previews/
+
+  deploy-stats:
+    if: github.event_name == 'push' && needs.previews.outputs.catalog-changed == 'true'
+    needs: previews
+    uses: ./.github/workflows/deploy-stats.yml
+    secrets: inherit
 
   deploy-web:
     if: github.event_name == 'push'
