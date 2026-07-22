@@ -556,6 +556,19 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "hyacine--kurisu",
+    "name": "Hyacine",
+    "localized_names": { "en": "Hyacine", "zh": "风堇" },
+    "author": "Kurisu",
+    "author_handle": "kurisu994",
+    "author_url": "https://github.com/kurisu994",
+    "primary_category": "Game Characters",
+    "collections": ["honkai-star-rail"],
+    "license": "仅限个人非商业使用。AI 辅助制作的非官方同人作品，不代表或暗示已获得米哈游/HoYoverse 授权；《崩坏：星穹铁道》角色及商标权利归其权利人所有。",
+    "description": "Kurisu 使用 Lovart 与 OpenAI 图像生成工具制作并编排的《崩坏：星穹铁道》风堇非官方同人 Codex 宠物。",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "ikaros--icarus-alpha",
     "name": "Ikaros",
     "localized_names": { "en": "Ikaros", "zh": "伊卡洛斯" },
@@ -567,6 +580,18 @@
     "license": "Non-commercial repository redistribution authorized by the original asset creator; permission confirmed by the repository maintainer on 2026-07-18.",
     "description": "A chibi Ikaros desktop pet inspired by Heaven's Lost Property, with pink hair, teal eyes, small wings, white mechanical outfit, chain collar, clear four-finger chibi hands, and a complete round watermelon prop.",
     "spriteVersionNumber": 1
+  },
+  {
+    "slug": "iris--yau-427",
+    "name": "Iris",
+    "author": "Yau-427",
+    "author_handle": "Yau-427",
+    "author_url": "https://github.com/Yau-427",
+    "primary_category": "Original Characters",
+    "collections": [],
+    "license": "MIT License; original AI-assisted artwork submitted by Yau-427 with redistribution permission.",
+    "description": "An original AI-assisted manga-pop Codex companion with neon hair, spiral blue eyes, a chunky terminal frame, a laptop, and expressive work, waiting, greeting, review, and error animations.",
+    "spriteVersionNumber": 2
   },
   {
     "slug": "isaac--foggy-whale",
