@@ -613,6 +613,19 @@
     "spriteVersionNumber": 2
   },
   {
+    "slug": "jolyne-cujoh--d2682787206-sys",
+    "name": "Jolyne Cujoh",
+    "localized_names": { "en": "Jolyne Cujoh", "zh": "徐伦" },
+    "author": "d2682787206-sys",
+    "author_handle": "d2682787206-sys",
+    "author_url": "https://github.com/d2682787206-sys",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Non-commercial use only; I confirm I have the right to submit this AI-generated fan-art Codex pet.",
+    "description": "A pixel-art Jolyne Cujoh Codex pet with green twin buns, a dark blue combat outfit, nine animation states, and 16 look directions.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "kaiju-no-8--terry878",
     "name": "Kaiju No. 8",
     "localized_names": { "en": "Kaiju No. 8", "zh": "怪獸8號" },
