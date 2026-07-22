@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 
-import { ChatGPTIcon } from "@/components/chatgpt-icon";
+import { CodexIcon } from "@/components/codex-icon";
 import { useLocale } from "@/components/locale-provider";
 import { ShareMenu } from "@/components/share-menu";
 import {
-  buildChatGPTUrl,
+  buildCodexUrl,
   getPetRequestPrompt,
   getPetSubmissionPrompt,
 } from "@/lib/codex-links";
@@ -104,20 +104,16 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
           <div className="flex flex-wrap gap-3">
             <a
               className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-accent px-4 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
-              href={buildChatGPTUrl(requestPrompt)}
-              target="_blank"
-              rel="noreferrer"
+              href={buildCodexUrl(requestPrompt)}
             >
-              <ChatGPTIcon className="size-6" />
+              <CodexIcon className="size-6" />
               {t("guideRequestWorkflow")}
             </a>
             <a
               className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-border bg-bg-elevated px-4 text-sm font-medium text-text transition-colors hover:bg-surface"
-              href={buildChatGPTUrl(submissionPrompt)}
-              target="_blank"
-              rel="noreferrer"
+              href={buildCodexUrl(submissionPrompt)}
             >
-              <ChatGPTIcon className="size-6" />
+              <CodexIcon className="size-6" />
               {t("guideSubmitWorkflow")}
             </a>
             <ShareMenu
@@ -203,11 +199,9 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
             <div className="flex flex-wrap gap-3">
               <a
                 className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-accent px-4 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
-                href={buildChatGPTUrl(activePrompt)}
-                target="_blank"
-                rel="noreferrer"
+                href={buildCodexUrl(activePrompt)}
               >
-                <ChatGPTIcon className="size-6" />
+                <CodexIcon className="size-6" />
                 {t("startInCodex")}
               </a>
               <button
@@ -486,20 +480,16 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
       <div className="flex flex-col items-center justify-center gap-3 border-t border-border pt-12 sm:flex-row">
         <a
           className="inline-flex h-10 items-center gap-2 rounded-lg bg-accent px-5 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
-          href={buildChatGPTUrl(requestPrompt)}
-          target="_blank"
-          rel="noreferrer"
+          href={buildCodexUrl(requestPrompt)}
         >
-          <ChatGPTIcon className="size-6" />
+          <CodexIcon className="size-6" />
           {t("guideRequestWorkflow")}
         </a>
         <a
           className="inline-flex h-10 items-center gap-2 rounded-lg border border-border px-5 text-sm font-medium text-text transition-colors hover:bg-surface"
-          href={buildChatGPTUrl(submissionPrompt)}
-          target="_blank"
-          rel="noreferrer"
+          href={buildCodexUrl(submissionPrompt)}
         >
-          <ChatGPTIcon className="size-6" />
+          <CodexIcon className="size-6" />
           {t("guideSubmitWorkflow")}
         </a>
       </div>

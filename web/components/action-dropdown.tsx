@@ -129,6 +129,12 @@ export function ActionDropdown({
               }}
               onClick={(event) => {
                 const target = event.target;
+                if (
+                  target instanceof Element &&
+                  target.closest("[data-menu-keep-open]")
+                ) {
+                  return;
+                }
                 if (target instanceof Element && target.closest("a, button")) {
                   setOpen(false);
                 }

@@ -22,7 +22,7 @@
 
 - **一条命令安装** — 不需要克隆仓库，macOS / Linux / Windows 全平台支持
 - **精品宠物画廊** — [codexpet.top](https://codexpet.top) 提供完整动作预览、合集、作者署名、便捷分享和社区统计
-- **AI 优先投稿** — 请社区制作宠物，或让 ChatGPT 现场制作、完善并提交自己的宠物；高级用户仍可直接提交 PR
+- **AI 优先投稿** — 在本地 Codex 中打开工作流，或复制提示词交给其他 AI；既可请求社区制作，也可制作并提交自己的宠物
 - **非商用原则** — 正式许可证可选；没有正式许可证时必须明确禁止商用
 
 每只宠物都是一个很小的可分享包：
@@ -1229,8 +1229,8 @@ curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scr
 
 请从[网站上的制作与投稿指南](https://codexpet.top/guide)开始。为了避免每位投稿者都下载体积较大的素材仓库，我们提供三条路径：
 
-1. **请求制作宠物** — ChatGPT 先检查重复项、收集参考和制作要求，再创建带标签的请求 Issue。
-2. **制作或提交自己的宠物** — ChatGPT 可以从参考图现场制作，也可以接收现成文件；完成三件套制作与校验后，通过 GitHub API 创建专用分支和 PR，无需完整克隆。
+1. **请求制作宠物** — Codex 先检查重复项、收集参考和制作要求，再创建带标签的请求 Issue。
+2. **制作或提交自己的宠物** — Codex 可以从参考图现场制作，也可以接收现成文件；完成三件套制作与校验后，通过 GitHub API 创建专用分支和 PR，无需完整克隆。
 3. **高级 PR** — 熟悉 Git 的贡献者可以使用 GitHub Codespaces、部分克隆或自己的 Git 工作流。
 
 仓库内的 [`.agents/skills/submit-codex-pet`](../../.agents/skills/submit-codex-pet) 会指导兼容的 AI 选择正确路径。若缺少凭据或仓库写入权限，它会退回到带标签的成品投稿 Issue，不会让投稿内容丢失。

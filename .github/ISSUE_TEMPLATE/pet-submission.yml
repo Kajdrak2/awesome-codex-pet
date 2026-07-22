@@ -9,7 +9,7 @@ body:
     attributes:
       value: |
         <!-- pet-flow: submission -->
-        Use this form when a pet already has a spritesheet or final package but a pull request cannot be opened yet. The recommended path is **Submit a pet with ChatGPT** on [codexpet.top](https://codexpet.top), which validates the files and opens a focused pull request through the GitHub API without a full clone.
+        Use this form when a pet already has a spritesheet or final package but a pull request cannot be opened yet. The recommended path is **Submit a pet with Codex** on [codexpet.top](https://codexpet.top), or copy the provided prompt for another AI assistant. The workflow validates the files and opens a focused pull request through the GitHub API without a full clone.
   - type: input
     id: folder_slug
     attributes:
@@ -138,7 +138,7 @@ body:
     id: assets
     attributes:
       label: Available assets or attachment links
-      description: List the finished files available to ChatGPT or reviewers. You may drag a compact submission ZIP into this field when GitHub accepts the attachment. Never attach Hatch Pet run directories, QA media, prompts, or unrelated references.
+      description: List the finished files available to the AI workflow or reviewers. You may drag a compact submission ZIP into this field when GitHub accepts the attachment. Never attach Hatch Pet run directories, QA media, prompts, or unrelated references.
       placeholder: submission.json, pet.json, spritesheet.webp, or an attachment link
     validations:
       required: true

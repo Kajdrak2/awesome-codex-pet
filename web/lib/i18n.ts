@@ -12,14 +12,17 @@ export const translations = {
     submitPet: "Submit a Pet",
     requestPetWithAI: "Request a pet",
     requestPetWithAIDesc:
-      "Ask the community to make it. AI checks duplicates and opens a production request issue.",
+      "Open local Codex to check duplicates and create a production request issue.",
     submitPetWithAI: "Submit your pet",
     submitPetWithAIDesc:
-      "Create it with AI from references, or provide existing files. AI completes, validates, and submits it without a full clone.",
+      "Open local Codex to create from references or review existing files, then open a focused pull request.",
+    copyPromptShort: "Copy prompt",
     advancedPullRequest: "Submit a pull request",
     advancedPullRequestDesc:
       "For contributors who prefer GitHub, Codespaces, or a sparse local checkout.",
     submissionGuide: "Contribution guide",
+    submissionGuideDesc:
+      "Read the version, quality, attribution, and contribution requirements.",
     switchToLightMode: "Switch to light mode",
     switchToDarkMode: "Switch to dark mode",
 
@@ -248,17 +251,17 @@ export const translations = {
     guideAIWorkflowEyebrow: "Fastest workflow",
     guideAIWorkflowTitle: "Choose what you want to do",
     guideAIWorkflowDesc:
-      "Ask the community to make a pet, or create and submit your own with ChatGPT.",
+      "Open the workflow in local Codex, or copy the prompt for another AI assistant.",
     guideRequestWorkflow: "Request a pet",
     guideRequestWorkflowDesc:
-      "Ask the community to make a pet. ChatGPT checks duplicates and opens a clearly scoped request issue.",
+      "Codex checks duplicates and opens a clearly scoped community production request.",
     guideSubmitWorkflow: "Submit your pet",
     guideSubmitWorkflowDesc:
-      "Start from references or attach existing files. ChatGPT creates or repairs the pet, validates it, and opens a pull request.",
+      "Start from references or attach existing files. Codex creates or repairs the pet, validates it, and opens a pull request.",
     guideAdvancedWorkflow: "Advanced pull request",
     guideAdvancedWorkflowDesc:
       "Use the repository contribution guide when you want to work directly in GitHub, Codespaces, or Git.",
-    startInCodex: "Start in ChatGPT",
+    startInCodex: "Open in Codex",
     copyAIPrompt: "Copy AI prompt",
     aiPromptPreview: "AI workflow",
     showAIPrompt: "View AI prompt",
@@ -380,14 +383,16 @@ export const translations = {
     submitPet: "投稿",
     requestPetWithAI: "请求制作宠物",
     requestPetWithAIDesc:
-      "请社区帮你制作。AI 会先查重，再创建结构清楚的制作请求 Issue。",
+      "打开本地 Codex，查重后创建结构清楚的制作请求 Issue。",
     submitPetWithAI: "提交自己的宠物",
     submitPetWithAIDesc:
-      "可从参考图现场制作，也可提交现成文件；AI 会完成制作、校验并创建独立 PR。",
+      "打开本地 Codex，可从参考图现场制作，也可检查现成文件并创建独立 PR。",
+    copyPromptShort: "复制提示词",
     advancedPullRequest: "直接提交 PR",
     advancedPullRequestDesc:
       "适合希望直接使用 GitHub、Codespaces 或稀疏克隆的贡献者。",
     submissionGuide: "投稿教程",
+    submissionGuideDesc: "查看版本、质量、署名与投稿要求。",
     switchToLightMode: "切换到浅色模式",
     switchToDarkMode: "切换到深色模式",
 
@@ -613,17 +618,17 @@ export const translations = {
     guideAIWorkflowEyebrow: "最快的投稿方式",
     guideAIWorkflowTitle: "选择你要做什么",
     guideAIWorkflowDesc:
-      "想请社区制作就发起请求；想投稿自己的宠物，则可让 ChatGPT 现场制作或提交现成文件。",
+      "可以直接在本地 Codex 中开始，也可以复制提示词交给其他 AI 助手。",
     guideRequestWorkflow: "请求制作宠物",
     guideRequestWorkflowDesc:
-      "请社区制作一只宠物。ChatGPT 会先查重，再创建范围明确的制作请求 Issue。",
+      "Codex 会先查重，再创建范围明确的社区制作请求 Issue。",
     guideSubmitWorkflow: "提交自己的宠物",
     guideSubmitWorkflowDesc:
-      "可从角色和参考图开始现场制作，也可上传已有文件。ChatGPT 会制作或修复、完成校验并创建 PR。",
+      "可从角色和参考图开始，也可上传已有文件。Codex 会完成制作或修复、校验并创建 PR。",
     guideAdvancedWorkflow: "高级用户提交 PR",
     guideAdvancedWorkflowDesc:
       "希望直接使用 GitHub、Codespaces 或 Git 时，按仓库贡献指南操作。",
-    startInCodex: "在 ChatGPT 中开始",
+    startInCodex: "在 Codex 中打开",
     copyAIPrompt: "复制 AI 提示词",
     aiPromptPreview: "AI 工作流",
     showAIPrompt: "查看 AI 提示词",

@@ -6,21 +6,21 @@ Awesome Codex Pet is a selective gallery, not a dump of downloadable assets. We 
 
 This guide covers version choice, action-by-action craft, edge cleanup, packaging, review, submission, and sharing. AI can accelerate the workflow, but the final quality bar still requires visual review of every action and frame.
 
-## Start with ChatGPT
+## Start with Codex
 
-The website's **Submit** menu has two primary AI workflows and one advanced fallback. AI actions open in ChatGPT on the web, so contributors do not need the Codex desktop app.
+The website's **Submit** menu has two primary AI workflows and one advanced fallback. Each workflow can open directly in the local Codex app, and the same localized prompt can be copied for contributors who do not have Codex installed.
 
 ### Request a pet
 
-Choose this when you have a character, concept, or references but no finished pet. ChatGPT searches `pets.json`, collections, and existing issues without cloning the full repository; gathers the character, franchise, preferred version, visual direction, attribution, and permission status; then opens a structured `[Request]` issue. Repository automation applies type, status, version, and category labels.
+Choose this when you have a character, concept, or references but no finished pet. Codex searches `pets.json`, collections, and existing issues without cloning the full repository; gathers the character, franchise, preferred version, visual direction, attribution, and permission status; then opens a structured `[Request]` issue. Repository automation applies type, status, version, and category labels.
 
 A request records community interest and production context. It does not mean that the pet is accepted, scheduled, or safe to redistribute from the supplied references.
 
 ### Create or submit your own pet
 
-Choose this when you want to own and submit the result. You can start from a character and references, continue an in-progress pet, or attach an existing pet folder or spritesheet. ChatGPT reads [the repository submission skill](../../.agents/skills/submit-codex-pet), creates or repairs the final three-file package, checks duplicates and rights, validates it, and uses the GitHub API to create a fork branch and focused pull request. The contributor does not need a full repository clone.
+Choose this when you want to own and submit the result. You can start from a character and references, continue an in-progress pet, or attach an existing pet folder or spritesheet. Codex reads [the repository submission skill](../../.agents/skills/submit-codex-pet), creates or repairs the final three-file package, checks duplicates and rights, validates it, and uses the GitHub API to create a fork branch and focused pull request. The contributor does not need a full repository clone.
 
-When GitHub authorization, attribution, permission, or duplicate status cannot be resolved, ChatGPT creates a `[Submission]` issue for maintainer review instead of forcing a pull request.
+When GitHub authorization, attribution, permission, or duplicate status cannot be resolved, the AI workflow creates a `[Submission]` issue for maintainer review instead of forcing a pull request.
 
 ### Advanced pull request
 
@@ -155,7 +155,7 @@ After the pull request is opened, maintainers review the rendered character dire
 
 Every detail page keeps the creator, source notes, usage terms, full animation preview, and installation action together. Share that page rather than an isolated WebP so attribution stays attached and recipients can review before installing.
 
-The share menu can copy the page URL, a ready-to-post message, or a Markdown link; publish to X or LinkedIn; open the native system share sheet; and open installation or creation tasks in ChatGPT.
+The share menu can copy the page URL, a ready-to-post message, or a Markdown link; publish to X or LinkedIn; open the native system share sheet; and hand installation or creation tasks to an AI assistant.
 
 After merge, users can install without cloning the repository:
 

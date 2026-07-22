@@ -7,6 +7,10 @@ export function buildChatGPTUrl(prompt: string) {
   return `https://chatgpt.com/?q=${encodeURIComponent(prompt)}`;
 }
 
+export function buildCodexUrl(prompt: string) {
+  return `codex://new?prompt=${encodeURIComponent(prompt)}`;
+}
+
 export function getLocalizedPetName(pet: Pet, locale: Locale) {
   if (locale === "zh") {
     return pet.localizedNames?.zh || pet.displayName || pet.name;

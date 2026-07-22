@@ -41,6 +41,18 @@ html[data-theme="dark"] {
   color-scheme: dark;
 }
 
+.codex-app-icon-dark {
+  display: none;
+}
+
+html[data-theme="dark"] .codex-app-icon-light {
+  display: none;
+}
+
+html[data-theme="dark"] .codex-app-icon-dark {
+  display: block;
+}
+
 /* Base */
 * {
   box-sizing: border-box;
