@@ -3,8 +3,8 @@ import type { Pet } from "@/lib/pets";
 
 const repositoryUrl = "https://github.com/legeling/awesome-codex-pet";
 
-export function buildCodexUrl(prompt: string) {
-  return `codex://new?prompt=${encodeURIComponent(prompt)}`;
+export function buildChatGPTUrl(prompt: string) {
+  return `https://chatgpt.com/?q=${encodeURIComponent(prompt)}`;
 }
 
 export function getLocalizedPetName(pet: Pet, locale: Locale) {
@@ -14,42 +14,74 @@ export function getLocalizedPetName(pet: Pet, locale: Locale) {
   return pet.localizedNames?.en || pet.name;
 }
 
-export function getSubmissionPrompt(locale: Locale) {
+export function getPetRequestPrompt(locale: Locale) {
   if (locale === "zh") {
-    return `请全程使用中文，帮我制作并投稿一只 Codex 宠物到 ${repositoryUrl}。
+    return `请全程使用中文，帮我向 Awesome Codex Pet 请求制作一只 Codex 宠物。仓库：${repositoryUrl}。
 
-开始前先向我索取缺失的角色参考图、宠物名称、作者署名、来源链接和许可证信息，并询问名称只使用一种语言，还是同时提供中文名和英文名；没有明确再分发许可的素材不得投稿。
+这个流程的目标是创建一条清楚、可执行的 GitHub Issue，不需要克隆仓库，也不要直接创建 Pull Request。
 
 执行要求：
-1. 如果当前不在项目目录，先把仓库克隆到可写工作区并进入仓库；然后阅读 AGENTS.md 和投稿指南。
-2. 阅读仓库内的 .agents/skills/hatch-pet-v2/SKILL.md，并严格按这个本地 skill 制作新宠物。不要假设我的环境已全局安装 $hatch-pet-v2。
-3. 制作 8x11、1536x2288 的 spritesheet。九组标准动作要分别设计和验收，不要用同一姿势机械复制；完整检查 16 个顺时针环视方向。
-4. 在正常宠物尺寸和放大视图下逐帧检查深色、浅色、棋盘格背景。修复紫边、绿边、青边、洋红边、透明洞、尺寸跳变和基线抖动，但不能全局删除角色真实使用的颜色。
-5. 正式目录必须是 pets/<pet-slug>--<author-slug>/，且只能包含 submission.json、pet.json、spritesheet.webp。
-6. pet.json.id 必须与目录名一致，spritesheetPath 必须是 spritesheet.webp，spriteVersionNumber 必须是 2。
-7. 保留真实作者、来源、分类、合集、标签与许可证，不要伪造授权或作者信息。单语名称只填写 name；选择双语时，在 submission.json 中同时填写 localized_names.en 与 localized_names.zh。
-8. 运行 npm run previews、npm run readmes、npm run validate、npm run lint，并完成一次独立安装测试。
-9. 不提交 QA、参考图、视频或临时产物。完成后创建独立分支、提交并向主仓库发起一个只包含这只宠物的 PR。
+1. 通过 GitHub API 或网页读取仓库的 pets.json、collections.json 和现有 Issues，先检查相同角色或概念是否已经存在；不要为了查重克隆整个仓库。
+2. 向我询问角色或概念名称、所属作品、希望的 V1/V2、参考图或参考链接、偏好的画风、名称语言和补充要求。缺少的信息可以留作待确认项，不能臆造作者、来源或授权。
+3. 区分“希望社区基于公开角色重新创作”和“希望直接使用某份现有素材”。后者必须说明素材作者、来源和允许使用的条件；没有明确授权时只记录为制作参考，不承诺直接收录原素材。
+4. 使用仓库的 pet-request Issue Form 字段组织内容，标题使用“[Request]: 角色或概念名称”。正文开头保留 <!-- pet-flow: request -->，写清查重结果、角色与作品、版本、参考资料、制作方向、署名与授权状态。
+5. 使用已连接的 GitHub 能力在 ${repositoryUrl} 创建 Issue。仓库自动化会添加 type: request 和 status: triage 标签；不要自行创建重复标签。
+6. Issue 创建后，把完整链接和仍需补充的信息告诉我。不要声称宠物已经制作或收录。
 
-请先询问我需要提供的素材和信息，然后把制作、验证和 PR 一次完成。`;
+先向我询问角色或概念名称，然后完成查重和 Issue 创建。`;
   }
 
-  return `Use English throughout this task. Help me create and submit a Codex pet to ${repositoryUrl}.
+  return `Use English throughout this task. Help me request a new Codex pet from Awesome Codex Pet at ${repositoryUrl}.
 
-Before starting, ask me for any missing character reference, pet name, author credit, source URL, and license. Ask whether the pet should use one name or provide both English and Chinese names. Do not submit an asset without explicit redistribution permission.
+The goal is a clear, actionable GitHub issue. Do not clone the repository and do not open a pull request yet.
 
 Requirements:
-1. If the project is not already open, clone the repository into a writable workspace and enter it. Then read AGENTS.md and the submission guide.
-2. Read .agents/skills/hatch-pet-v2/SKILL.md from the repository and follow that local skill for the new pet. Do not assume $hatch-pet-v2 is globally installed in my environment.
-3. Produce an 8x11, 1536x2288 spritesheet. Direct and review all nine standard actions independently instead of mechanically reusing one pose, then review all 16 clockwise look directions.
-4. Inspect every frame at normal pet size and close zoom on dark, light, and checkerboard backgrounds. Repair purple, green, cyan, or magenta fringe, transparent holes, scale popping, and baseline jumps without globally deleting legitimate character colors.
-5. The final folder must be pets/<pet-slug>--<author-slug>/ and contain only submission.json, pet.json, and spritesheet.webp.
-6. pet.json.id must match the folder name, spritesheetPath must be spritesheet.webp, and spriteVersionNumber must be 2.
-7. Preserve the real author, source, category, collections, tags, and license. Never invent permission or attribution. For a single-language name, keep only name; when bilingual naming is selected, provide both localized_names.en and localized_names.zh in submission.json.
-8. Run npm run previews, npm run readmes, npm run validate, and npm run lint, then complete an isolated installation test.
-9. Do not commit QA files, references, videos, or temporary output. When complete, create a focused branch and commit, then open one pull request containing only this pet.
+1. Use the GitHub API or website to inspect pets.json, collections.json, and existing issues for the same character or concept. Do not clone the full repository for duplicate research.
+2. Ask me for the character or concept, original work, preferred V1/V2 runtime, references, visual direction, naming language, and any special requirements. Leave unknowns clearly marked instead of inventing authorship, sources, or permission.
+3. Distinguish a request for an original community interpretation from a request to reuse an existing asset. Existing assets need author, source, and usage terms; without permission, treat them only as references and do not promise redistribution.
+4. Follow the repository's pet-request issue fields. Use the title "[Request]: Character or concept" and keep <!-- pet-flow: request --> at the start of the body. Include the duplicate check, character and franchise, version, references, craft direction, attribution, and permission status.
+5. Create the issue in ${repositoryUrl} with the connected GitHub capability. Repository automation adds type: request and status: triage; do not create duplicate labels.
+6. Return the issue URL and list any remaining questions. Do not claim that the pet has already been made or accepted.
 
-Ask me for the required inputs first, then carry the creation, validation, and pull request through end to end.`;
+Ask me for the character or concept first, then complete the duplicate check and issue creation.`;
+}
+
+export function getPetSubmissionPrompt(locale: Locale) {
+  if (locale === "zh") {
+    return `请全程使用中文，帮我制作、完善或提交一只属于我的 Codex 宠物到 ${repositoryUrl}。
+
+默认使用 GitHub API 完成投稿，不要求我克隆整个仓库。开始前先问我是要从角色或参考图开始现场制作、完善制作中的宠物，还是直接提交现成的宠物目录或 spritesheet.webp；同时收集真实作者、来源和使用许可。
+
+执行要求：
+1. 通过 GitHub API 读取仓库的 AGENTS.md、CONTRIBUTING.md、pets.json、collections.json、校验脚本和 .agents/skills/submit-codex-pet/SKILL.md。查询 canonical_key、名称、作品和 tags，确认不是重复收录。
+2. 根据我的选择，判断是从参考资料开始制作、完善现有素材、补元数据，还是直接校验完整三件套。需要制作或修复时，读取并执行仓库对应的 hatch-pet-v1 或 hatch-pet-v2 skill；不要假设用户已经克隆仓库。
+3. 最终目录必须是 pets/<pet-slug>--<author-slug>/，且只能包含 submission.json、pet.json、spritesheet.webp。V1 使用 1536x1872；V2 使用 1536x2288 并设置 spriteVersionNumber: 2。
+4. 逐帧检查动作、环视方向、角色一致性、尺寸与基线，并在深色、浅色和棋盘格背景下修复紫边、绿边、青边、洋红边和透明洞。不能为了消除色边全局删除角色真实颜色。
+5. 保留真实作者、来源、分类、合集、标签与许可，不得伪造授权。选择双语名称时，同时填写 localized_names.en 和 localized_names.zh。
+6. 在本地临时目录运行或等价执行 npm run validate:pr、npm run lint 和独立安装测试。不要把 QA、参考图、视频、README、pets.json、预览生成物或临时文件放进 PR。
+7. 使用 GitHub API 在我的 fork 中创建或复用投稿分支，上传三个最终文件，并向主仓库发起一个只包含这只宠物的 PR；不需要完整 clone。PR 正文说明查重、作者、来源、许可、版本、验证结果，并关联已有 Issue。
+8. 如果 GitHub 未授权，先请我连接或授权 GitHub；如果授权、署名、来源或重复情况无法确认，则创建带 <!-- pet-flow: submission --> 的 [Submission] Issue 等待审核，不要强行提交。
+9. 跟进 CI。对确定的结构或格式错误直接修复；涉及视觉取舍、授权或重复收录时停下来让我确认。
+
+请先询问我要现场制作、继续完善还是提交现成文件，再检查我提供的参考资料和素材，把制作或修复、逐帧验收、验证、GitHub API 上传、PR 与 CI 跟进完整做完。`;
+  }
+
+  return `Use English throughout this task. Help me create, finish, or submit my own Codex pet to ${repositoryUrl}.
+
+Use the GitHub API by default so I do not need to clone the full repository. First ask whether I want to make the pet now from a character or references, finish an in-progress pet, or submit an existing pet folder or spritesheet.webp. Also collect the real author, source, and usage permission.
+
+Requirements:
+1. Read AGENTS.md, CONTRIBUTING.md, pets.json, collections.json, the validation scripts, and .agents/skills/submit-codex-pet/SKILL.md through the GitHub API. Search canonical_key, names, franchise, and tags to prevent duplicate collection.
+2. Based on my choice, decide whether to create from references, finish existing assets, add metadata, or validate a complete three-file package. When production or repair is required, fetch and follow the repository's hatch-pet-v1 or hatch-pet-v2 skill without assuming the repository is cloned.
+3. The final folder must be pets/<pet-slug>--<author-slug>/ and contain only submission.json, pet.json, and spritesheet.webp. V1 uses 1536x1872. V2 uses 1536x2288 and spriteVersionNumber: 2.
+4. Review actions, look directions, identity, scale, and baseline frame by frame. Repair purple, green, cyan, or magenta fringe and transparent holes on dark, light, and checkerboard backgrounds without globally deleting legitimate character colors.
+5. Preserve truthful author, source, category, collections, tags, and permission. Never invent authorization. When bilingual naming is selected, provide both localized_names.en and localized_names.zh.
+6. In a temporary local workspace, run or equivalently perform npm run validate:pr, npm run lint, and an isolated installation test. Do not include QA, references, videos, README files, pets.json, generated previews, or temporary files in the pull request.
+7. Use the GitHub API to create or reuse a submission branch in my fork, upload the three final files, and open one focused pull request against the upstream repository. A full clone is not required. Document duplicate research, authorship, source, permission, version, and validation, and link any existing issue.
+8. If GitHub is not authorized, ask me to connect or authorize it first. If permission, attribution, source, or duplicate status cannot be resolved, create a [Submission] issue containing <!-- pet-flow: submission --> for maintainer review instead of forcing a pull request.
+9. Follow the CI run. Fix deterministic structural or formatting failures; stop for my confirmation when the decision concerns visual direction, permission, or duplicate acceptance.
+
+Ask whether I want live creation, continued production, or submission of existing files first. Then inspect my references and assets and carry production or repair, frame-by-frame review, validation, GitHub API upload, pull request creation, and CI follow-up through end to end.`;
 }
 
 export function getPetInstallPrompt(pet: Pet, locale: Locale) {

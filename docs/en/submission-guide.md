@@ -6,21 +6,25 @@ Awesome Codex Pet is a selective gallery, not a dump of downloadable assets. We 
 
 This guide covers version choice, action-by-action craft, edge cleanup, packaging, review, submission, and sharing. AI can accelerate the workflow, but the final quality bar still requires visual review of every action and frame.
 
-## Fastest path: start in ChatGPT
+## Start with ChatGPT
 
-The website's **Craft Guide** and **Submit** menus can open a complete Codex task in ChatGPT through `codex://new?prompt=...`. ChatGPT currently keeps the `codex://` URL scheme for these deep links. The task gathers the references, pet name, author credit, source notes, and asset usage terms, reads the repository-local Hatch Pet workflow, then handles creation, validation, and a focused pull request.
+The website's **Submit** menu has two primary AI workflows and one advanced fallback. AI actions open in ChatGPT on the web, so contributors do not need the Codex desktop app.
 
-You can also give ChatGPT this task directly:
+### Request a pet
 
-```text
-Help me create and submit a Codex pet to https://github.com/legeling/awesome-codex-pet.
+Choose this when you have a character, concept, or references but no finished pet. ChatGPT searches `pets.json`, collections, and existing issues without cloning the full repository; gathers the character, franchise, preferred version, visual direction, attribution, and permission status; then opens a structured `[Request]` issue. Repository automation applies type, status, version, and category labels.
 
-Before starting, ask for any missing character reference, pet name, author credit, source notes, and asset usage terms. A formal license is optional; when none applies, require an explicit non-commercial-only statement and confirmation that the submitter has the right to contribute the asset. A public source URL is optional for original, AI-generated, or privately sourced work. Clone or open the repository, read AGENTS.md and this submission guide, then follow .agents/skills/hatch-pet-v2/SKILL.md from the repository. Do not assume the skill is globally installed.
+A request records community interest and production context. It does not mean that the pet is accepted, scheduled, or safe to redistribute from the supplied references.
 
-Design and review all nine standard actions independently instead of mechanically reusing one pose. Check identity, action meaning, scale and baseline stability, plus purple, green, cyan, or magenta fringe on dark, light, and checkerboard backgrounds. For V2, review the complete clockwise loop of 16 look directions.
+### Create or submit your own pet
 
-Keep only submission.json, pet.json, and spritesheet.webp in the final folder. Run npm run previews, npm run readmes, npm run validate, npm run lint, and a clean installation test. Then create a focused branch and one pull request containing only this pet.
-```
+Choose this when you want to own and submit the result. You can start from a character and references, continue an in-progress pet, or attach an existing pet folder or spritesheet. ChatGPT reads [the repository submission skill](../../.agents/skills/submit-codex-pet), creates or repairs the final three-file package, checks duplicates and rights, validates it, and uses the GitHub API to create a fork branch and focused pull request. The contributor does not need a full repository clone.
+
+When GitHub authorization, attribution, permission, or duplicate status cannot be resolved, ChatGPT creates a `[Submission]` issue for maintainer review instead of forcing a pull request.
+
+### Advanced pull request
+
+Experienced contributors can use GitHub's web editor, Codespaces, or a sparse blob-filtered clone and follow [CONTRIBUTING.md](./CONTRIBUTING.md). This path keeps full control over the branch and commit while following the same package and review rules.
 
 AI assistance never relaxes attribution or usage-term requirements. The submitter remains responsible for accurate authorship, honest source notes, the right to submit, and the stated non-commercial or licensed usage terms.
 

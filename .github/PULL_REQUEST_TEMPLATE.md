@@ -2,10 +2,12 @@
 
 - What pet are you adding or updating?
 - What category does it belong to?
+- Related request or submission issue (if any):
 
 ## Checklist
 
 - [ ] This pull request focuses on one pet only
+- [ ] I checked the gallery and open issues for duplicate character submissions
 - [ ] Folder name uses `pet-slug--author-slug`
 - [ ] Pet folder contains only `submission.json`, `pet.json`, and `spritesheet.webp`
 - [ ] `pet.json` `id` matches the folder name

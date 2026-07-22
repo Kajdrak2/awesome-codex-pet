@@ -10,12 +10,16 @@ export const translations = {
     docs: "Docs",
     github: "GitHub",
     submitPet: "Submit a Pet",
-    submitWithAI: "Submit with AI",
-    aiSubmission: "Create with Codex",
-    aiSubmissionDesc: "Use the repository's complete craft workflow and prepare a focused pull request.",
-    manualSubmission: "Submit manually",
-    manualSubmissionDesc: "Open the GitHub submission form and provide your pet files.",
-    submissionGuide: "Read the craft guide",
+    requestPetWithAI: "Request a pet",
+    requestPetWithAIDesc:
+      "Ask the community to make it. AI checks duplicates and opens a production request issue.",
+    submitPetWithAI: "Submit your pet",
+    submitPetWithAIDesc:
+      "Create it with AI from references, or provide existing files. AI completes, validates, and submits it without a full clone.",
+    advancedPullRequest: "Submit a pull request",
+    advancedPullRequestDesc:
+      "For contributors who prefer GitHub, Codespaces, or a sparse local checkout.",
+    submissionGuide: "Contribution guide",
     switchToLightMode: "Switch to light mode",
     switchToDarkMode: "Switch to dark mode",
 
@@ -128,7 +132,8 @@ export const translations = {
 
     // Footer
     contributing: "Contributing",
-    footerTagline: "A selective home for beautifully made community Codex pets, with full previews and one-step installation.",
+    footerTagline:
+      "A selective home for beautifully made community Codex pets, with full previews and one-step installation.",
     footerLinksTitle: "Explore",
     footerCommunityTitle: "Community",
     footerLicenseLine: "Code under MIT · Pet assets under CC BY-NC 4.0.",
@@ -220,7 +225,8 @@ export const translations = {
     installFaqA2: "Delete the pet folder. Nothing else is touched.",
     installFaqQ3: "Is sudo required?",
     installFaqA3: "No. Installs are scoped to your user directory.",
-    installFaqQ4: "The pet does not appear after installation. What should I check?",
+    installFaqQ4:
+      "The pet does not appear after installation. What should I check?",
     installFaqA4:
       "Confirm both runtime files exist, verify that pet.json.id matches the folder name, restart Codex, then look under Settings → Pets again.",
     installFaqQ5: "Can V1 and V2 pets coexist?",
@@ -240,12 +246,22 @@ export const translations = {
     guideNavPackage: "Package and metadata",
     guideNavCommunity: "Share and contribute",
     guideAIWorkflowEyebrow: "Fastest workflow",
-    guideAIWorkflowTitle: "Let ChatGPT handle the craft and pull request",
+    guideAIWorkflowTitle: "Choose what you want to do",
     guideAIWorkflowDesc:
-      "Open a complete Codex task in ChatGPT. It gathers references and attribution, reads the repository-local Hatch Pet v2 workflow, builds and reviews every action, validates the final package, and prepares one focused pull request.",
+      "Ask the community to make a pet, or create and submit your own with ChatGPT.",
+    guideRequestWorkflow: "Request a pet",
+    guideRequestWorkflowDesc:
+      "Ask the community to make a pet. ChatGPT checks duplicates and opens a clearly scoped request issue.",
+    guideSubmitWorkflow: "Submit your pet",
+    guideSubmitWorkflowDesc:
+      "Start from references or attach existing files. ChatGPT creates or repairs the pet, validates it, and opens a pull request.",
+    guideAdvancedWorkflow: "Advanced pull request",
+    guideAdvancedWorkflowDesc:
+      "Use the repository contribution guide when you want to work directly in GitHub, Codespaces, or Git.",
     startInCodex: "Start in ChatGPT",
     copyAIPrompt: "Copy AI prompt",
-    aiPromptPreview: "Submission task",
+    aiPromptPreview: "AI workflow",
+    showAIPrompt: "View AI prompt",
     repositorySkillLabel: "Repository skill",
     guideCategoriesTitle: "Category and discovery",
     guideCategoriesDesc:
@@ -262,8 +278,10 @@ export const translations = {
     guideVersionsTitle: "Choose the version before drawing",
     guideVersionsDesc:
       "Both versions share the nine standard actions. V2 adds two rows of 16 clockwise look directions and is the default for new work; V1 remains fully supported for legacy pets.",
-    guideVersionV1: "Best for preserving or repairing an existing legacy pet. Omit spriteVersionNumber or set it to 1.",
-    guideVersionV2: "Recommended for new pets and upgrades. Set spriteVersionNumber to 2 and review the full 16-direction loop.",
+    guideVersionV1:
+      "Best for preserving or repairing an existing legacy pet. Omit spriteVersionNumber or set it to 1.",
+    guideVersionV2:
+      "Recommended for new pets and upgrades. Set spriteVersionNumber to 2 and review the full 16-direction loop.",
     guideAtlasSize: "Atlas",
     guideActionRows: "Action rows",
     guideLookDirections: "Look directions",
@@ -275,31 +293,50 @@ export const translations = {
     guideActionsTitle: "Direct every action, not just the character",
     guideActionsDesc:
       "A strong pet keeps one identity while giving each row a clear purpose. Write and refine each action separately; shared proportions, palette, anchor, and prop rules keep the whole set coherent.",
-    guideActionIdle: "A living rest loop with subtle breathing, blinking, or weight shift. It should never read as a frozen still.",
-    guideActionRunningRight: "A readable right-facing travel gait with alternating cadence and stable props. Avoid speed lines, dust, and floor shadows.",
-    guideActionRunningLeft: "A true left-facing gait. Mirror only when markings, text, lighting, props, and handedness remain correct.",
-    guideActionWaving: "A clear greeting led by the hand, paw, ear, or body. Use the pet itself, not detached wave marks.",
-    guideActionJumping: "Show takeoff, airborne motion, and return while keeping scale and the ground anchor visually stable.",
-    guideActionFailed: "Make frustration or failure readable through pose and expression. Any tears, smoke, or stars must stay attached and sprite-like.",
-    guideActionWaiting: "An expectant pose that asks for approval or input, clearly different from ordinary idle and focused review.",
-    guideActionRunning: "A non-directional busy state for ongoing work, not another left-or-right travel loop.",
-    guideActionReview: "A focused inspection or thinking loop using gaze, head angle, posture, or hands without inventing unrelated props.",
+    guideActionIdle:
+      "A living rest loop with subtle breathing, blinking, or weight shift. It should never read as a frozen still.",
+    guideActionRunningRight:
+      "A readable right-facing travel gait with alternating cadence and stable props. Avoid speed lines, dust, and floor shadows.",
+    guideActionRunningLeft:
+      "A true left-facing gait. Mirror only when markings, text, lighting, props, and handedness remain correct.",
+    guideActionWaving:
+      "A clear greeting led by the hand, paw, ear, or body. Use the pet itself, not detached wave marks.",
+    guideActionJumping:
+      "Show takeoff, airborne motion, and return while keeping scale and the ground anchor visually stable.",
+    guideActionFailed:
+      "Make frustration or failure readable through pose and expression. Any tears, smoke, or stars must stay attached and sprite-like.",
+    guideActionWaiting:
+      "An expectant pose that asks for approval or input, clearly different from ordinary idle and focused review.",
+    guideActionRunning:
+      "A non-directional busy state for ongoing work, not another left-or-right travel loop.",
+    guideActionReview:
+      "A focused inspection or thinking loop using gaze, head angle, posture, or hands without inventing unrelated props.",
     guideEdgesEyebrow: "Transparent-edge craft",
     guideEdgesTitle: "Remove purple and green fringe without damaging the pet",
     guideEdgesDesc:
       "Green, cyan, magenta, purple, or pink halos often come from chroma-key cleanup. They are quality defects, but broad color deletion can erase real hair, clothing, eyes, or props.",
-    guideEdgeStep1: "Choose a key color that does not overlap the pet's palette, and request a flat background with no glow, shadow, blur, or semi-transparent edge contamination.",
-    guideEdgeStep2: "Inspect the contact sheet and animation on checkerboard, dark, and light backgrounds at normal size and close zoom. Check every frame, not only the first pose.",
-    guideEdgeStep3: "Repair the smallest failing scope first: one frame, then one action row, and only then the whole pet. Rebuild edge RGB from nearby character colors while preserving alpha and silhouette.",
-    guideEdgeStep4: "Recheck motion after cleanup. Reject isolated pixels, clipped outlines, transparent holes, color loss, scale popping, baseline jumps, or a halo that returns during playback.",
+    guideEdgeStep1:
+      "Choose a key color that does not overlap the pet's palette, and request a flat background with no glow, shadow, blur, or semi-transparent edge contamination.",
+    guideEdgeStep2:
+      "Inspect the contact sheet and animation on checkerboard, dark, and light backgrounds at normal size and close zoom. Check every frame, not only the first pose.",
+    guideEdgeStep3:
+      "Repair the smallest failing scope first: one frame, then one action row, and only then the whole pet. Rebuild edge RGB from nearby character colors while preserving alpha and silhouette.",
+    guideEdgeStep4:
+      "Recheck motion after cleanup. Reject isolated pixels, clipped outlines, transparent holes, color loss, scale popping, baseline jumps, or a halo that returns during playback.",
     guideQualityEyebrow: "Selection standard",
     guideChecklistTitle: "What makes the gallery cut",
-    guideChecklistItem1: "The character stays recognizably the same across every action and look direction.",
-    guideChecklistItem2: "Motion is readable at actual Codex pet size, with stable scale, baseline, and silhouette.",
-    guideChecklistItem3: "Transparent edges are clean on dark, light, and checkerboard backgrounds, with no purple or green fringe.",
-    guideChecklistItem4: "The final folder contains only submission.json, pet.json, and spritesheet.webp, and the version matches the atlas.",
-    guideChecklistItem5: "Author, source, collection, category, tags, and redistribution license are accurate and complete.",
-    guideChecklistItem6: "Previews, validation, lint, and a clean install test all pass before one focused pull request is opened.",
+    guideChecklistItem1:
+      "The character stays recognizably the same across every action and look direction.",
+    guideChecklistItem2:
+      "Motion is readable at actual Codex pet size, with stable scale, baseline, and silhouette.",
+    guideChecklistItem3:
+      "Transparent edges are clean on dark, light, and checkerboard backgrounds, with no purple or green fringe.",
+    guideChecklistItem4:
+      "The final folder contains only submission.json, pet.json, and spritesheet.webp, and the version matches the atlas.",
+    guideChecklistItem5:
+      "Author, source, collection, category, tags, and redistribution license are accurate and complete.",
+    guideChecklistItem6:
+      "Previews, validation, lint, and a clean install test all pass before one focused pull request is opened.",
     guideCommunityEyebrow: "Community distribution",
     guideCommunityTitle: "Credit the maker, then help the pet travel",
     guideCommunityDesc:
@@ -341,12 +378,16 @@ export const translations = {
     docs: "文档",
     github: "GitHub",
     submitPet: "投稿",
-    submitWithAI: "AI投稿",
-    aiSubmission: "用 Codex 制作并投稿",
-    aiSubmissionDesc: "按仓库的完整制作流程逐动作精修，并准备一份独立 PR。",
-    manualSubmission: "手动提交成品",
-    manualSubmissionDesc: "已有合格成品时，打开 GitHub 投稿表单提交三件套。",
-    submissionGuide: "阅读精品制作指南",
+    requestPetWithAI: "请求制作宠物",
+    requestPetWithAIDesc:
+      "请社区帮你制作。AI 会先查重，再创建结构清楚的制作请求 Issue。",
+    submitPetWithAI: "提交自己的宠物",
+    submitPetWithAIDesc:
+      "可从参考图现场制作，也可提交现成文件；AI 会完成制作、校验并创建独立 PR。",
+    advancedPullRequest: "直接提交 PR",
+    advancedPullRequestDesc:
+      "适合希望直接使用 GitHub、Codespaces 或稀疏克隆的贡献者。",
+    submissionGuide: "投稿教程",
     switchToLightMode: "切换到浅色模式",
     switchToDarkMode: "切换到深色模式",
 
@@ -354,7 +395,8 @@ export const translations = {
     heroBadge: "已收录 {count} 只精品宠物",
     heroTitle1: "发现值得收藏的",
     heroTitle2: "Codex 宠物",
-    heroDesc: "从角色还原、动作表现到透明边缘都经过筛选。先看完整动画，再把喜欢的伙伴一键带回 Codex。",
+    heroDesc:
+      "从角色还原、动作表现到透明边缘都经过筛选。先看完整动画，再把喜欢的伙伴一键带回 Codex。",
     heroExplore: "挑选宠物",
     heroSubmit: "投稿精品宠物",
     heroStatPets: "精品收录",
@@ -387,7 +429,8 @@ export const translations = {
     franchiseSeries: "作品系列",
     themeCollection: "主题系列",
     collectionsPageTitle: "探索作品系列与主题系列",
-    collectionsPageSubtitle: "沿着同一部作品寻找熟悉角色，也可以按共同主题发现跨作品的桌面伙伴。",
+    collectionsPageSubtitle:
+      "沿着同一部作品寻找熟悉角色，也可以按共同主题发现跨作品的桌面伙伴。",
     collectionSearchPlaceholder: "搜索合集或宠物...",
     clearCollectionSearch: "清除合集搜索",
     filterCollections: "筛选合集",
@@ -395,9 +438,11 @@ export const translations = {
     noCollectionsFound: "没有找到匹配的合集",
     noCollectionsFoundHint: "试试其他作品名、角色名或合集类型",
     franchiseSeriesTitle: "作品系列",
-    franchiseSeriesDesc: "按游戏、动画、影视等原作归档，同一世界观的角色会自动组成作品系列。",
+    franchiseSeriesDesc:
+      "按游戏、动画、影视等原作归档，同一世界观的角色会自动组成作品系列。",
     themeCollectionsTitle: "主题系列",
-    themeCollectionsDesc: "跨越不同作品，按题材、风格或伙伴类型整理的精选组合。",
+    themeCollectionsDesc:
+      "跨越不同作品，按题材、风格或伙伴类型整理的精选组合。",
     backToCollections: "返回合集",
     openCollectionInCodex: "在 ChatGPT 中打开合集",
 
@@ -420,7 +465,8 @@ export const translations = {
     resetPetPosition: "重置宠物位置",
     detailInstalls: "安装次数",
     detailViews: "浏览次数",
-    detailInstallDesc: "可以直接交给 ChatGPT 中的 Codex 安装，也可以选择当前系统的命令或查看完整安装指南。",
+    detailInstallDesc:
+      "可以直接交给 ChatGPT 中的 Codex 安装，也可以选择当前系统的命令或查看完整安装指南。",
     actionPreviews: "动作预览",
     actionPreviewsDesc: "Codex 中实际呈现的全部动作动画。",
     metadata: "元数据",
@@ -453,7 +499,8 @@ export const translations = {
 
     // Footer
     contributing: "贡献指南",
-    footerTagline: "专门收录制作精良的社区 Codex 宠物。完整预览、一键安装，也让每位作者被看见。",
+    footerTagline:
+      "专门收录制作精良的社区 Codex 宠物。完整预览、一键安装，也让每位作者被看见。",
     footerLinksTitle: "浏览",
     footerCommunityTitle: "社区",
     footerLicenseLine: "代码遵循 MIT · 宠物资源遵循 CC BY-NC 4.0。",
@@ -471,18 +518,24 @@ export const translations = {
     installPageSubtitle:
       "先挑选经过筛选的精品宠物，再交给 ChatGPT 中的 Codex 或当前系统的安装脚本，最后到 Codex 设置中启用。安装过程不会碰其他宠物。",
     installQuickTitle: "最快的安装路径",
-    installQuickDesc: "每只宠物的详情页都已经带上准确的宠物标识符，会自动生成对应的安装任务与命令。",
+    installQuickDesc:
+      "每只宠物的详情页都已经带上准确的宠物标识符，会自动生成对应的安装任务与命令。",
     installBrowsePets: "先挑一只宠物",
     installCodexAssist: "交给 ChatGPT 安装",
-    installCodexAssistDesc: "ChatGPT 会打开 Codex 任务，询问宠物链接或标识符，识别当前系统，完成安装并核对结果。",
+    installCodexAssistDesc:
+      "ChatGPT 会打开 Codex 任务，询问宠物链接或标识符，识别当前系统，完成安装并核对结果。",
     installStep1Title: "1. 选一只宠物",
-    installStep1Desc: "进入详情页先看完整动作，确认造型、动作和版本都符合预期。",
+    installStep1Desc:
+      "进入详情页先看完整动作，确认造型、动作和版本都符合预期。",
     installStep2Title: "2. 选择安装方式",
-    installStep2Desc: "可以直接在 ChatGPT 中打开，也可以复制 Bash、PowerShell，或从本地仓库安装。",
+    installStep2Desc:
+      "可以直接在 ChatGPT 中打开，也可以复制 Bash、PowerShell，或从本地仓库安装。",
     installStep3Title: "3. 在 Codex 中启用",
-    installStep3Desc: "如果 Codex 正在运行，请重启，然后到“设置 → 宠物”选择新宠物。",
+    installStep3Desc:
+      "如果 Codex 正在运行，请重启，然后到“设置 → 宠物”选择新宠物。",
     installMethodTitle: "选择适合当前系统的方式",
-    installMethodDesc: "安装器只会把 pet.json 与 spritesheet.webp 写入 Codex 主目录。请把示例标识符替换成详情页显示的完整值。",
+    installMethodDesc:
+      "安装器只会把 pet.json 与 spritesheet.webp 写入 Codex 主目录。请把示例标识符替换成详情页显示的完整值。",
     installRecommended: "推荐",
     installBashLabel: "macOS / Linux",
     installPwshLabel: "Windows PowerShell",
@@ -491,32 +544,45 @@ export const translations = {
     installPwshTip: "无需管理员权限，普通用户即可执行。",
     installNodeTip: "适合已经克隆本仓库的贡献者。",
     installMethodCheckTitle: "确认完整标识符",
-    installMethodCheckDesc: "使用完整的 pet-slug--author-slug。作者后缀可以让同一角色的不同作者版本同时存在。",
+    installMethodCheckDesc:
+      "使用完整的 pet-slug--author-slug。作者后缀可以让同一角色的不同作者版本同时存在。",
     installMethodRunTitle: "使用当前用户执行",
-    installMethodRunDesc: "不需要 sudo 或管理员终端。如果 Codex 主目录不在默认位置，也可以指定 CODEX_HOME。",
+    installMethodRunDesc:
+      "不需要 sudo 或管理员终端。如果 Codex 主目录不在默认位置，也可以指定 CODEX_HOME。",
     installMethodVerifyTitle: "核对两个运行文件",
-    installMethodVerifyDesc: "安装成功后，pets/<pet-id>/ 中应同时存在 pet.json 与 spritesheet.webp。",
+    installMethodVerifyDesc:
+      "安装成功后，pets/<pet-id>/ 中应同时存在 pet.json 与 spritesheet.webp。",
     installActivateTitle: "在 Codex 中启用宠物",
-    installActivateDesc: "安装只负责放好文件，Codex 还需要重新加载并选中这只宠物。",
+    installActivateDesc:
+      "安装只负责放好文件，Codex 还需要重新加载并选中这只宠物。",
     installActivateStep1Title: "重启 Codex",
-    installActivateStep1Desc: "如果安装时 Codex 正在运行，请完全退出后重新打开，让自定义宠物目录重新载入。",
+    installActivateStep1Desc:
+      "如果安装时 Codex 正在运行，请完全退出后重新打开，让自定义宠物目录重新载入。",
     installActivateStep2Title: "打开“设置 → 宠物”",
-    installActivateStep2Desc: "找到自定义宠物区域，确认新标识符已经出现，并且没有错误提示。",
+    installActivateStep2Desc:
+      "找到自定义宠物区域，确认新标识符已经出现，并且没有错误提示。",
     installActivateStep3Title: "选中并实际查看",
-    installActivateStep3Desc: "启用后回到工作区，检查待机、工作、审查和移动等状态是否正常播放。",
+    installActivateStep3Desc:
+      "启用后回到工作区，检查待机、工作、审查和移动等状态是否正常播放。",
     installVersionNoteTitle: "V1 与 V2 的安装方式相同",
-    installVersionNoteDesc: "V1 包含九行标准动作；V2 保留这些动作，并增加 16 个环视方向。两者的图集尺寸和 spriteVersionNumber 不同，但安装器与目标目录完全相同。",
+    installVersionNoteDesc:
+      "V1 包含九行标准动作；V2 保留这些动作，并增加 16 个环视方向。两者的图集尺寸和 spriteVersionNumber 不同，但安装器与目标目录完全相同。",
     installManageTitle: "管理已经安装的宠物",
     installManageLocationTitle: "默认安装位置",
-    installManageLocationDesc: "macOS 与 Linux 位于 ~/.codex/pets/<pet-id>/；Windows 位于 %USERPROFILE%\\.codex\\pets\\<pet-id>。",
+    installManageLocationDesc:
+      "macOS 与 Linux 位于 ~/.codex/pets/<pet-id>/；Windows 位于 %USERPROFILE%\\.codex\\pets\\<pet-id>。",
     installManageCustomTitle: "自定义 Codex 主目录",
-    installManageCustomDesc: "运行命令前设置 CODEX_HOME；Bash 与本地 Node.js 安装器也支持 --codex-home 参数。",
+    installManageCustomDesc:
+      "运行命令前设置 CODEX_HOME；Bash 与本地 Node.js 安装器也支持 --codex-home 参数。",
     installManageUpdateTitle: "更新或重新安装",
-    installManageUpdateDesc: "使用同一标识符再次运行相同命令即可覆盖两个运行文件，不会影响其他宠物目录。",
+    installManageUpdateDesc:
+      "使用同一标识符再次运行相同命令即可覆盖两个运行文件，不会影响其他宠物目录。",
     installManageRemoveTitle: "卸载宠物",
-    installManageRemoveDesc: "退出 Codex，只删除对应宠物文件夹，再重新打开 Codex。安装器不会写注册表或系统目录。",
+    installManageRemoveDesc:
+      "退出 Codex，只删除对应宠物文件夹，再重新打开 Codex。安装器不会写注册表或系统目录。",
     installManagePrivacyTitle: "匿名安装统计",
-    installManagePrivacyDesc: "脚本成功后只上报一次匿名安装事件。设置 AWESOME_CODEX_PET_NO_STATS=1 可以关闭。",
+    installManagePrivacyDesc:
+      "脚本成功后只上报一次匿名安装事件。设置 AWESOME_CODEX_PET_NO_STATS=1 可以关闭。",
     installFaqTitle: "常见问题",
     installFaqQ1: "宠物会装到哪里？",
     installFaqA1:
@@ -526,15 +592,18 @@ export const translations = {
     installFaqQ3: "需要 sudo 吗？",
     installFaqA3: "不需要。所有安装都只动当前用户目录。",
     installFaqQ4: "安装完成后看不到宠物怎么办？",
-    installFaqA4: "先确认两个运行文件都存在，再检查 pet.json.id 是否与文件夹名称一致；重启 Codex 后重新打开“设置 → 宠物”。",
+    installFaqA4:
+      "先确认两个运行文件都存在，再检查 pet.json.id 是否与文件夹名称一致；重启 Codex 后重新打开“设置 → 宠物”。",
     installFaqQ5: "V1 与 V2 宠物可以同时使用吗？",
-    installFaqA5: "可以。版本属于每个独立宠物包；不同标识符可以共存，重新安装某个标识符也只会更新对应文件夹。",
+    installFaqA5:
+      "可以。版本属于每个独立宠物包；不同标识符可以共存，重新安装某个标识符也只会更新对应文件夹。",
     openGallery: "去画廊看看",
 
     // Guide page
     guideEyebrow: "制作、验收与分享",
     guidePageTitle: "做一只值得收藏的 Codex 宠物",
-    guidePageSubtitle: "从 V1 / V2 选择、逐动作精修，到紫边绿边清理、成品打包和社区分享：这里讲清精品宠物的完整制作标准。",
+    guidePageSubtitle:
+      "从 V1 / V2 选择、逐动作精修，到紫边绿边清理、成品打包和社区分享：这里讲清精品宠物的完整制作标准。",
     guideQuickNav: "指南章节",
     guideNavVersions: "V1 与 V2",
     guideNavActions: "动作精修",
@@ -542,12 +611,22 @@ export const translations = {
     guideNavPackage: "成品与元数据",
     guideNavCommunity: "分享与共创",
     guideAIWorkflowEyebrow: "最快的投稿方式",
-    guideAIWorkflowTitle: "让 ChatGPT 完成制作、验收与 PR",
+    guideAIWorkflowTitle: "选择你要做什么",
     guideAIWorkflowDesc:
-      "一键在 ChatGPT 中打开完整的 Codex 任务。它会先补齐参考图、署名和授权信息，再读取仓库内置的 Hatch Pet v2 流程，逐动作制作与验收，最后准备一份只包含这只宠物的 Pull Request。",
+      "想请社区制作就发起请求；想投稿自己的宠物，则可让 ChatGPT 现场制作或提交现成文件。",
+    guideRequestWorkflow: "请求制作宠物",
+    guideRequestWorkflowDesc:
+      "请社区制作一只宠物。ChatGPT 会先查重，再创建范围明确的制作请求 Issue。",
+    guideSubmitWorkflow: "提交自己的宠物",
+    guideSubmitWorkflowDesc:
+      "可从角色和参考图开始现场制作，也可上传已有文件。ChatGPT 会制作或修复、完成校验并创建 PR。",
+    guideAdvancedWorkflow: "高级用户提交 PR",
+    guideAdvancedWorkflowDesc:
+      "希望直接使用 GitHub、Codespaces 或 Git 时，按仓库贡献指南操作。",
     startInCodex: "在 ChatGPT 中开始",
     copyAIPrompt: "复制 AI 提示词",
-    aiPromptPreview: "投稿任务",
+    aiPromptPreview: "AI 工作流",
+    showAIPrompt: "查看 AI 提示词",
     repositorySkillLabel: "仓库内置 Skill",
     guideCategoriesTitle: "分类与发现",
     guideCategoriesDesc:
@@ -564,8 +643,10 @@ export const translations = {
     guideVersionsTitle: "动笔之前，先选对版本",
     guideVersionsDesc:
       "两个版本都有九组标准动作。V2 另外增加两行、共 16 个顺时针环视方向，是新作品的默认选择；V1 继续用于兼容和维护旧宠物。",
-    guideVersionV1: "适合保留或修复旧版宠物。spriteVersionNumber 可以省略，也可以设为 1。",
-    guideVersionV2: "适合新作和升级。spriteVersionNumber 必须设为 2，并完整验收 16 个环视方向。",
+    guideVersionV1:
+      "适合保留或修复旧版宠物。spriteVersionNumber 可以省略，也可以设为 1。",
+    guideVersionV2:
+      "适合新作和升级。spriteVersionNumber 必须设为 2，并完整验收 16 个环视方向。",
     guideAtlasSize: "图集尺寸",
     guideActionRows: "标准动作",
     guideLookDirections: "环视方向",
@@ -575,36 +656,58 @@ export const translations = {
       "升级 V1 时会保留已经通过验收的九组标准动作，再补上环视方向。在 Codex 中打开设置 → 宠物并点击更新，确认完整动画无误后，再提交最终三件套。",
     guideActionsEyebrow: "九组动作，九种语义",
     guideActionsTitle: "每个动作都单独设计，不只是在换姿势",
-    guideActionsDesc: "好宠物要始终像同一个角色，同时让每组动作都有明确用途。每一行都可以单独写提示词、单独返修；统一的比例、配色、落脚点和道具规则，则负责把它们连成一个完整角色。",
-    guideActionIdle: "用呼吸、眨眼或轻微重心变化表现鲜活的待机循环，不能像一张完全静止的贴图。",
-    guideActionRunningRight: "清楚朝右移动，步态需要交替，道具保持稳定；不要用速度线、烟尘或地面阴影代替动作。",
-    guideActionRunningLeft: "必须真正朝左。只有在花纹、文字、光线、道具位置和惯用手都不会出错时，才适合镜像。",
-    guideActionWaving: "让手、爪、耳朵或身体承担打招呼的动作，不要依赖悬空的波浪线。",
-    guideActionJumping: "表现起跳、腾空和回落，同时保持角色比例与落脚基准稳定，避免播放时忽大忽小。",
-    guideActionFailed: "用姿势和表情读出失败或沮丧。眼泪、烟雾、星星只能作为贴着角色的硬边像素效果。",
-    guideActionWaiting: "表现正在等待授权、帮助或用户输入，既不能像普通待机，也不能像专注审查。",
-    guideActionRunning: "这是 Codex 正在处理工作的非定向忙碌状态，不要再做一遍向左或向右赶路的跑步。",
-    guideActionReview: "用视线、歪头、身体前倾或手部动作表现检查与思考，不要凭空增加放大镜、文档或 UI。",
+    guideActionsDesc:
+      "好宠物要始终像同一个角色，同时让每组动作都有明确用途。每一行都可以单独写提示词、单独返修；统一的比例、配色、落脚点和道具规则，则负责把它们连成一个完整角色。",
+    guideActionIdle:
+      "用呼吸、眨眼或轻微重心变化表现鲜活的待机循环，不能像一张完全静止的贴图。",
+    guideActionRunningRight:
+      "清楚朝右移动，步态需要交替，道具保持稳定；不要用速度线、烟尘或地面阴影代替动作。",
+    guideActionRunningLeft:
+      "必须真正朝左。只有在花纹、文字、光线、道具位置和惯用手都不会出错时，才适合镜像。",
+    guideActionWaving:
+      "让手、爪、耳朵或身体承担打招呼的动作，不要依赖悬空的波浪线。",
+    guideActionJumping:
+      "表现起跳、腾空和回落，同时保持角色比例与落脚基准稳定，避免播放时忽大忽小。",
+    guideActionFailed:
+      "用姿势和表情读出失败或沮丧。眼泪、烟雾、星星只能作为贴着角色的硬边像素效果。",
+    guideActionWaiting:
+      "表现正在等待授权、帮助或用户输入，既不能像普通待机，也不能像专注审查。",
+    guideActionRunning:
+      "这是 Codex 正在处理工作的非定向忙碌状态，不要再做一遍向左或向右赶路的跑步。",
+    guideActionReview:
+      "用视线、歪头、身体前倾或手部动作表现检查与思考，不要凭空增加放大镜、文档或 UI。",
     guideEdgesEyebrow: "透明边缘工艺",
     guideEdgesTitle: "去掉紫边、绿边，但别伤到角色本身",
-    guideEdgesDesc: "绿、青、洋红、紫或粉色光边，往往来自色键抠图后的残留。它们确实要处理，但整片删除某个色系，也会误伤角色真实的头发、衣服、眼睛和道具。",
-    guideEdgeStep1: "先选一个不会撞到角色配色的色键背景，并明确要求纯色、无光晕、无阴影、无模糊，角色边缘也不能混入半透明底色。",
-    guideEdgeStep2: "在棋盘格、深色和浅色背景上同时检查，既看正常显示尺寸，也放大看边缘；每一帧都要过目，不能只看第一张。",
-    guideEdgeStep3: "从最小范围开始修：先修单帧，再修单个动作行，只有污染普遍存在时才处理整只宠物。用邻近的角色颜色重建边缘 RGB，同时保留透明度和轮廓。",
-    guideEdgeStep4: "清理后重新播放动画。孤立杂点、轮廓缺口、内部透明洞、角色掉色、尺寸跳变、基线抖动，或播放时重新出现的色边，都不能放过。",
+    guideEdgesDesc:
+      "绿、青、洋红、紫或粉色光边，往往来自色键抠图后的残留。它们确实要处理，但整片删除某个色系，也会误伤角色真实的头发、衣服、眼睛和道具。",
+    guideEdgeStep1:
+      "先选一个不会撞到角色配色的色键背景，并明确要求纯色、无光晕、无阴影、无模糊，角色边缘也不能混入半透明底色。",
+    guideEdgeStep2:
+      "在棋盘格、深色和浅色背景上同时检查，既看正常显示尺寸，也放大看边缘；每一帧都要过目，不能只看第一张。",
+    guideEdgeStep3:
+      "从最小范围开始修：先修单帧，再修单个动作行，只有污染普遍存在时才处理整只宠物。用邻近的角色颜色重建边缘 RGB，同时保留透明度和轮廓。",
+    guideEdgeStep4:
+      "清理后重新播放动画。孤立杂点、轮廓缺口、内部透明洞、角色掉色、尺寸跳变、基线抖动，或播放时重新出现的色边，都不能放过。",
     guideQualityEyebrow: "精品收录标准",
     guideChecklistTitle: "什么样的作品才会进入画廊",
-    guideChecklistItem1: "所有动作和环视方向都保持同一角色的脸、比例、配色、轮廓与道具。",
-    guideChecklistItem2: "在 Codex 的实际显示尺寸下仍然读得清，角色大小、落脚点和动作节奏稳定。",
-    guideChecklistItem3: "深色、浅色与棋盘格背景下边缘都干净，没有紫边、绿边或其他色键残留。",
-    guideChecklistItem4: "正式目录只保留 submission.json、pet.json、spritesheet.webp，且版本字段与图集尺寸完全匹配。",
-    guideChecklistItem5: "作者、来源、合集、分类、标签和再分发许可证都真实、完整、可追溯。",
-    guideChecklistItem6: "预览、校验、Lint 与独立安装测试全部通过，再发起一份范围清晰的独立 PR。",
+    guideChecklistItem1:
+      "所有动作和环视方向都保持同一角色的脸、比例、配色、轮廓与道具。",
+    guideChecklistItem2:
+      "在 Codex 的实际显示尺寸下仍然读得清，角色大小、落脚点和动作节奏稳定。",
+    guideChecklistItem3:
+      "深色、浅色与棋盘格背景下边缘都干净，没有紫边、绿边或其他色键残留。",
+    guideChecklistItem4:
+      "正式目录只保留 submission.json、pet.json、spritesheet.webp，且版本字段与图集尺寸完全匹配。",
+    guideChecklistItem5:
+      "作者、来源、合集、分类、标签和再分发许可证都真实、完整、可追溯。",
+    guideChecklistItem6:
+      "预览、校验、Lint 与独立安装测试全部通过，再发起一份范围清晰的独立 PR。",
     guideCommunityEyebrow: "社区传播",
     guideCommunityTitle: "让作者被看见，也让好宠物走得更远",
-    guideCommunityDesc: "每个宠物页面都会保留作者与来源。你可以分享完整页面、现成分享文案、Markdown 链接，或直接调用系统分享，让别人先看动作、再从原始收录页安装。",
+    guideCommunityDesc:
+      "每个宠物页面都会保留作者与来源。你可以分享完整页面、现成分享文案、Markdown 链接，或直接调用系统分享，让别人先看动作、再从原始收录页安装。",
     guideShareTitle: "Codex 精品宠物制作指南",
-    guideOpenIssue: "手动提交成品",
+    guideOpenIssue: "提交审核 Issue",
     guideReadFull: "阅读完整制作指南",
 
     // Sorting

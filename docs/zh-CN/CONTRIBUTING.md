@@ -12,13 +12,21 @@
 - 确认这个 pet 可以被 Codex 正常安装
 - 确认作者信息和素材使用说明清楚
 
-## 推荐流程
+## 选择一种投稿方式
 
-1. 如果想先确认是否适合收录或该放哪个分类，可以先开一个 pet submission issue。
-2. 准备一个独立目录：`pets/<pet-slug>--<author-slug>/`。
-3. 尽量一个 PR 只提交一个 pet。
-4. 只提交 `pets/<pet-id>/` 下的最终三件套。
-5. 不要在贡献者 PR 里提交 README、`pets.json` 或预览生成物。
+### 让 ChatGPT 请求制作宠物
+
+适合只有角色、概念或参考资料，还没有完成宠物的用户。网站会打开一条本地化的 ChatGPT 任务，由 AI 查询 `pets.json` 和现有 Issues、补齐必要信息，再创建结构清楚的 `[Request]` Issue。整个过程不需要克隆仓库；Issue 代表进入社区讨论，不代表已经接受或承诺交付。
+
+### 让 ChatGPT 提交宠物
+
+可以从角色和参考图开始现场制作、继续完善制作中的宠物，也可以把现成的宠物目录或 spritesheet 交给 ChatGPT。它会按照[仓库投稿 Skill](../../.agents/skills/submit-codex-pet)完成制作或修复，检查重复、署名、许可、元数据、图集尺寸、动画质量和透明边缘，再通过 GitHub API 创建独立分支和 PR，不要求用户完整克隆仓库。
+
+如果授权、署名、重复情况或 GitHub 授权无法确认，ChatGPT 会改为创建 `[Submission]` Issue 等待维护者审核，不会强行发起 PR。
+
+### 高级用户提交 PR
+
+熟悉 GitHub 的贡献者可以使用网页编辑器、Codespaces 或带 blob 过滤的稀疏克隆。准备 `pets/<pet-slug>--<author-slug>/` 下的独立三件套，一个 PR 只提交一只宠物，不要提交 README、`pets.json` 或预览生成物。
 
 ## 提交 PR 后会发生什么
 

@@ -1,0 +1,115 @@
+name: Request a pet
+description: Request that AI or the community create a new Codex pet
+title: "[Request]: "
+labels:
+  - "type: request"
+  - "status: triage"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        <!-- pet-flow: request -->
+        Start with a character or idea; a finished spritesheet is not required. The recommended path is **Request a pet with ChatGPT** on [codexpet.top](https://codexpet.top), which checks the catalog and prepares this issue for you.
+  - type: input
+    id: character
+    attributes:
+      label: Character or concept
+      description: Give the canonical character, mascot, animal, object, or original concept name.
+      placeholder: Misaka Mikoto
+    validations:
+      required: true
+  - type: input
+    id: franchise
+    attributes:
+      label: Original work or franchise
+      description: Leave blank for an original character or concept.
+      placeholder: A Certain Scientific Railgun
+  - type: dropdown
+    id: primary_category
+    attributes:
+      label: Preferred primary category
+      options:
+        - Game Characters
+        - Anime Characters
+        - Original Characters
+        - Mascots
+        - Animals
+        - Fantasy Creatures
+        - Robots
+        - Human Avatars
+        - Memes
+        - Objects & Props
+        - Others
+    validations:
+      required: true
+  - type: dropdown
+    id: pet_version
+    attributes:
+      label: Preferred pet runtime version
+      description: V2 is recommended for new pets and includes 16 look directions.
+      options:
+        - v2 - standard animations plus 16 look directions
+        - v1 - legacy standard animations
+        - Let the maker decide
+    validations:
+      required: true
+  - type: dropdown
+    id: request_kind
+    attributes:
+      label: Request type
+      description: Existing artwork is treated only as reference unless its author and usage terms permit redistribution.
+      options:
+        - Create a new community interpretation
+        - Adapt my own original artwork
+        - Review an existing asset and its permission first
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Add official character pages, your own reference material, or image links. Drag images here when useful. Do not present third-party art as your own.
+      placeholder: Links, attachments, and notes about the most recognizable traits
+    validations:
+      required: true
+  - type: textarea
+    id: visual_direction
+    attributes:
+      label: Visual and animation direction
+      description: Describe the style, signature details, props, expressions, and actions that matter most.
+      placeholder: Compact chibi proportions, readable electric effects attached to the character, lively review animation...
+    validations:
+      required: true
+  - type: dropdown
+    id: naming
+    attributes:
+      label: Name language support
+      options:
+        - Single-language default name
+        - Bilingual English and Chinese names
+        - Let the maker decide
+    validations:
+      required: true
+  - type: textarea
+    id: attribution
+    attributes:
+      label: Author, source, and usage notes
+      description: Required when the request proposes reusing or adapting an existing asset. Unknown permission means the material can be used only as a reference.
+      placeholder: Original author, source URL, license, non-commercial terms, or "reference only; permission not established"
+  - type: textarea
+    id: duplicate_check
+    attributes:
+      label: Similar pets already checked
+      description: AI should search pets.json and existing issues before creating this request. Link similar pets and explain the difference.
+      placeholder: No matching canonical character found, or links to related variants
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Request confirmation
+      options:
+        - label: I understand that a request is not an acceptance or delivery promise.
+          required: true
+        - label: I have not claimed third-party artwork or permission that I do not own.
+          required: true

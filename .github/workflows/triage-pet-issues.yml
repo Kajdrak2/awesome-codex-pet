@@ -1,0 +1,94 @@
+name: Triage Pet Issues
+
+on:
+  issues:
+    types:
+      - opened
+      - edited
+      - reopened
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  label:
+    if: >-
+      startsWith(github.event.issue.title, '[Request]:') ||
+      startsWith(github.event.issue.title, '[Submission]:') ||
+      contains(github.event.issue.body || '', '<!-- pet-flow: request -->') ||
+      contains(github.event.issue.body || '', '<!-- pet-flow: submission -->')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Apply pet workflow labels
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const title = issue.title.toLowerCase();
+            const body = issue.body ?? "";
+
+            const type =
+              title.startsWith("[request]:") || body.includes("<!-- pet-flow: request -->")
+                ? "request"
+                : "submission";
+
+            function fieldValue(headings) {
+              for (const heading of headings) {
+                const escaped = heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+                const match = body.match(new RegExp(`### ${escaped}\\s+([^\\n]+)`, "i"));
+                if (match) return match[1].trim();
+              }
+              return "";
+            }
+
+            const versionValue = fieldValue([
+              "Pet runtime version",
+              "Preferred pet runtime version",
+            ]).toLowerCase();
+            const version = versionValue.startsWith("v1")
+              ? "v1"
+              : versionValue.startsWith("v2")
+                ? "v2"
+                : null;
+
+            const categoryValue = fieldValue([
+              "Primary category",
+              "Preferred primary category",
+            ]);
+            const categoryLabels = {
+              "Game Characters": "category: game",
+              "Anime Characters": "category: anime",
+              "Original Characters": "category: original",
+              Mascots: "category: mascot",
+              Animals: "category: animal",
+              "Fantasy Creatures": "category: fantasy",
+              Robots: "category: robot",
+              "Human Avatars": "category: avatar",
+              Memes: "category: meme",
+              "Objects & Props": "category: object",
+              Others: "category: other",
+            };
+
+            const current = issue.labels.map((label) =>
+              typeof label === "string" ? label : label.name,
+            );
+            const managed = current.filter(
+              (label) =>
+                !label.startsWith("type: ") &&
+                !label.startsWith("version: ") &&
+                !label.startsWith("category: "),
+            );
+            if (!managed.some((label) => label.startsWith("status: "))) {
+              managed.push("status: triage");
+            }
+            managed.push(`type: ${type}`);
+            if (version) managed.push(`version: ${version}`);
+            if (categoryLabels[categoryValue]) managed.push(categoryLabels[categoryValue]);
+
+            await github.rest.issues.setLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              labels: [...new Set(managed)],
+            });

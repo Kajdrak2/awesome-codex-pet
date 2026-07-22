@@ -7,11 +7,15 @@ import { ChatGPTIcon } from "@/components/chatgpt-icon";
 import { PetGallery } from "@/components/pet-gallery";
 import { ShareMenu } from "@/components/share-menu";
 import { useLocale } from "@/components/locale-provider";
-import { buildCodexUrl, getCollectionInstallPrompt } from "@/lib/codex-links";
+import { buildChatGPTUrl, getCollectionInstallPrompt } from "@/lib/codex-links";
 import { getCollectionCoverPets, type PetCollection } from "@/lib/collections";
 import { siteConfig } from "@/lib/site";
 
-export function CollectionDetailContent({ collection }: { collection: PetCollection }) {
+export function CollectionDetailContent({
+  collection,
+}: {
+  collection: PetCollection;
+}) {
   const { locale, t } = useLocale();
   const title = collection.title[locale];
   const coverPets = getCollectionCoverPets(collection);
@@ -27,9 +31,23 @@ export function CollectionDetailContent({ collection }: { collection: PetCollect
   return (
     <main className="mx-auto max-w-[1200px] px-6 pb-24">
       <div className="py-6">
-        <Link className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-text transition-colors" href="/collections">
-          <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+        <Link
+          className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-text transition-colors"
+          href="/collections"
+        >
+          <svg
+            className="size-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
           {t("backToCollections")}
         </Link>
@@ -39,24 +57,32 @@ export function CollectionDetailContent({ collection }: { collection: PetCollect
         <div className="grid min-h-64 items-center gap-8 p-7 md:grid-cols-[minmax(0,0.8fr)_minmax(360px,1.2fr)] md:p-10">
           <div>
             <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-accent">
-              {t(collection.kind === "franchise" ? "franchiseSeries" : "themeCollection")}
+              {t(
+                collection.kind === "franchise"
+                  ? "franchiseSeries"
+                  : "themeCollection",
+              )}
               {" · "}
               {t("collectionPetCount", { count: collection.pets.length })}
             </p>
-            <h1 className="mb-4 text-4xl font-semibold tracking-tight sm:text-5xl">{title}</h1>
+            <h1 className="mb-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+              {title}
+            </h1>
             <p className="mb-6 max-w-xl text-base leading-relaxed text-muted">
               {collection.description[locale]}
             </p>
             <div className="flex flex-wrap gap-3">
               <a
                 className="inline-flex h-9 items-center justify-center gap-2 rounded-lg bg-accent px-4 text-sm font-medium text-white hover:bg-accent-hover transition-colors"
-                href={buildCodexUrl(
+                href={buildChatGPTUrl(
                   getCollectionInstallPrompt(
                     title,
                     collection.pets.map((pet) => pet.slug),
                     locale,
                   ),
                 )}
+                target="_blank"
+                rel="noreferrer"
               >
                 <ChatGPTIcon className="size-6" />
                 {t("openCollectionInCodex")}

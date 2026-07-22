@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { ActionDropdown } from "@/components/action-dropdown";
 import { ChatGPTIcon } from "@/components/chatgpt-icon";
 import { useLocale } from "@/components/locale-provider";
-import { buildCodexUrl } from "@/lib/codex-links";
+import { buildChatGPTUrl } from "@/lib/codex-links";
 
 type ShareMenuProps = {
   title: string;
@@ -85,8 +85,19 @@ export function ShareMenu({
       }`}
       trigger={
         <>
-          <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.173.348.365.5.573m-.5-.573l6.604-3.852m-6.104 6.038l6.104 3.852m0 0a2.25 2.25 0 103.935 2.185 2.25 2.25 0 00-3.935-2.185zm0-9.89a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+          <svg
+            className="size-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.173.348.365.5.573m-.5-.573l6.604-3.852m-6.104 6.038l6.104 3.852m0 0a2.25 2.25 0 103.935 2.185 2.25 2.25 0 00-3.935-2.185zm0-9.89a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z"
+            />
           </svg>
           {compact ? null : t("share")}
         </>
@@ -94,7 +105,9 @@ export function ShareMenu({
     >
       <a
         className="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm text-text transition-colors hover:bg-surface"
-        href={buildCodexUrl(codexPrompt)}
+        href={buildChatGPTUrl(codexPrompt)}
+        target="_blank"
+        rel="noreferrer"
         role="menuitem"
       >
         <ChatGPTIcon className="size-6" />
@@ -103,7 +116,9 @@ export function ShareMenu({
             {codexMode === "create" ? t("startInCodex") : t("openInCodex")}
           </span>
           <span className="block text-xs text-muted">
-            {codexMode === "create" ? t("codexStartsCreation") : t("codexRunsInstall")}
+            {codexMode === "create"
+              ? t("codexStartsCreation")
+              : t("codexRunsInstall")}
           </span>
         </span>
       </a>
@@ -116,9 +131,7 @@ export function ShareMenu({
           onClick={() => void copyText(installCommand, "install")}
         >
           <span className="font-mono text-muted">&gt;_</span>
-          <span>
-            {copied === "install" ? t("copied") : t("copyInstall")}
-          </span>
+          <span>{copied === "install" ? t("copied") : t("copyInstall")}</span>
         </button>
       ) : null}
 
@@ -128,8 +141,19 @@ export function ShareMenu({
         role="menuitem"
         onClick={() => void copyText(url, "link")}
       >
-        <svg className="size-4 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-1.5 1.5a4.5 4.5 0 01-6.364-6.364l.75-.75m3.492 4.994a4.5 4.5 0 01-1.242-7.244l1.5-1.5a4.5 4.5 0 016.364 6.364l-.75.75" />
+        <svg
+          className="size-4 text-muted"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+          aria-hidden="true"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-1.5 1.5a4.5 4.5 0 01-6.364-6.364l.75-.75m3.492 4.994a4.5 4.5 0 01-1.242-7.244l1.5-1.5a4.5 4.5 0 016.364 6.364l-.75.75"
+          />
         </svg>
         <span>{copied === "link" ? t("copied") : t("copyPageLink")}</span>
       </button>
@@ -140,12 +164,21 @@ export function ShareMenu({
         role="menuitem"
         onClick={() => void copyText(shareContent, "share")}
       >
-        <svg className="size-4 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h8m-8 4h5M7.5 3.75h7.25L19 8v12.25H5V3.75h2.5z" />
+        <svg
+          className="size-4 text-muted"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+          aria-hidden="true"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M8 12h8m-8 4h5M7.5 3.75h7.25L19 8v12.25H5V3.75h2.5z"
+          />
         </svg>
-        <span>
-          {copied === "share" ? t("copied") : t("copyShareText")}
-        </span>
+        <span>{copied === "share" ? t("copied") : t("copyShareText")}</span>
       </button>
 
       <button
@@ -155,7 +188,9 @@ export function ShareMenu({
         onClick={() => void copyText(`[${title}](${url})`, "markdown")}
       >
         <span className="w-4 text-center font-mono text-xs text-muted">M↓</span>
-        <span>{copied === "markdown" ? t("copied") : t("copyMarkdownLink")}</span>
+        <span>
+          {copied === "markdown" ? t("copied") : t("copyMarkdownLink")}
+        </span>
       </button>
 
       <div className="my-1 border-t border-border" />
@@ -186,8 +221,19 @@ export function ShareMenu({
           role="menuitem"
           onClick={() => void nativeShare()}
         >
-          <svg className="size-4 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 16.5V3m0 0l-4.5 4.5M12 3l4.5 4.5M6.75 10.5h-1.5A2.25 2.25 0 003 12.75v6A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75v-6a2.25 2.25 0 00-2.25-2.25h-1.5" />
+          <svg
+            className="size-4 text-muted"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 16.5V3m0 0l-4.5 4.5M12 3l4.5 4.5M6.75 10.5h-1.5A2.25 2.25 0 003 12.75v6A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75v-6a2.25 2.25 0 00-2.25-2.25h-1.5"
+            />
           </svg>
           {t("moreShareOptions")}
         </button>

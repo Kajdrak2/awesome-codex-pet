@@ -6,7 +6,7 @@ import { useState } from "react";
 import { ChatGPTIcon } from "@/components/chatgpt-icon";
 import { CopyCommandButton } from "@/components/copy-command-button";
 import { useLocale } from "@/components/locale-provider";
-import { buildCodexUrl, getInstallGuidePrompt } from "@/lib/codex-links";
+import { buildChatGPTUrl, getInstallGuidePrompt } from "@/lib/codex-links";
 
 const PLACEHOLDER = "<pet-slug--author-slug>";
 
@@ -73,7 +73,9 @@ export function InstallPageContent() {
             </Link>
             <a
               className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-border bg-bg-elevated px-4 text-sm font-medium text-text transition-colors hover:border-border-hover hover:bg-surface"
-              href={buildCodexUrl(getInstallGuidePrompt(locale))}
+              href={buildChatGPTUrl(getInstallGuidePrompt(locale))}
+              target="_blank"
+              rel="noreferrer"
             >
               <ChatGPTIcon className="size-6" />
               {t("installCodexAssist")}
@@ -89,9 +91,18 @@ export function InstallPageContent() {
             {t("installQuickDesc")}
           </p>
           <ol className="divide-y divide-border border-y border-border">
-            <GuideStep title={t("installStep1Title")} description={t("installStep1Desc")} />
-            <GuideStep title={t("installStep2Title")} description={t("installStep2Desc")} />
-            <GuideStep title={t("installStep3Title")} description={t("installStep3Desc")} />
+            <GuideStep
+              title={t("installStep1Title")}
+              description={t("installStep1Desc")}
+            />
+            <GuideStep
+              title={t("installStep2Title")}
+              description={t("installStep2Desc")}
+            />
+            <GuideStep
+              title={t("installStep3Title")}
+              description={t("installStep3Desc")}
+            />
           </ol>
         </div>
       </header>
@@ -154,7 +165,9 @@ export function InstallPageContent() {
           >
             <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
               <div>
-                <p className="text-sm font-semibold text-text">{activeMethod.label}</p>
+                <p className="text-sm font-semibold text-text">
+                  {activeMethod.label}
+                </p>
                 <p className="mt-1 text-xs text-muted">{activeMethod.tip}</p>
               </div>
               <CopyCommandButton
@@ -215,7 +228,9 @@ export function InstallPageContent() {
           </ol>
 
           <div className="mt-8 border-l-2 border-accent bg-accent-light px-5 py-4">
-            <h3 className="text-sm font-semibold text-text">{t("installVersionNoteTitle")}</h3>
+            <h3 className="text-sm font-semibold text-text">
+              {t("installVersionNoteTitle")}
+            </h3>
             <p className="mt-2 text-sm leading-relaxed text-text-secondary">
               {t("installVersionNoteDesc")}
             </p>
@@ -227,11 +242,26 @@ export function InstallPageContent() {
             {t("installManageTitle")}
           </h2>
           <dl className="mt-8 divide-y divide-border border-y border-border">
-            <ManageItem title={t("installManageLocationTitle")} description={t("installManageLocationDesc")} />
-            <ManageItem title={t("installManageCustomTitle")} description={t("installManageCustomDesc")} />
-            <ManageItem title={t("installManageUpdateTitle")} description={t("installManageUpdateDesc")} />
-            <ManageItem title={t("installManageRemoveTitle")} description={t("installManageRemoveDesc")} />
-            <ManageItem title={t("installManagePrivacyTitle")} description={t("installManagePrivacyDesc")} />
+            <ManageItem
+              title={t("installManageLocationTitle")}
+              description={t("installManageLocationDesc")}
+            />
+            <ManageItem
+              title={t("installManageCustomTitle")}
+              description={t("installManageCustomDesc")}
+            />
+            <ManageItem
+              title={t("installManageUpdateTitle")}
+              description={t("installManageUpdateDesc")}
+            />
+            <ManageItem
+              title={t("installManageRemoveTitle")}
+              description={t("installManageRemoveDesc")}
+            />
+            <ManageItem
+              title={t("installManagePrivacyTitle")}
+              description={t("installManagePrivacyDesc")}
+            />
           </dl>
         </div>
       </section>
@@ -241,7 +271,10 @@ export function InstallPageContent() {
           <h2 className="text-2xl font-semibold tracking-tight text-text sm:text-3xl">
             {t("installFaqTitle")}
           </h2>
-          <Link className="text-sm font-medium text-accent hover:underline" href="/#gallery">
+          <Link
+            className="text-sm font-medium text-accent hover:underline"
+            href="/#gallery"
+          >
             {t("openGallery")} →
           </Link>
         </div>
@@ -257,7 +290,13 @@ export function InstallPageContent() {
   );
 }
 
-function GuideStep({ title, description }: { title: string; description: string }) {
+function GuideStep({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
   return (
     <li className="py-4 first:pt-0 last:pb-0">
       <h3 className="text-sm font-semibold text-text">{title}</h3>
@@ -277,7 +316,9 @@ function MethodNote({
 }) {
   return (
     <div>
-      <span className="font-mono text-xs font-semibold text-accent">{index}</span>
+      <span className="font-mono text-xs font-semibold text-accent">
+        {index}
+      </span>
       <h3 className="mt-2 text-sm font-semibold text-text">{title}</h3>
       <p className="mt-1 text-xs leading-relaxed text-muted">{description}</p>
     </div>
@@ -306,7 +347,13 @@ function ActivationStep({
   );
 }
 
-function ManageItem({ title, description }: { title: string; description: string }) {
+function ManageItem({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
   return (
     <div className="grid gap-1 py-5 sm:grid-cols-[150px_1fr] sm:gap-5">
       <dt className="text-sm font-semibold text-text">{title}</dt>
@@ -328,7 +375,11 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
           strokeWidth={2}
           aria-hidden="true"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </summary>
       <p className="mt-3 text-sm leading-relaxed text-muted">{answer}</p>

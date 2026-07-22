@@ -5,7 +5,11 @@ import { useState } from "react";
 import { ChatGPTIcon } from "@/components/chatgpt-icon";
 import { useLocale } from "@/components/locale-provider";
 import { ShareMenu } from "@/components/share-menu";
-import { buildCodexUrl, getSubmissionPrompt } from "@/lib/codex-links";
+import {
+  buildChatGPTUrl,
+  getPetRequestPrompt,
+  getPetSubmissionPrompt,
+} from "@/lib/codex-links";
 import type { CategoryDefinition } from "@/lib/categories";
 import { siteConfig } from "@/lib/site";
 
@@ -56,7 +60,13 @@ const checklistKeys = [
 export function GuidePageContent({ categories }: GuidePageContentProps) {
   const { t, locale } = useLocale();
   const [copied, setCopied] = useState(false);
-  const submissionPrompt = getSubmissionPrompt(locale);
+  const [workflowMode, setWorkflowMode] = useState<"request" | "submit">(
+    "request",
+  );
+  const requestPrompt = getPetRequestPrompt(locale);
+  const submissionPrompt = getPetSubmissionPrompt(locale);
+  const activePrompt =
+    workflowMode === "request" ? requestPrompt : submissionPrompt;
   const guideUrl = `${siteConfig.url}/guide`;
   const fullGuideHref =
     locale === "zh"
@@ -65,7 +75,7 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
 
   async function copyPrompt() {
     try {
-      await navigator.clipboard.writeText(submissionPrompt);
+      await navigator.clipboard.writeText(activePrompt);
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1400);
     } catch (error: unknown) {
@@ -94,10 +104,21 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
           <div className="flex flex-wrap gap-3">
             <a
               className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-accent px-4 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
-              href={buildCodexUrl(submissionPrompt)}
+              href={buildChatGPTUrl(requestPrompt)}
+              target="_blank"
+              rel="noreferrer"
             >
               <ChatGPTIcon className="size-6" />
-              {t("startInCodex")}
+              {t("guideRequestWorkflow")}
+            </a>
+            <a
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-border bg-bg-elevated px-4 text-sm font-medium text-text transition-colors hover:bg-surface"
+              href={buildChatGPTUrl(submissionPrompt)}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <ChatGPTIcon className="size-6" />
+              {t("guideSubmitWorkflow")}
             </a>
             <ShareMenu
               title={t("guideShareTitle")}
@@ -107,7 +128,10 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
             />
           </div>
         </div>
-        <nav className="mt-9 flex flex-wrap gap-2" aria-label={t("guideQuickNav")}>
+        <nav
+          className="mt-9 flex flex-wrap gap-2"
+          aria-label={t("guideQuickNav")}
+        >
           {[
             ["versions", "guideNavVersions"],
             ["actions", "guideNavActions"],
@@ -127,7 +151,7 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
       </header>
 
       <section className="border-b border-border py-14">
-        <div className="grid gap-8 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:items-start">
+        <div className="max-w-3xl">
           <div>
             <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-accent">
               {t("guideAIWorkflowEyebrow")}
@@ -138,10 +162,50 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
             <p className="mb-6 text-sm leading-relaxed text-muted">
               {t("guideAIWorkflowDesc")}
             </p>
+            <div
+              className="mb-5 inline-flex rounded-lg border border-border bg-bg-secondary p-1"
+              role="tablist"
+              aria-label={t("guideAIWorkflowEyebrow")}
+            >
+              <button
+                className={`cursor-pointer rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                  workflowMode === "request"
+                    ? "bg-bg-elevated text-text shadow-sm"
+                    : "text-muted hover:text-text"
+                }`}
+                type="button"
+                role="tab"
+                aria-selected={workflowMode === "request"}
+                onClick={() => {
+                  setWorkflowMode("request");
+                  setCopied(false);
+                }}
+              >
+                {t("guideRequestWorkflow")}
+              </button>
+              <button
+                className={`cursor-pointer rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                  workflowMode === "submit"
+                    ? "bg-bg-elevated text-text shadow-sm"
+                    : "text-muted hover:text-text"
+                }`}
+                type="button"
+                role="tab"
+                aria-selected={workflowMode === "submit"}
+                onClick={() => {
+                  setWorkflowMode("submit");
+                  setCopied(false);
+                }}
+              >
+                {t("guideSubmitWorkflow")}
+              </button>
+            </div>
             <div className="flex flex-wrap gap-3">
               <a
                 className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-accent px-4 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
-                href={buildCodexUrl(submissionPrompt)}
+                href={buildChatGPTUrl(activePrompt)}
+                target="_blank"
+                rel="noreferrer"
               >
                 <ChatGPTIcon className="size-6" />
                 {t("startInCodex")}
@@ -153,23 +217,39 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
               >
                 {copied ? t("copied") : t("copyAIPrompt")}
               </button>
+              <a
+                className="inline-flex h-10 items-center justify-center rounded-lg border border-border bg-bg-elevated px-4 text-sm font-medium text-text transition-colors hover:bg-surface"
+                href="https://github.com/legeling/awesome-codex-pet/compare"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {t("advancedPullRequest")}
+              </a>
+              <a
+                className="inline-flex h-10 items-center justify-center rounded-lg px-2 text-sm font-medium text-muted transition-colors hover:text-text"
+                href={fullGuideHref}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {t("submissionGuide")}
+              </a>
             </div>
-          </div>
-          <div className="min-w-0 rounded-lg border border-border bg-bg-secondary p-4">
-            <div className="mb-3 flex items-center justify-between gap-4">
-              <span className="text-xs font-semibold uppercase tracking-wider text-muted">
-                {t("aiPromptPreview")}
-              </span>
-              <span className="text-xs text-accent">{t("repositorySkillLabel")}</span>
-            </div>
-            <pre className="max-h-72 overflow-auto whitespace-pre-wrap break-words font-mono text-xs leading-relaxed text-text-secondary">
-              {submissionPrompt}
-            </pre>
+            <details className="mt-5 rounded-lg border border-border bg-bg-secondary px-4 py-3">
+              <summary className="cursor-pointer text-sm font-medium text-text">
+                {t("showAIPrompt")}
+              </summary>
+              <pre className="mt-4 max-h-72 overflow-auto whitespace-pre-wrap break-words border-t border-border pt-4 font-mono text-xs leading-relaxed text-text-secondary">
+                {activePrompt}
+              </pre>
+            </details>
           </div>
         </div>
       </section>
 
-      <section id="versions" className="scroll-mt-20 border-b border-border py-14">
+      <section
+        id="versions"
+        className="scroll-mt-20 border-b border-border py-14"
+      >
         <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-accent">
           {t("guideVersionsEyebrow")}
         </p>
@@ -224,7 +304,10 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
         </p>
       </section>
 
-      <section id="actions" className="scroll-mt-20 border-b border-border py-14">
+      <section
+        id="actions"
+        className="scroll-mt-20 border-b border-border py-14"
+      >
         <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-accent">
           {t("guideActionsEyebrow")}
         </p>
@@ -266,8 +349,13 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
           </div>
           <ol className="divide-y divide-border border-y border-border">
             {edgeStepKeys.map((key, index) => (
-              <li key={key} className="grid grid-cols-[2.5rem_1fr] gap-3 py-4 text-sm leading-relaxed">
-                <span className="font-mono text-xs text-accent">0{index + 1}</span>
+              <li
+                key={key}
+                className="grid grid-cols-[2.5rem_1fr] gap-3 py-4 text-sm leading-relaxed"
+              >
+                <span className="font-mono text-xs text-accent">
+                  0{index + 1}
+                </span>
                 <span className="text-text-secondary">{t(key)}</span>
               </li>
             ))}
@@ -275,7 +363,10 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
         </div>
       </section>
 
-      <section id="package" className="scroll-mt-20 border-b border-border py-14">
+      <section
+        id="package"
+        className="scroll-mt-20 border-b border-border py-14"
+      >
         <div className="grid gap-10 lg:grid-cols-2">
           <div>
             <h2 className="mb-3 text-2xl font-semibold">
@@ -285,7 +376,7 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
               {t("guideStructureDesc")}
             </p>
             <pre className="overflow-x-auto rounded-lg border border-border bg-bg-secondary p-5 font-mono text-xs text-text-secondary sm:text-sm">
-{`pets/
+              {`pets/
 └── pet-slug--author-slug/
     ├── submission.json
     ├── pet.json
@@ -312,12 +403,14 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
                 </span>
               ))}
             </div>
-            <h3 className="mb-2 text-base font-semibold">{t("guideCollectionsTitle")}</h3>
+            <h3 className="mb-2 text-base font-semibold">
+              {t("guideCollectionsTitle")}
+            </h3>
             <p className="mb-4 text-sm leading-relaxed text-muted">
               {t("guideCollectionsDesc")}
             </p>
             <pre className="overflow-x-auto rounded-lg border border-border bg-bg-secondary p-4 font-mono text-xs text-text-secondary">
-{`{
+              {`{
   "collections": ["genshin-impact"]
 }`}
             </pre>
@@ -334,9 +427,23 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
         </h2>
         <ul className="grid gap-x-10 gap-y-4 md:grid-cols-2">
           {checklistKeys.map((key) => (
-            <li key={key} className="flex items-start gap-3 text-sm leading-relaxed text-text">
-              <svg className="mt-0.5 size-5 shrink-0 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            <li
+              key={key}
+              className="flex items-start gap-3 text-sm leading-relaxed text-text"
+            >
+              <svg
+                className="mt-0.5 size-5 shrink-0 text-accent"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2.2}
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
               </svg>
               {t(key)}
             </li>
@@ -379,18 +486,21 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
       <div className="flex flex-col items-center justify-center gap-3 border-t border-border pt-12 sm:flex-row">
         <a
           className="inline-flex h-10 items-center gap-2 rounded-lg bg-accent px-5 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
-          href={buildCodexUrl(submissionPrompt)}
-        >
-          <ChatGPTIcon className="size-6" />
-          {t("startInCodex")}
-        </a>
-        <a
-          className="inline-flex h-10 items-center gap-2 rounded-lg border border-border px-5 text-sm font-medium text-text transition-colors hover:bg-surface"
-          href="https://github.com/legeling/awesome-codex-pet/issues/new?template=pet-submission.yml"
+          href={buildChatGPTUrl(requestPrompt)}
           target="_blank"
           rel="noreferrer"
         >
-          {t("guideOpenIssue")}
+          <ChatGPTIcon className="size-6" />
+          {t("guideRequestWorkflow")}
+        </a>
+        <a
+          className="inline-flex h-10 items-center gap-2 rounded-lg border border-border px-5 text-sm font-medium text-text transition-colors hover:bg-surface"
+          href={buildChatGPTUrl(submissionPrompt)}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <ChatGPTIcon className="size-6" />
+          {t("guideSubmitWorkflow")}
         </a>
       </div>
     </main>

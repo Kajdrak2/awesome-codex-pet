@@ -1,11 +1,18 @@
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import {
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  writeFileSync,
+} from "node:fs";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
 import { format } from "prettier";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const petsDir = join(repoRoot, "pets");
-const rawBase = "https://raw.githubusercontent.com/legeling/awesome-codex-pet/main";
+const rawBase =
+  "https://raw.githubusercontent.com/legeling/awesome-codex-pet/main";
 const websiteUrl = "https://codexpet.top";
 
 const categoryCatalog = JSON.parse(
@@ -109,12 +116,18 @@ function localizedPetName(pet, lang) {
 
 function petBlock(pet, lang) {
   const rootPrefix = lang === "zh" ? "../.." : ".";
-  const labels = lang === "zh" ? ["名称", "安装", "动作", "预览"] : ["Name", "Install", "Action", "Preview"];
+  const labels =
+    lang === "zh"
+      ? ["名称", "安装", "动作", "预览"]
+      : ["Name", "Install", "Action", "Preview"];
   const by = lang === "zh" ? "作者" : "by";
   const category = normalizeCategory(pet.primary_category);
-  const categoryName = lang === "zh" ? categoryZh[category] || category : category;
+  const categoryName =
+    lang === "zh" ? categoryZh[category] || category : category;
   const displayName = localizedPetName(pet, lang);
-  const stateNames = previewStates.map((state) => (lang === "zh" ? state[2] : state[1]));
+  const stateNames = previewStates.map((state) =>
+    lang === "zh" ? state[2] : state[1],
+  );
   const gifs = previewStates.map(([state]) => {
     const path = `${websiteUrl}/assets/previews/${pet.slug}/gifs/${state}.gif`;
     return `<img src="${path}" alt="${displayName} ${state}" width="120" height="130">`;
@@ -137,10 +150,18 @@ function normalizeCategory(category) {
 function categorySections(pets, lang) {
   return categories
     .flatMap((category) => {
-      const items = pets.filter((pet) => normalizeCategory(pet.primary_category) === category);
+      const items = pets.filter(
+        (pet) => normalizeCategory(pet.primary_category) === category,
+      );
       if (items.length === 0) return [];
       const title = lang === "zh" ? categoryZh[category] || category : category;
-      return [[`### ${title}`, "", items.map((pet) => petBlock(pet, lang)).join("\n\n")].join("\n")];
+      return [
+        [
+          `### ${title}`,
+          "",
+          items.map((pet) => petBlock(pet, lang)).join("\n\n"),
+        ].join("\n"),
+      ];
     })
     .join("\n\n");
 }
@@ -171,7 +192,7 @@ This repository is the source catalog behind [codexpet.top](${websiteUrl}): it k
 
 - **One-command install** — no clone, no manual setup, works on macOS / Linux / Windows
 - **Selected pet gallery** — complete animation previews, collections, creator credits, sharing, and community statistics at [codexpet.top](${websiteUrl})
-- **GitHub-native submissions** — open an issue or PR, the rest is automated
+- **AI-first contributions** — ask the community to make a pet, or let ChatGPT create, finish, and submit your own; advanced contributors can still open a PR
 - **Open licensing** — code under MIT, pet assets under CC BY-NC 4.0
 
 Each pet is a small shareable package:
@@ -245,9 +266,15 @@ ${categorySections(pets, "en")}
 
 ## Submit a Pet
 
-The fastest path is the [submission guide on the website](${websiteUrl}/guide). It walks through categories, the folder layout, and the reviewer checklist.
+Start with the [website contribution guide](${websiteUrl}/guide). It offers three paths without making every contributor download this large asset repository:
 
-If you prefer working from the repo:
+1. **Request a pet** — ChatGPT checks for duplicates, gathers references and requirements, then opens a labeled request issue.
+2. **Create or submit your own pet** — ChatGPT can start from references or existing files, complete and validate the three-file package, then use the GitHub API to create a focused branch and pull request without a full clone.
+3. **Advanced pull request** — experienced contributors can work in a GitHub Codespace, a partial clone, or their preferred Git workflow.
+
+The repository skill at [\`.agents/skills/submit-codex-pet\`](./.agents/skills/submit-codex-pet) teaches compatible AI agents how to choose the right route. When credentials or repository write access are unavailable, it falls back to a labeled submission issue instead of losing the contributor's work.
+
+Advanced contributors should add exactly one final package:
 
 \`\`\`text
 pets/
@@ -283,6 +310,7 @@ Contributor PRs should only include \`submission.json\`, \`pet.json\`, and \`spr
 
 ## Make a Pet
 
+- [.agents/skills/submit-codex-pet](./.agents/skills/submit-codex-pet) — request community production, create or submit your own pet through the GitHub API, or prepare an advanced PR
 - [.agents/skills/hatch-pet-v1](./.agents/skills/hatch-pet-v1) — preserve or repair a legacy 8x9 v1 pet
 - [.agents/skills/hatch-pet-v2](./.agents/skills/hatch-pet-v2) — create or upgrade an 8x11 v2 pet with 16 look directions
 
@@ -329,7 +357,7 @@ ${badges(pets)}
 
 - **一条命令安装** — 不需要克隆仓库，macOS / Linux / Windows 全平台支持
 - **精品宠物画廊** — [codexpet.top](${websiteUrl}) 提供完整动作预览、合集、作者署名、便捷分享和社区统计
-- **GitHub 原生投稿** — 提 issue 或 PR，剩下的全自动
+- **AI 优先投稿** — 请社区制作宠物，或让 ChatGPT 现场制作、完善并提交自己的宠物；高级用户仍可直接提交 PR
 - **非商用原则** — 正式许可证可选；没有正式许可证时必须明确禁止商用
 
 每只宠物都是一个很小的可分享包：
@@ -403,9 +431,15 @@ ${categorySections(pets, "zh")}
 
 ## 投稿
 
-最快的方式是打开[网站上的制作与投稿指南](${websiteUrl}/guide)。里面讲清 V1 / V2、逐动作精修、紫边绿边处理、成品结构、授权署名和精品验收标准，也可以一键在 ChatGPT 中打开完整的 Codex 任务。
+请从[网站上的制作与投稿指南](${websiteUrl}/guide)开始。为了避免每位投稿者都下载体积较大的素材仓库，我们提供三条路径：
 
-也可以直接基于仓库工作：
+1. **请求制作宠物** — ChatGPT 先检查重复项、收集参考和制作要求，再创建带标签的请求 Issue。
+2. **制作或提交自己的宠物** — ChatGPT 可以从参考图现场制作，也可以接收现成文件；完成三件套制作与校验后，通过 GitHub API 创建专用分支和 PR，无需完整克隆。
+3. **高级 PR** — 熟悉 Git 的贡献者可以使用 GitHub Codespaces、部分克隆或自己的 Git 工作流。
+
+仓库内的 [\`.agents/skills/submit-codex-pet\`](../../.agents/skills/submit-codex-pet) 会指导兼容的 AI 选择正确路径。若缺少凭据或仓库写入权限，它会退回到带标签的成品投稿 Issue，不会让投稿内容丢失。
+
+高级贡献者只需添加一个最终成品包：
 
 \`\`\`text
 pets/
@@ -441,6 +475,7 @@ npm run lint
 
 ## 制作 Pet
 
+- [.agents/skills/submit-codex-pet](../../.agents/skills/submit-codex-pet) — 请求社区制作、通过 GitHub API 制作或提交自己的宠物，或准备高级 PR
 - [.agents/skills/hatch-pet-v1](../../.agents/skills/hatch-pet-v1) — 保留或修复旧版 8x9 v1 宠物
 - [.agents/skills/hatch-pet-v2](../../.agents/skills/hatch-pet-v2) — 创建或升级带 16 个环视方向的 8x11 v2 宠物
 
@@ -465,7 +500,11 @@ const pets = loadPets();
 
 writeFileSync(join(repoRoot, "README.md"), englishReadme(pets), "utf8");
 mkdirSync(join(repoRoot, "docs", "zh-CN"), { recursive: true });
-writeFileSync(join(repoRoot, "docs", "zh-CN", "README.md"), chineseReadme(pets), "utf8");
+writeFileSync(
+  join(repoRoot, "docs", "zh-CN", "README.md"),
+  chineseReadme(pets),
+  "utf8",
+);
 const catalog = pets.map((pet) => ({
   slug: pet.slug,
   name: pet.name,
@@ -479,7 +518,9 @@ const catalog = pets.map((pet) => ({
   description: pet.description,
   spriteVersionNumber: pet.spriteVersionNumber,
 }));
-const formattedCatalog = await format(JSON.stringify(catalog), { parser: "json" });
+const formattedCatalog = await format(JSON.stringify(catalog), {
+  parser: "json",
+});
 writeFileSync(join(repoRoot, "pets.json"), formattedCatalog, "utf8");
 
 console.log(`generated README files for ${pets.length} pet(s)`);

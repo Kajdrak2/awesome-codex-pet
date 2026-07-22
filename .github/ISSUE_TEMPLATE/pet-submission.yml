@@ -1,9 +1,15 @@
-name: Pet submission
-description: Propose a new Codex pet for inclusion
-title: "[Pet]: "
+name: Submit your pet
+description: Ask maintainers to review a pet you created with AI or supplied as existing files
+title: "[Submission]: "
 labels:
-  - submission
+  - "type: submission"
+  - "status: triage"
 body:
+  - type: markdown
+    attributes:
+      value: |
+        <!-- pet-flow: submission -->
+        Use this form when a pet already has a spritesheet or final package but a pull request cannot be opened yet. The recommended path is **Submit a pet with ChatGPT** on [codexpet.top](https://codexpet.top), which validates the files and opens a focused pull request through the GitHub API without a full clone.
   - type: input
     id: folder_slug
     attributes:
@@ -125,14 +131,14 @@ body:
     attributes:
       label: Asset license or non-commercial use statement
       description: A formal license is optional. If none applies, state clearly that the asset is for non-commercial use only and that you have the right to submit it.
-      placeholder: CC BY-NC 4.0, or: Non-commercial use only; I confirm I have the right to submit this asset.
+      placeholder: "CC BY-NC 4.0, or: Non-commercial use only; I confirm I have the right to submit this asset."
     validations:
       required: true
   - type: textarea
     id: assets
     attributes:
-      label: Included assets
-      description: The pet folder should only include the three final submission files. Do not attach Hatch Pet run directories, QA media, prompts, or references.
-      placeholder: submission.json, pet.json, spritesheet.webp
+      label: Available assets or attachment links
+      description: List the finished files available to ChatGPT or reviewers. You may drag a compact submission ZIP into this field when GitHub accepts the attachment. Never attach Hatch Pet run directories, QA media, prompts, or unrelated references.
+      placeholder: submission.json, pet.json, spritesheet.webp, or an attachment link
     validations:
       required: true

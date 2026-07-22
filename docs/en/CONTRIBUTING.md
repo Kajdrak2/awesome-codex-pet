@@ -12,13 +12,21 @@ This repository is curated, which means maintainers may edit titles, categories,
 - Make sure the pet can actually be installed in Codex
 - Make sure authorship and asset usage terms are clear
 
-## Preferred contribution flow
+## Choose one contribution path
 
-1. Open a pet submission issue first if you want feedback on fit or category.
-2. Prepare a single pet folder under `pets/<pet-slug>--<author-slug>/`.
-3. Open one pull request for one pet whenever possible.
-4. Include only the final submission files in `pets/<pet-id>/`.
-5. Do not commit generated README, `pets.json`, or preview assets in contributor PRs.
+### Request a pet with ChatGPT
+
+Use this when you have a character, concept, or references but no finished pet. The website opens a localized ChatGPT task that checks `pets.json` and existing issues, gathers the missing details, and creates a structured `[Request]` issue. No repository clone is needed, and an issue is not an acceptance or delivery promise.
+
+### Create or submit your pet with ChatGPT
+
+Start from a character and references, continue an in-progress pet, or give ChatGPT an existing pet folder or spritesheet. It follows [the repository submission skill](../../.agents/skills/submit-codex-pet), produces or repairs the pet, verifies duplicates, attribution, permission, metadata, atlas dimensions, animation quality, and transparent edges, then creates a focused branch and pull request through the GitHub API. A full clone is not required.
+
+When permission, attribution, duplicate status, or GitHub authorization cannot be resolved, ChatGPT creates a `[Submission]` issue for maintainer review instead of forcing a pull request.
+
+### Advanced pull request
+
+Contributors who prefer direct GitHub work can use the web editor, Codespaces, or a blob-filtered sparse clone. Prepare one folder under `pets/<pet-slug>--<author-slug>/`, open one pull request per pet, and do not include generated README files, `pets.json`, or preview assets.
 
 ## What happens after you open the pull request
 

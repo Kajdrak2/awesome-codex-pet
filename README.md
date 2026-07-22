@@ -22,7 +22,7 @@ This repository is the source catalog behind [codexpet.top](https://codexpet.top
 
 - **One-command install** — no clone, no manual setup, works on macOS / Linux / Windows
 - **Selected pet gallery** — complete animation previews, collections, creator credits, sharing, and community statistics at [codexpet.top](https://codexpet.top)
-- **GitHub-native submissions** — open an issue or PR, the rest is automated
+- **AI-first contributions** — ask the community to make a pet, or let ChatGPT create, finish, and submit your own; advanced contributors can still open a PR
 - **Open licensing** — code under MIT, pet assets under CC BY-NC 4.0
 
 Each pet is a small shareable package:
@@ -1227,9 +1227,15 @@ The **Update** action is an AI-assisted v1-to-v2 conversion, not a download noti
 
 ## Submit a Pet
 
-The fastest path is the [submission guide on the website](https://codexpet.top/guide). It walks through categories, the folder layout, and the reviewer checklist.
+Start with the [website contribution guide](https://codexpet.top/guide). It offers three paths without making every contributor download this large asset repository:
 
-If you prefer working from the repo:
+1. **Request a pet** — ChatGPT checks for duplicates, gathers references and requirements, then opens a labeled request issue.
+2. **Create or submit your own pet** — ChatGPT can start from references or existing files, complete and validate the three-file package, then use the GitHub API to create a focused branch and pull request without a full clone.
+3. **Advanced pull request** — experienced contributors can work in a GitHub Codespace, a partial clone, or their preferred Git workflow.
+
+The repository skill at [`.agents/skills/submit-codex-pet`](./.agents/skills/submit-codex-pet) teaches compatible AI agents how to choose the right route. When credentials or repository write access are unavailable, it falls back to a labeled submission issue instead of losing the contributor's work.
+
+Advanced contributors should add exactly one final package:
 
 ```text
 pets/
@@ -1265,6 +1271,7 @@ Contributor PRs should only include `submission.json`, `pet.json`, and `spritesh
 
 ## Make a Pet
 
+- [.agents/skills/submit-codex-pet](./.agents/skills/submit-codex-pet) — request community production, create or submit your own pet through the GitHub API, or prepare an advanced PR
 - [.agents/skills/hatch-pet-v1](./.agents/skills/hatch-pet-v1) — preserve or repair a legacy 8x9 v1 pet
 - [.agents/skills/hatch-pet-v2](./.agents/skills/hatch-pet-v2) — create or upgrade an 8x11 v2 pet with 16 look directions
 
