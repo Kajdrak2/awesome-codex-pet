@@ -711,6 +711,18 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "kiko--untko",
+    "name": "Kiko",
+    "author": "untko",
+    "author_handle": "untko",
+    "author_url": "https://github.com/untko",
+    "primary_category": "Animals",
+    "collections": ["animal-companions"],
+    "license": "CC BY-NC 4.0. The creator owns or controls the Kiko artwork and authorizes its redistribution and modification under CC BY-NC 4.0, without warranty.",
+    "description": "A cheerful color-changing gecko companion with expressive animations and curious eyes.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "kimoju--andiac",
     "name": "Kimoju",
     "author": "andiac",
@@ -758,6 +770,18 @@
     "license": "Non-commercial repository redistribution authorized by the original asset creator; permission confirmed by the repository maintainer on 2026-07-18.",
     "description": "A tiny airborne sword fighter who jumps, spins, and swings twin blades.",
     "spriteVersionNumber": 1
+  },
+  {
+    "slug": "lil-swole--gg0805",
+    "name": "Lil Swole",
+    "author": "gg0805",
+    "author_handle": "gg0805",
+    "author_url": "https://github.com/gg0805",
+    "primary_category": "Animals",
+    "collections": ["animal-companions"],
+    "license": "CC BY-NC 4.0. Original AI-generated artwork created for and submitted by gg0805; no third-party source assets were used.",
+    "description": "A cultured, gloriously brainrotted gym-rat icon who curls a computer mouse while his parrot wingman launches dumbbells.",
+    "spriteVersionNumber": 2
   },
   {
     "slug": "linnea--nyakku-shigure",
