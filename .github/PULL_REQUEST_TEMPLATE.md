@@ -4,6 +4,10 @@
 - What category does it belong to?
 - Related request or submission issue (if any):
 
+## Visual evidence
+
+Drag a contact sheet here. CI also uploads a downloadable preview artifact for changed pets. Preview files belong in the PR description or CI artifact, not in the pet directory.
+
 ## Checklist
 
 - [ ] This pull request focuses on one pet only
@@ -17,6 +21,10 @@
 - [ ] `submission.json` is filled in
 - [ ] Authorship is clear
 - [ ] Asset usage terms are clear: either a formal license or an explicit non-commercial-only statement
+- [ ] A contact sheet or equivalent frame-by-frame visual preview is available to reviewers
+- [ ] Character identity, scale, baseline, and props remain consistent across every frame
+- [ ] Right/left directions, running gait, action meanings, and v2 look directions are visually correct
+- [ ] Transparent edges were checked on checkerboard, dark, and light backgrounds
 - [ ] I understand maintainers will visually review character direction, action quality, animation continuity, and transparent-edge colors, and may optimize the spritesheet or metadata before merge
 - [ ] Generated previews, README files, `pets.json`, prompts, references, QA media, and Hatch Pet run directories are not included
 - [ ] `npm run validate:pr` passes

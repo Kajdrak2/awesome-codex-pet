@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 
@@ -177,11 +178,29 @@ def generate_for_pet(pet_dir: Path) -> None:
     print(f"generated previews for {pet_dir.name}")
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "pet_ids",
+        nargs="*",
+        help="Optional pet directory names. Omit to generate previews for every pet.",
+    )
+    return parser.parse_args()
+
+
 def main() -> None:
+    args = parse_args()
     repo_root = Path(__file__).resolve().parents[1]
     pets_dir = repo_root / "pets"
-    for pet_dir in sorted(pets_dir.iterdir()):
-        if pet_dir.is_dir() and not pet_dir.name.startswith("."):
+    pet_dirs = (
+        [pets_dir / pet_id for pet_id in args.pet_ids]
+        if args.pet_ids
+        else sorted(pets_dir.iterdir())
+    )
+    for pet_dir in pet_dirs:
+        if not pet_dir.is_dir():
+            raise ValueError(f"unknown pet directory: {pet_dir.name}")
+        if not pet_dir.name.startswith("."):
             generate_for_pet(pet_dir)
 
 

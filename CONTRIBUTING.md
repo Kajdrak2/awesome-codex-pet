@@ -10,7 +10,7 @@ The detailed contribution guide lives in the language-specific docs:
 Quick checklist:
 
 - Start at [codexpet.top](https://codexpet.top): open the workflow in local Codex or copy its prompt, then request community production or create and submit your own pet without a full clone
-- Use a `[Request]` issue when the pet does not exist yet; use a `[Submission]` issue only when a nearly finished pet is blocked from opening a PR
+- Use a `[Request]` issue when the pet does not exist yet; use a `[Submission]` issue only with the submitter's approval when one actionable blocker remains after recovery and retry
 - Advanced contributors may open a focused pull request through GitHub, Codespaces, or a sparse clone
 - Use `pets/<pet-slug>--<author-slug>/`
 - Submit only `submission.json`, `pet.json`, and `spritesheet.webp`

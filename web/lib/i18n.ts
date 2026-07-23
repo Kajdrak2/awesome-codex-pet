@@ -337,7 +337,7 @@ export const translations = {
     guideChecklistItem4:
       "The final folder contains only submission.json, pet.json, and spritesheet.webp, and the version matches the atlas.",
     guideChecklistItem5:
-      "Author, source, collection, category, tags, and redistribution license are accurate and complete.",
+      "Final-asset authorship, reference/source notes, collection, category, tags, and non-commercial usage terms are stated truthfully.",
     guideChecklistItem6:
       "Previews, validation, lint, and a clean install test all pass before one focused pull request is opened.",
     guideCommunityEyebrow: "Community distribution",
@@ -704,7 +704,7 @@ export const translations = {
     guideChecklistItem4:
       "正式目录只保留 submission.json、pet.json、spritesheet.webp，且版本字段与图集尺寸完全匹配。",
     guideChecklistItem5:
-      "作者、来源、合集、分类、标签和再分发许可证都真实、完整、可追溯。",
+      "最终资产作者、参考与来源说明、合集、分类、标签和非商业使用条件都如实填写。",
     guideChecklistItem6:
       "预览、校验、Lint 与独立安装测试全部通过，再发起一份范围清晰的独立 PR。",
     guideCommunityEyebrow: "社区传播",

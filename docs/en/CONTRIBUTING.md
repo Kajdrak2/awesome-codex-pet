@@ -20,9 +20,9 @@ Use this when you have a character, concept, or references but no finished pet. 
 
 ### Create or submit your pet with Codex
 
-Start from a character and references, continue an in-progress pet, or give Codex an existing pet folder or spritesheet. It follows [the repository submission skill](../../.agents/skills/submit-codex-pet), produces or repairs the pet, verifies duplicates, attribution, permission, metadata, atlas dimensions, animation quality, and transparent edges, then creates a focused branch and pull request through the GitHub API. A full clone is not required. If Codex is not installed, copy the prompt from the website and use it with another capable AI assistant.
+Start from a character and references, continue an in-progress pet, or give Codex an existing pet folder or spritesheet. It follows [the repository submission skill](../../.agents/skills/submit-codex-pet), produces or repairs the pet, verifies duplicates, attribution, non-commercial terms, metadata, atlas dimensions, animation quality, and transparent edges, then creates a focused branch and pull request through the GitHub API. A full clone is not required. If Codex is not installed, copy the prompt from the website and use it with another capable AI assistant.
 
-When permission, attribution, duplicate status, or GitHub authorization cannot be resolved, the AI workflow creates a `[Submission]` issue for maintainer review instead of forcing a pull request.
+The workflow first recovers missing source notes, repairs existing pixels when they undermine visual quality, and retries GitHub authorization. A missing public source URL or formal license name is not a blocker when authorship and source notes are truthful and non-commercial usage terms are explicit. Only unresolved review materials, duplicate judgment, or GitHub authorization becomes a concise `[Submission]` issue, with the submitter's approval and reviewable attachments.
 
 ### Advanced pull request
 
@@ -36,6 +36,8 @@ Opening a pull request starts visual curation; it does not mean the submitted im
 - whether each action reads correctly and the running gait alternates naturally
 - scale, baseline, identity, and animation continuity
 - transparent edges on checkerboard, dark, and light backgrounds, including green, purple, cyan, magenta, or other chroma residue
+
+Attach a contact sheet to the pull request description. Pull request CI also generates previews for changed pets and uploads them as a downloadable workflow artifact; these previews must not be committed to the pet directory.
 
 When needed, maintainers may repair or replace individual frames, action rows, look directions, `spritesheet.webp`, or metadata before merge. Changes should preserve the submitted character and credit while bringing the pet up to the repository's runtime and visual-quality standard. Maintainers may ask the contributor to review a substantial visual change.
 
@@ -103,7 +105,7 @@ Use this repository-level schema:
 
 `canonical_key` is the stable identity used for duplicate review. Use the same key for variants of the same character; use an `original/<author>/<name>` key for a creator-owned character. Existing pets without this field remain valid and are indexed from their names, tags, and source metadata during review.
 
-A formal license name is optional. The `license` field may contain a recognized license or plain-language usage terms. When no formal license applies, state at minimum that the asset is for non-commercial use only and that the submitter has the right to contribute it. A public `source_url` is helpful but optional for original, AI-generated, or privately sourced work; describe the source honestly in `source_type`, `description`, or the usage note.
+A formal license name is optional. The `license` field may contain a recognized license or plain-language usage terms. When no formal license applies, state at minimum that the asset is for non-commercial use only. A public `source_url` is helpful but optional for original, AI-generated, or privately sourced work; describe the source honestly in `source_type`, `description`, or the usage note.
 
 ## Pull request checklist
 

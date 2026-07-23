@@ -12,7 +12,7 @@ The website's **Submit** menu has two primary AI workflows and one advanced fall
 
 ### Request a pet
 
-Choose this when you have a character, concept, or references but no finished pet. Codex searches `pets.json`, collections, and existing issues without cloning the full repository; gathers the character, franchise, preferred version, visual direction, attribution, and permission status; then opens a structured `[Request]` issue. Repository automation applies type, status, version, and category labels.
+Choose this when you have a character, concept, or references but no finished pet. Codex searches `pets.json`, collections, and existing issues without cloning the full repository; gathers the character, franchise, preferred version, visual direction, attribution, and non-commercial usage status; then opens a structured `[Request]` issue. Repository automation applies type, status, version, and category labels.
 
 A request records community interest and production context. It does not mean that the pet is accepted, scheduled, or safe to redistribute from the supplied references.
 
@@ -20,13 +20,13 @@ A request records community interest and production context. It does not mean th
 
 Choose this when you want to own and submit the result. You can start from a character and references, continue an in-progress pet, or attach an existing pet folder or spritesheet. Codex reads [the repository submission skill](../../.agents/skills/submit-codex-pet), creates or repairs the final three-file package, checks duplicates and rights, validates it, and uses the GitHub API to create a fork branch and focused pull request. The contributor does not need a full repository clone.
 
-When GitHub authorization, attribution, permission, or duplicate status cannot be resolved, the AI workflow creates a `[Submission]` issue for maintainer review instead of forcing a pull request.
+The default outcome is a reviewable pull request, not a blocker report. A missing public `source_url` or formal license name does not block a pet when authorship and source notes are honest and repository use is explicitly non-commercial. Direct crops, traces, cleanup, or reused pixels should be disclosed and repaired or regenerated when they undermine identity consistency, action quality, outlines, or transparent edges. A concise `[Submission]` issue is reserved for unresolved review materials, duplicate judgment, or GitHub authorization, and only with the submitter's approval.
 
 ### Advanced pull request
 
 Experienced contributors can use GitHub's web editor, Codespaces, or a sparse blob-filtered clone and follow [CONTRIBUTING.md](./CONTRIBUTING.md). This path keeps full control over the branch and commit while following the same package and review rules.
 
-AI assistance never relaxes attribution or usage-term requirements. The submitter remains responsible for accurate authorship, honest source notes, the right to submit, and the stated non-commercial or licensed usage terms.
+AI assistance never relaxes attribution, source-note, non-commercial-use, or visual-quality requirements.
 
 ## The selection standard
 

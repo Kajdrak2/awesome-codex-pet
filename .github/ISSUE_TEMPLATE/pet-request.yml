@@ -57,11 +57,11 @@ body:
     id: request_kind
     attributes:
       label: Request type
-      description: Existing artwork is treated only as reference unless its author and usage terms permit redistribution.
+      description: State whether existing artwork is reference-only or will be adapted directly. All repository output is non-commercial by default.
       options:
         - Create a new community interpretation
         - Adapt my own original artwork
-        - Review an existing asset and its permission first
+        - Review an existing asset and its source notes first
     validations:
       required: true
   - type: textarea
@@ -93,9 +93,9 @@ body:
   - type: textarea
     id: attribution
     attributes:
-      label: Author, source, and usage notes
-      description: Required when the request proposes reusing or adapting an existing asset. Unknown permission means the material can be used only as a reference.
-      placeholder: Original author, source URL, license, non-commercial terms, or "reference only; permission not established"
+      label: Author, source, and non-commercial usage notes
+      description: Required when the request proposes reusing or adapting an existing asset. Keep attribution honest and state non-commercial use even when the original URL is unknown.
+      placeholder: Original author when known, source URL when available, and "non-commercial use only"
   - type: textarea
     id: duplicate_check
     attributes:
@@ -111,5 +111,5 @@ body:
       options:
         - label: I understand that a request is not an acceptance or delivery promise.
           required: true
-        - label: I have not claimed third-party artwork or permission that I do not own.
+        - label: I have not presented third-party artwork as my own.
           required: true

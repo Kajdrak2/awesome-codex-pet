@@ -36,8 +36,17 @@ jobs:
             function fieldValue(headings) {
               for (const heading of headings) {
                 const escaped = heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-                const match = body.match(new RegExp(`### ${escaped}\\s+([^\\n]+)`, "i"));
-                if (match) return match[1].trim();
+                const headingMatch = body.match(
+                  new RegExp(`^#{2,4}\\s+${escaped}\\s*\\n+([^\\n]+)`, "im"),
+                );
+                if (headingMatch) return headingMatch[1].trim();
+                const inlineMatch = body.match(
+                  new RegExp(
+                    `^\\s*(?:[-*]\\s*)?(?:\\*\\*)?${escaped}(?:\\*\\*)?\\s*[:：]\\s*([^\\n]+)`,
+                    "im",
+                  ),
+                );
+                if (inlineMatch) return inlineMatch[1].trim();
               }
               return "";
             }
@@ -45,6 +54,11 @@ jobs:
             const versionValue = fieldValue([
               "Pet runtime version",
               "Preferred pet runtime version",
+              "Sprite version",
+              "宠物运行版本",
+              "首选宠物运行版本",
+              "Sprite 版本",
+              "图集版本",
             ]).toLowerCase();
             const version = versionValue.startsWith("v1")
               ? "v1"
@@ -55,6 +69,8 @@ jobs:
             const categoryValue = fieldValue([
               "Primary category",
               "Preferred primary category",
+              "主分类",
+              "首选主分类",
             ]);
             const categoryLabels = {
               "Game Characters": "category: game",
@@ -68,6 +84,17 @@ jobs:
               Memes: "category: meme",
               "Objects & Props": "category: object",
               Others: "category: other",
+              游戏角色: "category: game",
+              动漫角色: "category: anime",
+              原创角色: "category: original",
+              吉祥物: "category: mascot",
+              动物: "category: animal",
+              奇幻生物: "category: fantasy",
+              机器人: "category: robot",
+              人物形象: "category: avatar",
+              网络梗: "category: meme",
+              物品与道具: "category: object",
+              其他: "category: other",
             };
 
             const current = issue.labels.map((label) =>

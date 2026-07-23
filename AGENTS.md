@@ -173,7 +173,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -UseB https://raw.gi
 - 代码和脚本：`MIT`
 - pet 资产和自动生成预览：`CC BY-NC 4.0`
 
-投稿不强制使用某个正式许可证名称。`submission.json.license` 可以填写 SPDX/Creative Commons 等正式许可证，也可以填写清楚的自定义使用说明；没有正式许可证时，至少必须明确“仅限非商业使用/禁止商用”。提交者仍需确认自己有权投稿并如实说明作者和素材来源；原创、AI 生成或无法公开链接的素材可以不提供公开 `source_url`，但应在来源类型、描述或使用说明中交代情况。
+投稿不强制使用某个正式许可证名称。`submission.json.license` 可以填写 SPDX/Creative Commons 等正式许可证，也可以填写清楚的自定义使用说明；没有正式许可证时，至少必须明确“仅限非商业使用/禁止商用”。仓库不把投稿权证明作为收录门槛，但作者和素材来源必须如实说明；原创、AI 生成或无法公开链接的素材可以不提供公开 `source_url`，但应在来源类型、描述或使用说明中交代情况。收录审核重点是角色一致性、动作质量、方向、动画连续性、透明边缘和运行时正确性。
 
 对于公开网页来源的 pet：
 

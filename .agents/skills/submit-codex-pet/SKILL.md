@@ -1,6 +1,6 @@
 ---
 name: submit-codex-pet
-description: Request or submit pets to Awesome Codex Pet without a full repository clone. Use when a user wants the community to make a pet, wants AI to create or finish their own pet from references, wants to submit existing pet files, needs duplicate and permission review, or wants a focused GitHub issue or pull request created and followed through CI.
+description: Request or submit pets to Awesome Codex Pet without a full repository clone. Use when a user wants the community to make a pet, wants AI to create or finish their own pet from references, wants to submit existing pet files, needs duplicate, attribution, and visual-quality review, or wants a focused GitHub issue or pull request created and followed through CI.
 ---
 
 # Submit Codex Pet
@@ -11,7 +11,7 @@ Use GitHub APIs or an authenticated GitHub CLI by default. Do not make the user 
 
 - **Request**: the user wants the community or maintainers to make a pet. Search for duplicates and create a `[Request]` issue containing `<!-- pet-flow: request -->`; do not make or submit the pet in this route.
 - **Submission**: the user owns the submission and wants AI to create or finish it from references, or already has a spritesheet, pet folder, or finished assets. Complete production as needed, validate the result, then open a focused pull request through the GitHub API.
-- **Blocked submission**: attribution, permission, duplicate status, or GitHub authorization cannot be resolved. Create a `[Submission]` issue containing `<!-- pet-flow: submission -->` instead of forcing a pull request.
+- **Blocked submission**: use only after trying the recovery steps below and receiving the user's approval. Create a concise `[Submission]` issue containing `<!-- pet-flow: submission -->` when a duplicate needs maintainer judgment, required review files cannot be made accessible, or GitHub authorization remains unavailable.
 - **Advanced PR**: the user explicitly prefers Git, GitHub, or Codespaces. Follow `CONTRIBUTING.md`; use a sparse, blob-filtered clone when a local checkout is needed.
 
 Repository: `https://github.com/legeling/awesome-codex-pet`
@@ -20,15 +20,19 @@ Repository: `https://github.com/legeling/awesome-codex-pet`
 
 1. Read `pets.json`, `collections.json`, and open pet issues through GitHub. Search canonical identity, localized names, franchise, author, and tags.
 2. Ask for the character or concept, original work, V1/V2 preference, references, visual direction, naming language, and any available attribution or usage terms.
-3. Treat third-party art without redistribution permission as reference only. Never imply that a request is accepted or scheduled.
+3. Keep reference authorship and source notes truthful, mark the requested output as non-commercial, and never imply that a request is accepted or scheduled.
 4. Follow `.github/ISSUE_TEMPLATE/pet-request.yml`. Include the duplicate result and unresolved questions.
 5. Create the issue and return its URL. Repository automation manages type, status, version, and category labels.
 
 ## Submission workflow
 
 1. Read `AGENTS.md`, `CONTRIBUTING.md`, the relevant Hatch Pet skill, schemas, validation scripts, `pets.json`, and `collections.json` through GitHub before editing.
-2. Ask whether the user wants to create a pet now from a character or references, finish an in-progress pet, or submit an existing final package. For new production, collect the character, references, visual direction, V1/V2 choice, naming language, author, source, and usage permission before running the relevant Hatch Pet workflow.
-3. Inspect all supplied references and files. Determine the true author, source, permission, canonical identity, category, collection membership, version, and bilingual-name choice. Do not invent missing facts.
+2. Ask whether the user wants to create a pet now from a character or references, finish an in-progress pet, or submit an existing final package. Collect missing decisions in one compact question set: character, V1/V2, naming language, submitter credit, how the final pixels were made, and confirmation that repository use is non-commercial.
+3. Inspect all supplied references and files. Separate final-asset provenance from reference provenance:
+   - For an original or independently AI-generated pet, credit the submitter or adapter as the pet author. A public `source_url` is optional; record the source honestly and mark repository use as non-commercial.
+   - For fan art generated independently from character references, treat the references as reference-only, do not upload them, and do not claim their artists as the pet author. Record the franchise or official character source when known.
+   - For a direct crop, cleanup, animation, trace, or substantial pixel reuse of an existing image, record that relationship honestly. Regenerate or repair it when the borrowed pixels prevent consistent identity, clean edges, readable actions, or a coherent spritesheet.
+     Do not invent missing facts or treat an absent public URL as an automatic blocker.
 4. Search for duplicate canonical characters or concepts. A materially different authorized variant may proceed only when its distinction is documented.
 5. Produce exactly:
 
@@ -42,8 +46,20 @@ Repository: `https://github.com/legeling/awesome-codex-pet`
 6. Use Hatch Pet v1 for an 8x9, `1536x1872` atlas. Use Hatch Pet v2 for an 8x11, `1536x2288` atlas with `spriteVersionNumber: 2` and 16 look directions.
 7. Inspect all frames and animations on checkerboard, dark, and light backgrounds. Repair the smallest failing scope. Do not globally remove colors that belong to the character.
 8. Run `npm run validate:pr`, `npm run lint`, and an isolated install test in a temporary workspace. Contributor changes must not include generated README files, `pets.json`, previews, QA, references, prompts, or temporary output.
-9. With upstream write access, create a focused branch directly. Otherwise create or reuse the user's fork, construct blobs/tree/commit through the GitHub API, push one submission branch, and open a pull request against upstream `main`.
-10. Document duplicate research, author, source, permission, version, validation, and any linked request. Follow CI until it passes; fix deterministic failures and stop for human judgment on identity, permission, or curation.
+9. Show the user a contact sheet or the final spritesheet before publication and obtain visual approval. With upstream write access, create a focused branch directly. Otherwise create or reuse the user's fork, construct blobs/tree/commit through the GitHub API, push one submission branch, and open a pull request against upstream `main`. Attach the contact sheet to the pull request description; keep it out of the committed pet directory. Repository CI also uploads generated previews as a workflow artifact.
+10. Document duplicate research, final-asset authorship, reference/source notes, non-commercial terms, version, validation, and any linked request. Follow CI until it passes; fix deterministic failures and stop for human judgment on identity, visual quality, duplicate acceptance, or curation.
+
+## Recover before opening a blocked issue
+
+The default outcome for a submission is a reviewable pull request, not a blocker report. Before falling back to an issue:
+
+1. If a source URL is missing, classify the final asset as original, independently generated fan art, private source, or direct reuse. Record the classification and continue; an absent public URL is not a blocker.
+2. If reused pixels produce inconsistent identity, poor animation, damaged outlines, or chroma residue, regenerate or repair the smallest failing scope and repeat visual QA.
+3. If only a formal license name is missing, use the repository default after confirmation: `Non-commercial use only.`
+4. If GitHub authorization is missing, ask the user to connect GitHub and retry the pull-request path.
+5. If a duplicate is only a different visual variant, document the material distinction and continue when repository policy allows it.
+
+Open a blocked `[Submission]` issue only when one of these steps genuinely cannot complete and the user agrees to the fallback. Keep it actionable: state the single unresolved decision, the exact next step, and attach a contact sheet plus an accessible spritesheet or compact final package. Filenames and local paths are not attachments. Use the Issue Form headings `### Pet runtime version` and `### Primary category` so repository automation can apply version and category labels. Do not publish a long validation report for local files that maintainers cannot access.
 
 ## Safety and scope
 
