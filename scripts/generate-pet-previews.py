@@ -198,10 +198,11 @@ def main() -> None:
         else sorted(pets_dir.iterdir())
     )
     for pet_dir in pet_dirs:
+        if pet_dir.name.startswith("."):
+            continue
         if not pet_dir.is_dir():
             raise ValueError(f"unknown pet directory: {pet_dir.name}")
-        if not pet_dir.name.startswith("."):
-            generate_for_pet(pet_dir)
+        generate_for_pet(pet_dir)
 
 
 if __name__ == "__main__":
