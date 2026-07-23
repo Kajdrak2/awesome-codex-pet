@@ -20,9 +20,15 @@ Repository: `https://github.com/legeling/awesome-codex-pet`
 
 1. Read `pets.json`, `collections.json`, and open pet issues through GitHub. Search canonical identity, localized names, franchise, author, and tags.
 2. Ask for the character or concept, original work, V1/V2 preference, references, visual direction, naming language, and any available attribution or usage terms.
-3. Keep reference authorship and source notes truthful, mark the requested output as non-commercial, and never imply that a request is accepted or scheduled.
-4. Follow `.github/ISSUE_TEMPLATE/pet-request.yml`. Include the duplicate result and unresolved questions.
-5. Create the issue and return its URL. Repository automation manages type, status, version, and category labels.
+3. Classify reference availability before creating the issue:
+   - A real pet, original character, avatar, or other appearance-specific request requires at least one image attachment or public image URL that maintainers can open.
+   - A known canonical character may use an official character or source page when that page clearly establishes the appearance.
+   - An appearance-free concept may proceed without an image only when the issue explicitly says it has no fixed visual appearance.
+     A local filename, filesystem path, image visible only in the current chat, or prose saying that a photo exists is not an accessible reference.
+4. When creating an issue through the GitHub API, do not imply that a local or chat image was uploaded. If the available GitHub capability cannot upload it, pause issue creation and ask the user to attach the image through GitHub, then verify that the issue body or comment contains a viewable attachment URL before treating the request as complete.
+5. Keep reference authorship and source notes truthful, mark the requested output as non-commercial, and never imply that a request is accepted or scheduled.
+6. Follow `.github/ISSUE_TEMPLATE/pet-request.yml`. Include the duplicate result and unresolved questions.
+7. Create the issue and return its URL. Repository automation manages type, status, version, and category labels.
 
 ## Submission workflow
 
@@ -46,7 +52,7 @@ Repository: `https://github.com/legeling/awesome-codex-pet`
 6. Use Hatch Pet v1 for an 8x9, `1536x1872` atlas. Use Hatch Pet v2 for an 8x11, `1536x2288` atlas with `spriteVersionNumber: 2` and 16 look directions.
 7. Inspect all frames and animations on checkerboard, dark, and light backgrounds. Repair the smallest failing scope. Do not globally remove colors that belong to the character.
 8. Run `npm run validate:pr`, `npm run lint`, and an isolated install test in a temporary workspace. Contributor changes must not include generated README files, `pets.json`, previews, QA, references, prompts, or temporary output.
-9. Show the user a contact sheet or the final spritesheet before publication and obtain visual approval. With upstream write access, create a focused branch directly. Otherwise create or reuse the user's fork, construct blobs/tree/commit through the GitHub API, push one submission branch, and open a pull request against upstream `main`. Attach the contact sheet to the pull request description; keep it out of the committed pet directory. Repository CI also uploads generated previews as a workflow artifact.
+9. Show the user a contact sheet or the final spritesheet before publication and obtain visual approval. With upstream write access, create a focused branch directly. Otherwise create or reuse the user's fork, construct blobs/tree/commit through the GitHub API, push one submission branch, and open a pull request against upstream `main`. Once the package, visual approval, and required validation are complete, create the pull request as **ready for review, not draft**. Use a draft only when the user explicitly asks for one or the submission is knowingly unfinished, and state the remaining work. Attach the contact sheet to the pull request description; keep it out of the committed pet directory. Repository CI also uploads generated previews as a workflow artifact.
 10. Document duplicate research, final-asset authorship, reference/source notes, non-commercial terms, version, validation, and any linked request. Follow CI until it passes; fix deterministic failures and stop for human judgment on identity, visual quality, duplicate acceptance, or curation.
 
 ## Recover before opening a blocked issue

@@ -11,7 +11,9 @@ Quick checklist:
 
 - Start at [codexpet.top](https://codexpet.top): open the workflow in local Codex or copy its prompt, then request community production or create and submit your own pet without a full clone
 - Use a `[Request]` issue when the pet does not exist yet; use a `[Submission]` issue only with the submitter's approval when one actionable blocker remains after recovery and retry
+- Appearance-specific requests must include a maintainer-viewable image attachment, public image URL, or official character/source page; private-chat images, local paths, and prose descriptions are not attachments
 - Advanced contributors may open a focused pull request through GitHub, Codespaces, or a sparse clone
+- Completed submissions should be opened as ready-for-review pull requests; drafts are only for knowingly unfinished work and must list what remains
 - Use `pets/<pet-slug>--<author-slug>/`
 - Submit only `submission.json`, `pet.json`, and `spritesheet.webp`
 - Keep `pet.json` `id` equal to the folder name

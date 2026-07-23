@@ -18,11 +18,15 @@ This repository is curated, which means maintainers may edit titles, categories,
 
 Use this when you have a character, concept, or references but no finished pet. The website opens a localized task in the local Codex app, or lets you copy the same prompt for another AI assistant. The task checks `pets.json` and existing issues, gathers the missing details, and creates a structured `[Request]` issue. No repository clone is needed, and an issue is not an acceptance or delivery promise.
 
+Appearance-specific requests, including real pets, original characters, and avatars, need a maintainer-viewable image attachment or public image URL. A private-chat image, local path, filename, or prose description is not an attachment.
+
 ### Create or submit your pet with Codex
 
 Start from a character and references, continue an in-progress pet, or give Codex an existing pet folder or spritesheet. It follows [the repository submission skill](../../.agents/skills/submit-codex-pet), produces or repairs the pet, verifies duplicates, attribution, non-commercial terms, metadata, atlas dimensions, animation quality, and transparent edges, then creates a focused branch and pull request through the GitHub API. A full clone is not required. If Codex is not installed, copy the prompt from the website and use it with another capable AI assistant.
 
 The workflow first recovers missing source notes, repairs existing pixels when they undermine visual quality, and retries GitHub authorization. A missing public source URL or formal license name is not a blocker when authorship and source notes are truthful and non-commercial usage terms are explicit. Only unresolved review materials, duplicate judgment, or GitHub authorization becomes a concise `[Submission]` issue, with the submitter's approval and reviewable attachments.
+
+Completed submissions must be opened as ready-for-review pull requests. Use a draft only for knowingly unfinished work and list what remains.
 
 ### Advanced pull request
 

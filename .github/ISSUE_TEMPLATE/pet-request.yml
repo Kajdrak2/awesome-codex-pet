@@ -64,12 +64,23 @@ body:
         - Review an existing asset and its source notes first
     validations:
       required: true
+  - type: dropdown
+    id: reference_status
+    attributes:
+      label: Reference availability
+      description: Choose the evidence maintainers can actually open from this issue. A local filename, private chat image, or prose description is not an attachment.
+      options:
+        - A viewable image attachment or public image URL is included
+        - An official character or source page is included
+        - This concept intentionally has no fixed visual appearance
+    validations:
+      required: true
   - type: textarea
     id: references
     attributes:
       label: References
-      description: Add official character pages, your own reference material, or image links. Drag images here when useful. Do not present third-party art as your own.
-      placeholder: Links, attachments, and notes about the most recognizable traits
+      description: For a real pet, original character, avatar, or other appearance-specific request, attach at least one viewable image or public image URL before submitting. Known characters may use an official character or source page. Dragging an image into another app or mentioning a local path does not upload it to GitHub.
+      placeholder: GitHub image attachment or public/official URL, followed by notes about the most recognizable traits
     validations:
       required: true
   - type: textarea

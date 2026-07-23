@@ -4,6 +4,8 @@
 - What category does it belong to?
 - Related request or submission issue (if any):
 
+Submit a completed pet as **Ready for review**, not as a draft. Use a draft only for knowingly unfinished work, and list what remains.
+
 ## Visual evidence
 
 Drag a contact sheet here. CI also uploads a downloadable preview artifact for changed pets. Preview files belong in the PR description or CI artifact, not in the pet directory.

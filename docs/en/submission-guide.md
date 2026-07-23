@@ -14,13 +14,15 @@ The website's **Submit** menu has two primary AI workflows and one advanced fall
 
 Choose this when you have a character, concept, or references but no finished pet. Codex searches `pets.json`, collections, and existing issues without cloning the full repository; gathers the character, franchise, preferred version, visual direction, attribution, and non-commercial usage status; then opens a structured `[Request]` issue. Repository automation applies type, status, version, and category labels.
 
+A real pet, original character, avatar, or other appearance-specific request must include at least one image attachment or public image URL that maintainers can open. A known character may use an official character or source page. Images visible only in a private chat, local paths, filenames, and prose saying that a photo exists are not accessible references.
+
 A request records community interest and production context. It does not mean that the pet is accepted, scheduled, or safe to redistribute from the supplied references.
 
 ### Create or submit your own pet
 
 Choose this when you want to own and submit the result. You can start from a character and references, continue an in-progress pet, or attach an existing pet folder or spritesheet. Codex reads [the repository submission skill](../../.agents/skills/submit-codex-pet), creates or repairs the final three-file package, checks duplicates and rights, validates it, and uses the GitHub API to create a fork branch and focused pull request. The contributor does not need a full repository clone.
 
-The default outcome is a reviewable pull request, not a blocker report. A missing public `source_url` or formal license name does not block a pet when authorship and source notes are honest and repository use is explicitly non-commercial. Direct crops, traces, cleanup, or reused pixels should be disclosed and repaired or regenerated when they undermine identity consistency, action quality, outlines, or transparent edges. A concise `[Submission]` issue is reserved for unresolved review materials, duplicate judgment, or GitHub authorization, and only with the submitter's approval.
+The default outcome is a ready-for-review pull request, not a draft or blocker report. Drafts are only for knowingly unfinished work and must state what remains. A missing public `source_url` or formal license name does not block a pet when authorship and source notes are honest and repository use is explicitly non-commercial. Direct crops, traces, cleanup, or reused pixels should be disclosed and repaired or regenerated when they undermine identity consistency, action quality, outlines, or transparent edges. A concise `[Submission]` issue is reserved for unresolved review materials, duplicate judgment, or GitHub authorization, and only with the submitter's approval.
 
 ### Advanced pull request
 

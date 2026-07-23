@@ -26,11 +26,13 @@ export function getPetRequestPrompt(locale: Locale) {
 
 执行要求：
 1. 通过 GitHub API 或网页读取仓库的 pets.json、collections.json 和现有 Issues，先检查相同角色或概念是否已经存在；不要为了查重克隆整个仓库。
-2. 向我询问角色或概念名称、所属作品、希望的 V1/V2、参考图或参考链接、偏好的画风、名称语言和补充要求。缺少的信息可以留作待确认项，不能臆造作者或来源。
-3. 区分“希望社区基于公开角色重新创作”和“希望直接改编某份现有素材”。如实说明素材作者与来源，并将仓库产物标记为仅限非商业使用。
-4. 使用仓库的 pet-request Issue Form 字段组织内容，标题使用“[Request]: 角色或概念名称”。正文开头保留 <!-- pet-flow: request -->，写清查重结果、角色与作品、版本、参考资料、制作方向、署名与非商业使用状态。
-5. 使用已连接的 GitHub 能力在 ${repositoryUrl} 创建 Issue。仓库自动化会添加 type: request 和 status: triage 标签；不要自行创建重复标签。
-6. Issue 创建后，把完整链接和仍需补充的信息告诉我。不要声称宠物已经制作或收录。
+2. 向我询问角色或概念名称、所属作品、希望的 V1/V2、参考图或参考链接、偏好的画风、名称语言和补充要求。不能臆造作者或来源。
+3. 创建 Issue 前检查维护者能否打开参考资料：真实宠物、原创角色、头像或其他依赖具体外观的请求，必须至少有一张已上传到 GitHub 的图片附件或公开图片链接；已有知名角色可以提供能明确外观的官方角色页或来源页；只有明确“不限定外观”的概念才可以没有图片。当前对话里的图片、本地文件名或路径、以及“用户提供了照片”之类的文字描述都不算 GitHub 附件。
+4. 如果当前 GitHub 能力不能上传本地或对话图片，不要先创建一个没有图片的 Issue，也不要声称图片已经上传；请我先在 GitHub Issue 或评论中附图，随后验证正文或评论里出现维护者可打开的附件链接，再把请求视为完成。
+5. 区分“希望社区基于公开角色重新创作”和“希望直接改编某份现有素材”。如实说明素材作者与来源，并将仓库产物标记为仅限非商业使用。
+6. 使用仓库的 pet-request Issue Form 字段组织内容，标题使用“[Request]: 角色或概念名称”。正文开头保留 <!-- pet-flow: request -->，写清查重结果、角色与作品、版本、参考资料、制作方向、署名与非商业使用状态。
+7. 使用已连接的 GitHub 能力在 ${repositoryUrl} 创建 Issue。仓库自动化会添加 type: request 和 status: triage 标签；不要自行创建重复标签。
+8. Issue 创建后，把完整链接和仍需补充的信息告诉我。不要声称宠物已经制作或收录。
 
 先向我询问角色或概念名称，然后完成查重和 Issue 创建。`;
   }
@@ -41,11 +43,13 @@ The goal is a clear, actionable GitHub issue. Do not clone the repository and do
 
 Requirements:
 1. Use the GitHub API or website to inspect pets.json, collections.json, and existing issues for the same character or concept. Do not clone the full repository for duplicate research.
-2. Ask me for the character or concept, original work, preferred V1/V2 runtime, references, visual direction, naming language, and any special requirements. Leave unknowns clearly marked instead of inventing authorship or sources.
-3. Distinguish a request for an original community interpretation from a request to adapt an existing asset. Keep author and source notes honest, and mark repository output as non-commercial.
-4. Follow the repository's pet-request issue fields. Use the title "[Request]: Character or concept" and keep <!-- pet-flow: request --> at the start of the body. Include the duplicate check, character and franchise, version, references, craft direction, attribution, and non-commercial usage status.
-5. Create the issue in ${repositoryUrl} with the connected GitHub capability. Repository automation adds type: request and status: triage; do not create duplicate labels.
-6. Return the issue URL and list any remaining questions. Do not claim that the pet has already been made or accepted.
+2. Ask me for the character or concept, original work, preferred V1/V2 runtime, references, visual direction, naming language, and any special requirements. Do not invent authorship or sources.
+3. Before creating the issue, verify that maintainers can open the references. A real pet, original character, avatar, or other appearance-specific request requires at least one GitHub image attachment or public image URL. A known canonical character may use an official character or source page that clearly establishes its appearance. Only a concept explicitly described as having no fixed appearance may omit an image. An image visible only in this chat, a local filename or path, or prose saying that a photo exists is not a GitHub attachment.
+4. If the connected GitHub capability cannot upload a local or chat image, do not create an image-less issue and do not claim the image was uploaded. Ask me to attach it to the GitHub issue or a comment, then verify that the body or comment contains a maintainer-viewable attachment URL before treating the request as complete.
+5. Distinguish a request for an original community interpretation from a request to adapt an existing asset. Keep author and source notes honest, and mark repository output as non-commercial.
+6. Follow the repository's pet-request issue fields. Use the title "[Request]: Character or concept" and keep <!-- pet-flow: request --> at the start of the body. Include the duplicate check, character and franchise, version, references, craft direction, attribution, and non-commercial usage status.
+7. Create the issue in ${repositoryUrl} with the connected GitHub capability. Repository automation adds type: request and status: triage; do not create duplicate labels.
+8. Return the issue URL and list any remaining questions. Do not claim that the pet has already been made or accepted.
 
 Ask me for the character or concept first, then complete the duplicate check and issue creation.`;
 }
@@ -63,7 +67,7 @@ export function getPetSubmissionPrompt(locale: Locale) {
 4. 逐帧检查动作、环视方向、角色一致性、尺寸与基线，并在深色、浅色和棋盘格背景下修复紫边、绿边、青边、洋红边和透明洞。不能为了消除色边全局删除角色真实颜色。
 5. 区分“最终宠物资产”与“制作参考图”的来源。原创或独立 AI 生成的最终宠物署名投稿人/适配作者，公开 source_url 可以为空，但必须如实说明来源并明确仅限非商业使用。未随包上传的角色参考图只作为参考，不把参考图作者冒充为宠物作者。若 spritesheet 直接裁剪、描摹、清晰化或复用了现有图片像素，要如实记录；当这些像素导致角色不一致、动作质量差、轮廓损坏或色边残留时，优先重新生成或局部修复。选择双语名称时，同时填写 localized_names.en 和 localized_names.zh。
 6. 在本地临时目录运行或等价执行 npm run validate:pr、npm run lint 和独立安装测试。不要把 QA、参考图、视频、README、pets.json、预览生成物或临时文件放进 PR。
-7. 在发布前把 contact sheet 或最终 spritesheet 图片直接展示给我，得到视觉确认后，使用 GitHub API 在我的 fork 中创建或复用投稿分支，上传三个最终文件，并向主仓库发起一个只包含这只宠物的 PR；不需要完整 clone。把 contact sheet 作为 PR 正文附件而不是提交进宠物目录；PR 正文还要说明查重、最终资产作者、参考/来源说明、非商业声明、版本和验证结果，并关联已有 Issue。仓库 CI 会再生成可下载的预览 artifact。
+7. 在发布前把 contact sheet 或最终 spritesheet 图片直接展示给我，得到视觉确认后，使用 GitHub API 在我的 fork 中创建或复用投稿分支，上传三个最终文件，并向主仓库发起一个只包含这只宠物的 PR；不需要完整 clone。成品、视觉确认和必要校验都完成后，必须创建 **Ready for review 的正式 PR，不能默认创建 Draft**；只有我明确要求草稿或投稿确实尚未完成时才使用 Draft，并写清剩余工作。把 contact sheet 作为 PR 正文附件而不是提交进宠物目录；PR 正文还要说明查重、最终资产作者、参考/来源说明、非商业声明、版本和验证结果，并关联已有 Issue。仓库 CI 会再生成可下载的预览 artifact。
 8. 不要因为没有公开 source_url 或正式许可证名称就阻塞。只需如实记录作者和来源，并声明“仅限非商业使用”。把审核精力放在角色还原、逐帧一致性、动作方向、跑步步态、环视方向、动画连续性和透明边缘；GitHub 未授权时先请我连接后重试。
 9. 只有经过上述补齐、质量修复和 GitHub 连接重试后仍无法继续，并且我明确同意时，才创建带 <!-- pet-flow: submission --> 的 [Submission] Issue。Issue 只写一个真实阻塞点和明确的解除步骤，使用英文三级标题 ### Pet runtime version 与 ### Primary category 记录版本和分类，并附上 contact sheet 以及维护者可访问的 spritesheet 或精简成品包；文件名和本地路径不算附件，不要写维护者无法访问的本地文件校验长报告。
 10. 跟进 CI。对确定的结构或格式错误直接修复；涉及视觉取舍、宠物质量或重复收录时停下来让我确认。
@@ -82,7 +86,7 @@ Requirements:
 4. Review actions, look directions, identity, scale, and baseline frame by frame. Repair purple, green, cyan, or magenta fringe and transparent holes on dark, light, and checkerboard backgrounds without globally deleting legitimate character colors.
 5. Separate final-pet provenance from reference provenance. Credit the submitter or adapter for original or independently AI-generated final pixels. A public source_url may be empty when the source is described honestly and repository use is marked non-commercial. Character references that are not uploaded remain reference-only; do not miscredit their artists as the pet author. Record direct crops, traces, cleanup, or substantial pixel reuse honestly; regenerate or repair them when they cause inconsistent identity, weak actions, damaged outlines, or chroma residue. When bilingual naming is selected, provide both localized_names.en and localized_names.zh.
 6. In a temporary local workspace, run or equivalently perform npm run validate:pr, npm run lint, and an isolated installation test. Do not include QA, references, videos, README files, pets.json, generated previews, or temporary files in the pull request.
-7. Before publication, show me the contact sheet or final spritesheet and obtain visual approval. Then use the GitHub API to create or reuse a submission branch in my fork, upload the three final files, and open one focused pull request against the upstream repository. A full clone is not required. Attach the contact sheet to the pull request description rather than committing it to the pet directory. Document duplicate research, final-asset authorship, reference/source notes, the non-commercial statement, version, and validation, and link any existing issue. Repository CI also produces a downloadable preview artifact.
+7. Before publication, show me the contact sheet or final spritesheet and obtain visual approval. Then use the GitHub API to create or reuse a submission branch in my fork, upload the three final files, and open one focused pull request against the upstream repository. A full clone is not required. Once the package, visual approval, and required validation are complete, open it as a **ready-for-review pull request, not a draft**. Use a draft only when I explicitly request one or the submission is knowingly unfinished, and state the remaining work. Attach the contact sheet to the pull request description rather than committing it to the pet directory. Document duplicate research, final-asset authorship, reference/source notes, the non-commercial statement, version, and validation, and link any existing issue. Repository CI also produces a downloadable preview artifact.
 8. Do not block because a public source_url or formal license name is absent. Record authorship and source honestly and state "Non-commercial use only." Put review effort into character fidelity, frame consistency, action direction, alternating running gait, look directions, animation continuity, and transparent edges. If GitHub is not authorized, ask me to connect it and retry.
 9. Only after those recovery steps still cannot complete, and after I explicitly approve the fallback, create a [Submission] issue containing <!-- pet-flow: submission -->. State one genuine blocker and the exact resolution step, use the exact headings ### Pet runtime version and ### Primary category, and attach a contact sheet plus an accessible spritesheet or compact package. Filenames and local paths are not attachments. Do not publish a long validation report for inaccessible local files.
 10. Follow the CI run. Fix deterministic structural or formatting failures; stop for my confirmation when the decision concerns visual direction, pet quality, or duplicate acceptance.
