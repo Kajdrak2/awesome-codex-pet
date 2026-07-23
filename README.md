@@ -1285,6 +1285,20 @@ Choose the skill explicitly. For an upgrade, give `$hatch-pet-v2` the existing i
 - Stats worker: [worker/](./worker)
 - Contribution guide: [CONTRIBUTING.md](./CONTRIBUTING.md)
 
+## Star History
+
+[![GitHub star history for Awesome Codex Pet](https://api.star-history.com/svg?repos=legeling/awesome-codex-pet&type=Date)](https://star-history.com/#legeling/awesome-codex-pet&Date)
+
+The live chart is provided by Star History. [Star the repository](https://github.com/legeling/awesome-codex-pet) to help more people discover these pets.
+
+## Contributors
+
+<a href="https://github.com/legeling/awesome-codex-pet/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=legeling/awesome-codex-pet" alt="Awesome Codex Pet contributors">
+</a>
+
+Thanks to everyone who contributes pets, code, documentation, reviews, and ideas.
+
 ## License
 
 - Code and scripts: [MIT](./LICENSE)

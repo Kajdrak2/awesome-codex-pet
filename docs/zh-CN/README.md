@@ -1285,6 +1285,20 @@ npm run lint
 - 统计 Worker: [worker/](../../worker)
 - 贡献指南: [CONTRIBUTING.md](./CONTRIBUTING.md)
 
+## 星标历史
+
+[![Awesome Codex Pet 的 GitHub 星标历史](https://api.star-history.com/svg?repos=legeling/awesome-codex-pet&type=Date)](https://star-history.com/#legeling/awesome-codex-pet&Date)
+
+实时图表由 Star History 提供。欢迎[为仓库点亮 Star](https://github.com/legeling/awesome-codex-pet)，让更多人发现这些精品宠物。
+
+## 贡献者
+
+<a href="https://github.com/legeling/awesome-codex-pet/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=legeling/awesome-codex-pet" alt="Awesome Codex Pet 贡献者">
+</a>
+
+感谢每一位贡献宠物、代码、文档、审核与创意的朋友。
+
 ## 许可说明
 
 - 代码和脚本：[MIT](../../LICENSE)
