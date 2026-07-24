@@ -23,7 +23,10 @@ export async function generateMetadata({
   const previewImage = pet.previewImage?.startsWith("/")
     ? pet.previewImage
     : `/${pet.previewImage}`;
-  const title = `${pet.name} — Codex pet by ${pet.author_handle ?? pet.author}`;
+  const localizedName = pet.localizedNames.zh
+    ? `${pet.localizedNames.en ?? pet.name} / ${pet.localizedNames.zh}`
+    : pet.name;
+  const title = `${localizedName} Codex pet by ${pet.author_handle ?? pet.author}`;
   const description =
     pet.description ??
     pet.runtimeDescription ??
@@ -35,12 +38,22 @@ export async function generateMetadata({
     title,
     description,
     alternates: { canonical },
-    keywords: [pet.name, pet.primary_category, ...pet.tags, "Codex pet"],
+    keywords: [
+      pet.name,
+      pet.localizedNames.en ?? "",
+      pet.localizedNames.zh ?? "",
+      pet.primary_category,
+      ...pet.tags,
+      "Codex pet",
+      "install Codex pet",
+    ].filter(Boolean),
     openGraph: {
       title,
       description,
       url,
       type: "article",
+      locale: "en_US",
+      alternateLocale: ["zh_CN"],
       images: [
         {
           url: previewImage,
@@ -82,7 +95,13 @@ export default async function PetDetailPage({
   const petJsonLd = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
+    "@id": `${url}/#pet`,
     name: pet.name,
+    alternateName: [
+      pet.localizedNames.en,
+      pet.localizedNames.zh,
+      pet.displayName,
+    ].filter(Boolean),
     description:
       pet.description ??
       pet.runtimeDescription ??
@@ -97,6 +116,10 @@ export default async function PetDetailPage({
     genre: pet.primary_category,
     keywords: pet.tags.join(", "),
     license: pet.license,
+    version: `V${pet.spriteVersionNumber}`,
+    isPartOf: {
+      "@id": `${siteConfig.url}/#catalog`,
+    },
     inLanguage: ["en", "zh-CN"],
   };
 

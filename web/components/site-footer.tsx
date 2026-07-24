@@ -5,7 +5,7 @@ import { useLocale } from "@/components/locale-provider";
 import { SiteLogo } from "@/components/site-logo";
 
 export function SiteFooter() {
-  const { t } = useLocale();
+  const { locale, t } = useLocale();
   const year = new Date().getFullYear();
 
   return (
@@ -59,6 +59,17 @@ export function SiteFooter() {
                   href="/guide"
                 >
                   {t("guide")}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-muted hover:text-text transition-colors"
+                  href="/zh"
+                  hrefLang="zh-CN"
+                >
+                  {locale === "zh"
+                    ? "Codex 小宠物中文指南"
+                    : "Chinese Codex pet guide"}
                 </Link>
               </li>
             </ul>

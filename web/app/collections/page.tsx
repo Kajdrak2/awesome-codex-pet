@@ -13,12 +13,29 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/collections" },
+  keywords: [
+    "Codex pet collections",
+    "anime Codex pets",
+    "game character Codex pets",
+    "Codex 宠物合集",
+    "动漫 Codex 宠物",
+    "游戏角色 Codex 宠物",
+  ],
   openGraph: {
     title,
     description,
     url: `${siteConfig.url}/collections`,
-    images: [siteConfig.ogImage],
     type: "website",
+    locale: "en_US",
+    alternateLocale: ["zh_CN"],
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: siteConfig.ogImageWidth,
+        height: siteConfig.ogImageHeight,
+        alt: siteConfig.title,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -29,5 +46,37 @@ export const metadata: Metadata = {
 };
 
 export default function CollectionsPage() {
-  return <CollectionsPageContent collections={getCollections(getAllPets())} />;
+  const collections = getCollections(getAllPets());
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${siteConfig.url}/collections/#collections`,
+    name: title,
+    description,
+    url: `${siteConfig.url}/collections`,
+    isPartOf: {
+      "@id": `${siteConfig.url}/#website`,
+    },
+    inLanguage: ["en", "zh-CN"],
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: collections.length,
+      itemListElement: collections.map((collection, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: `${collection.title.en} / ${collection.title.zh}`,
+        url: `${siteConfig.url}/collections/${collection.slug}`,
+      })),
+    },
+  };
+
+  return (
+    <>
+      <CollectionsPageContent collections={collections} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+    </>
+  );
 }

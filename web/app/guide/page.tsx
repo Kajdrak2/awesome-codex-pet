@@ -12,12 +12,30 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/guide" },
+  keywords: [
+    "create Codex pet",
+    "submit Codex pet",
+    "Codex pet V1",
+    "Codex pet V2",
+    "Codex spritesheet guide",
+    "制作 Codex 宠物",
+    "投稿 Codex 宠物",
+  ],
   openGraph: {
     title,
     description,
     url: `${siteConfig.url}/guide`,
-    images: [siteConfig.ogImage],
     type: "article",
+    locale: "en_US",
+    alternateLocale: ["zh_CN"],
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: siteConfig.ogImageWidth,
+        height: siteConfig.ogImageHeight,
+        alt: siteConfig.title,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -29,5 +47,36 @@ export const metadata: Metadata = {
 
 export default function GuidePage() {
   const categories = getCategoryCatalog();
-  return <GuidePageContent categories={categories} />;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "@id": `${siteConfig.url}/guide/#article`,
+    headline: title,
+    description,
+    url: `${siteConfig.url}/guide`,
+    mainEntityOfPage: `${siteConfig.url}/guide`,
+    author: {
+      "@id": `${siteConfig.url}/#organization`,
+    },
+    publisher: {
+      "@id": `${siteConfig.url}/#organization`,
+    },
+    inLanguage: ["en", "zh-CN"],
+    about: [
+      "Codex pet V1 and V2 spritesheets",
+      "animation action design",
+      "transparent edge cleanup",
+      "pet packaging and submission",
+    ],
+  };
+
+  return (
+    <>
+      <GuidePageContent categories={categories} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+    </>
+  );
 }

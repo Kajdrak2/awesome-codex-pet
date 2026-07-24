@@ -19,8 +19,8 @@ export async function generateMetadata({
   const collection = getCollectionBySlug(getAllPets(), slug);
   if (!collection) return { title: "Collection not found" };
 
-  const title = `${collection.title.en} Codex pets`;
-  const description = collection.description.en;
+  const title = `${collection.title.en} / ${collection.title.zh} Codex pets`;
+  const description = `${collection.description.en} ${collection.description.zh}`;
   const canonical = `/collections/${collection.slug}`;
   const cover = collection.pets.find((pet) => collection.coverSlugs.includes(pet.slug));
 
@@ -28,12 +28,20 @@ export async function generateMetadata({
     title,
     description,
     alternates: { canonical },
+    keywords: [
+      collection.title.en,
+      collection.title.zh,
+      `${collection.title.en} Codex pets`,
+      "Codex pet collection",
+    ],
     openGraph: {
       title,
       description,
       url: `${siteConfig.url}${canonical}`,
       images: cover ? [cover.previewImage] : [siteConfig.ogImage],
       type: "website",
+      locale: "en_US",
+      alternateLocale: ["zh_CN"],
     },
     twitter: {
       card: "summary_large_image",
@@ -57,14 +65,27 @@ export default async function CollectionPage({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
+    "@id": `${url}/#collection`,
     name: collection.title.en,
+    alternateName: collection.title.zh,
     description: collection.description.en,
     url,
-    hasPart: collection.pets.map((pet) => ({
-      "@type": "CreativeWork",
-      name: pet.name,
-      url: `${siteConfig.url}/pets/${pet.slug}`,
-    })),
+    isPartOf: {
+      "@id": `${siteConfig.url}/#website`,
+    },
+    inLanguage: ["en", "zh-CN"],
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: collection.pets.length,
+      itemListElement: collection.pets.map((pet, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: pet.localizedNames.zh
+          ? `${pet.localizedNames.en ?? pet.name} / ${pet.localizedNames.zh}`
+          : pet.name,
+        url: `${siteConfig.url}/pets/${pet.slug}`,
+      })),
+    },
   };
 
   return (

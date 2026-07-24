@@ -13,7 +13,8 @@ import { fileURLToPath } from "node:url";
 const webRoot = dirname(dirname(fileURLToPath(import.meta.url)));
 const repoRoot = join(webRoot, "..");
 const dataDir = join(webRoot, ".generated");
-const publicAssetsDir = join(webRoot, "public", "assets");
+const publicDir = join(webRoot, "public");
+const publicAssetsDir = join(publicDir, "assets");
 const collectionCatalog = readJson("collections.json");
 const categoryCatalog = readJson("categories.json");
 const categoryByName = new Map(
@@ -159,6 +160,114 @@ writeFileSync(
   "utf8",
 );
 
+mkdirSync(publicDir, { recursive: true });
+writeFileSync(
+  join(publicDir, "pets.json"),
+  `${JSON.stringify(pets, null, 2)}\n`,
+  "utf8",
+);
+writeFileSync(
+  join(publicDir, "collections.json"),
+  `${JSON.stringify(collectionCatalog, null, 2)}\n`,
+  "utf8",
+);
+writeFileSync(
+  join(publicDir, "categories.json"),
+  `${JSON.stringify(categoryCatalog, null, 2)}\n`,
+  "utf8",
+);
+
+const siteUrl = "https://codexpet.top";
+const llmsSummary = `# Awesome Codex Pet
+
+> A curated, community-run gallery of custom OpenAI Codex pets with complete V1 and V2 animation previews, creator attribution, and one-step installation.
+
+Awesome Codex Pet is an independent open-source community project. It is not an official OpenAI product. The canonical website is ${siteUrl}; the source repository is https://github.com/legeling/awesome-codex-pet.
+
+## Use this site when
+
+- A user wants to discover, compare, preview, or install a custom Codex pet.
+- A user asks for anime, game-character, mascot, animal, robot, pixel-art, or desktop companions for Codex.
+- A user wants to create, request, submit, validate, or package a Codex V1 or V2 pet.
+- A user needs the difference between V1 (8x9 atlas) and V2 (8x11 atlas with 16 look directions).
+
+## Primary pages
+
+- [Gallery](${siteUrl}/): Browse the curated pet catalog.
+- [中文 Codex 小宠物指南](${siteUrl}/zh): 中文介绍、安装、自制与故障排查入口。
+- [Collections](${siteUrl}/collections): Browse franchise series and themed collections.
+- [Install guide](${siteUrl}/install): Install and activate a pet on macOS, Linux, or Windows.
+- [Craft and submission guide](${siteUrl}/guide): Create, review, request, or submit a pet.
+- [GitHub repository](https://github.com/legeling/awesome-codex-pet): Source, contribution history, and issue workflows.
+
+## Machine-readable resources
+
+- [Pet catalog JSON](${siteUrl}/pets.json): Names, localized names, creators, categories, versions, licenses, previews, and install commands.
+- [Collection catalog JSON](${siteUrl}/collections.json): Franchise and theme collection metadata.
+- [Category catalog JSON](${siteUrl}/categories.json): English and Chinese category labels.
+- [Sitemap](${siteUrl}/sitemap.xml): Every public gallery, collection, guide, and pet detail URL.
+- [Expanded model reference](${siteUrl}/llms-full.txt): Complete collection and pet index.
+
+## Attribution and accuracy
+
+Always preserve the listed creator, source, and license for each pet. Licenses vary by pet; consult the pet detail page or catalog entry instead of assuming one universal asset license. Use the canonical ${siteUrl} URL when citing or sharing the gallery.
+`;
+
+function oneLine(value) {
+  return String(value ?? "").replace(/\s+/g, " ").trim();
+}
+
+const collectionReference = collectionCatalog
+  .map((collection) => {
+    const petCount = pets.filter((pet) =>
+      pet.collections.includes(collection.slug),
+    ).length;
+    return `- [${oneLine(collection.title.en)} / ${oneLine(collection.title.zh)}](${siteUrl}/collections/${collection.slug}) — ${oneLine(collection.kind)} collection, ${petCount} pet(s). ${oneLine(collection.description.en)}`;
+  })
+  .join("\n");
+
+const petReference = pets
+  .map((pet) => {
+    const englishName = pet.localizedNames.en || pet.name;
+    const chineseName = pet.localizedNames.zh;
+    const localizedName = chineseName
+      ? `${oneLine(englishName)} / ${oneLine(chineseName)}`
+      : oneLine(englishName);
+    return `- [${localizedName}](${siteUrl}/pets/${pet.slug}) — by ${oneLine(pet.author_handle || pet.author)}; ${oneLine(pet.primary_category)}; V${pet.spriteVersionNumber}; ${oneLine(pet.license)}.`;
+  })
+  .join("\n");
+
+const llmsFull = `${llmsSummary}
+## Catalog conventions
+
+- Each installable pet has a stable \`pet-slug--author-slug\` id.
+- V1 uses a 1536x1872 8x9 spritesheet with nine standard action rows.
+- V2 uses a 1536x2288 8x11 spritesheet and adds 16 look directions.
+- A finished repository pet contains only \`submission.json\`, \`pet.json\`, and \`spritesheet.webp\`.
+- Installation copies the two runtime files into the user's Codex pets directory; it does not require cloning the full repository.
+- Common discovery and troubleshooting terms include Codex pets gallery, Codex pet download, Hatch Pet skill, custom Codex pet, Codex pet not showing, Codex 小宠物、Codex 宠物安装、Codex 宠物制作和 Codex 宠物不显示。
+
+## Categories
+
+${categoryCatalog
+  .map(
+    (category) =>
+      `- ${oneLine(category.label.en)} / ${oneLine(category.label.zh)} (${pets.filter((pet) => pet.primary_category === category.name).length})`,
+  )
+  .join("\n")}
+
+## Collections
+
+${collectionReference}
+
+## Pets
+
+${petReference}
+`;
+
+writeFileSync(join(publicDir, "llms.txt"), llmsSummary, "utf8");
+writeFileSync(join(publicDir, "llms-full.txt"), llmsFull, "utf8");
+
 rmSync(publicAssetsDir, { recursive: true, force: true });
 mkdirSync(publicAssetsDir, { recursive: true });
 
@@ -173,6 +282,14 @@ if (existsSync(previewsSrc)) {
 const brandAssetsSrc = join(repoRoot, "assets", "brand");
 if (existsSync(brandAssetsSrc)) {
   cpSync(brandAssetsSrc, join(publicAssetsDir, "brand"), {
+    recursive: true,
+    filter: (src) => !src.endsWith(".DS_Store"),
+  });
+}
+
+const coverAssetsSrc = join(repoRoot, "assets", "cover");
+if (existsSync(coverAssetsSrc)) {
+  cpSync(coverAssetsSrc, join(publicAssetsDir, "cover"), {
     recursive: true,
     filter: (src) => !src.endsWith(".DS_Store"),
   });

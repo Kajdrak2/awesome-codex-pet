@@ -9,20 +9,36 @@ import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: {
-    absolute: `${siteConfig.title} — selected community Codex pets`,
+    absolute: `${siteConfig.title} — custom pets for OpenAI Codex`,
   },
   description: siteConfig.description,
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    languages: {
+      "en-US": "/",
+      "zh-CN": "/zh",
+      "x-default": "/",
+    },
+  },
   openGraph: {
-    title: `${siteConfig.title} — selected community Codex pets`,
+    title: `${siteConfig.title} — custom pets for OpenAI Codex`,
     description: siteConfig.description,
     url: siteConfig.url,
     type: "website",
-    images: [siteConfig.ogImage],
+    locale: "en_US",
+    alternateLocale: ["zh_CN"],
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: siteConfig.ogImageWidth,
+        height: siteConfig.ogImageHeight,
+        alt: siteConfig.title,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.title} — selected community Codex pets`,
+    title: `${siteConfig.title} — custom pets for OpenAI Codex`,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
   },
@@ -33,25 +49,61 @@ export default function HomePage() {
   const categories = getCategories(pets);
   const collections = getCollections(pets);
 
-  const collectionJsonLd = {
+  const pageJsonLd = {
     "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: `${siteConfig.title} — selected pet gallery`,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    inLanguage: ["en", "zh-CN"],
-    hasPart: pets.slice(0, 12).map((pet) => ({
-      "@type": "CreativeWork",
-      name: pet.name,
-      url: `${siteConfig.url}/pets/${pet.slug}`,
-      author: {
-        "@type": "Person",
-        name: pet.author,
-        url: pet.author_url ?? undefined,
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": `${siteConfig.url}/#gallery`,
+        name: `${siteConfig.title} — curated OpenAI Codex pet gallery`,
+        description: siteConfig.description,
+        url: siteConfig.url,
+        isPartOf: {
+          "@id": `${siteConfig.url}/#website`,
+        },
+        inLanguage: ["en", "zh-CN"],
+        mainEntity: {
+          "@type": "ItemList",
+          name: "Curated Codex pets",
+          numberOfItems: pets.length,
+          itemListElement: pets.slice(0, 24).map((pet, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            url: `${siteConfig.url}/pets/${pet.slug}`,
+            name: pet.localizedNames.zh
+              ? `${pet.localizedNames.en ?? pet.name} / ${pet.localizedNames.zh}`
+              : pet.name,
+          })),
+        },
       },
-      genre: pet.primary_category,
-      license: pet.license,
-    })),
+      {
+        "@type": "Dataset",
+        "@id": `${siteConfig.url}/#catalog`,
+        name: "Awesome Codex Pet catalog",
+        alternateName: "Codex 宠物目录",
+        description:
+          "A machine-readable catalog of curated community Codex pets, creators, localized names, categories, animation versions, licenses, previews, and installation commands.",
+        url: siteConfig.url,
+        creator: {
+          "@id": `${siteConfig.url}/#organization`,
+        },
+        isAccessibleForFree: true,
+        inLanguage: ["en", "zh-CN"],
+        keywords: siteConfig.keywords,
+        distribution: [
+          {
+            "@type": "DataDownload",
+            encodingFormat: "application/json",
+            contentUrl: `${siteConfig.url}${siteConfig.catalog}`,
+          },
+          {
+            "@type": "DataDownload",
+            encodingFormat: "application/json",
+            contentUrl: `${siteConfig.url}${siteConfig.collectionsCatalog}`,
+          },
+        ],
+      },
+    ],
   };
 
   return (
@@ -69,7 +121,7 @@ export default function HomePage() {
       </section>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageJsonLd) }}
       />
     </main>
   );

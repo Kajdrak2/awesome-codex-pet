@@ -25,7 +25,14 @@ export const metadata: Metadata = {
   authors: [{ name: "Awesome Codex Pet contributors", url: siteConfig.repo }],
   creator: "Awesome Codex Pet",
   publisher: "Awesome Codex Pet",
-  category: "technology",
+  category: "developer tools",
+  manifest: "/manifest.webmanifest",
+  referrer: "origin-when-cross-origin",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   alternates: {
     canonical: "/",
   },
@@ -48,12 +55,13 @@ export const metadata: Metadata = {
     images: [
       {
         url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
+        width: siteConfig.ogImageWidth,
+        height: siteConfig.ogImageHeight,
         alt: siteConfig.title,
       },
     ],
     locale: "en_US",
+    alternateLocale: ["zh_CN"],
     type: "website",
   },
   twitter: {
@@ -79,18 +87,37 @@ export const viewport: Viewport = {
 
 const websiteJsonLd = {
   "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: siteConfig.title,
-  alternateName: siteConfig.altName,
-  url: siteConfig.url,
-  description: siteConfig.description,
-  inLanguage: ["en", "zh-CN"],
-  publisher: {
-    "@type": "Organization",
-    name: siteConfig.title,
-    url: siteConfig.url,
-    logo: `${siteConfig.url}/icon.svg`,
-  },
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteConfig.url}/#organization`,
+      name: siteConfig.title,
+      alternateName: siteConfig.altNames,
+      url: siteConfig.url,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}/icon.svg`,
+      },
+      sameAs: [siteConfig.repo],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteConfig.url}/#website`,
+      name: siteConfig.title,
+      alternateName: siteConfig.altNames,
+      url: siteConfig.url,
+      description: siteConfig.description,
+      inLanguage: ["en", "zh-CN"],
+      publisher: {
+        "@id": `${siteConfig.url}/#organization`,
+      },
+      about: [
+        "OpenAI Codex custom pets",
+        "animated desktop companions",
+        "Codex pet V1 and V2 spritesheets",
+      ],
+    },
+  ],
 };
 
 export default function RootLayout({
