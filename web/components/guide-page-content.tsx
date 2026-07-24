@@ -61,7 +61,7 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
   const { t, locale } = useLocale();
   const [copied, setCopied] = useState(false);
   const [workflowMode, setWorkflowMode] = useState<"request" | "submit">(
-    "request",
+    "submit",
   );
   const requestPrompt = getPetRequestPrompt(locale);
   const submissionPrompt = getPetSubmissionPrompt(locale);
@@ -104,17 +104,17 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
           <div className="flex flex-wrap gap-3">
             <a
               className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-accent px-4 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
-              href={buildCodexUrl(requestPrompt)}
-            >
-              <CodexIcon className="size-6" />
-              {t("guideRequestWorkflow")}
-            </a>
-            <a
-              className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-border bg-bg-elevated px-4 text-sm font-medium text-text transition-colors hover:bg-surface"
               href={buildCodexUrl(submissionPrompt)}
             >
               <CodexIcon className="size-6" />
               {t("guideSubmitWorkflow")}
+            </a>
+            <a
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-border bg-bg-elevated px-4 text-sm font-medium text-text transition-colors hover:bg-surface"
+              href={buildCodexUrl(requestPrompt)}
+            >
+              <CodexIcon className="size-6" />
+              {t("guideRequestWorkflow")}
             </a>
             <ShareMenu
               title={t("guideShareTitle")}
@@ -159,26 +159,10 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
               {t("guideAIWorkflowDesc")}
             </p>
             <div
-              className="mb-5 inline-flex rounded-lg border border-border bg-bg-secondary p-1"
+              className="mb-3 inline-flex rounded-lg border border-border bg-bg-secondary p-1"
               role="tablist"
               aria-label={t("guideAIWorkflowEyebrow")}
             >
-              <button
-                className={`cursor-pointer rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                  workflowMode === "request"
-                    ? "bg-bg-elevated text-text shadow-sm"
-                    : "text-muted hover:text-text"
-                }`}
-                type="button"
-                role="tab"
-                aria-selected={workflowMode === "request"}
-                onClick={() => {
-                  setWorkflowMode("request");
-                  setCopied(false);
-                }}
-              >
-                {t("guideRequestWorkflow")}
-              </button>
               <button
                 className={`cursor-pointer rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                   workflowMode === "submit"
@@ -195,7 +179,28 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
               >
                 {t("guideSubmitWorkflow")}
               </button>
+              <button
+                className={`cursor-pointer rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                  workflowMode === "request"
+                    ? "bg-bg-elevated text-text shadow-sm"
+                    : "text-muted hover:text-text"
+                }`}
+                type="button"
+                role="tab"
+                aria-selected={workflowMode === "request"}
+                onClick={() => {
+                  setWorkflowMode("request");
+                  setCopied(false);
+                }}
+              >
+                {t("guideRequestWorkflow")}
+              </button>
             </div>
+            <p className="mb-5 max-w-2xl text-sm leading-relaxed text-muted">
+              {workflowMode === "submit"
+                ? t("guideSubmitWorkflowDesc")
+                : t("guideRequestWorkflowDesc")}
+            </p>
             <div className="flex flex-wrap gap-3">
               <a
                 className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-accent px-4 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
@@ -480,17 +485,17 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
       <div className="flex flex-col items-center justify-center gap-3 border-t border-border pt-12 sm:flex-row">
         <a
           className="inline-flex h-10 items-center gap-2 rounded-lg bg-accent px-5 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
-          href={buildCodexUrl(requestPrompt)}
-        >
-          <CodexIcon className="size-6" />
-          {t("guideRequestWorkflow")}
-        </a>
-        <a
-          className="inline-flex h-10 items-center gap-2 rounded-lg border border-border px-5 text-sm font-medium text-text transition-colors hover:bg-surface"
           href={buildCodexUrl(submissionPrompt)}
         >
           <CodexIcon className="size-6" />
           {t("guideSubmitWorkflow")}
+        </a>
+        <a
+          className="inline-flex h-10 items-center gap-2 rounded-lg border border-border px-5 text-sm font-medium text-text transition-colors hover:bg-surface"
+          href={buildCodexUrl(requestPrompt)}
+        >
+          <CodexIcon className="size-6" />
+          {t("guideRequestWorkflow")}
         </a>
       </div>
     </main>

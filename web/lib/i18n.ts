@@ -10,9 +10,9 @@ export const translations = {
     docs: "Docs",
     github: "GitHub",
     submitPet: "Submit a Pet",
-    requestPetWithAI: "Request a pet",
+    requestPetWithAI: "Ask the community to make a pet",
     requestPetWithAIDesc:
-      "Open local Codex to check duplicates and create a production request issue.",
+      "No finished pet yet? Share the character, references, and requirements so community contributors or AI can make it for you.",
     submitPetWithAI: "Submit your pet",
     submitPetWithAIDesc:
       "Open local Codex to create from references or review existing files, then open a focused pull request.",
@@ -252,9 +252,9 @@ export const translations = {
     guideAIWorkflowTitle: "Choose what you want to do",
     guideAIWorkflowDesc:
       "Open the workflow in local Codex, or copy the prompt for another AI assistant.",
-    guideRequestWorkflow: "Request a pet",
+    guideRequestWorkflow: "Ask the community to make a pet",
     guideRequestWorkflowDesc:
-      "Codex checks duplicates and opens a clearly scoped community production request.",
+      "No finished pet yet? Share the character, references, and requirements so community contributors or AI can make it for you.",
     guideSubmitWorkflow: "Submit your pet",
     guideSubmitWorkflowDesc:
       "Start from references or attach existing files. Codex creates or repairs the pet, validates it, and opens a pull request.",
@@ -381,9 +381,9 @@ export const translations = {
     docs: "文档",
     github: "GitHub",
     submitPet: "投稿",
-    requestPetWithAI: "请求制作宠物",
+    requestPetWithAI: "请社区帮我制作宠物",
     requestPetWithAIDesc:
-      "打开本地 Codex，查重后创建结构清楚的制作请求 Issue。",
+      "还没有成品时，提交角色、参考图和制作要求，请社区贡献者或 AI 帮你完成宠物。",
     submitPetWithAI: "提交自己的宠物",
     submitPetWithAIDesc:
       "打开本地 Codex，可从参考图现场制作，也可检查现成文件并创建独立 PR。",
@@ -619,9 +619,9 @@ export const translations = {
     guideAIWorkflowTitle: "选择你要做什么",
     guideAIWorkflowDesc:
       "可以直接在本地 Codex 中开始，也可以复制提示词交给其他 AI 助手。",
-    guideRequestWorkflow: "请求制作宠物",
+    guideRequestWorkflow: "请社区帮我制作宠物",
     guideRequestWorkflowDesc:
-      "Codex 会先查重，再创建范围明确的社区制作请求 Issue。",
+      "还没有成品时，提交角色、参考图和制作要求，请社区贡献者或 AI 帮你完成宠物。",
     guideSubmitWorkflow: "提交自己的宠物",
     guideSubmitWorkflowDesc:
       "可从角色和参考图开始，也可上传已有文件。Codex 会完成制作或修复、校验并创建 PR。",
