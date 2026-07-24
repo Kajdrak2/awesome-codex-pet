@@ -1600,6 +1600,19 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "nangong-wan--bpup",
+    "name": "南宫婉",
+    "localized_names": { "en": "Nangong Wan", "zh": "南宫婉" },
+    "author": "Slpuer",
+    "author_handle": "bpup",
+    "author_url": "https://github.com/bpup",
+    "primary_category": "Anime Characters",
+    "collections": [],
+    "license": "Non-commercial use only. Independently AI-generated community fan art of Nangong Wan inspired by the animated A Record of a Mortal's Journey to Immortality; the submitter confirms permission to include this asset in this repository.",
+    "description": "独立 AI 生成的《凡人修仙传》动画版南宫婉像素 Q 版社区再创作：飞遁动作不采用地面跑步，左右飞遁逐帧严格镜像且双腿保持收拢；含修炼、突破与朱雀环施法，仅限非商业使用。",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "dai-dai-nai-you--1wphantom",
     "name": "呆呆奶油",
     "author": "1wphantom",
