@@ -760,6 +760,19 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "kuro-chibi--kuroneko-night",
+    "name": "Kuro Chibi",
+    "localized_names": { "en": "Kuro Chibi", "zh": "Kuro Q版" },
+    "author": "KuroNeko-night",
+    "author_handle": "KuroNeko-night",
+    "author_url": "https://github.com/KuroNeko-night",
+    "primary_category": "Original Characters",
+    "collections": [],
+    "license": "Independent AI-generated asset; non-commercial use only.",
+    "description": "An independently AI-generated chibi Kuro catgirl pet. The final spritesheet was generated and assembled for Codex from the approved Kuro character design; supplied character art and expression stickers were used only as visual references and are not included in this package.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "lappland--chenxin-dlut",
     "name": "Lappland",
     "localized_names": { "en": "Lappland", "zh": "拉普兰德" },
