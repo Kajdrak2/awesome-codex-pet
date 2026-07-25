@@ -1315,9 +1315,9 @@ Choose the skill explicitly. For an upgrade, give `$hatch-pet-v2` the existing i
 
 ## Star History
 
-[![GitHub star history for Awesome Codex Pet](https://api.star-history.com/svg?repos=legeling/awesome-codex-pet&type=Date)](https://star-history.com/#legeling/awesome-codex-pet&Date)
+[![GitHub star history for Awesome Codex Pet](./assets/community/star-history.svg)](https://github.com/legeling/awesome-codex-pet/stargazers)
 
-The live chart is provided by Star History. [Star the repository](https://github.com/legeling/awesome-codex-pet) to help more people discover these pets.
+The chart is refreshed daily from GitHub's stargazer data. [Star the repository](https://github.com/legeling/awesome-codex-pet) to help more people discover these pets.
 
 ## Contributors
 

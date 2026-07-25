@@ -326,9 +326,9 @@ Choose the skill explicitly. For an upgrade, give \`$hatch-pet-v2\` the existing
 
 ## Star History
 
-[![GitHub star history for Awesome Codex Pet](https://api.star-history.com/svg?repos=legeling/awesome-codex-pet&type=Date)](https://star-history.com/#legeling/awesome-codex-pet&Date)
+[![GitHub star history for Awesome Codex Pet](./assets/community/star-history.svg)](https://github.com/legeling/awesome-codex-pet/stargazers)
 
-The live chart is provided by Star History. [Star the repository](https://github.com/legeling/awesome-codex-pet) to help more people discover these pets.
+The chart is refreshed daily from GitHub's stargazer data. [Star the repository](https://github.com/legeling/awesome-codex-pet) to help more people discover these pets.
 
 ## Contributors
 
@@ -505,9 +505,9 @@ npm run lint
 
 ## 星标历史
 
-[![Awesome Codex Pet 的 GitHub 星标历史](https://api.star-history.com/svg?repos=legeling/awesome-codex-pet&type=Date)](https://star-history.com/#legeling/awesome-codex-pet&Date)
+[![Awesome Codex Pet 的 GitHub 星标历史](../../assets/community/star-history.svg)](https://github.com/legeling/awesome-codex-pet/stargazers)
 
-实时图表由 Star History 提供。欢迎[为仓库点亮 Star](https://github.com/legeling/awesome-codex-pet)，让更多人发现这些精品宠物。
+图表每天根据 GitHub 星标数据自动更新。欢迎[为仓库点亮 Star](https://github.com/legeling/awesome-codex-pet)，让更多人发现这些精品宠物。
 
 ## 贡献者
 

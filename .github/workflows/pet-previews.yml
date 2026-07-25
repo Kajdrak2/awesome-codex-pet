@@ -9,6 +9,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - "assets/community/star-history.svg"
 
 concurrency:
   group: pet-previews-${{ github.ref }}

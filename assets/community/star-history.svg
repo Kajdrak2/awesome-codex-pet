@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="440" viewBox="0 0 1000 440" role="img" aria-labelledby="title description">
+  <title id="title">Awesome Codex Pet GitHub star history</title>
+  <desc id="description">414 stars from May 3, 2026 – Jul 25, 2026</desc>
+  <defs>
+    <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.02" />
+    </linearGradient>
+    <style>
+      .axis { fill: #6b7280; font: 14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .title { fill: #111827; font: 700 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .subtitle { fill: #6b7280; font: 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .count { fill: #059669; font: 700 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    </style>
+  </defs>
+  <rect x="0.5" y="0.5" width="999" height="439" rx="12" fill="#ffffff" stroke="#e5e7eb" />
+  <text x="72" y="39" class="title">GitHub Star History</text>
+  <text x="72" y="64" class="subtitle">legeling/awesome-codex-pet · May 3, 2026 – Jul 25, 2026</text>
+  <text x="966" y="45" text-anchor="end" class="count">414 stars</text>
+  
+      <line x1="72" y1="378" x2="966" y2="378" stroke="#e5e7eb" stroke-width="1" />
+      <text x="58" y="383" text-anchor="end" class="axis">0</text>
+      <line x1="72" y1="318.8" x2="966" y2="318.8" stroke="#e5e7eb" stroke-width="1" />
+      <text x="58" y="323.8" text-anchor="end" class="axis">100</text>
+      <line x1="72" y1="259.6" x2="966" y2="259.6" stroke="#e5e7eb" stroke-width="1" />
+      <text x="58" y="264.6" text-anchor="end" class="axis">200</text>
+      <line x1="72" y1="200.4" x2="966" y2="200.4" stroke="#e5e7eb" stroke-width="1" />
+      <text x="58" y="205.4" text-anchor="end" class="axis">300</text>
+      <line x1="72" y1="141.2" x2="966" y2="141.2" stroke="#e5e7eb" stroke-width="1" />
+      <text x="58" y="146.2" text-anchor="end" class="axis">400</text>
+      <line x1="72" y1="82" x2="966" y2="82" stroke="#e5e7eb" stroke-width="1" />
+      <text x="58" y="87" text-anchor="end" class="axis">500</text>
+  <text x="72" y="415" text-anchor="start" class="axis">May 3</text><text x="295.5" y="415" text-anchor="middle" class="axis">May 24</text><text x="519" y="415" text-anchor="middle" class="axis">Jun 13</text><text x="742.5" y="415" text-anchor="middle" class="axis">Jul 4</text><text x="966" y="415" text-anchor="end" class="axis">Jul 25</text>
+  <polygon points="72,378 72.00,375.04 82.77,372.67 93.54,366.16 104.31,360.24 115.08,354.91 125.86,350.77 136.63,349.58 147.40,347.22 158.17,346.62 168.94,345.44 179.71,344.85 190.48,344.26 201.25,343.66 212.02,343.07 222.80,342.48 233.57,340.70 244.34,337.74 265.88,336.56 276.65,334.78 287.42,333.01 298.19,332.42 319.73,331.23 341.28,328.86 352.05,327.09 362.82,326.50 373.59,325.31 384.36,322.35 395.13,321.76 405.90,321.17 416.67,318.80 427.45,318.21 438.22,317.02 448.99,315.84 459.76,312.29 470.53,309.92 481.30,308.14 492.07,306.37 502.84,305.18 513.61,304.59 524.39,304.00 535.16,302.82 545.93,301.63 567.47,300.45 578.24,298.08 589.01,295.71 610.55,294.53 621.33,293.34 632.10,291.57 642.87,290.98 653.64,289.20 664.41,287.42 675.18,286.83 685.95,285.65 696.72,285.06 707.49,283.28 718.27,280.32 729.04,279.73 739.81,279.14 750.58,277.95 761.35,274.99 772.12,271.44 782.89,269.07 793.66,267.89 804.43,260.19 815.20,251.90 825.98,247.76 836.75,236.51 847.52,228.22 858.29,219.94 869.06,209.87 879.83,195.66 890.60,191.52 901.37,187.38 912.14,176.72 922.92,167.84 933.69,156.00 944.46,142.98 955.23,133.50 966.00,132.91 966.00,378" fill="url(#area)" />
+  <polyline points="72,378 72.00,375.04 82.77,372.67 93.54,366.16 104.31,360.24 115.08,354.91 125.86,350.77 136.63,349.58 147.40,347.22 158.17,346.62 168.94,345.44 179.71,344.85 190.48,344.26 201.25,343.66 212.02,343.07 222.80,342.48 233.57,340.70 244.34,337.74 265.88,336.56 276.65,334.78 287.42,333.01 298.19,332.42 319.73,331.23 341.28,328.86 352.05,327.09 362.82,326.50 373.59,325.31 384.36,322.35 395.13,321.76 405.90,321.17 416.67,318.80 427.45,318.21 438.22,317.02 448.99,315.84 459.76,312.29 470.53,309.92 481.30,308.14 492.07,306.37 502.84,305.18 513.61,304.59 524.39,304.00 535.16,302.82 545.93,301.63 567.47,300.45 578.24,298.08 589.01,295.71 610.55,294.53 621.33,293.34 632.10,291.57 642.87,290.98 653.64,289.20 664.41,287.42 675.18,286.83 685.95,285.65 696.72,285.06 707.49,283.28 718.27,280.32 729.04,279.73 739.81,279.14 750.58,277.95 761.35,274.99 772.12,271.44 782.89,269.07 793.66,267.89 804.43,260.19 815.20,251.90 825.98,247.76 836.75,236.51 847.52,228.22 858.29,219.94 869.06,209.87 879.83,195.66 890.60,191.52 901.37,187.38 912.14,176.72 922.92,167.84 933.69,156.00 944.46,142.98 955.23,133.50 966.00,132.91" fill="none" stroke="#10b981" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="966.00" cy="132.91" r="6" fill="#ffffff" stroke="#10b981" stroke-width="4" />
+</svg>
