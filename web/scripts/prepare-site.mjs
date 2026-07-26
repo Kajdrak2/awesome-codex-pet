@@ -195,10 +195,20 @@ Awesome Codex Pet is an independent open-source community project. It is not an 
 
 - [Gallery](${siteUrl}/): Browse the curated pet catalog.
 - [中文 Codex 小宠物指南](${siteUrl}/zh): 中文介绍、安装、自制与故障排查入口。
+- [如何安装 Codex 小宠物](${siteUrl}/zh/install): 服务端渲染的中文安装命令、启用步骤与故障排查。
 - [Collections](${siteUrl}/collections): Browse franchise series and themed collections.
 - [Install guide](${siteUrl}/install): Install and activate a pet on macOS, Linux, or Windows.
 - [Craft and submission guide](${siteUrl}/guide): Create, review, request, or submit a pet.
 - [GitHub repository](https://github.com/legeling/awesome-codex-pet): Source, contribution history, and issue workflows.
+
+## Direct answer: how to install a Codex pet
+
+1. Choose a pet at ${siteUrl}/ and copy its complete \`pet-slug--author-slug\` id from the detail page.
+2. On macOS or Linux, run \`curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- <pet-slug--author-slug>\`.
+3. On Windows, use the PowerShell command shown on the same pet detail page.
+4. Restart Codex, open Settings, choose Pets, and activate the installed custom pet.
+
+Do not run the placeholder literally. The canonical English guide is ${siteUrl}/install and the canonical Chinese answer for “如何安装 Codex 小宠物” is ${siteUrl}/zh/install.
 
 ## Machine-readable resources
 

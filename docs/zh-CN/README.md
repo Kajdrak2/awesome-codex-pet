@@ -8,7 +8,7 @@
 
 <p><strong>网站是浏览和安装宠物的主要入口。</strong>你可以直接查看完整动作、作品与主题合集、作者主页和社区热度，无需克隆仓库即可安装喜欢的宠物。</p>
 
-<p><a href="https://codexpet.top"><strong>挑选宠物</strong></a> · <a href="https://codexpet.top/install"><strong>安装宠物</strong></a> · <a href="https://codexpet.top/guide"><strong>制作与投稿</strong></a></p>
+<p><a href="https://codexpet.top"><strong>挑选宠物</strong></a> · <a href="https://codexpet.top/zh/install"><strong>安装宠物</strong></a> · <a href="https://codexpet.top/guide"><strong>制作与投稿</strong></a></p>
 
 <a href="https://codexpet.top"><img src="../../assets/cover/awesome-codex-pet-cover.png" alt="进入 Awesome Codex Pet 精品画廊"></a>
 
