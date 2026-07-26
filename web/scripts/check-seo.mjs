@@ -90,12 +90,33 @@ await Promise.all(
 );
 
 const home = await readFile(join(outDir, "index.html"), "utf8");
+for (const required of [
+  "free Codex pet gallery and community",
+  "Your free community",
+  "Browse and install",
+  "/request",
+]) {
+  if (!home.includes(required)) {
+    failures.push(`index.html: missing community gallery signal ${required}`);
+  }
+}
 for (const language of ["en-US", "zh-CN", "x-default"]) {
   requireMatch(
     home,
     new RegExp(`hreflang="${language}"`, "i"),
     `index.html: missing ${language} hreflang`,
   );
+}
+
+const chineseHome = await readFile(join(outDir, "zh.html"), "utf8");
+for (const required of [
+  "Codex 小宠物画廊：免费下载、安装与社区制作申请",
+  "免费的 Codex",
+  "/zh/request",
+]) {
+  if (!chineseHome.includes(required)) {
+    failures.push(`zh.html: missing community gallery signal ${required}`);
+  }
 }
 
 const chineseInstall = await readFile(join(outDir, "zh/install.html"), "utf8");
@@ -115,6 +136,39 @@ for (const language of ["en-US", "zh-CN", "x-default"]) {
     new RegExp(`hreflang="${language}"`, "i"),
     `zh/install.html: missing ${language} hreflang`,
   );
+}
+
+for (const [path, required] of [
+  [
+    "request.html",
+    [
+      "Request a Codex pet for a character you love",
+      "Submitting a request is free",
+      "application/ld+json",
+    ],
+  ],
+  [
+    "zh/request.html",
+    [
+      "免费提交喜欢角色的 Codex 小宠物制作申请",
+      "提交申请本身完全免费",
+      "application/ld+json",
+    ],
+  ],
+]) {
+  const requestPage = await readFile(join(outDir, path), "utf8");
+  for (const value of required) {
+    if (!requestPage.includes(value)) {
+      failures.push(`${path}: missing ${value}`);
+    }
+  }
+  for (const language of ["en-US", "zh-CN", "x-default"]) {
+    requireMatch(
+      requestPage,
+      new RegExp(`hreflang="${language}"`, "i"),
+      `${path}: missing ${language} hreflang`,
+    );
+  }
 }
 
 const sitemap = await readFile(join(outDir, "sitemap.xml"), "utf8");
@@ -169,7 +223,11 @@ for (const agent of [
 const llms = await readFile(join(outDir, "llms.txt"), "utf8");
 for (const required of [
   `${SITE_URL}/zh/install`,
+  `${SITE_URL}/request`,
+  `${SITE_URL}/zh/request`,
   "how to install a Codex pet",
+  "can the community make a missing character",
+  "Opening the request is free",
   "install-pet.sh",
 ]) {
   if (!llms.includes(required)) failures.push(`llms.txt: missing ${required}`);

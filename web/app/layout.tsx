@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Awesome Codex Pet contributors", url: siteConfig.repo }],
   creator: "Awesome Codex Pet",
   publisher: "Awesome Codex Pet",
-  category: "developer tools",
+  category: "personalization",
   manifest: "/manifest.webmanifest",
   referrer: "origin-when-cross-origin",
   formatDetection: {
@@ -108,9 +108,22 @@ const websiteJsonLd = {
         "@id": `${siteConfig.url}/#organization`,
       },
       about: [
-        "OpenAI Codex custom pets",
-        "animated desktop companions",
-        "Codex pet V1 and V2 spritesheets",
+        "Free OpenAI Codex pet gallery",
+        "One-step Codex pet installation",
+        "Community requests for anime and game character pets",
+        "Animated desktop companions",
+      ],
+      potentialAction: [
+        {
+          "@type": "ViewAction",
+          name: "Browse the Codex pet gallery",
+          target: `${siteConfig.url}/#gallery`,
+        },
+        {
+          "@type": "CreateAction",
+          name: "Request a Codex pet",
+          target: `${siteConfig.url}/request`,
+        },
       ],
     },
   ],

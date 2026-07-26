@@ -9,8 +9,22 @@ const checks = [
     expected: ["如何安装 Codex 小宠物", "install-pet.sh", "Install-CodexPet"],
   },
   {
+    path: "/zh/request",
+    expected: [
+      "免费提交喜欢角色的 Codex 小宠物制作申请",
+      "提交申请本身完全免费",
+      "社区贡献者可能会志愿认领",
+    ],
+  },
+  {
     path: "/llms.txt",
-    expected: ["/zh/install", "how to install a Codex pet", "install-pet.sh"],
+    expected: [
+      "/zh/install",
+      "/zh/request",
+      "how to install a Codex pet",
+      "Submitting a request is free",
+      "install-pet.sh",
+    ],
   },
   {
     path: "/robots.txt",
