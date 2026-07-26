@@ -159,7 +159,10 @@ for (const agent of [
 ]) {
   requireMatch(
     robots,
-    new RegExp(`User-agent: ${agent}[\\s\\S]*?Allow: /`),
+    new RegExp(
+      `^User-agent:[ \\t]*${agent}[ \\t]*\\r?$(?:(?!^User-agent:)[\\s\\S])*?^Allow:[ \\t]*/[ \\t]*\\r?$`,
+      "m",
+    ),
     `robots.txt: ${agent} is not explicitly allowed`,
   );
 }

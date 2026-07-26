@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 
 const SITE_URL = "https://codexpet.top";
 const KEY = "08254c99d6c240bbe7ccf299084678a7";
+const REQUEST_TIMEOUT_MS = 15_000;
 const argumentsList = process.argv.slice(2);
 const dryRun = argumentsList.includes("--dry-run");
 const sitemapPath =
@@ -25,6 +26,7 @@ if (dryRun) {
   const response = await fetch("https://api.indexnow.org/indexnow", {
     method: "POST",
     headers: { "Content-Type": "application/json; charset=utf-8" },
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
     body: JSON.stringify({
       host: "codexpet.top",
       key: KEY,

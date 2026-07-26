@@ -1,6 +1,8 @@
 const baseUrl = (process.argv[2] ?? "https://codexpet.top").replace(/\/$/, "");
 const searchBotUserAgent =
   "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; OAI-SearchBot/1.0; +https://openai.com/searchbot";
+const REQUEST_TIMEOUT_MS = 15_000;
+const MAX_ATTEMPTS = 6;
 const checks = [
   {
     path: "/zh/install",
@@ -22,11 +24,12 @@ async function sleep(milliseconds) {
 
 async function fetchWithRetry(url) {
   let lastError;
-  for (let attempt = 1; attempt <= 6; attempt += 1) {
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt += 1) {
     try {
       const response = await fetch(url, {
         headers: { "user-agent": searchBotUserAgent },
         redirect: "follow",
+        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
       });
       if (response.ok) return response;
       lastError = new Error(`${url} returned HTTP ${response.status}`);

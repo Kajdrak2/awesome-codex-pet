@@ -95,8 +95,8 @@ The site is configured for indexing out of the box: per-page titles, description
 
 To actually surface in search results, do this once after the first deploy:
 
-1. **Google Search Console** — [search.google.com/search-console](https://search.google.com/search-console). Add the property, choose the HTML tag method, drop the verification token into `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`, redeploy, then submit `https://codexpet.top/sitemap.xml`.
-2. **Bing Webmaster Tools** — [bing.com/webmasters](https://www.bing.com/webmasters). Same idea via `NEXT_PUBLIC_BING_SITE_VERIFICATION`.
+1. **Google Search Console** — [search.google.com/search-console](https://search.google.com/search-console). Add the property, choose the HTML tag method, store the verification token as the GitHub Actions secret `GOOGLE_SITE_VERIFICATION`, redeploy, then submit `https://codexpet.top/sitemap.xml`.
+2. **Bing Webmaster Tools** — [bing.com/webmasters](https://www.bing.com/webmasters). Store its token as the GitHub Actions secret `BING_SITE_VERIFICATION`. The deployment workflows inject both secrets into the corresponding `NEXT_PUBLIC_*` variables at build time.
 3. **Canonical domain** — keep `NEXT_PUBLIC_SITE_URL` set to `https://codexpet.top`. Deployment attaches `www.codexpet.top` to Pages, and the generated `_worker.js` permanently redirects both `www` and the default Pages hostname to the apex domain.
 4. **Automatic discovery** — every production deployment submits the canonical sitemap URLs to IndexNow. This helps participating search engines such as Bing discover changes without a manual submission.
 5. **AI search access** — deployment verifies that `OAI-SearchBot` can retrieve the Chinese installation answer, `llms.txt`, and `robots.txt` from the production domain.
