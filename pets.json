@@ -631,6 +631,19 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "jesse-the-fox--itjesse",
+    "name": "JesseTheFox",
+    "localized_names": { "en": "JesseTheFox", "zh": "阿博" },
+    "author": "Jesse Zhu",
+    "author_handle": "ITJesse",
+    "author_url": "https://github.com/ITJesse",
+    "primary_category": "Original Characters",
+    "collections": ["animal-companions"],
+    "license": "Non-commercial use only. Original character design and the independently AI-generated final pet asset are credited to Jesse Zhu; reference sheets were used only as private production references.",
+    "description": "An original anthropomorphic fox Codex pet with a PETS OK LED collar, layered blue-gray shorts, expressive actions, and 16 look directions.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "jiji--yena",
     "name": "Jiji",
     "author": "Yena",
@@ -758,6 +771,19 @@
     "collections": ["genshin-impact"],
     "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
+  },
+  {
+    "slug": "kuro-chibi--kuroneko-night",
+    "name": "Kuro Chibi",
+    "localized_names": { "en": "Kuro Chibi", "zh": "Kuro Q版" },
+    "author": "KuroNeko-night",
+    "author_handle": "KuroNeko-night",
+    "author_url": "https://github.com/KuroNeko-night",
+    "primary_category": "Original Characters",
+    "collections": [],
+    "license": "Independent AI-generated asset; non-commercial use only.",
+    "description": "An independently AI-generated chibi Kuro catgirl pet. The final spritesheet was generated and assembled for Codex from the approved Kuro character design; supplied character art and expression stickers were used only as visual references and are not included in this package.",
+    "spriteVersionNumber": 2
   },
   {
     "slug": "lappland--chenxin-dlut",
