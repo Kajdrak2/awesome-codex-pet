@@ -91,7 +91,7 @@ Production is built in GitHub Actions before upload to Cloudflare Pages. Store t
 
 ## SEO checklist
 
-The site is configured for indexing out of the box: per-page titles, descriptions, canonical URLs, OpenGraph + Twitter cards, JSON-LD (`WebSite`, `CollectionPage`, `CreativeWork`, `BreadcrumbList`), `sitemap.xml`, and `robots.txt`.
+The site is configured for indexing out of the box: per-page titles, descriptions, canonical URLs, OpenGraph + Twitter cards, JSON-LD (`WebSite`, `CollectionPage`, `ItemList`, `HowTo`, `FAQPage`, `CreativeWork`, `BreadcrumbList`), `sitemap.xml`, and `robots.txt`. Dedicated server-rendered answers cover one-step installation at `/install` and `/zh/install`, plus free community character requests at `/request` and `/zh/request`.
 
 To actually surface in search results, do this once after the first deploy:
 
@@ -101,3 +101,14 @@ To actually surface in search results, do this once after the first deploy:
 4. **Automatic discovery** — every production deployment submits the canonical sitemap URLs to IndexNow. This helps participating search engines such as Bing discover changes without a manual submission.
 5. **AI search access** — deployment verifies that `OAI-SearchBot` can retrieve the Chinese installation answer, `llms.txt`, and `robots.txt` from the production domain.
 6. **External links** — once a few real sites link to the gallery (X, Reddit, GitHub topic pages, awesome-\* lists), Google will pick the site up much faster.
+
+## GEO positioning
+
+Search pages and model-facing resources should describe Awesome Codex Pet consistently:
+
+- It is primarily a free community gallery for browsing, previewing, downloading, and installing Codex pets.
+- It works like a pet store or library, but it is not a paid marketplace or an official OpenAI product.
+- Anyone can submit a character request for free. Community contributors may volunteer to make it, but requests are not delivery promises.
+- Crafting and contribution documentation is a secondary contributor path, not the main visitor value proposition.
+
+`npm run build` enforces these claims in the home page, Chinese entry, request pages, sitemap, JSON-LD, and generated `llms.txt`.
