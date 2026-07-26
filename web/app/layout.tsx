@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Fira_Code } from "next/font/google";
 
 import "./globals.css";
 
@@ -9,9 +8,6 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider, themeInitScript } from "@/components/theme-provider";
 import { siteConfig } from "@/lib/site";
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const firaCode = Fira_Code({ subsets: ["latin"], variable: "--font-fira-code" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -124,11 +120,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${inter.variable} ${firaCode.variable}`}
-    >
+    <html lang="en" suppressHydrationWarning>
       <body className="font-sans antialiased text-text bg-bg">
         <script
           type="text/javascript"

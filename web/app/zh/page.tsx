@@ -159,7 +159,7 @@ export default function ChineseCodexPetsPage() {
           </Link>
           <Link
             className="inline-flex h-11 items-center justify-center rounded-lg border border-border bg-bg-elevated px-5 text-sm font-medium text-text transition-colors hover:bg-surface"
-            href="/install"
+            href="/zh/install"
           >
             查看安装方法
           </Link>
@@ -195,7 +195,10 @@ export default function ChineseCodexPetsPage() {
         ))}
       </nav>
 
-      <section className="grid gap-10 border-b border-border py-14 lg:grid-cols-[0.7fr_1.3fr]" id="what">
+      <section
+        className="grid gap-10 border-b border-border py-14 lg:grid-cols-[0.7fr_1.3fr]"
+        id="what"
+      >
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-accent">
             认识 Codex pets
@@ -206,15 +209,18 @@ export default function ChineseCodexPetsPage() {
         </div>
         <div className="space-y-5 text-base leading-8 text-text-secondary">
           <p>
-            Codex 宠物是 OpenAI Codex 桌面端中的像素动画伙伴。它们会随着
-            Codex 的待机、运行、等待、审查和失败等状态切换动作；V2
+            Codex 宠物是 OpenAI Codex 桌面端中的像素动画伙伴。它们会随着 Codex
+            的待机、运行、等待、审查和失败等状态切换动作；V2
             宠物还能根据拖动方向播放环视动画。
           </p>
           <p>
             这里不是售卖素材的“宠物市场”，而是公开的 Codex
             宠物社区画廊。每只宠物都有独立详情页、动作预览、作者信息、许可证和安装入口。
             你可以浏览
-            <Link className="mx-1 font-medium text-accent hover:underline" href="/collections">
+            <Link
+              className="mx-1 font-medium text-accent hover:underline"
+              href="/collections"
+            >
               作品系列与主题合集
             </Link>
             ，也可以搜索具体动漫或游戏角色。
@@ -222,7 +228,10 @@ export default function ChineseCodexPetsPage() {
         </div>
       </section>
 
-      <section className="grid gap-10 border-b border-border py-14 lg:grid-cols-[0.7fr_1.3fr]" id="install">
+      <section
+        className="grid gap-10 border-b border-border py-14 lg:grid-cols-[0.7fr_1.3fr]"
+        id="install"
+      >
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-accent">
             Codex 宠物下载与安装
@@ -248,14 +257,20 @@ export default function ChineseCodexPetsPage() {
             description="安装完成后重启 Codex，打开“设置 → 宠物”，选择刚安装的自定义宠物。"
           />
           <li className="py-5">
-            <Link className="font-medium text-accent hover:underline" href="/install">
+            <Link
+              className="font-medium text-accent hover:underline"
+              href="/zh/install"
+            >
               打开完整的 Codex 宠物安装指南 →
             </Link>
           </li>
         </ol>
       </section>
 
-      <section className="grid gap-10 border-b border-border py-14 lg:grid-cols-[0.7fr_1.3fr]" id="create">
+      <section
+        className="grid gap-10 border-b border-border py-14 lg:grid-cols-[0.7fr_1.3fr]"
+        id="create"
+      >
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-accent">
             Codex 小宠物制作
@@ -266,25 +281,35 @@ export default function ChineseCodexPetsPage() {
         </div>
         <div className="space-y-5 text-base leading-8 text-text-secondary">
           <p>
-            Hatch Pet skill
-            可以从角色参考图、现有精灵图或半成品开始，生成并校验 Codex
-            需要的动作图集。V1 使用 8×9 图集；V2 使用 8×11
-            图集，并增加 16 个环视方向。
+            Hatch Pet skill 可以从角色参考图、现有精灵图或半成品开始，生成并校验
+            Codex 需要的动作图集。V1 使用 8×9 图集；V2 使用 8×11 图集，并增加 16
+            个环视方向。
           </p>
           <p>
-            最终宠物包只需要 <code className="font-mono text-sm text-text">pet.json</code>
-            {" "}和{" "}
-            <code className="font-mono text-sm text-text">spritesheet.webp</code>。
-            投稿到社区时还需要包含作者、来源、分类与许可证的
-            <code className="ml-1 font-mono text-sm text-text">submission.json</code>。
+            最终宠物包只需要{" "}
+            <code className="font-mono text-sm text-text">pet.json</code> 和{" "}
+            <code className="font-mono text-sm text-text">
+              spritesheet.webp
+            </code>
+            。 投稿到社区时还需要包含作者、来源、分类与许可证的
+            <code className="ml-1 font-mono text-sm text-text">
+              submission.json
+            </code>
+            。
           </p>
-          <Link className="inline-block font-medium text-accent hover:underline" href="/guide">
+          <Link
+            className="inline-block font-medium text-accent hover:underline"
+            href="/guide"
+          >
             阅读 Codex 宠物制作与投稿教程 →
           </Link>
         </div>
       </section>
 
-      <section className="grid gap-10 border-b border-border py-14 lg:grid-cols-[0.7fr_1.3fr]" id="troubleshoot">
+      <section
+        className="grid gap-10 border-b border-border py-14 lg:grid-cols-[0.7fr_1.3fr]"
+        id="troubleshoot"
+      >
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-accent">
             Codex 宠物不显示
@@ -295,16 +320,25 @@ export default function ChineseCodexPetsPage() {
         </div>
         <ol className="list-decimal space-y-4 pl-5 text-base leading-8 text-text-secondary">
           <li>
-            确认 macOS / Linux 的 <code className="font-mono text-sm text-text">~/.codex/pets/</code>
-            ，或 Windows 的 <code className="font-mono text-sm text-text">%USERPROFILE%\.codex\pets\</code>
+            确认 macOS / Linux 的{" "}
+            <code className="font-mono text-sm text-text">~/.codex/pets/</code>
+            ，或 Windows 的{" "}
+            <code className="font-mono text-sm text-text">
+              %USERPROFILE%\.codex\pets\
+            </code>
             中已经出现宠物目录。
           </li>
           <li>
-            目录中必须同时存在 <code className="font-mono text-sm text-text">pet.json</code>
-            {" "}和 <code className="font-mono text-sm text-text">spritesheet.webp</code>。
+            目录中必须同时存在{" "}
+            <code className="font-mono text-sm text-text">pet.json</code> 和{" "}
+            <code className="font-mono text-sm text-text">
+              spritesheet.webp
+            </code>
+            。
           </li>
           <li>
-            检查 <code className="font-mono text-sm text-text">pet.json.id</code>
+            检查{" "}
+            <code className="font-mono text-sm text-text">pet.json.id</code>
             是否与文件夹名称完全一致。
           </li>
           <li>
@@ -326,7 +360,10 @@ export default function ChineseCodexPetsPage() {
             <details className="group py-5" key={item.question}>
               <summary className="cursor-pointer list-none pr-8 text-base font-semibold text-text">
                 {item.question}
-                <span className="float-right text-accent group-open:rotate-45" aria-hidden="true">
+                <span
+                  className="float-right text-accent group-open:rotate-45"
+                  aria-hidden="true"
+                >
                   +
                 </span>
               </summary>
@@ -357,7 +394,9 @@ function ChineseStep({
 }) {
   return (
     <li className="grid gap-3 py-5 sm:grid-cols-[48px_1fr]">
-      <span className="font-mono text-xs font-semibold text-accent">{index}</span>
+      <span className="font-mono text-xs font-semibold text-accent">
+        {index}
+      </span>
       <div>
         <h3 className="font-semibold text-text">{title}</h3>
         <p className="mt-1 text-sm leading-7 text-muted">{description}</p>
