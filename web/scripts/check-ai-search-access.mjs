@@ -36,7 +36,9 @@ async function fetchWithRetry(url) {
     } catch (error) {
       lastError = error;
     }
-    await sleep(attempt * 5_000);
+    if (attempt < MAX_ATTEMPTS) {
+      await sleep(attempt * 5_000);
+    }
   }
   throw lastError;
 }
