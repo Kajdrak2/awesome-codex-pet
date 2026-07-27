@@ -113,7 +113,7 @@ console.log(`Installed ${installId} to ${targetDir}`);
 if (process.env.AWESOME_CODEX_PET_NO_STATS !== "1") {
   const statsApi =
     process.env.AWESOME_CODEX_PET_STATS_API ||
-    "https://awesome-codex-pet-stats.legeling.workers.dev";
+    "https://api.codexpet.top";
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 3000);

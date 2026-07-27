@@ -1,14 +1,12 @@
 /**
  * Awesome Codex Pet stats Worker.
  *
- * D1 is the source of truth. Metric receipts make retries idempotent, while
- * database triggers update lifetime and daily counters atomically.
+ * D1 is the source of truth for explicit install and like actions. Public
+ * reads use a static snapshot exported during the website deployment.
  */
 
 const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*--[a-z0-9]+(-[a-z0-9]+)*$/;
 const EVENT_ID_RE = /^[A-Za-z0-9._:-]{8,128}$/;
-const CACHE_TTL_SECONDS = 300;
-const VIEW_RATE_LIMIT = 120;
 const INSTALL_RATE_LIMIT = 30;
 const RECEIPT_TTL_MS = 8 * 24 * 60 * 60 * 1000;
 
@@ -35,7 +33,7 @@ export function isOriginAllowed(request, env) {
 function corsHeaders(request, env) {
   const origin = request.headers.get("Origin");
   const headers = {
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, X-Event-ID",
     "Access-Control-Max-Age": "86400",
     Vary: "Origin",
@@ -46,18 +44,6 @@ function corsHeaders(request, env) {
   }
 
   return headers;
-}
-
-function withCors(response, request, env) {
-  const headers = new Headers(response.headers);
-  for (const [key, value] of Object.entries(corsHeaders(request, env))) {
-    headers.set(key, value);
-  }
-  return new Response(response.body, {
-    status: response.status,
-    statusText: response.statusText,
-    headers,
-  });
 }
 
 function jsonResponse(
@@ -111,7 +97,7 @@ function readEventId(request, url) {
   return eventId;
 }
 
-export async function buildMetricKeys(request, env, slug, kind, timestamp) {
+export async function buildInstallKeys(request, env, slug, timestamp) {
   if (!env.HASH_SALT || env.HASH_SALT.length < 16) {
     throw new HttpError(500, "metric hashing is not configured");
   }
@@ -122,24 +108,16 @@ export async function buildMetricKeys(request, env, slug, kind, timestamp) {
   const userAgent = request.headers.get("User-Agent") || "unknown";
   const clientIdentity = `${address}|${userAgent}`;
   const day = utcDay(timestamp);
-
-  let eventIdentity;
-  if (kind === "view") {
-    eventIdentity = eventId
-      ? `browser:${eventId}:${day}`
-      : `legacy:${clientIdentity}:${day}`;
-  } else {
-    eventIdentity = eventId
-      ? `install:${eventId}`
-      : `legacy:${clientIdentity}:${tenMinuteBucket(timestamp)}`;
-  }
+  const eventIdentity = eventId
+    ? `install:${eventId}`
+    : `legacy:${clientIdentity}:${tenMinuteBucket(timestamp)}`;
 
   return {
     eventKey: await sha256(
-      `${env.HASH_SALT}|event|${kind}|${slug}|${eventIdentity}`,
+      `${env.HASH_SALT}|event|install|${slug}|${eventIdentity}`,
     ),
     rateKey: await sha256(
-      `${env.HASH_SALT}|rate|${kind}|${address}|${hourBucket(timestamp)}`,
+      `${env.HASH_SALT}|rate|install|${address}|${hourBucket(timestamp)}`,
     ),
     day,
     rateBucket: hourBucket(timestamp),
@@ -150,18 +128,13 @@ export async function buildLikeKey(request, env, slug) {
   if (!env.HASH_SALT || env.HASH_SALT.length < 16) {
     throw new HttpError(500, "metric hashing is not configured");
   }
-  return sha256(
-    `${env.HASH_SALT}|like|${slug}|${clientAddress(request)}`,
-  );
+  return sha256(`${env.HASH_SALT}|like|${slug}|${clientAddress(request)}`);
 }
 
-export function computeTrendingScore(installs7d, views7d) {
+export function computeTrendingScore(installs7d) {
   const installs = Math.max(0, Number(installs7d) || 0);
-  const views = Math.max(0, Number(views7d) || 0);
-  if (installs === 0 && views < 3) return 0;
-  return Math.round(
-    (0.8 * Math.log1p(installs) + 0.2 * Math.log1p(views)) * 1_000_000,
-  );
+  if (installs === 0) return 0;
+  return Math.round(Math.log1p(installs) * 1_000_000);
 }
 
 function stableDailyRank(slug, day) {
@@ -174,27 +147,17 @@ function stableDailyRank(slug, day) {
   return hash >>> 0;
 }
 
-function statsCacheKey(request) {
-  const url = new URL(request.url);
-  url.pathname = "/__cache/stats-v4";
-  url.search = "";
-  return new Request(url.toString(), { method: "GET" });
-}
-
 export function serializeStatsRows(rows, timestamp = Date.now()) {
   const day = utcDay(timestamp);
   const pets = {};
 
   for (const row of rows) {
-    const views7d = Number(row.views_7d) || 0;
     const installs7d = Number(row.installs_7d) || 0;
     pets[row.slug] = {
-      views: Number(row.views) || 0,
       installs: Number(row.installs) || 0,
       likes: Number(row.likes) || 0,
-      views7d,
       installs7d,
-      trendingScore: computeTrendingScore(installs7d, views7d),
+      trendingScore: computeTrendingScore(installs7d),
       dailyRank: stableDailyRank(row.slug, day),
       updatedAt: Number(row.updated_at) || 0,
     };
@@ -207,51 +170,6 @@ export function serializeStatsRows(rows, timestamp = Date.now()) {
   };
 }
 
-async function queryStats(env, timestamp) {
-  const cutoffDay = utcDay(timestamp - 6 * 24 * 60 * 60 * 1000);
-  const result = await env.DB.prepare(
-    `WITH recent AS (
-       SELECT slug, SUM(views) AS views_7d, SUM(installs) AS installs_7d
-       FROM pet_daily
-       WHERE day >= ?
-       GROUP BY slug
-     )
-     SELECT
-       stats.slug,
-       stats.views,
-       stats.installs,
-       stats.likes,
-       stats.updated_at,
-       COALESCE(recent.views_7d, 0) AS views_7d,
-       COALESCE(recent.installs_7d, 0) AS installs_7d
-     FROM pet_stats AS stats
-     LEFT JOIN recent ON recent.slug = stats.slug
-     WHERE stats.active = 1
-     ORDER BY stats.slug ASC`,
-  )
-    .bind(cutoffDay)
-    .all();
-
-  return serializeStatsRows(result.results || [], timestamp);
-}
-
-async function getStats(request, env, ctx) {
-  const cache = caches.default;
-  const cacheKey = statsCacheKey(request);
-  const cached = await cache.match(cacheKey);
-  if (cached) return withCors(cached, request, env);
-
-  const payload = await queryStats(env, Date.now());
-  const response = new Response(JSON.stringify(payload), {
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": `public, max-age=60, s-maxage=${CACHE_TTL_SECONDS}`,
-    },
-  });
-  ctx.waitUntil(cache.put(cacheKey, response.clone()));
-  return withCors(response, request, env);
-}
-
 async function readPetStats(env, slug) {
   return env.DB.prepare(
     `SELECT slug, views, installs, likes, updated_at
@@ -262,7 +180,7 @@ async function readPetStats(env, slug) {
     .first();
 }
 
-async function trackMetric(request, env, ctx, slug, kind) {
+async function trackInstall(request, env, slug) {
   if (!SLUG_RE.test(slug)) {
     throw new HttpError(400, "invalid slug");
   }
@@ -276,8 +194,7 @@ async function trackMetric(request, env, ctx, slug, kind) {
   }
 
   const timestamp = Date.now();
-  const keys = await buildMetricKeys(request, env, slug, kind, timestamp);
-  const limit = kind === "view" ? VIEW_RATE_LIMIT : INSTALL_RATE_LIMIT;
+  const keys = await buildInstallKeys(request, env, slug, timestamp);
   const rate = await env.DB.prepare(
     `INSERT INTO metric_rate_limits
        (rate_key, kind, bucket_start, event_count, expires_at)
@@ -287,10 +204,15 @@ async function trackMetric(request, env, ctx, slug, kind) {
        expires_at = excluded.expires_at
      RETURNING event_count`,
   )
-    .bind(keys.rateKey, kind, keys.rateBucket, timestamp + 2 * 60 * 60 * 1000)
+    .bind(
+      keys.rateKey,
+      "install",
+      keys.rateBucket,
+      timestamp + 2 * 60 * 60 * 1000,
+    )
     .first();
 
-  if ((Number(rate?.event_count) || 0) > limit) {
+  if ((Number(rate?.event_count) || 0) > INSTALL_RATE_LIMIT) {
     throw new HttpError(429, "rate limit exceeded");
   }
 
@@ -302,7 +224,7 @@ async function trackMetric(request, env, ctx, slug, kind) {
     .bind(
       keys.eventKey,
       slug,
-      kind,
+      "install",
       keys.day,
       timestamp,
       timestamp + RECEIPT_TTL_MS,
@@ -311,16 +233,10 @@ async function trackMetric(request, env, ctx, slug, kind) {
 
   const counted = (Number(receipt.meta?.changes) || 0) > 0;
   const current = await readPetStats(env, slug);
-  if (counted) {
-    ctx.waitUntil(caches.default.delete(statsCacheKey(request)));
-  }
-
   return jsonResponse(
     {
       slug,
-      views: Number(current?.views) || 0,
       installs: Number(current?.installs) || 0,
-      likes: Number(current?.likes) || 0,
       updatedAt: Number(current?.updated_at) || 0,
       counted,
     },
@@ -329,7 +245,7 @@ async function trackMetric(request, env, ctx, slug, kind) {
   );
 }
 
-async function trackLike(request, env, ctx, slug) {
+async function trackLike(request, env, slug) {
   if (!SLUG_RE.test(slug)) {
     throw new HttpError(400, "invalid slug");
   }
@@ -353,10 +269,6 @@ async function trackLike(request, env, ctx, slug) {
   const counted = (Number(result.meta?.changes) || 0) > 0;
   const current = await readPetStats(env, slug);
 
-  if (counted) {
-    ctx.waitUntil(caches.default.delete(statsCacheKey(request)));
-  }
-
   return jsonResponse(
     {
       slug,
@@ -369,7 +281,7 @@ async function trackLike(request, env, ctx, slug) {
   );
 }
 
-async function routeRequest(request, env, ctx) {
+async function routeRequest(request, env) {
   const url = new URL(request.url);
 
   if (request.method === "OPTIONS") {
@@ -386,37 +298,12 @@ async function routeRequest(request, env, ctx) {
     throw new HttpError(500, "D1 binding is not configured");
   }
 
-  if (url.pathname === "/stats" && request.method === "GET") {
-    return getStats(request, env, ctx);
-  }
-
-  if (url.pathname === "/track/view" && request.method === "POST") {
-    return trackMetric(
-      request,
-      env,
-      ctx,
-      url.searchParams.get("slug") || "",
-      "view",
-    );
-  }
-
   if (url.pathname === "/track/install" && request.method === "POST") {
-    return trackMetric(
-      request,
-      env,
-      ctx,
-      url.searchParams.get("slug") || "",
-      "install",
-    );
+    return trackInstall(request, env, url.searchParams.get("slug") || "");
   }
 
   if (url.pathname === "/track/like" && request.method === "POST") {
-    return trackLike(
-      request,
-      env,
-      ctx,
-      url.searchParams.get("slug") || "",
-    );
+    return trackLike(request, env, url.searchParams.get("slug") || "");
   }
 
   throw new HttpError(404, "not found");
@@ -435,13 +322,15 @@ async function cleanupMetrics(env) {
 }
 
 export default {
-  async fetch(request, env, ctx) {
+  async fetch(request, env) {
     try {
-      return await routeRequest(request, env, ctx);
+      return await routeRequest(request, env);
     } catch (error) {
-      const stack = error instanceof Error ? error.stack : String(error);
-      console.error("Stats Worker request failed", stack);
       const status = error instanceof HttpError ? error.status : 500;
+      if (status >= 500) {
+        const stack = error instanceof Error ? error.stack : String(error);
+        console.error("Stats Worker request failed", stack);
+      }
       const message =
         error instanceof HttpError ? error.message : "internal server error";
       return jsonResponse({ error: message }, request, env, status);

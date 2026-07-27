@@ -21,7 +21,7 @@ import {
 } from "@/lib/codex-links";
 import type { Pet } from "@/lib/pets";
 import { siteConfig } from "@/lib/site";
-import { fetchStats, trackView } from "@/lib/stats";
+import { fetchStats } from "@/lib/stats";
 
 export type PetNavigation = {
   previous: { slug: string; name: string };
@@ -35,7 +35,7 @@ type PetDetailContentProps = {
   navigation: PetNavigation;
 };
 
-type DetailStats = { views: number; installs: number };
+type DetailStats = { installs: number };
 
 function formatCount(value: number) {
   return new Intl.NumberFormat(undefined, { notation: "compact" }).format(
@@ -50,17 +50,15 @@ export function PetDetailContent({
 }: PetDetailContentProps) {
   const { t, locale } = useLocale();
   const router = useRouter();
-  const [stats, setStats] = useState<DetailStats>({ views: 0, installs: 0 });
+  const [stats, setStats] = useState<DetailStats>({ installs: 0 });
   const localizedName = getLocalizedPetName(pet, locale);
 
   useEffect(() => {
-    trackView(pet.slug);
     const controller = new AbortController();
     void fetchStats(controller.signal)
       .then((payload) => {
         const current = payload.pets[pet.slug];
         setStats({
-          views: current?.views ?? 0,
           installs: current?.installs ?? 0,
         });
       })
@@ -204,7 +202,7 @@ export function PetDetailContent({
                 </a>
               </div>
 
-              <div className="mb-8 grid grid-cols-2 border-y border-border py-4">
+              <div className="mb-8 border-y border-border py-4">
                 <div>
                   <div className="font-mono text-xl font-semibold tabular-nums text-text">
                     {formatCount(stats.installs)}
@@ -212,12 +210,6 @@ export function PetDetailContent({
                   <div className="text-xs text-muted">
                     {t("detailInstalls")}
                   </div>
-                </div>
-                <div className="border-l border-border pl-5">
-                  <div className="font-mono text-xl font-semibold tabular-nums text-text">
-                    {formatCount(stats.views)}
-                  </div>
-                  <div className="text-xs text-muted">{t("detailViews")}</div>
                 </div>
               </div>
 

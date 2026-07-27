@@ -2,10 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
-import {
-  FilterBar,
-  type CategoryFilterOption,
-} from "@/components/filter-bar";
+import { FilterBar, type CategoryFilterOption } from "@/components/filter-bar";
 import { ActionDropdown } from "@/components/action-dropdown";
 import { PetCard } from "@/components/pet-card";
 import { useLocale } from "@/components/locale-provider";
@@ -17,7 +14,7 @@ type PetGalleryProps = {
   categories: Array<{ name: string; label: Pet["categoryLabel"] }>;
 };
 
-type SortKey = "trending" | "downloads" | "likes" | "name";
+type SortKey = "random" | "trending" | "downloads" | "likes" | "name";
 
 const INITIAL_BATCH_SIZE = 18;
 const LOAD_MORE_BATCH_SIZE = 18;
@@ -42,13 +39,27 @@ function comparePetsByName(a: Pet, b: Pet) {
   return 0;
 }
 
+function createPetRanks(pets: Pet[], shuffle = false) {
+  const slugs = pets.map((pet) => pet.slug);
+
+  if (shuffle) {
+    for (let index = slugs.length - 1; index > 0; index -= 1) {
+      const swapIndex = Math.floor(Math.random() * (index + 1));
+      [slugs[index], slugs[swapIndex]] = [slugs[swapIndex], slugs[index]];
+    }
+  }
+
+  return new Map(slugs.map((slug, index) => [slug, index]));
+}
+
 export function PetGallery({ pets, categories }: PetGalleryProps) {
   const { t } = useLocale();
   const [filters, setFilters] = useState({
     query: "",
     categories: [] as string[],
   });
-  const [sort, setSort] = useState<SortKey>("downloads");
+  const [sort, setSort] = useState<SortKey>("random");
+  const [randomRanks, setRandomRanks] = useState(() => createPetRanks(pets));
   const [renderCount, setRenderCount] = useState(INITIAL_BATCH_SIZE);
   const loadMoreRef = useRef<HTMLDivElement>(null);
   const [statsState, setStatsState] = useState<StatsState>({
@@ -56,6 +67,10 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
     pets: {},
     generatedAt: 0,
   });
+
+  useEffect(() => {
+    setRandomRanks(createPetRanks(pets, true));
+  }, [pets]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -91,22 +106,24 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
       if (!matchesCategory) return false;
       if (queryTerms.length === 0) return true;
 
-      const haystack = normalizeSortText([
-        pet.name,
-        pet.localizedNames?.en,
-        pet.localizedNames?.zh,
-        pet.author,
-        pet.author_handle,
-        pet.primary_category,
-        pet.description,
-        pet.runtimeDescription,
-        pet.displayName,
-        pet.categoryLabel.en,
-        pet.categoryLabel.zh,
-        ...pet.tags,
-      ]
-        .filter(Boolean)
-        .join(" "));
+      const haystack = normalizeSortText(
+        [
+          pet.name,
+          pet.localizedNames?.en,
+          pet.localizedNames?.zh,
+          pet.author,
+          pet.author_handle,
+          pet.primary_category,
+          pet.description,
+          pet.runtimeDescription,
+          pet.displayName,
+          pet.categoryLabel.en,
+          pet.categoryLabel.zh,
+          ...pet.tags,
+        ]
+          .filter(Boolean)
+          .join(" "),
+      );
 
       return queryTerms.every((term) => haystack.includes(term));
     });
@@ -114,32 +131,36 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
     const withStats = filtered.map((pet, originalIndex) => ({
       pet,
       originalIndex,
-      views: statsState.pets[pet.slug]?.views ?? 0,
       installs: statsState.pets[pet.slug]?.installs ?? 0,
       likes: statsState.pets[pet.slug]?.likes ?? 0,
       installs7d: statsState.pets[pet.slug]?.installs7d ?? 0,
       trendingScore: statsState.pets[pet.slug]?.trendingScore ?? 0,
       dailyRank: statsState.pets[pet.slug]?.dailyRank ?? 0,
+      randomRank: randomRanks.get(pet.slug) ?? originalIndex,
     }));
 
     withStats.sort((a, b) => {
-      if (sort !== "name" && statsState.status !== "ready") {
+      if (
+        sort !== "name" &&
+        sort !== "random" &&
+        statsState.status !== "ready"
+      ) {
         return a.originalIndex - b.originalIndex;
       }
 
       switch (sort) {
+        case "random":
+          return a.randomRank - b.randomRank;
         case "downloads":
           return (
             b.installs - a.installs ||
             b.likes - a.likes ||
-            b.views - a.views ||
             comparePetsByName(a.pet, b.pet)
           );
         case "likes":
           return (
             b.likes - a.likes ||
             b.installs - a.installs ||
-            b.views - a.views ||
             comparePetsByName(a.pet, b.pet)
           );
         case "name":
@@ -158,7 +179,7 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
     });
 
     return withStats;
-  }, [filters, pets, sort, statsState]);
+  }, [filters, pets, randomRanks, sort, statsState]);
 
   useEffect(() => {
     setRenderCount(INITIAL_BATCH_SIZE);
@@ -183,6 +204,7 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
   const rendered = visible.slice(0, renderCount);
   const hasMore = rendered.length < visible.length;
   const sortOptions: Array<{ value: SortKey; label: string }> = [
+    { value: "random", label: t("sortRandom") },
     { value: "downloads", label: t("sortDownloads") },
     { value: "likes", label: t("sortLikes") },
     { value: "trending", label: t("sortPopular") },
@@ -190,7 +212,15 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
   ];
   const selectedSortLabel =
     sortOptions.find((option) => option.value === sort)?.label ??
-    t("sortDownloads");
+    t("sortRandom");
+
+  function selectSort(nextSort: SortKey) {
+    if (nextSort === "random") {
+      setRandomRanks(createPetRanks(pets, true));
+      setRenderCount(INITIAL_BATCH_SIZE);
+    }
+    setSort(nextSort);
+  }
 
   useEffect(() => {
     const target = loadMoreRef.current;
@@ -273,7 +303,7 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
                     type="button"
                     role="menuitemradio"
                     aria-checked={selected}
-                    onClick={() => setSort(option.value)}
+                    onClick={() => selectSort(option.value)}
                   >
                     <span className="font-medium">{option.label}</span>
                     <svg
@@ -314,20 +344,17 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
                 "repeat(auto-fit, minmax(min(100%, 260px), 1fr))",
             }}
           >
-          {rendered.map(({ pet, views, installs, likes }, i) => (
-            <div
-              key={pet.slug}
-              className="h-full animate-fade-in-up"
-              style={{ animationDelay: `${(i % LOAD_MORE_BATCH_SIZE) * 30}ms` }}
-            >
-              <PetCard
-                pet={pet}
-                views={views}
-                installs={installs}
-                likes={likes}
-              />
-            </div>
-          ))}
+            {rendered.map(({ pet, installs, likes }, i) => (
+              <div
+                key={pet.slug}
+                className="h-full animate-fade-in-up"
+                style={{
+                  animationDelay: `${(i % LOAD_MORE_BATCH_SIZE) * 30}ms`,
+                }}
+              >
+                <PetCard pet={pet} installs={installs} likes={likes} />
+              </div>
+            ))}
           </div>
           <div
             ref={loadMoreRef}
@@ -343,10 +370,7 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
                 type="button"
                 onClick={() =>
                   setRenderCount((current) =>
-                    Math.min(
-                      current + LOAD_MORE_BATCH_SIZE,
-                      visible.length,
-                    ),
+                    Math.min(current + LOAD_MORE_BATCH_SIZE, visible.length),
                   )
                 }
               >

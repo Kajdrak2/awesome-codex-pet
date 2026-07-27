@@ -9,16 +9,13 @@ import { fileURLToPath } from "node:url";
 const workerRoot = fileURLToPath(new URL("..", import.meta.url));
 const repoRoot = resolve(workerRoot, "..");
 const catalogPath = resolve(repoRoot, "pets.json");
-const defaultStatsUrl =
-  "https://awesome-codex-pet-stats.legeling.workers.dev/stats";
 const slugPattern = /^[a-z0-9]+(-[a-z0-9]+)*--[a-z0-9]+(-[a-z0-9]+)*$/;
 
 function parseArgs(args) {
   const target = args.includes("--remote") ? "--remote" : "--local";
   const skipLegacy = args.includes("--skip-legacy");
   const statsUrlIndex = args.indexOf("--stats-url");
-  const statsUrl =
-    statsUrlIndex >= 0 ? args[statsUrlIndex + 1] : defaultStatsUrl;
+  const statsUrl = statsUrlIndex >= 0 ? args[statsUrlIndex + 1] : null;
   if (statsUrlIndex >= 0 && !statsUrl) {
     throw new Error("--stats-url requires a URL");
   }
@@ -83,9 +80,10 @@ async function main() {
     throw new Error("pets.json must contain a non-empty array");
   }
 
-  const legacyStats = options.skipLegacy
-    ? {}
-    : await fetchLegacyStats(options.statsUrl);
+  const legacyStats =
+    options.statsUrl && !options.skipLegacy
+      ? await fetchLegacyStats(options.statsUrl)
+      : {};
   const sql = buildSyncSql(catalog, legacyStats);
   const tempPath = resolve(
     tmpdir(),

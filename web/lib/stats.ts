@@ -1,10 +1,8 @@
 "use client";
 
 export type PetStats = {
-  views: number;
   installs: number;
   likes: number;
-  views7d: number;
   installs7d: number;
   trendingScore: number;
   dailyRank: number;
@@ -19,11 +17,14 @@ export type StatsPayload = {
   windowDays: number;
 };
 
-const STATS_API =
-  process.env.NEXT_PUBLIC_STATS_API ??
-  "https://awesome-codex-pet-stats.legeling.workers.dev";
-const VISITOR_ID_KEY = "awesome-codex-pet:stats:visitor-id";
+const STATS_SNAPSHOT_PATH = "/stats.json";
+const STATS_WRITE_API =
+  process.env.NEXT_PUBLIC_STATS_WRITE_API ?? "https://api.codexpet.top";
 const LIKE_TIMEOUT_MS = 8_000;
+const STATS_CACHE_TTL_MS = 60_000;
+
+let cachedStats: { payload: StatsPayload; expiresAt: number } | undefined;
+let pendingStats: Promise<StatsPayload> | undefined;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -37,17 +38,15 @@ function asNonNegativeNumber(value: unknown) {
 
 function normalizeStatsPayload(value: unknown): StatsPayload {
   if (!isRecord(value) || !isRecord(value.pets)) {
-    throw new Error("Stats API returned an invalid payload");
+    throw new Error("Stats snapshot returned an invalid payload");
   }
 
   const pets: StatsMap = {};
   for (const [slug, rawStats] of Object.entries(value.pets)) {
     if (!isRecord(rawStats)) continue;
     pets[slug] = {
-      views: asNonNegativeNumber(rawStats.views),
       installs: asNonNegativeNumber(rawStats.installs),
       likes: asNonNegativeNumber(rawStats.likes),
-      views7d: asNonNegativeNumber(rawStats.views7d),
       installs7d: asNonNegativeNumber(rawStats.installs7d),
       trendingScore: asNonNegativeNumber(rawStats.trendingScore),
       dailyRank: asNonNegativeNumber(rawStats.dailyRank),
@@ -66,57 +65,60 @@ function logStatsError(context: string, error: unknown) {
   console.warn(context, error instanceof Error ? error.stack : String(error));
 }
 
-function randomId() {
-  if (typeof crypto.randomUUID === "function") return crypto.randomUUID();
-  const bytes = crypto.getRandomValues(new Uint8Array(16));
-  return Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join(
-    "",
-  );
-}
-
-function getVisitorId() {
-  try {
-    const existing = window.localStorage.getItem(VISITOR_ID_KEY);
-    if (existing) return existing;
-    const created = randomId();
-    window.localStorage.setItem(VISITOR_ID_KEY, created);
-    return created;
-  } catch (error) {
-    logStatsError("Unable to persist anonymous stats visitor ID", error);
-    return randomId();
-  }
-}
-
-export async function fetchStats(signal?: AbortSignal): Promise<StatsPayload> {
-  const response = await fetch(`${STATS_API}/stats`, { signal });
-  if (!response.ok) {
-    throw new Error(`Stats API returned HTTP ${response.status}`);
-  }
-  return normalizeStatsPayload(await response.json());
-}
-
-export function trackView(slug: string) {
-  if (typeof window === "undefined") return;
-
-  const day = new Date().toISOString().slice(0, 10);
-  const markerKey = `awesome-codex-pet:stats:view:${day}:${slug}`;
-  let eventId = randomId();
-
-  try {
-    if (window.localStorage.getItem(markerKey)) return;
-    eventId = getVisitorId();
-    window.localStorage.setItem(markerKey, "1");
-  } catch (error) {
-    logStatsError("Unable to persist anonymous view receipt", error);
+async function loadStats() {
+  const now = Date.now();
+  if (cachedStats && cachedStats.expiresAt > now) {
+    return cachedStats.payload;
   }
 
-  void fetch(`${STATS_API}/track/view?slug=${encodeURIComponent(slug)}`, {
-    method: "POST",
-    headers: { "X-Event-ID": eventId },
-    keepalive: true,
-  }).catch((error: unknown) => {
-    logStatsError("Unable to report anonymous pet view", error);
+  if (!pendingStats) {
+    pendingStats = fetch(STATS_SNAPSHOT_PATH)
+      .then(async (response) => {
+        if (!response.ok) {
+          throw new Error(`Stats snapshot returned HTTP ${response.status}`);
+        }
+        const payload = normalizeStatsPayload(await response.json());
+        cachedStats = {
+          payload,
+          expiresAt: Date.now() + STATS_CACHE_TTL_MS,
+        };
+        return payload;
+      })
+      .finally(() => {
+        pendingStats = undefined;
+      });
+  }
+
+  return pendingStats;
+}
+
+function withAbort<T>(promise: Promise<T>, signal?: AbortSignal): Promise<T> {
+  if (!signal) return promise;
+  if (signal.aborted) {
+    return Promise.reject(
+      new DOMException("The operation was aborted", "AbortError"),
+    );
+  }
+
+  return new Promise((resolve, reject) => {
+    const abort = () =>
+      reject(new DOMException("The operation was aborted", "AbortError"));
+    signal.addEventListener("abort", abort, { once: true });
+    promise.then(
+      (value) => {
+        signal.removeEventListener("abort", abort);
+        resolve(value);
+      },
+      (error: unknown) => {
+        signal.removeEventListener("abort", abort);
+        reject(error);
+      },
+    );
   });
+}
+
+export function fetchStats(signal?: AbortSignal): Promise<StatsPayload> {
+  return withAbort(loadStats(), signal);
 }
 
 type LikeResult = {
@@ -126,8 +128,7 @@ type LikeResult = {
   counted: boolean;
 };
 
-const likedMarker = (slug: string) =>
-  `awesome-codex-pet:stats:liked:${slug}`;
+const likedMarker = (slug: string) => `awesome-codex-pet:stats:liked:${slug}`;
 
 export function hasLikedPet(slug: string) {
   if (typeof window === "undefined") return false;
@@ -148,7 +149,7 @@ export async function likePet(slug: string): Promise<LikeResult> {
 
   try {
     const response = await fetch(
-      `${STATS_API}/track/like?slug=${encodeURIComponent(slug)}`,
+      `${STATS_WRITE_API}/track/like?slug=${encodeURIComponent(slug)}`,
       { method: "POST", signal: controller.signal },
     );
     if (!response.ok) {

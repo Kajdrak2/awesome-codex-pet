@@ -1,6 +1,6 @@
 import { readdir, readFile } from "node:fs/promises";
 import { dirname, join, relative, resolve } from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import { fileURLToPath } from "node:url";
 
 const SITE_URL = "https://codexpet.top";
 const INDEXNOW_KEY = "d687eb8cfb15d89e9bf7c9c00f0a8c20";
@@ -63,26 +63,25 @@ function checkPage(filePath, html) {
   }
 }
 
-async function checkWorker() {
-  const workerPath = join(outDir, "_worker.js");
-  const worker = (await import(pathToFileURL(workerPath).href)).default;
-  const assets = { fetch: () => new Response("asset", { status: 200 }) };
-  for (const host of ["www.codexpet.top", "awesome-codex-pet.pages.dev"]) {
-    const response = await worker.fetch(
-      new Request(`https://${host}/pets/example?from=seo`),
-      { ASSETS: assets },
-    );
-    const expected = `${SITE_URL}/pets/example?from=seo`;
-    if (
-      response.status !== 301 ||
-      response.headers.get("location") !== expected
-    ) {
-      failures.push(`_worker.js: ${host} does not redirect to ${expected}`);
-    }
-  }
-}
-
 const htmlFiles = await findHtmlFiles(outDir);
+const outputFiles = await readdir(outDir);
+if (outputFiles.includes("_worker.js")) {
+  failures.push(
+    "_worker.js: static Pages deployments must not invoke a Function for every asset",
+  );
+}
+const statsSnapshot = JSON.parse(
+  await readFile(join(outDir, "stats.json"), "utf8"),
+);
+if (
+  !statsSnapshot ||
+  typeof statsSnapshot.generatedAt !== "number" ||
+  !statsSnapshot.pets ||
+  typeof statsSnapshot.pets !== "object" ||
+  Array.isArray(statsSnapshot.pets)
+) {
+  failures.push("stats.json: invalid static statistics snapshot");
+}
 await Promise.all(
   htmlFiles.map(async (filePath) => {
     checkPage(filePath, await readFile(filePath, "utf8"));
@@ -236,7 +235,6 @@ const indexNowKey = await readFile(join(outDir, `${INDEXNOW_KEY}.txt`), "utf8");
 if (indexNowKey.trim() !== INDEXNOW_KEY) {
   failures.push("IndexNow ownership key is missing or invalid");
 }
-await checkWorker();
 
 if (failures.length > 0) {
   throw new Error(`SEO validation failed:\n- ${failures.join("\n- ")}`);

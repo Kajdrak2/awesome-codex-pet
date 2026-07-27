@@ -1,6 +1,11 @@
 name = "awesome-codex-pet-stats"
 main = "src/index.js"
 compatibility_date = "2026-07-14"
+workers_dev = false
+
+[[routes]]
+pattern = "api.codexpet.top"
+custom_domain = true
 
 [[d1_databases]]
 binding = "DB"

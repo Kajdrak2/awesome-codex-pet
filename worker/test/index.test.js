@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import {
-  buildMetricKeys,
+import worker, {
+  buildInstallKeys,
   buildLikeKey,
   computeTrendingScore,
   isOriginAllowed,
@@ -39,41 +39,22 @@ test("origin checks allow scripts and configured browser origins", () => {
   );
 });
 
-test("view receipts remain stable within one UTC day", async () => {
-  const request = new Request(
-    "https://stats.example/track/view?slug=firefly--lingxiaotian",
-    {
+test("high-volume public read and view routes stay disabled", async () => {
+  const routeEnv = { ...env, DB: {} };
+  const stats = await worker.fetch(
+    new Request("https://api.example/stats"),
+    routeEnv,
+  );
+  const view = await worker.fetch(
+    new Request("https://api.example/track/view?slug=firefly--lingxiaotian", {
       method: "POST",
-      headers: {
-        "CF-Connecting-IP": "203.0.113.4",
-        "X-Event-ID": "visitor.12345678",
-      },
-    },
-  );
-  const first = await buildMetricKeys(
-    request,
-    env,
-    "firefly--lingxiaotian",
-    "view",
-    Date.UTC(2026, 6, 14, 1),
-  );
-  const second = await buildMetricKeys(
-    request,
-    env,
-    "firefly--lingxiaotian",
-    "view",
-    Date.UTC(2026, 6, 14, 23),
-  );
-  const nextDay = await buildMetricKeys(
-    request,
-    env,
-    "firefly--lingxiaotian",
-    "view",
-    Date.UTC(2026, 6, 15, 1),
+      headers: { Origin: "https://codexpet.top" },
+    }),
+    routeEnv,
   );
 
-  assert.equal(first.eventKey, second.eventKey);
-  assert.notEqual(first.eventKey, nextDay.eventKey);
+  assert.equal(stats.status, 404);
+  assert.equal(view.status, 404);
 });
 
 test("install receipt IDs are idempotent", async () => {
@@ -87,18 +68,16 @@ test("install receipt IDs are idempotent", async () => {
       },
     },
   );
-  const first = await buildMetricKeys(
+  const first = await buildInstallKeys(
     request,
     env,
     "firefly--lingxiaotian",
-    "install",
     Date.UTC(2026, 6, 14, 1),
   );
-  const later = await buildMetricKeys(
+  const later = await buildInstallKeys(
     request,
     env,
     "firefly--lingxiaotian",
-    "install",
     Date.UTC(2026, 6, 15, 1),
   );
 
@@ -119,11 +98,7 @@ test("like keys allow one like per IP and pet", async () => {
     headers: { "CF-Connecting-IP": "203.0.113.5" },
   });
 
-  const first = await buildLikeKey(
-    firstRequest,
-    env,
-    "firefly--lingxiaotian",
-  );
+  const first = await buildLikeKey(firstRequest, env, "firefly--lingxiaotian");
   const sameIp = await buildLikeKey(
     sameIpRequest,
     env,
@@ -150,10 +125,8 @@ test("stats serialization exposes seven-day trend fields", () => {
     [
       {
         slug: "firefly--lingxiaotian",
-        views: 20,
         installs: 10,
         likes: 7,
-        views_7d: 5,
         installs_7d: 3,
         updated_at: 42,
       },
@@ -162,19 +135,17 @@ test("stats serialization exposes seven-day trend fields", () => {
   );
 
   assert.equal(payload.windowDays, 7);
-  assert.equal(payload.pets["firefly--lingxiaotian"].views, 20);
   assert.equal(payload.pets["firefly--lingxiaotian"].installs7d, 3);
   assert.equal(payload.pets["firefly--lingxiaotian"].likes, 7);
   assert.equal(
     payload.pets["firefly--lingxiaotian"].trendingScore,
-    computeTrendingScore(3, 5),
+    computeTrendingScore(3),
   );
   assert.ok(payload.pets["firefly--lingxiaotian"].dailyRank >= 0);
 });
 
-test("trending score favors installs over equal view volume", () => {
-  assert.ok(computeTrendingScore(5, 0) > computeTrendingScore(0, 5));
-  assert.equal(computeTrendingScore(-1, Number.NaN), 0);
-  assert.equal(computeTrendingScore(0, 2), 0);
-  assert.ok(computeTrendingScore(0, 3) > 0);
+test("trending score uses recent installs only", () => {
+  assert.ok(computeTrendingScore(5) > computeTrendingScore(1));
+  assert.equal(computeTrendingScore(-1), 0);
+  assert.equal(computeTrendingScore(Number.NaN), 0);
 });

@@ -48,7 +48,7 @@ function Install-CodexPet {
   if ($env:AWESOME_CODEX_PET_NO_STATS -ne "1") {
     $statsApi = $env:AWESOME_CODEX_PET_STATS_API
     if ([string]::IsNullOrWhiteSpace($statsApi)) {
-      $statsApi = "https://awesome-codex-pet-stats.legeling.workers.dev"
+      $statsApi = "https://api.codexpet.top"
     }
     try {
       $eventId = [guid]::NewGuid().ToString("N")

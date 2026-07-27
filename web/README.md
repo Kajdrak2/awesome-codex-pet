@@ -58,7 +58,11 @@ The production site uses [codexpet.top](https://codexpet.top). After the first d
 1. Go to Cloudflare Dashboard → Workers & Pages → awesome-codex-pet
 2. Custom domains → Add a custom domain
 3. Add `codexpet.top`. If the domain is already on Cloudflare DNS, Pages configures the required record automatically. Otherwise, update the DNS records shown by Cloudflare.
-4. Set `NEXT_PUBLIC_SITE_URL=https://codexpet.top` for production builds so canonical, OpenGraph, sitemap, and share URLs use the custom domain.
+4. Add `www.codexpet.top`; the deployment workflow also attempts to attach it automatically.
+5. In the account-level **Bulk Redirects** settings, add `www.codexpet.top/` and `awesome-codex-pet.pages.dev/` as source URLs with `https://codexpet.top/` as the target URL. Enable subpath matching, preserve path suffix, and preserve query strings.
+6. Set `NEXT_PUBLIC_SITE_URL=https://codexpet.top` for production builds so canonical, OpenGraph, sitemap, and share URLs use the custom domain.
+
+Keep this Pages project static. Do not add `_worker.js` only to perform canonical-host redirects: Pages Advanced Mode would invoke a billable Function for every HTML, JavaScript, stylesheet, and preview image request. Account-level redirects run before Pages without turning static assets into Function invocations.
 
 ### Manual Deploy (optional)
 
@@ -76,16 +80,17 @@ npx wrangler pages deploy out --project-name=awesome-codex-pet
 - **Data**: Generated at build time from `pets.json` + individual pet metadata
 - **Collection visibility**: Series and themes are published after they contain at least three pets
 - **Hosting**: Cloudflare Pages (global CDN, free tier)
-- **Stats**: a separate Cloudflare Worker at `https://awesome-codex-pet-stats.legeling.workers.dev` powers view, install, and IP-limited like counters. See `worker/README.md`.
+- **Stats reads**: deployment-time `public/stats.json`, served as a free Pages static asset
+- **Stats writes**: a separate Worker at `https://api.codexpet.top` records explicit installs and IP-limited likes; ordinary page views never invoke it. See `worker/README.md`.
 
 ## Environment variables
 
-| Variable                               | Default                                                | Used in                            |
-| -------------------------------------- | ------------------------------------------------------ | ---------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`                 | `https://codexpet.top`                                 | `app/layout.tsx` metadata base     |
-| `NEXT_PUBLIC_STATS_API`                | `https://awesome-codex-pet-stats.legeling.workers.dev` | `lib/stats.ts`                     |
-| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | _unset_                                                | Google Search Console verification |
-| `NEXT_PUBLIC_BING_SITE_VERIFICATION`   | _unset_                                                | Bing Webmaster verification        |
+| Variable                               | Default                    | Used in                            |
+| -------------------------------------- | -------------------------- | ---------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`                 | `https://codexpet.top`     | `app/layout.tsx` metadata base     |
+| `NEXT_PUBLIC_STATS_WRITE_API`          | `https://api.codexpet.top` | `lib/stats.ts`                     |
+| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | _unset_                    | Google Search Console verification |
+| `NEXT_PUBLIC_BING_SITE_VERIFICATION`   | _unset_                    | Bing Webmaster verification        |
 
 Production is built in GitHub Actions before upload to Cloudflare Pages. Store the verification values as GitHub Actions secrets named `GOOGLE_SITE_VERIFICATION` and `BING_SITE_VERIFICATION`; the deployment workflows expose them to Next.js at build time. Runtime-only Cloudflare Pages variables do not affect the prebuilt metadata.
 
@@ -97,7 +102,7 @@ To actually surface in search results, do this once after the first deploy:
 
 1. **Google Search Console** — [search.google.com/search-console](https://search.google.com/search-console). Add the property, choose the HTML tag method, store the verification token as the GitHub Actions secret `GOOGLE_SITE_VERIFICATION`, redeploy, then submit `https://codexpet.top/sitemap.xml`.
 2. **Bing Webmaster Tools** — [bing.com/webmasters](https://www.bing.com/webmasters). Store its token as the GitHub Actions secret `BING_SITE_VERIFICATION`. The deployment workflows inject both secrets into the corresponding `NEXT_PUBLIC_*` variables at build time.
-3. **Canonical domain** — keep `NEXT_PUBLIC_SITE_URL` set to `https://codexpet.top`. Deployment attaches `www.codexpet.top` to Pages, and the generated `_worker.js` permanently redirects both `www` and the default Pages hostname to the apex domain.
+3. **Canonical domain** — keep `NEXT_PUBLIC_SITE_URL` set to `https://codexpet.top`. Use account-level Bulk Redirects for `www` and the default Pages hostname; do not use a Pages `_worker.js` for host redirects.
 4. **Automatic discovery** — every production deployment submits the canonical sitemap URLs to IndexNow. This helps participating search engines such as Bing discover changes without a manual submission.
 5. **AI search access** — deployment verifies that `OAI-SearchBot` can retrieve the Chinese installation answer, `llms.txt`, and `robots.txt` from the production domain.
 6. **External links** — once a few real sites link to the gallery (X, Reddit, GitHub topic pages, awesome-\* lists), Google will pick the site up much faster.

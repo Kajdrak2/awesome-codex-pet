@@ -33,11 +33,9 @@ export function HeroSection({
               const aStats = payload.pets[a.slug];
               const bStats = payload.pets[b.slug];
               return (
-                (bStats?.trendingScore ?? 0) -
-                  (aStats?.trendingScore ?? 0) ||
+                (bStats?.trendingScore ?? 0) - (aStats?.trendingScore ?? 0) ||
                 (bStats?.installs7d ?? 0) - (aStats?.installs7d ?? 0) ||
                 (bStats?.installs ?? 0) - (aStats?.installs ?? 0) ||
-                (bStats?.views ?? 0) - (aStats?.views ?? 0) ||
                 a.name.localeCompare(b.name)
               );
             })
@@ -85,9 +83,7 @@ export function HeroSection({
           >
             {t("heroTitle1")}
             <br />
-            <span className="text-accent">
-              {t("heroTitle2")}
-            </span>
+            <span className="text-accent">{t("heroTitle2")}</span>
           </h1>
 
           {/* Description */}
@@ -151,10 +147,7 @@ export function HeroSection({
               mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
           >
-            <StatCard
-              value={petCount.toString()}
-              label={t("heroStatPets")}
-            />
+            <StatCard value={petCount.toString()} label={t("heroStatPets")} />
             <StatCard
               value={categoryCount.toString()}
               label={t("heroStatCategories")}

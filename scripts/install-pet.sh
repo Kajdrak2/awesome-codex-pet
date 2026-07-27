@@ -3,7 +3,7 @@ set -euo pipefail
 
 RAW_BASE="${AWESOME_CODEX_PET_RAW_BASE:-https://raw.githubusercontent.com/legeling/awesome-codex-pet/main}"
 CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
-STATS_API="${AWESOME_CODEX_PET_STATS_API:-https://awesome-codex-pet-stats.legeling.workers.dev}"
+STATS_API="${AWESOME_CODEX_PET_STATS_API:-https://api.codexpet.top}"
 NO_STATS="${AWESOME_CODEX_PET_NO_STATS:-0}"
 
 usage() {

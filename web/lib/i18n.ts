@@ -351,14 +351,15 @@ export const translations = {
 
     // Sorting
     sortLabel: "Sort by",
+    sortRandom: "Random",
     sortPopular: "Trending",
     sortDownloads: "Most installed",
     sortLikes: "Most liked",
     sortNewest: "Newest",
     sortName: "Name (A→Z)",
-    statsLoading: "Loading statistics…",
+    statsLoading: "Loading statistics snapshot…",
     statsUnavailable: "Statistics temporarily unavailable",
-    statsUpdated: "7-day trend updated",
+    statsUpdated: "Deployment statistics snapshot",
     statsViews: "{count} views",
     statsInstalls: "{count} installs",
 
@@ -719,14 +720,15 @@ export const translations = {
 
     // Sorting
     sortLabel: "排序",
+    sortRandom: "随机",
     sortPopular: "近期趋势",
     sortDownloads: "最多安装",
     sortLikes: "最多点赞",
     sortNewest: "最新",
     sortName: "名称（A→Z）",
-    statsLoading: "正在加载统计数据…",
+    statsLoading: "正在加载统计快照…",
     statsUnavailable: "统计数据暂时不可用",
-    statsUpdated: "近 7 日趋势已更新",
+    statsUpdated: "站点部署时统计快照",
     statsViews: "{count} 次浏览",
     statsInstalls: "{count} 次安装",
 
