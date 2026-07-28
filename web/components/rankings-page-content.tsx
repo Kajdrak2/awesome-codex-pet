@@ -17,6 +17,7 @@ import type {
   RankedPet,
   RankingWindow,
 } from "@/lib/leaderboards";
+import type { GalleryPet } from "@/lib/pets";
 import {
   getWeeklyVote,
   voteForTarget,
@@ -58,12 +59,61 @@ function Metric({
   value: number;
 }) {
   return (
-    <div className="min-w-16 text-right">
+    <div className="min-w-14 text-left sm:min-w-16 sm:text-right">
       <div className="font-mono text-sm font-semibold tabular-nums text-text">
         {formatCount(value)}
       </div>
-      <div className="mt-0.5 text-[10px] uppercase text-muted">{label}</div>
+      <div className="mt-0.5 whitespace-nowrap text-[10px] text-muted">
+        {label}
+      </div>
     </div>
+  );
+}
+
+function PreviewMosaic({
+  href,
+  label,
+  locale,
+  pets,
+}: {
+  href: string;
+  label: string;
+  locale: "en" | "zh";
+  pets: GalleryPet[];
+}) {
+  const visiblePets = pets.slice(0, 3);
+  const layoutClass =
+    visiblePets.length === 1
+      ? "grid-cols-1 grid-rows-1"
+      : visiblePets.length === 2
+        ? "grid-cols-[2fr_1fr] grid-rows-1"
+        : "grid-cols-[2fr_1fr] grid-rows-2";
+
+  return (
+    <Link
+      aria-label={label}
+      className={`grid h-16 w-24 shrink-0 overflow-hidden rounded-md border border-border bg-bg-secondary sm:h-20 sm:w-32 ${layoutClass}`}
+      href={href}
+    >
+      {visiblePets.map((pet, index) => (
+        <span
+          className={`flex min-h-0 min-w-0 items-center justify-center overflow-hidden bg-bg-secondary ${
+            index === 0 && visiblePets.length === 3
+              ? "row-span-2 border-r border-border"
+              : index === 1 && visiblePets.length === 2
+                ? "border-l border-border"
+                : ""
+          } ${index === 2 ? "border-t border-border" : ""}`}
+          key={pet.slug}
+        >
+          <img
+            alt={getLocalizedPetName(pet, locale)}
+            className="max-h-full max-w-full object-contain [image-rendering:pixelated]"
+            src={pet.previewImage}
+          />
+        </span>
+      ))}
+    </Link>
   );
 }
 
@@ -416,7 +466,7 @@ function PetRanking({
         const name = getLocalizedPetName(entry.pet, locale);
         return (
           <li
-            className="grid min-h-20 grid-cols-[2.5rem_3.5rem_minmax(0,1fr)_auto] items-center gap-3 py-3 sm:grid-cols-[3rem_4rem_minmax(0,1fr)_auto_auto_auto] sm:gap-4"
+            className="grid grid-cols-[2.25rem_4rem_minmax(0,1fr)] items-center gap-x-3 gap-y-2 py-4 sm:grid-cols-[3rem_5rem_minmax(0,1fr)_auto] sm:gap-x-4"
             key={entry.pet.slug}
           >
             <span
@@ -425,11 +475,12 @@ function PetRanking({
               {rank}
             </span>
             <Link
-              className="flex size-14 items-center justify-center overflow-hidden rounded-md border border-border bg-bg-secondary sm:size-16"
+              aria-label={name}
+              className="flex size-16 items-center justify-center overflow-hidden rounded-md border border-border bg-bg-secondary sm:size-20"
               href={`/pets/${entry.pet.slug}`}
             >
               <img
-                alt=""
+                alt={name}
                 className="max-h-full max-w-full object-contain [image-rendering:pixelated]"
                 src={entry.pet.previewImage}
               />
@@ -448,32 +499,35 @@ function PetRanking({
                 @{entry.pet.author_handle || entry.pet.author}
               </Link>
             </div>
-            <div className="hidden sm:block">
-              <Metric label={t("rankingInstalls")} value={entry.stats.installs7d} />
-            </div>
-            <div className="hidden md:block">
+            <div className="col-span-2 col-start-2 mt-1 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border/60 pt-3 sm:col-span-1 sm:col-start-4 sm:mt-0 sm:flex-nowrap sm:justify-end sm:border-0 sm:pt-0">
+              <Metric
+                label={t(
+                  showVote ? "rankingInstalls7d" : "rankingTotalInstalls",
+                )}
+                value={
+                  showVote ? entry.stats.installs7d : entry.stats.installs
+                }
+              />
               <Metric label={t("rankingLikes")} value={entry.stats.likes} />
+              {showVote ? (
+                <>
+                  <Metric
+                    label={t("rankingVotes")}
+                    value={votes[entry.pet.slug] ?? 0}
+                  />
+                  <VoteButton
+                    active={selectedVote === entry.pet.slug}
+                    disabled={pendingVote !== null}
+                    label={t(
+                      selectedVote === entry.pet.slug
+                        ? "rankingVoted"
+                        : "rankingVote",
+                    )}
+                    onClick={() => onVote(entry.pet.slug)}
+                  />
+                </>
+              ) : null}
             </div>
-            {showVote ? (
-              <div className="flex items-center gap-2">
-                <Metric
-                  label={t("rankingVotes")}
-                  value={votes[entry.pet.slug] ?? 0}
-                />
-                <VoteButton
-                  active={selectedVote === entry.pet.slug}
-                  disabled={pendingVote !== null}
-                  label={t(
-                    selectedVote === entry.pet.slug
-                      ? "rankingVoted"
-                      : "rankingVote",
-                  )}
-                  onClick={() => onVote(entry.pet.slug)}
-                />
-              </div>
-            ) : (
-              <Metric label={t("rankingInstalls")} value={entry.stats.installs} />
-            )}
           </li>
         );
       })}
@@ -488,14 +542,14 @@ function ContributorRanking({
   entries: RankedContributor[];
   rankingWindow: RankingWindow;
 }) {
-  const { t } = useLocale();
+  const { locale, t } = useLocale();
   return (
     <ol className="divide-y divide-border border-y border-border">
       {entries.map((entry, index) => {
         const rank = index + 1;
         return (
           <li
-            className="grid min-h-20 grid-cols-[2.5rem_4.5rem_minmax(0,1fr)_auto] items-center gap-3 py-3 sm:grid-cols-[3rem_5.5rem_minmax(0,1fr)_auto_auto_auto] sm:gap-4"
+            className="grid grid-cols-[2.25rem_6rem_minmax(0,1fr)] items-center gap-x-3 gap-y-2 py-4 sm:grid-cols-[3rem_8rem_minmax(0,1fr)_auto] sm:gap-x-4"
             key={entry.slug}
           >
             <span
@@ -503,21 +557,12 @@ function ContributorRanking({
             >
               {rank}
             </span>
-            <div className="flex h-14 items-center pl-2 sm:h-16">
-              {entry.pets.slice(0, 3).map((pet, petIndex) => (
-                <div
-                  className="-ml-2 flex size-10 items-center justify-center overflow-hidden rounded-full border-2 border-bg bg-bg-secondary sm:size-12"
-                  key={pet.slug}
-                  style={{ zIndex: 3 - petIndex }}
-                >
-                  <img
-                    alt=""
-                    className="max-h-full max-w-full object-contain [image-rendering:pixelated]"
-                    src={pet.previewImage}
-                  />
-                </div>
-              ))}
-            </div>
+            <PreviewMosaic
+              href={`/contributors/${entry.slug}`}
+              label={entry.name}
+              locale={locale}
+              pets={entry.pets}
+            />
             <div className="min-w-0">
               <Link
                 className="block truncate text-sm font-semibold text-text hover:text-accent sm:text-base"
@@ -529,31 +574,33 @@ function ContributorRanking({
                 @{entry.handle} · {t("rankingPetCount", { count: entry.petCount })}
               </p>
             </div>
-            <div className="hidden sm:block">
+            <div className="col-span-2 col-start-2 mt-1 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border/60 pt-3 sm:col-span-1 sm:col-start-4 sm:mt-0 sm:flex-nowrap sm:justify-end sm:border-0 sm:pt-0">
               <Metric
-                label={t("rankingInstalls")}
+                label={t(
+                  rankingWindow === "weekly"
+                    ? "rankingInstalls7d"
+                    : "rankingTotalInstalls",
+                )}
                 value={
                   rankingWindow === "weekly"
                     ? entry.installs7d
                     : entry.installs
                 }
               />
-            </div>
-            <div className="hidden md:block">
               <Metric label={t("rankingLikes")} value={entry.likes} />
+              <Metric
+                label={t(
+                  rankingWindow === "weekly"
+                    ? "rankingVotes"
+                    : "rankingPetMetric",
+                )}
+                value={
+                  rankingWindow === "weekly"
+                    ? entry.weeklyVotes
+                    : entry.petCount
+                }
+              />
             </div>
-            <Metric
-              label={
-                rankingWindow === "weekly"
-                  ? t("rankingVotes")
-                  : t("rankingPets")
-              }
-              value={
-                rankingWindow === "weekly"
-                  ? entry.weeklyVotes
-                  : entry.petCount
-              }
-            />
           </li>
         );
       })}
@@ -586,7 +633,7 @@ function CollectionRanking({
         const collection = entry.collection;
         return (
           <li
-            className="grid min-h-20 grid-cols-[2.5rem_4.5rem_minmax(0,1fr)_auto] items-center gap-3 py-3 sm:grid-cols-[3rem_5.5rem_minmax(0,1fr)_auto_auto_auto] sm:gap-4"
+            className="grid grid-cols-[2.25rem_6rem_minmax(0,1fr)] items-center gap-x-3 gap-y-2 py-4 sm:grid-cols-[3rem_8rem_minmax(0,1fr)_auto] sm:gap-x-4"
             key={collection.slug}
           >
             <span
@@ -594,21 +641,12 @@ function CollectionRanking({
             >
               {rank}
             </span>
-            <div className="flex h-14 items-center pl-2 sm:h-16">
-              {collection.coverPets.slice(0, 3).map((pet, petIndex) => (
-                <div
-                  className="-ml-2 flex size-10 items-center justify-center overflow-hidden rounded-full border-2 border-bg bg-bg-secondary sm:size-12"
-                  key={pet.slug}
-                  style={{ zIndex: 3 - petIndex }}
-                >
-                  <img
-                    alt=""
-                    className="max-h-full max-w-full object-contain [image-rendering:pixelated]"
-                    src={pet.previewImage}
-                  />
-                </div>
-              ))}
-            </div>
+            <PreviewMosaic
+              href={`/collections/${collection.slug}`}
+              label={collection.title[locale]}
+              locale={locale}
+              pets={collection.coverPets}
+            />
             <div className="min-w-0">
               <Link
                 className="block truncate text-sm font-semibold text-text hover:text-accent sm:text-base"
@@ -625,35 +663,38 @@ function CollectionRanking({
                 · {t("rankingPetCount", { count: collection.petSlugs.length })}
               </p>
             </div>
-            <div className="hidden sm:block">
+            <div className="col-span-2 col-start-2 mt-1 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border/60 pt-3 sm:col-span-1 sm:col-start-4 sm:mt-0 sm:flex-nowrap sm:justify-end sm:border-0 sm:pt-0">
               <Metric
-                label={t("rankingInstalls")}
+                label={t(
+                  showVote ? "rankingInstalls7d" : "rankingTotalInstalls",
+                )}
                 value={showVote ? entry.installs7d : entry.installs}
               />
-            </div>
-            <div className="hidden md:block">
               <Metric label={t("rankingLikes")} value={entry.likes} />
-            </div>
-            {showVote ? (
-              <div className="flex items-center gap-2">
+              {showVote ? (
+                <>
+                  <Metric
+                    label={t("rankingVotes")}
+                    value={votes[collection.slug] ?? 0}
+                  />
+                  <VoteButton
+                    active={selectedVote === collection.slug}
+                    disabled={pendingVote !== null}
+                    label={t(
+                      selectedVote === collection.slug
+                        ? "rankingVoted"
+                        : "rankingVote",
+                    )}
+                    onClick={() => onVote(collection.slug)}
+                  />
+                </>
+              ) : (
                 <Metric
-                  label={t("rankingVotes")}
-                  value={votes[collection.slug] ?? 0}
+                  label={t("rankingPetMetric")}
+                  value={collection.petSlugs.length}
                 />
-                <VoteButton
-                  active={selectedVote === collection.slug}
-                  disabled={pendingVote !== null}
-                  label={t(
-                    selectedVote === collection.slug
-                      ? "rankingVoted"
-                      : "rankingVote",
-                  )}
-                  onClick={() => onVote(collection.slug)}
-                />
-              </div>
-            ) : (
-              <Metric label={t("rankingInstalls")} value={entry.installs} />
-            )}
+              )}
+            </div>
           </li>
         );
       })}
