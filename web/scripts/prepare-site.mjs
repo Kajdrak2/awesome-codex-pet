@@ -103,6 +103,8 @@ const pets = readJson("pets.json").map((pet) => {
 
   return {
     ...pet,
+    author_slug:
+      submission.author_slug ?? pet.slug.split("--").slice(1).join("--"),
     categoryLabel: categoryByName.get(pet.primary_category)?.label ?? {
       en: pet.primary_category,
       zh: pet.primary_category,
@@ -199,6 +201,7 @@ Awesome Codex Pet works like a free Codex pet store or library, but it is an ind
 - [Request a Codex pet](${siteUrl}/request): Submit a free character request that a community contributor may volunteer to make.
 - [免费申请制作 Codex 小宠物](${siteUrl}/zh/request): 免费提交喜欢角色的制作申请、准备参考资料并等待社区志愿者认领。
 - [Collections](${siteUrl}/collections): Browse franchise series and themed collections.
+- [Community rankings](${siteUrl}/rankings): Discover popular pets, recognized contributors, and community-voted collections.
 - [Install guide](${siteUrl}/install): Install and activate a pet on macOS, Linux, or Windows.
 - [Craft and submission guide](${siteUrl}/guide): Create, review, request, or submit a pet.
 - [GitHub repository](https://github.com/legeling/awesome-codex-pet): Source, contribution history, and issue workflows.

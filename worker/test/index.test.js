@@ -4,9 +4,11 @@ import test from "node:test";
 import worker, {
   buildInstallKeys,
   buildLikeKey,
+  buildVoteKey,
   computeTrendingScore,
   isOriginAllowed,
   serializeStatsRows,
+  utcWeekStart,
 } from "../src/index.js";
 
 const env = {
@@ -120,7 +122,40 @@ test("like keys allow one like per IP and pet", async () => {
   assert.notEqual(first, otherPet);
 });
 
-test("stats serialization exposes seven-day trend fields", () => {
+test("weekly vote keys allow one ballot per IP, kind, and week", async () => {
+  const firstRequest = new Request("https://stats.example/track/vote", {
+    headers: { "CF-Connecting-IP": "203.0.113.4" },
+  });
+  const sameIpRequest = new Request("https://stats.example/track/vote", {
+    headers: {
+      "CF-Connecting-IP": "203.0.113.4",
+      "User-Agent": "another browser",
+    },
+  });
+  const week = "2026-07-13";
+
+  const first = await buildVoteKey(firstRequest, env, "pet", week);
+  const sameBallot = await buildVoteKey(sameIpRequest, env, "pet", week);
+  const collectionBallot = await buildVoteKey(
+    firstRequest,
+    env,
+    "collection",
+    week,
+  );
+  const nextWeek = await buildVoteKey(firstRequest, env, "pet", "2026-07-20");
+
+  assert.equal(first, sameBallot);
+  assert.notEqual(first, collectionBallot);
+  assert.notEqual(first, nextWeek);
+});
+
+test("UTC vote periods start on Monday", () => {
+  assert.equal(utcWeekStart(Date.UTC(2026, 6, 13, 0)), "2026-07-13");
+  assert.equal(utcWeekStart(Date.UTC(2026, 6, 19, 23, 59)), "2026-07-13");
+  assert.equal(utcWeekStart(Date.UTC(2026, 6, 20, 0)), "2026-07-20");
+});
+
+test("stats serialization exposes trend, vote, and collection fields", () => {
   const payload = serializeStatsRows(
     [
       {
@@ -128,24 +163,30 @@ test("stats serialization exposes seven-day trend fields", () => {
         installs: 10,
         likes: 7,
         installs_7d: 3,
+        weekly_votes: 5,
         updated_at: 42,
       },
     ],
     Date.UTC(2026, 6, 14),
+    [{ slug: "animal-companions", weekly_votes: 4 }],
   );
 
   assert.equal(payload.windowDays, 7);
   assert.equal(payload.pets["firefly--lingxiaotian"].installs7d, 3);
   assert.equal(payload.pets["firefly--lingxiaotian"].likes, 7);
+  assert.equal(payload.pets["firefly--lingxiaotian"].weeklyVotes, 5);
   assert.equal(
     payload.pets["firefly--lingxiaotian"].trendingScore,
-    computeTrendingScore(3),
+    computeTrendingScore(3, 5),
   );
+  assert.equal(payload.collections["animal-companions"].weeklyVotes, 4);
+  assert.equal(payload.votePeriod.id, "2026-07-13");
   assert.ok(payload.pets["firefly--lingxiaotian"].dailyRank >= 0);
 });
 
-test("trending score uses recent installs only", () => {
+test("trending score combines recent installs and weekly votes", () => {
   assert.ok(computeTrendingScore(5) > computeTrendingScore(1));
+  assert.ok(computeTrendingScore(1, 5) > computeTrendingScore(1, 1));
   assert.equal(computeTrendingScore(-1), 0);
   assert.equal(computeTrendingScore(Number.NaN), 0);
 });

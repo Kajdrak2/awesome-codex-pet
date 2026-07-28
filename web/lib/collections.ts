@@ -46,6 +46,7 @@ export function toCollectionCardData(
     coverPets: getCollectionCoverPets(collection).map((pet) => ({
       slug: pet.slug,
       name: pet.name,
+      author_slug: pet.author_slug,
       author: pet.author,
       author_handle: pet.author_handle,
       author_url: pet.author_url,

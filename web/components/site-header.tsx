@@ -15,6 +15,11 @@ export function SiteHeader() {
   const navItems: { href: string; label: string; matchPrefix?: string }[] = [
     { href: "/", label: t("gallery"), matchPrefix: "/pets" },
     { href: "/collections", label: t("collections") },
+    {
+      href: "/rankings",
+      label: t("rankings"),
+      matchPrefix: "/contributors",
+    },
     { href: "/install", label: t("install") },
     {
       href: locale === "zh" ? "/zh/request" : "/request",

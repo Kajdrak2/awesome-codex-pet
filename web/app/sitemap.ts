@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 
 import { getAllPets } from "@/lib/pets";
 import { getCollectionSlugs } from "@/lib/collection-catalog";
+import { getContributorSlugs } from "@/lib/leaderboards";
 import { siteConfig } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -17,6 +18,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteConfig.url}/`,
       changeFrequency: "weekly",
       priority: 1,
+    },
+    {
+      url: `${siteConfig.url}/rankings`,
+      changeFrequency: "weekly",
+      priority: 0.85,
     },
     {
       url: `${siteConfig.url}/zh`,
@@ -59,5 +65,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "weekly" as const,
     priority: 0.75,
   }));
-  return [...staticEntries, ...collectionEntries, ...petEntries];
+  const contributorEntries = getContributorSlugs(getAllPets()).map((slug) => ({
+    url: `${siteConfig.url}/contributors/${slug}`,
+    changeFrequency: "weekly" as const,
+    priority: 0.65,
+  }));
+  return [
+    ...staticEntries,
+    ...collectionEntries,
+    ...contributorEntries,
+    ...petEntries,
+  ];
 }

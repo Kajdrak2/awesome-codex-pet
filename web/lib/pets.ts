@@ -6,6 +6,7 @@ export type PreviewAction = string;
 type CatalogPet = {
   slug: string;
   name: string;
+  author_slug: string;
   author: string;
   author_handle?: string;
   author_url?: string;
@@ -53,6 +54,7 @@ export type GalleryPet = Pick<
   Pet,
   | "slug"
   | "name"
+  | "author_slug"
   | "author"
   | "author_handle"
   | "author_url"
@@ -84,6 +86,7 @@ export function toGalleryPet(pet: Pet): GalleryPet {
   return {
     slug: pet.slug,
     name: pet.name,
+    author_slug: pet.author_slug,
     author: pet.author,
     author_handle: pet.author_handle,
     author_url: pet.author_url,

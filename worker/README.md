@@ -1,6 +1,6 @@
 # awesome-codex-pet-stats Worker
 
-Cloudflare Worker that records privacy-conscious install and like actions for the Awesome Codex Pet gallery.
+Cloudflare Worker that records privacy-conscious install, like, and weekly community vote actions for the Awesome Codex Pet gallery.
 
 - **Production URL**: `https://api.codexpet.top`
 - **Storage**: Cloudflare D1 (`DB` binding)
@@ -10,12 +10,15 @@ Cloudflare Worker that records privacy-conscious install and like actions for th
 
 ## Endpoints
 
-| Method | Path                           | Purpose                                                          |
-| ------ | ------------------------------ | ---------------------------------------------------------------- |
-| `POST` | `/track/install?slug=<pet-id>` | Count a completed install; `X-Event-ID` makes retries idempotent |
-| `POST` | `/track/like?slug=<pet-id>`    | Count at most one like per source IP and pet                     |
+| Method | Path                                | Purpose                                                          |
+| ------ | ----------------------------------- | ---------------------------------------------------------------- |
+| `POST` | `/track/install?slug=<pet-id>`      | Count a completed install; `X-Event-ID` makes retries idempotent |
+| `POST` | `/track/like?slug=<pet-id>`         | Count at most one like per source IP and pet                     |
+| `POST` | `/track/vote?kind=<kind>&slug=<id>` | Cast or move one weekly vote per source IP and target kind       |
 
 The API never stores raw IP addresses or client event IDs. Metric receipts are salted and hashed before short-lived deduplication. Likes store only a salted, pet-scoped IP hash so the same IP cannot like one pet twice and cannot be correlated across different pets.
+
+Weekly ballots use a salt-hashed identity scoped to the UTC week and target kind. A visitor can cast one pet vote and one collection vote per week, and can move either vote to another eligible target. Ballots expire automatically after thirteen weeks.
 
 Normal page loads never invoke this Worker. Browsers read the deployment-time `/stats.json` snapshot from Cloudflare Pages as a free static asset, and pet detail views are not written to D1.
 
@@ -58,7 +61,7 @@ npm test
 npx wrangler deploy --dry-run
 ```
 
-To test likes against the local Worker, set `NEXT_PUBLIC_STATS_WRITE_API=http://localhost:8787` before starting the web development server. Statistics displayed by the site still come from the static `web/public/stats.json` snapshot.
+To test likes or weekly votes against the local Worker, set `NEXT_PUBLIC_STATS_WRITE_API=http://localhost:8787` before starting the web development server. Vote `kind` is either `pet` or `collection`. Statistics displayed by the site still come from the static `web/public/stats.json` snapshot.
 
 ## Continuous deployment
 

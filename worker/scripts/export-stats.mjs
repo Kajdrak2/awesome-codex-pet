@@ -6,7 +6,7 @@ import { dirname, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { fileURLToPath } from "node:url";
 
-import { serializeStatsRows } from "../src/index.js";
+import { serializeStatsRows, utcWeekStart } from "../src/index.js";
 
 const workerRoot = fileURLToPath(new URL("..", import.meta.url));
 const repoRoot = resolve(workerRoot, "..");
@@ -16,13 +16,22 @@ function parseArgs(args) {
   const target = args.includes("--remote") ? "--remote" : "--local";
   const outputIndex = args.indexOf("--output");
   const output = outputIndex >= 0 ? args[outputIndex + 1] : defaultOutput;
+  const persistIndex = args.indexOf("--persist-to");
+  const persistTo = persistIndex >= 0 ? args[persistIndex + 1] : null;
   if (!output) {
     throw new Error("--output requires a file path");
   }
-  return { target, output: resolve(process.cwd(), output) };
+  if (persistIndex >= 0 && !persistTo) {
+    throw new Error("--persist-to requires a directory");
+  }
+  return {
+    target,
+    output: resolve(process.cwd(), output),
+    persistTo: persistTo ? resolve(process.cwd(), persistTo) : null,
+  };
 }
 
-function runQuery(target, sql) {
+function runQuery(target, sql, persistTo) {
   const result = spawnSync(
     process.execPath,
     [
@@ -31,6 +40,7 @@ function runQuery(target, sql) {
       "execute",
       "DB",
       target,
+      ...(persistTo ? ["--persist-to", persistTo] : []),
       "--command",
       sql,
       "--json",
@@ -61,31 +71,54 @@ function runQuery(target, sql) {
   );
 }
 
-async function queryRows(target) {
-  const cutoffDay = new Date(Date.now() - 6 * 24 * 60 * 60 * 1000)
+async function queryRows(target, timestamp, persistTo) {
+  const cutoffDay = new Date(timestamp - 6 * 24 * 60 * 60 * 1000)
     .toISOString()
     .slice(0, 10);
-  const sql = `WITH recent AS (
+  const weekStart = utcWeekStart(timestamp);
+  const petSql = `WITH recent AS (
     SELECT slug, SUM(installs) AS installs_7d
     FROM pet_daily
     WHERE day >= '${cutoffDay}'
     GROUP BY slug
+  ),
+  votes AS (
+    SELECT target_slug AS slug, COUNT(*) AS weekly_votes
+    FROM weekly_votes
+    WHERE week_start = '${weekStart}' AND target_kind = 'pet'
+    GROUP BY target_slug
   )
   SELECT
     stats.slug,
     stats.installs,
     stats.likes,
     stats.updated_at,
-    COALESCE(recent.installs_7d, 0) AS installs_7d
+    COALESCE(recent.installs_7d, 0) AS installs_7d,
+    COALESCE(votes.weekly_votes, 0) AS weekly_votes
   FROM pet_stats AS stats
   LEFT JOIN recent ON recent.slug = stats.slug
+  LEFT JOIN votes ON votes.slug = stats.slug
   WHERE stats.active = 1
   ORDER BY stats.slug ASC`;
+  const collectionSql = `SELECT
+    targets.slug,
+    COUNT(votes.target_slug) AS weekly_votes
+  FROM vote_targets AS targets
+  LEFT JOIN weekly_votes AS votes
+    ON votes.week_start = '${weekStart}'
+    AND votes.target_kind = 'collection'
+    AND votes.target_slug = targets.slug
+  WHERE targets.kind = 'collection' AND targets.active = 1
+  GROUP BY targets.slug
+  ORDER BY targets.slug ASC`;
 
   let lastError;
   for (let attempt = 0; attempt < 3; attempt += 1) {
     try {
-      return runQuery(target, sql);
+      return {
+        pets: runQuery(target, petSql, persistTo),
+        collections: runQuery(target, collectionSql, persistTo),
+      };
     } catch (error) {
       lastError = error;
       if (attempt < 2) await delay(500 * 2 ** attempt);
@@ -96,8 +129,9 @@ async function queryRows(target) {
 
 async function main() {
   const options = parseArgs(process.argv.slice(2));
-  const rows = await queryRows(options.target);
-  const payload = serializeStatsRows(rows);
+  const timestamp = Date.now();
+  const rows = await queryRows(options.target, timestamp, options.persistTo);
+  const payload = serializeStatsRows(rows.pets, timestamp, rows.collections);
   const temporaryOutput = `${options.output}.${process.pid}.tmp`;
 
   mkdirSync(dirname(options.output), { recursive: true });
@@ -112,7 +146,7 @@ async function main() {
   }
 
   console.log(
-    `Exported ${rows.length} pet statistics to ${options.output} (${options.target.slice(2)}).`,
+    `Exported ${rows.pets.length} pet and ${rows.collections.length} collection statistics to ${options.output} (${options.target.slice(2)}).`,
   );
 }
 
