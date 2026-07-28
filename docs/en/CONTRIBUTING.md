@@ -108,6 +108,8 @@ Use this repository-level schema:
 
 `name` is always required and acts as the canonical fallback. Bilingual naming is optional. To enable it, add `localized_names` with both non-empty `en` and `zh` values; the website then follows the visitor's selected language. For a single-language pet, omit `localized_names` entirely. The creator chooses these names; the website does not machine-translate them.
 
+`tags` use stable lowercase kebab-case identifiers so search and generated data do not change with the visitor's language. The website turns common identifiers into readable English or curated Chinese labels and indexes both forms. When introducing a reusable descriptive tag, add its Chinese display label to `web/lib/tag-localization.ts`; character names should continue to use creator-provided `localized_names` instead of an invented tag translation.
+
 `canonical_key` is a grouping identity, not a globally unique package ID. Use the same key for every version of the same character, including versions made independently by different authors. Use an `original/<author>/<name>` key for a creator-owned character. Existing pets without this field remain valid and are indexed from their names, franchise collections, tags, and source metadata during review.
 
 Different authors may submit independent interpretations of one character. When the key already exists, add `variant_note` to explain the author, visual, animation, or runtime distinction. The spritesheet must be independently produced: a byte-identical asset is rejected even when the folder or author changes. A second package by the same author should normally update the existing package; keep it separate only when it is a materially distinct edition.

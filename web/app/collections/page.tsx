@@ -4,6 +4,7 @@ import { CollectionsPageContent } from "@/components/collections-page-content";
 import { getCollections } from "@/lib/collection-catalog";
 import { toCollectionCardData } from "@/lib/collections";
 import { getAllPets } from "@/lib/pets";
+import { withSiteKeywords } from "@/lib/seo-keywords";
 import { siteConfig } from "@/lib/site";
 
 const title = "Codex pet series and themed collections";
@@ -14,14 +15,20 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/collections" },
-  keywords: [
+  keywords: withSiteKeywords([
     "Codex pet collections",
+    "Codex pet series",
+    "Codex character collections",
+    "Codex franchise pets",
     "anime Codex pets",
     "game character Codex pets",
     "Codex 宠物合集",
+    "Codex 宠物系列",
+    "Codex 角色合集",
+    "Codex 作品系列",
     "动漫 Codex 宠物",
     "游戏角色 Codex 宠物",
-  ],
+  ]),
   openGraph: {
     title,
     description,

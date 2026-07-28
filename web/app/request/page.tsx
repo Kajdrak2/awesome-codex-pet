@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { RequestPageContent } from "@/components/request-page-content";
 import { getAllPets } from "@/lib/pets";
+import { withSiteKeywords } from "@/lib/seo-keywords";
 import { siteConfig } from "@/lib/site";
 
 const title = "Request a Codex pet for free";
@@ -29,14 +30,20 @@ const faq = [
 export const metadata: Metadata = {
   title,
   description,
-  keywords: [
+  keywords: withSiteKeywords([
     "request Codex pet",
     "free Codex pet request",
     "ask community to make Codex pet",
     "anime Codex pet request",
     "game character Codex pet request",
     "custom Codex pet request",
-  ],
+    "申请 Codex 宠物",
+    "免费申请 Codex 小宠物",
+    "动漫角色 Codex 宠物申请",
+    "游戏角色 Codex 宠物申请",
+    "请社区制作 Codex 宠物",
+    "定制 Codex 桌面宠物",
+  ]),
   alternates: {
     canonical: "/request",
     languages: {

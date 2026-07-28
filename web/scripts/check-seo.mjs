@@ -39,12 +39,48 @@ function checkPage(filePath, html) {
       ? ""
       : outputPath.replace(/(?:\/index)?\.html$/, "");
   const expectedCanonical = `${SITE_URL}${route ? `/${route}` : ""}`;
+  const expectedLanguage =
+    outputPath === "zh.html" || outputPath.startsWith("zh/") ? "zh-CN" : "en";
   requireMatch(html, /<title>[^<]+<\/title>/, `${outputPath}: missing title`);
   requireMatch(
     html,
     /<meta name="description" content="[^"]+"/,
     `${outputPath}: missing description`,
   );
+  requireMatch(
+    html,
+    new RegExp(`<html lang="${expectedLanguage}">`, "i"),
+    `${outputPath}: expected html lang ${expectedLanguage}`,
+  );
+  const keywordContent = html.match(
+    /<meta name="keywords" content="([^"]+)"/,
+  )?.[1];
+  if (!keywordContent) {
+    failures.push(`${outputPath}: missing keywords`);
+  } else {
+    const keywords = keywordContent
+      .split(",")
+      .map((keyword) => keyword.trim())
+      .filter(Boolean);
+    const uniqueKeywords = new Set(
+      keywords.map((keyword) => keyword.normalize("NFKC").toLowerCase()),
+    );
+    if (uniqueKeywords.size < 12) {
+      failures.push(
+        `${outputPath}: only ${uniqueKeywords.size} unique keywords, expected at least 12`,
+      );
+    }
+    if (uniqueKeywords.size > 64) {
+      failures.push(
+        `${outputPath}: ${uniqueKeywords.size} unique keywords exceeds the 64-keyword budget`,
+      );
+    }
+    if (
+      ![...uniqueKeywords].some((keyword) => /\p{Script=Han}/u.test(keyword))
+    ) {
+      failures.push(`${outputPath}: keywords have no Chinese search term`);
+    }
+  }
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
   if (canonical !== expectedCanonical) {
     failures.push(
@@ -115,6 +151,35 @@ for (const required of [
 ]) {
   if (!chineseHome.includes(required)) {
     failures.push(`zh.html: missing community gallery signal ${required}`);
+  }
+}
+
+const rankings = await readFile(join(outDir, "rankings.html"), "utf8");
+for (const required of [
+  "Codex pet rankings / Codex 宠物排行榜",
+  "热门 Codex 宠物",
+  "Codex 宠物安装排行",
+]) {
+  if (!rankings.includes(required)) {
+    failures.push(
+      `rankings.html: missing bilingual ranking signal ${required}`,
+    );
+  }
+}
+
+const salaryCat = await readFile(
+  join(outDir, "pets", "salary-cat--zuochunjie.html"),
+  "utf8",
+);
+for (const required of [
+  "月薪喵 Codex 小宠物",
+  "月薪喵 Codex 宠物下载",
+  "动物伙伴 Codex 宠物",
+]) {
+  if (!salaryCat.includes(required)) {
+    failures.push(
+      `salary-cat--zuochunjie.html: missing localized pet signal ${required}`,
+    );
   }
 }
 

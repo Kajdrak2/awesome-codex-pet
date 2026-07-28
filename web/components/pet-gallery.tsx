@@ -8,6 +8,7 @@ import { PetCard } from "@/components/pet-card";
 import { useLocale } from "@/components/locale-provider";
 import { fetchStats, type StatsMap } from "@/lib/stats";
 import type { GalleryPet } from "@/lib/pets";
+import { getTagSearchTerms } from "@/lib/tag-localization";
 
 type PetGalleryProps = {
   pets: GalleryPet[];
@@ -119,7 +120,7 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
           pet.displayName,
           pet.categoryLabel.en,
           pet.categoryLabel.zh,
-          ...pet.tags,
+          ...pet.tags.flatMap(getTagSearchTerms),
         ]
           .filter(Boolean)
           .join(" "),

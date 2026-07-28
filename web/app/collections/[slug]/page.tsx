@@ -2,8 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { CollectionDetailContent } from "@/components/collection-detail-content";
-import { getCollectionBySlug, getCollectionSlugs } from "@/lib/collection-catalog";
+import {
+  getCollectionBySlug,
+  getCollectionSlugs,
+} from "@/lib/collection-catalog";
 import { getAllPets } from "@/lib/pets";
+import { withSiteKeywords } from "@/lib/seo-keywords";
 import { siteConfig } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -22,18 +26,31 @@ export async function generateMetadata({
   const title = `${collection.title.en} / ${collection.title.zh} Codex pets`;
   const description = `${collection.description.en} ${collection.description.zh}`;
   const canonical = `/collections/${collection.slug}`;
-  const cover = collection.pets.find((pet) => collection.coverSlugs.includes(pet.slug));
+  const cover = collection.pets.find((pet) =>
+    collection.coverSlugs.includes(pet.slug),
+  );
 
   return {
     title,
     description,
     alternates: { canonical },
-    keywords: [
+    keywords: withSiteKeywords([
       collection.title.en,
       collection.title.zh,
       `${collection.title.en} Codex pets`,
+      `${collection.title.en} desktop pets`,
+      `${collection.title.en} pixel pets`,
+      `${collection.title.zh} Codex 小宠物`,
+      `${collection.title.zh} Codex 宠物下载`,
+      `${collection.title.zh} 桌面宠物`,
       "Codex pet collection",
-    ],
+      "Codex 宠物合集",
+      ...collection.pets.flatMap((pet) => [
+        pet.name,
+        pet.localizedNames.en,
+        pet.localizedNames.zh,
+      ]),
+    ]),
     openGraph: {
       title,
       description,

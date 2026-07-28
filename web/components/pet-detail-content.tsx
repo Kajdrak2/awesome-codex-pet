@@ -22,6 +22,7 @@ import {
 import type { Pet } from "@/lib/pets";
 import { siteConfig } from "@/lib/site";
 import { fetchStats } from "@/lib/stats";
+import { getLocalizedTagLabel } from "@/lib/tag-localization";
 
 export type PetNavigation = {
   previous: { slug: string; name: string };
@@ -254,8 +255,9 @@ export function PetDetailContent({
                     <span
                       className="rounded-md bg-bg-secondary px-2 py-1 text-xs text-text-secondary"
                       key={tag}
+                      title={tag}
                     >
-                      {tag}
+                      {getLocalizedTagLabel(tag, locale)}
                     </span>
                   ))}
                 </div>

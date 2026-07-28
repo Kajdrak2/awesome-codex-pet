@@ -101,7 +101,7 @@ Production is built in GitHub Actions before upload to Cloudflare Pages. Store t
 
 ## SEO checklist
 
-The site is configured for indexing out of the box: per-page titles, descriptions, canonical URLs, OpenGraph + Twitter cards, JSON-LD (`WebSite`, `CollectionPage`, `ItemList`, `HowTo`, `FAQPage`, `CreativeWork`, `BreadcrumbList`), `sitemap.xml`, and `robots.txt`. Dedicated server-rendered answers cover one-step installation at `/install` and `/zh/install`, plus free community character requests at `/request` and `/zh/request`.
+The site is configured for indexing out of the box: per-page titles, descriptions, bounded bilingual keyword sets, canonical URLs, OpenGraph + Twitter cards, JSON-LD (`WebSite`, `CollectionPage`, `ItemList`, `HowTo`, `FAQPage`, `CreativeWork`, `BreadcrumbList`), `sitemap.xml`, and `robots.txt`. Pet pages expand creator-provided tag identifiers into English and curated Chinese search terms. Export post-processing sets `lang="zh-CN"` on the dedicated Chinese pages, and the SEO check rejects missing titles, sparse or unbounded keyword sets, and incorrect document languages. Dedicated server-rendered answers cover one-step installation at `/install` and `/zh/install`, plus free community character requests at `/request` and `/zh/request`.
 
 To actually surface in search results, do this once after the first deploy:
 
