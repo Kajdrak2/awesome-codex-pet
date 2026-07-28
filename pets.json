@@ -1789,6 +1789,18 @@
     "spriteVersionNumber": 2
   },
   {
+    "slug": "fengge--qzl1-stack",
+    "name": "峰哥",
+    "author": "qzl1-stack",
+    "author_handle": "qzl1-stack",
+    "author_url": "https://github.com/qzl1-stack",
+    "primary_category": "Human Avatars",
+    "collections": [],
+    "license": "Personal and repository use only; non-commercial use only. Commercial use is prohibited.",
+    "description": "A pixel-art human avatar based on a private blessing video, cheerfully spinning a pink pinwheel through Codex task states.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "koukou-penguin--hoody",
     "name": "扣扣企鹅",
     "author": "hoody",
