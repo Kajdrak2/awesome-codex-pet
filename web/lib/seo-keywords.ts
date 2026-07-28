@@ -13,7 +13,7 @@ export function buildSeoKeywords(
   for (const value of groups.flat()) {
     const keyword = value?.trim();
     if (!keyword) continue;
-    const normalized = keyword.normalize("NFKC").toLocaleLowerCase();
+    const normalized = keyword.normalize("NFKC").toLowerCase();
     if (seen.has(normalized)) continue;
     seen.add(normalized);
     keywords.push(keyword);

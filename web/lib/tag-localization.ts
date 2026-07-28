@@ -116,12 +116,18 @@ const preservedWords: Record<string, string> = {
   "3d": "3D",
 };
 
+function getOwnLabel(labels: Record<string, string>, key: string) {
+  return Object.prototype.hasOwnProperty.call(labels, key)
+    ? labels[key]
+    : undefined;
+}
+
 function humanizeTag(tag: string) {
   return tag
     .split("-")
     .map(
       (part) =>
-        preservedWords[part] ??
+        getOwnLabel(preservedWords, part) ??
         (part.length > 0 ? part[0].toUpperCase() + part.slice(1) : part),
     )
     .join(" ");
@@ -129,17 +135,17 @@ function humanizeTag(tag: string) {
 
 export function getLocalizedTagLabel(tag: string, locale: Locale) {
   if (locale === "zh") {
-    return chineseTagLabels[tag] ?? humanizeTag(tag);
+    return getOwnLabel(chineseTagLabels, tag) ?? humanizeTag(tag);
   }
   return humanizeTag(tag);
 }
 
 export function getTagSearchTerms(tag: string) {
-  return [tag, humanizeTag(tag), chineseTagLabels[tag]].filter(
+  return [tag, humanizeTag(tag), getOwnLabel(chineseTagLabels, tag)].filter(
     (value): value is string => Boolean(value),
   );
 }
 
 export function getChineseTagLabel(tag: string) {
-  return chineseTagLabels[tag];
+  return getOwnLabel(chineseTagLabels, tag);
 }

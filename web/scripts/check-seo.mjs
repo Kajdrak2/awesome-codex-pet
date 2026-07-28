@@ -63,7 +63,7 @@ function checkPage(filePath, html) {
       .map((keyword) => keyword.trim())
       .filter(Boolean);
     const uniqueKeywords = new Set(
-      keywords.map((keyword) => keyword.normalize("NFKC").toLocaleLowerCase()),
+      keywords.map((keyword) => keyword.normalize("NFKC").toLowerCase()),
     );
     if (uniqueKeywords.size < 12) {
       failures.push(
