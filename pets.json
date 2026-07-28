@@ -1045,18 +1045,6 @@
     "spriteVersionNumber": 2
   },
   {
-    "slug": "miu-meo--lemon-z",
-    "name": "Miu Meu",
-    "author": "LemonZ",
-    "author_handle": "lemon-z",
-    "author_url": "",
-    "primary_category": "Animals",
-    "collections": ["animal-companions"],
-    "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
-    "description": "Chú mèo kem mít ướt với bụng trắng lớn, nước mắt xanh và dáng lắc lư đáng yêu.",
-    "spriteVersionNumber": 2
-  },
-  {
     "slug": "miyabi--eric-terminal",
     "name": "Miyabi",
     "localized_names": { "en": "Miyabi", "zh": "星见雅" },
@@ -1319,6 +1307,19 @@
     "collections": [],
     "license": "MIT License",
     "spriteVersionNumber": 1
+  },
+  {
+    "slug": "miu-meo--lemon-z",
+    "name": "SalaryCat",
+    "localized_names": { "en": "SalaryCat", "zh": "月薪喵" },
+    "author": "LemonZ",
+    "author_handle": "lemon-z",
+    "author_url": "",
+    "primary_category": "Animals",
+    "collections": ["animal-companions"],
+    "license": "Unknown license; public Codex Pets upload; no explicit repository redistribution license was provided.",
+    "description": "Chú mèo kem mít ướt với bụng trắng lớn, nước mắt xanh và dáng lắc lư đáng yêu.",
+    "spriteVersionNumber": 2
   },
   {
     "slug": "salary-cat--zuochunjie",

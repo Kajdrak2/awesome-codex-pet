@@ -1014,13 +1014,6 @@ The **Update** action is an AI-assisted v1-to-v2 conversion, not a download noti
 </table>
 
 <table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/miu-meo--lemon-z">Miu Meu</a> · by @lemon-z · Animals · v2</td></tr>
-<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- miu-meo--lemon-z</code></td></tr>
-<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://codexpet.top/assets/previews/miu-meo--lemon-z/webp/idle.webp" alt="Miu Meu idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/miu-meo--lemon-z/webp/waving.webp" alt="Miu Meu waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/miu-meo--lemon-z/webp/running-right.webp" alt="Miu Meu running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/miu-meo--lemon-z/webp/waiting.webp" alt="Miu Meu waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/miu-meo--lemon-z/webp/review.webp" alt="Miu Meu review" width="120" height="130"></td></tr>
-</table>
-
-<table>
 <tr><th>Name</th><td colspan="5"><a href="./pets/moomew-coder-cat--ping">MooMew Coder</a> · by @ping · Animals · v1</td></tr>
 <tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- moomew-coder-cat--ping</code></td></tr>
 <tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
@@ -1046,6 +1039,13 @@ The **Update** action is an AI-assisted v1-to-v2 conversion, not a download noti
 <tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- rook--klubbyte</code></td></tr>
 <tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
 <tr><th>Preview</th><td><img src="https://codexpet.top/assets/previews/rook--klubbyte/webp/idle.webp" alt="Rook idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/rook--klubbyte/webp/waving.webp" alt="Rook waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/rook--klubbyte/webp/running-right.webp" alt="Rook running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/rook--klubbyte/webp/waiting.webp" alt="Rook waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/rook--klubbyte/webp/review.webp" alt="Rook review" width="120" height="130"></td></tr>
+</table>
+
+<table>
+<tr><th>Name</th><td colspan="5"><a href="./pets/miu-meo--lemon-z">SalaryCat</a> · by @lemon-z · Animals · v2</td></tr>
+<tr><th>Install</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- miu-meo--lemon-z</code></td></tr>
+<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
+<tr><th>Preview</th><td><img src="https://codexpet.top/assets/previews/miu-meo--lemon-z/webp/idle.webp" alt="SalaryCat idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/miu-meo--lemon-z/webp/waving.webp" alt="SalaryCat waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/miu-meo--lemon-z/webp/running-right.webp" alt="SalaryCat running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/miu-meo--lemon-z/webp/waiting.webp" alt="SalaryCat waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/miu-meo--lemon-z/webp/review.webp" alt="SalaryCat review" width="120" height="130"></td></tr>
 </table>
 
 <table>
