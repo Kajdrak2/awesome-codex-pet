@@ -127,4 +127,4 @@ Worker 路由迁移不是当前阶段的优先项。只有无效调用持续增�
 
 main 流水线仍生成完整 GIF、WebP 和联系表并上传 QA artifact，但 Pages 只复制 1,541 个动作 WebP 与 165 个缩略图。新增 bundle 检查会阻止 QA 文件误入部署包，并验证公开目录引用的预览文件没有缺失。
 
-GitHub Actions 的 checkout 与 Node.js setup 动作已升级到原生 Node 24 的 v7，移除了强制运行时兼容开关和 Node 20 弃用警告。
+GitHub 官方动作已升级到原生 Node 24 的 v7，Cloudflare Wrangler Action 已升级到 v4；同时移除了强制运行时兼容开关和 Node 20 弃用警告。

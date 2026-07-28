@@ -65,7 +65,7 @@ jobs:
 
       - name: Setup Python
         if: github.event_name == 'pull_request' && steps.changed-pets.outputs.has-pets == 'true'
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.11"
 
@@ -79,7 +79,7 @@ jobs:
 
       - name: Upload pull request previews
         if: github.event_name == 'pull_request' && steps.changed-pets.outputs.has-pets == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: pr-${{ github.event.pull_request.number }}-pet-previews
           path: assets/previews/
@@ -170,7 +170,7 @@ jobs:
             worker/package-lock.json
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.11"
 
@@ -184,7 +184,7 @@ jobs:
         run: npm run validate
 
       - name: Upload generated previews
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: pet-previews
           path: assets/previews/
@@ -225,7 +225,7 @@ jobs:
         run: node web/scripts/ensure-pages-domain.mjs www.codexpet.top
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
