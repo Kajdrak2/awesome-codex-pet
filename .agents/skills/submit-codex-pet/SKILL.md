@@ -39,7 +39,7 @@ Repository: `https://github.com/legeling/awesome-codex-pet`
    - For fan art generated independently from character references, treat the references as reference-only, do not upload them, and do not claim their artists as the pet author. Record the franchise or official character source when known.
    - For a direct crop, cleanup, animation, trace, or substantial pixel reuse of an existing image, record that relationship honestly. Regenerate or repair it when the borrowed pixels prevent consistent identity, clean edges, readable actions, or a coherent spritesheet.
      Do not invent missing facts or treat an absent public URL as an automatic blocker.
-4. Search for duplicate canonical characters or concepts. A materially different authorized variant may proceed only when its distinction is documented.
+4. Search for the canonical character or concept by `canonical_key`, localized names, and franchise. The key groups versions; it is not unique per package. Different authors may submit independently produced versions under the same key when `variant_note` documents the author, visual, animation, or runtime distinction. Reject byte-identical spritesheets. The same author should update an existing package unless the new package is a materially distinct edition.
 5. Produce exactly:
 
    ```text

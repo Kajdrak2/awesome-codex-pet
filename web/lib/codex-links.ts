@@ -62,7 +62,7 @@ export function getPetSubmissionPrompt(locale: Locale) {
 默认使用 GitHub API 完成投稿，不要求我克隆整个仓库，默认目标是做出可审查、可合并的 PR，而不是生成一篇阻塞报告。开始前先问我是要从角色或参考图开始现场制作、完善制作中的宠物，还是直接提交现成的宠物目录或 spritesheet.webp；把缺少的信息集中一次问完。
 
 执行要求：
-1. 通过 GitHub API 读取仓库的 AGENTS.md、CONTRIBUTING.md、pets.json、collections.json、校验脚本和 .agents/skills/submit-codex-pet/SKILL.md。查询 canonical_key、名称、作品和 tags，确认不是重复收录。
+1. 通过 GitHub API 读取仓库的 AGENTS.md、CONTRIBUTING.md、pets.json、collections.json、校验脚本和 .agents/skills/submit-codex-pet/SKILL.md。查询 canonical_key、名称和作品系列。canonical_key 用于归入同一角色，不要求每个作者都唯一；不同作者可以提交独立制作的版本，但必须用 variant_note 说明差异，且不能复用逐字节相同的 spritesheet。
 2. 根据我的选择，判断是从参考资料开始制作、完善现有素材、补元数据，还是直接校验完整三件套。需要制作或修复时，读取并执行仓库对应的 hatch-pet-v1 或 hatch-pet-v2 skill；不要假设用户已经克隆仓库。
 3. 最终目录必须是 pets/<pet-slug>--<author-slug>/，且只能包含 submission.json、pet.json、spritesheet.webp。V1 使用 1536x1872；V2 使用 1536x2288 并设置 spriteVersionNumber: 2。
 4. 逐帧检查动作、环视方向、角色一致性、尺寸与基线，并在深色、浅色和棋盘格背景下修复紫边、绿边、青边、洋红边和透明洞。不能为了消除色边全局删除角色真实颜色。
@@ -81,7 +81,7 @@ export function getPetSubmissionPrompt(locale: Locale) {
 Use the GitHub API by default so I do not need to clone the full repository. The default outcome is a reviewable pull request, not a blocker report. First ask whether I want to make the pet now from a character or references, finish an in-progress pet, or submit an existing pet folder or spritesheet.webp. Collect all missing decisions in one compact question set.
 
 Requirements:
-1. Read AGENTS.md, CONTRIBUTING.md, pets.json, collections.json, the validation scripts, and .agents/skills/submit-codex-pet/SKILL.md through the GitHub API. Search canonical_key, names, franchise, and tags to prevent duplicate collection.
+1. Read AGENTS.md, CONTRIBUTING.md, pets.json, collections.json, the validation scripts, and .agents/skills/submit-codex-pet/SKILL.md through the GitHub API. Search canonical_key, names, and franchise collections. canonical_key groups versions of one character rather than being unique per author. Different authors may submit independently produced versions when variant_note explains the distinction, but a byte-identical spritesheet is not allowed.
 2. Based on my choice, decide whether to create from references, finish existing assets, add metadata, or validate a complete three-file package. When production or repair is required, fetch and follow the repository's hatch-pet-v1 or hatch-pet-v2 skill without assuming the repository is cloned.
 3. The final folder must be pets/<pet-slug>--<author-slug>/ and contain only submission.json, pet.json, and spritesheet.webp. V1 uses 1536x1872. V2 uses 1536x2288 and spriteVersionNumber: 2.
 4. Review actions, look directions, identity, scale, and baseline frame by frame. Repair purple, green, cyan, or magenta fringe and transparent holes on dark, light, and checkerboard backgrounds without globally deleting legitimate character colors.

@@ -11,6 +11,8 @@ type CatalogPet = {
   author_handle?: string;
   author_url?: string;
   primary_category: string;
+  canonical_key?: string;
+  variant_note?: string;
   license: string;
   description?: string;
   spriteVersionNumber: 1 | 2;

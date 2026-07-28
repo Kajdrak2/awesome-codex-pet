@@ -95,6 +95,7 @@ v2 运行时清单示例：
   "author": "your-name-or-handle",
   "primary_category": "Anime Characters",
   "canonical_key": "fictional/example/mikoto",
+  "variant_note": "独立制作的 v2 版本，使用自己的 spritesheet。",
   "tags": ["anime", "electric", "schoolgirl"],
   "source_type": "fan-art",
   "source_url": "https://example.com/original-post",
@@ -109,7 +110,11 @@ v2 运行时清单示例：
 
 `name` 始终必填，作为没有匹配语言时使用的默认名称。双语名称是可选能力：选择支持双语时，添加 `localized_names`，并同时提供非空的 `en` 与 `zh`；网站会跟随访客当前选择的语言展示。只使用一种语言时，完全省略 `localized_names` 即可。名称由投稿者自己确定，网站不会擅自机器翻译。
 
-`canonical_key` 是去重审核使用的稳定身份键。同一个角色的不同版本使用同一个 key；创作者自有角色使用 `original/<作者>/<名称>`。没有这个字段的旧 pet 仍然有效，审核时会根据名称、tags 和来源元数据建立索引。
+`canonical_key` 是角色分组键，不是全局唯一的宠物包 ID。同一个角色的所有版本，包括不同作者独立制作的版本，都使用同一个 key；创作者自有角色使用 `original/<作者>/<名称>`。没有这个字段的旧 pet 仍然有效，审核时会根据名称、作品系列、tags 和来源元数据建立索引。
+
+同一个角色允许不同作者提交各自独立制作的版本。key 已存在时，必须填写 `variant_note`，说明作者、视觉设计、动画或运行时版本上的区别。spritesheet 必须独立制作：即使更换目录名或作者，逐字节完全相同的素材仍会被拒绝。同一作者通常应该直接更新原宠物包；只有确实属于不同版本时才另建一个包。
+
+`npm run validate:pr` 要求新投稿必须提供这个 key。修改没有 key 的旧条目时只会提示警告，不会阻塞素材修复，因此不需要一次性迁移整个目录。不同 key 之间如果名称或作品元数据相同，也只会产生人工复核警告，不会自动拒绝。
 
 投稿不强制填写某个正式许可证名称。`license` 字段既可以写公认许可证，也可以写清楚的自然语言使用条件；没有正式许可证时，至少要明确“仅限非商业使用/禁止商用”。原创、AI 生成或私有来源的作品可以没有公开 `source_url`，但必须在 `source_type`、描述或使用说明中如实交代来源。
 
@@ -122,6 +127,7 @@ v2 运行时清单示例：
 - `spriteVersionNumber` 与 spritesheet 尺寸符合对应的 v1 或 v2 规范
 - v2 的 16 个环视方向已作为完整循环审核
 - `submission.json` 已填写
+- `canonical_key` 正确归入角色分组；后续独立版本已经填写 `variant_note`
 - 作者信息和素材使用说明清楚；正式许可证或明确的“仅限非商业使用”声明均可
 - 贡献者 PR 不包含 `README.md`、`docs/zh-CN/README.md`、`pets.json` 或 `assets/previews/<pet-id>/` 下的生成预览二进制
 - `npm run validate:pr` 通过
@@ -145,7 +151,7 @@ npm run lint
 - 没有素材使用说明，或未明确至少仅限非商业使用
 - 文件无法安装
 - 分类有明显误导
-- 与现有规范角色或概念过于重复
+- 直接换壳提交逐字节相同的素材，或新增版本没有说明有意义的独立差异
 - 和现有普通人物头像或吉祥物在视觉上可互换
 
 ## 分类

@@ -27,7 +27,7 @@ export function CommunityPulse({ data }: { data: CommunityPulseData }) {
           </h2>
           <Link
             className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent hover:underline"
-            href="/rankings"
+            href="/rankings?ref=home-weekly"
           >
             {t("rankings")}
             <span aria-hidden="true">→</span>

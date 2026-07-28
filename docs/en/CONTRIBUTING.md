@@ -93,6 +93,7 @@ Use this repository-level schema:
   "author": "your-name-or-handle",
   "primary_category": "Anime Characters",
   "canonical_key": "fictional/example/mikoto",
+  "variant_note": "An independent v2 interpretation with its own spritesheet.",
   "tags": ["anime", "electric", "schoolgirl"],
   "source_type": "fan-art",
   "source_url": "https://example.com/original-post",
@@ -107,7 +108,11 @@ Use this repository-level schema:
 
 `name` is always required and acts as the canonical fallback. Bilingual naming is optional. To enable it, add `localized_names` with both non-empty `en` and `zh` values; the website then follows the visitor's selected language. For a single-language pet, omit `localized_names` entirely. The creator chooses these names; the website does not machine-translate them.
 
-`canonical_key` is the stable identity used for duplicate review. Use the same key for variants of the same character; use an `original/<author>/<name>` key for a creator-owned character. Existing pets without this field remain valid and are indexed from their names, tags, and source metadata during review.
+`canonical_key` is a grouping identity, not a globally unique package ID. Use the same key for every version of the same character, including versions made independently by different authors. Use an `original/<author>/<name>` key for a creator-owned character. Existing pets without this field remain valid and are indexed from their names, franchise collections, tags, and source metadata during review.
+
+Different authors may submit independent interpretations of one character. When the key already exists, add `variant_note` to explain the author, visual, animation, or runtime distinction. The spritesheet must be independently produced: a byte-identical asset is rejected even when the folder or author changes. A second package by the same author should normally update the existing package; keep it separate only when it is a materially distinct edition.
+
+`npm run validate:pr` requires the key for new submissions. A changed legacy entry without one produces a warning rather than blocking a repair, so the catalog does not need a bulk migration. Matching names or franchise metadata under different keys also produce a review warning rather than an automatic rejection.
 
 A formal license name is optional. The `license` field may contain a recognized license or plain-language usage terms. When no formal license applies, state at minimum that the asset is for non-commercial use only. A public `source_url` is helpful but optional for original, AI-generated, or privately sourced work; describe the source honestly in `source_type`, `description`, or the usage note.
 
@@ -120,6 +125,7 @@ A formal license name is optional. The `license` field may contain a recognized 
 - `spriteVersionNumber` and spritesheet dimensions match the v1 or v2 contract
 - v2 look directions have been reviewed as a complete 16-direction loop
 - `submission.json` filled in
+- `canonical_key` groups the character correctly; a later independent version includes `variant_note`
 - Author and asset usage terms included; either a formal license or an explicit non-commercial-only statement is acceptable
 - Contributor PR does not include `README.md`, `docs/zh-CN/README.md`, `pets.json`, or generated preview binaries under `assets/previews/<pet-id>/`
 - `npm run validate:pr` passes
@@ -143,7 +149,7 @@ Maintainers may decline a submission if:
 - The asset usage terms are absent or do not establish at least non-commercial-only redistribution
 - The files are not installable
 - The categorization is misleading
-- The submission duplicates an existing canonical character or concept too closely
+- The submission repackages a byte-identical asset, or an additional version does not document a meaningful independent distinction
 - The visual design is interchangeable with an existing generic avatar or mascot
 
 ## Categories

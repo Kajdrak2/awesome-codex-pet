@@ -547,6 +547,8 @@ const catalog = pets.map((pet) => ({
   author_handle: pet.author_handle,
   author_url: pet.author_url,
   primary_category: normalizeCategory(pet.primary_category),
+  canonical_key: pet.canonical_key,
+  variant_note: pet.variant_note,
   collections: pet.collections ?? [],
   license: pet.license,
   description: pet.description,
