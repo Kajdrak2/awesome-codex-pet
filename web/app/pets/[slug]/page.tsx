@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { PetDetailContent } from "@/components/pet-detail-content";
 import { getActionEntries, getAllPets, getPetBySlug } from "@/lib/pets";
+import { getPetSeoKeywords } from "@/lib/seo-keywords";
 import { siteConfig } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -33,20 +34,13 @@ export async function generateMetadata({
     `Meet ${pet.name}, a selected community Codex pet by ${pet.author}. Preview every action and install it in one step.`;
   const canonical = `/pets/${pet.slug}`;
   const url = `${siteConfig.url}${canonical}`;
+  const keywords = getPetSeoKeywords(pet);
 
   return {
     title,
     description,
     alternates: { canonical },
-    keywords: [
-      pet.name,
-      pet.localizedNames.en ?? "",
-      pet.localizedNames.zh ?? "",
-      pet.primary_category,
-      ...pet.tags,
-      "Codex pet",
-      "install Codex pet",
-    ].filter(Boolean),
+    keywords,
     openGraph: {
       title,
       description,
@@ -91,6 +85,7 @@ export default async function PetDetailPage({
   const previewImage = pet.previewImage?.startsWith("http")
     ? pet.previewImage
     : `${siteConfig.url}${pet.previewImage}`;
+  const keywords = getPetSeoKeywords(pet);
 
   const petJsonLd = {
     "@context": "https://schema.org",
@@ -114,7 +109,7 @@ export default async function PetDetailPage({
       url: pet.author_url ?? undefined,
     },
     genre: pet.primary_category,
-    keywords: pet.tags.join(", "),
+    keywords,
     license: pet.license,
     version: `V${pet.spriteVersionNumber}`,
     isPartOf: {

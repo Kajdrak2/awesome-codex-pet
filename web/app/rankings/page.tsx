@@ -3,24 +3,42 @@ import type { Metadata } from "next";
 import { RankingsPageContent } from "@/components/rankings-page-content";
 import { getLeaderboardData } from "@/lib/leaderboards";
 import { getAllPets } from "@/lib/pets";
+import { withSiteKeywords } from "@/lib/seo-keywords";
 import { siteConfig } from "@/lib/site";
 
-const title = "Community rankings for Codex pets, creators, and collections";
+const title = "Codex pet rankings / Codex 宠物排行榜";
 const description =
-  "Explore weekly and all-time Awesome Codex Pet rankings, recognize community contributors, discover popular series, and cast a privacy-conscious weekly vote.";
+  "Weekly and all-time Codex pet, creator, and collection rankings with privacy-conscious voting. 查看热门 Codex 宠物、贡献者、系列与每周投票。";
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/rankings" },
-  keywords: [
+  keywords: withSiteKeywords([
     "Codex pet rankings",
     "popular Codex pets",
+    "trending Codex pets",
+    "best Codex pets",
+    "most installed Codex pets",
     "Codex pet creators",
+    "Codex pet contributors",
+    "Codex pet collections ranking",
+    "Codex pet weekly ranking",
+    "Codex pet all-time ranking",
     "Codex pet vote",
+    "community pet leaderboard",
     "Codex 宠物排行榜",
+    "热门 Codex 宠物",
+    "Codex 小宠物排行",
+    "Codex 宠物周榜",
+    "Codex 宠物总榜",
+    "Codex 宠物安装排行",
+    "Codex 宠物作者排行",
+    "Codex 宠物贡献者",
+    "Codex 宠物系列排行",
     "Codex 宠物投票",
-  ],
+    "社区宠物排行榜",
+  ]),
   openGraph: {
     title,
     description,
@@ -52,10 +70,12 @@ export default function RankingsPage() {
     "@type": "CollectionPage",
     "@id": `${siteConfig.url}/rankings/#community-rankings`,
     name: title,
+    alternateName: "Codex 宠物社区排行榜",
     description,
     url: `${siteConfig.url}/rankings`,
     isPartOf: { "@id": `${siteConfig.url}/#website` },
     inLanguage: ["en", "zh-CN"],
+    keywords: metadata.keywords,
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: data.pets.length,

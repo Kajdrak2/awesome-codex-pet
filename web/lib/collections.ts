@@ -1,5 +1,6 @@
 import type { Locale } from "@/lib/i18n";
 import type { GalleryPet, Pet } from "@/lib/pets";
+import { getTagSearchTerms } from "@/lib/tag-localization";
 
 export type LocalizedText = Record<Locale, string>;
 export type CollectionKind = "franchise" | "theme";
@@ -72,7 +73,7 @@ export function toCollectionCardData(
         pet.displayName ?? "",
         pet.localizedNames.en ?? "",
         pet.localizedNames.zh ?? "",
-        ...pet.tags,
+        ...pet.tags.flatMap(getTagSearchTerms),
       ]),
     ]
       .join(" ")

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { getAllPets } from "@/lib/pets";
+import { withSiteKeywords } from "@/lib/seo-keywords";
 import { siteConfig } from "@/lib/site";
 
 const title = "Codex 小宠物画廊：免费下载、安装与社区制作申请";
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
     absolute: `${title} · ${siteConfig.title}`,
   },
   description,
-  keywords: [
+  keywords: withSiteKeywords([
     "Codex 小宠物",
     "Codex 宠物",
     "Codex 宠物网站",
@@ -63,7 +64,12 @@ export const metadata: Metadata = {
     "ChatGPT 桌面宠物",
     "动漫 Codex 宠物",
     "游戏角色 Codex 宠物",
-  ],
+    "像素 Codex 宠物",
+    "Codex 桌面伙伴",
+    "Codex 宠物排行榜",
+    "Codex 宠物合集",
+    "热门 Codex 小宠物",
+  ]),
   alternates: {
     canonical: "/zh",
     languages: {
@@ -287,7 +293,8 @@ export default function ChineseCodexPetsPage() {
         </div>
         <div className="space-y-5 text-base leading-8 text-text-secondary">
           <p>
-            申请人不需要会画画、写代码或自己准备 spritesheet。只要告诉社区角色名称、所属作品，提供公开可访问的参考图，并说明希望保留的外观与动作特点，就可以免费发布制作申请。
+            申请人不需要会画画、写代码或自己准备
+            spritesheet。只要告诉社区角色名称、所属作品，提供公开可访问的参考图，并说明希望保留的外观与动作特点，就可以免费发布制作申请。
           </p>
           <p>
             社区贡献者可能会志愿认领并免费制作，完成后宠物会进入公开画廊，所有人都能预览和安装。申请本身不收费，但不代表一定会被认领，也不承诺完成时间。

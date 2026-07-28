@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { InstallPageContent } from "@/components/install-page-content";
+import { withSiteKeywords } from "@/lib/seo-keywords";
 import { siteConfig } from "@/lib/site";
 
 const title = "Install a Codex pet in seconds";
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
       "x-default": "/install",
     },
   },
-  keywords: [
+  keywords: withSiteKeywords([
     "install Codex pet",
     "how to install Codex pet",
     "Codex pet download",
@@ -30,8 +31,14 @@ export const metadata: Metadata = {
     "Codex pet Windows",
     "Codex pet Linux",
     "安装 Codex 宠物",
+    "下载 Codex 小宠物",
+    "Codex 宠物安装教程",
+    "Codex 自定义宠物安装",
+    "macOS 安装 Codex 宠物",
+    "Windows 安装 Codex 宠物",
+    "Linux 安装 Codex 宠物",
     "Codex 宠物不显示",
-  ],
+  ]),
   openGraph: {
     title,
     description,

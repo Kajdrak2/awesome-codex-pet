@@ -7,6 +7,7 @@ import {
   INSTALL_PLACEHOLDER,
   POWERSHELL_INSTALL_COMMAND,
 } from "@/lib/install";
+import { withSiteKeywords } from "@/lib/seo-keywords";
 import { siteConfig } from "@/lib/site";
 
 const title = "如何安装 Codex 小宠物";
@@ -42,15 +43,20 @@ export const metadata: Metadata = {
     absolute: `${title} · ${siteConfig.title}`,
   },
   description,
-  keywords: [
+  keywords: withSiteKeywords([
     "如何安装 Codex 小宠物",
     "Codex 小宠物安装",
     "Codex 宠物安装教程",
     "Codex 宠物下载",
     "Codex 宠物不显示",
     "OpenAI Codex 自定义宠物",
+    "macOS 安装 Codex 宠物",
+    "Windows 安装 Codex 宠物",
+    "Linux 安装 Codex 宠物",
+    "Codex pets 文件夹",
+    "Codex 设置宠物",
     "Codex pet install",
-  ],
+  ]),
   alternates: {
     canonical: "/zh/install",
     languages: {

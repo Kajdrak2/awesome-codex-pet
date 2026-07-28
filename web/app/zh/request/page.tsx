@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { RequestPageContent } from "@/components/request-page-content";
 import { getAllPets } from "@/lib/pets";
+import { withSiteKeywords } from "@/lib/seo-keywords";
 import { siteConfig } from "@/lib/site";
 
 const title = "免费申请制作喜欢角色的 Codex 小宠物";
@@ -28,14 +29,19 @@ const faq = [
 export const metadata: Metadata = {
   title,
   description,
-  keywords: [
+  keywords: withSiteKeywords([
     "免费申请 Codex 小宠物",
     "Codex 宠物制作申请",
     "请社区制作 Codex 宠物",
     "动漫 Codex 宠物申请",
     "游戏人物 Codex 宠物申请",
     "定制 Codex 小宠物",
-  ],
+    "免费制作 Codex 宠物",
+    "原创角色 Codex 宠物",
+    "吉祥物 Codex 宠物申请",
+    "动物 Codex 宠物申请",
+    "Codex 桌面宠物定制",
+  ]),
   alternates: {
     canonical: "/zh/request",
     languages: {
