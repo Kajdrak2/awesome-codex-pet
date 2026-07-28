@@ -75,7 +75,9 @@ export default function RankingsPage() {
     <>
       <RankingsPageContent data={data} />
       <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replaceAll("<", "\\u003c"),
+        }}
         type="application/ld+json"
       />
     </>

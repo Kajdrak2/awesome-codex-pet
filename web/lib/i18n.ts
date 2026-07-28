@@ -99,6 +99,7 @@ export const translations = {
     rankingInstalls: "Installs",
     rankingLikes: "Likes",
     rankingVotes: "Votes",
+    rankingWeeklyInstalls: "{count} / 7d",
     rankingPetCount: "{count} pets",
     rankingSnapshot: "Statistics snapshot",
     rankingEnds: "Voting ends {date}",
@@ -107,7 +108,7 @@ export const translations = {
     rankingNoActivity:
       "The weekly board is just getting started. Cast a vote to help shape the first results.",
     contributorBack: "Back to rankings",
-    contributorCollection: "Community creator",
+    contributorRoleLabel: "Community creator",
     contributorPageTitle: "Pets by {name}",
     contributorPageSubtitle:
       "{name} has {count} accepted pets in the Awesome Codex Pet community.",
@@ -502,6 +503,7 @@ export const translations = {
     rankingInstalls: "安装",
     rankingLikes: "点赞",
     rankingVotes: "票",
+    rankingWeeklyInstalls: "近 7 日 {count}",
     rankingPetCount: "{count} 只宠物",
     rankingSnapshot: "部署统计快照",
     rankingEnds: "本期投票于 {date} 结束",
@@ -509,7 +511,7 @@ export const translations = {
       "近期热度由近 7 日安装和每周投票共同决定。贡献者只计算表现最好的作品，系列使用限制数量后的平均分，避免单纯靠作品数量霸榜。",
     rankingNoActivity: "本周榜刚刚开始，投出一票来决定第一批排名。",
     contributorBack: "返回榜单",
-    contributorCollection: "社区创作者",
+    contributorRoleLabel: "社区创作者",
     contributorPageTitle: "{name} 的宠物",
     contributorPageSubtitle:
       "{name} 已在 Awesome Codex Pet 社区收录 {count} 只宠物。",

@@ -7,12 +7,15 @@ import { CommunityPulse } from "@/components/community-pulse";
 import { getCollections } from "@/lib/collection-catalog";
 import { toCollectionCardData } from "@/lib/collections";
 import {
+  getCommunityPulseData,
+  getLeaderboardData,
+} from "@/lib/leaderboards";
+import {
   getAllPets,
   getCategories,
   toGalleryPet,
 } from "@/lib/pets";
 import { getTrendingPets } from "@/lib/ranking";
-import { getLeaderboardData } from "@/lib/leaderboards";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -59,6 +62,7 @@ export default function HomePage() {
   const collections = getCollections(pets).map(toCollectionCardData);
   const featured = getTrendingPets(pets, 6).map(toGalleryPet);
   const leaderboard = getLeaderboardData(pets);
+  const communityPulse = getCommunityPulseData(leaderboard);
 
   const pageJsonLd = {
     "@context": "https://schema.org",
@@ -144,7 +148,7 @@ export default function HomePage() {
       />
       <section className="px-6 py-16">
         <div className="mx-auto max-w-[1720px]">
-          <CommunityPulse data={leaderboard} />
+          <CommunityPulse data={communityPulse} />
           <FeaturedCollections collections={collections} />
           <PetGallery pets={galleryPets} categories={categories} />
         </div>

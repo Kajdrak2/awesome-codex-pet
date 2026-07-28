@@ -76,13 +76,26 @@ function buildSyncSql(catalog, collections, legacyStats) {
       );
     }
   }
-  const publicCollections = collections.filter(
+  const collectionSlugs = new Set();
+  const validCollections = [];
+  for (const collection of collections) {
+    if (
+      !collection ||
+      typeof collection.slug !== "string" ||
+      !collectionSlugPattern.test(collection.slug)
+    ) {
+      throw new Error(
+        `Invalid collection slug in catalog: ${JSON.stringify(collection?.slug)}`,
+      );
+    }
+    if (collectionSlugs.has(collection.slug)) continue;
+    collectionSlugs.add(collection.slug);
+    validCollections.push(collection);
+  }
+  const publicCollections = validCollections.filter(
     (collection) =>
-      collection &&
-      typeof collection.slug === "string" &&
-      collectionSlugPattern.test(collection.slug) &&
       (collectionCounts.get(collection.slug) ?? 0) >=
-        minimumPublicCollectionPets,
+      minimumPublicCollectionPets,
   );
   const voteTargets = [
     ...catalog.map((pet) => `('pet', ${sqlString(pet.slug)}, 1)`),

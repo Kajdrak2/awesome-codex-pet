@@ -1,7 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import {
+  type KeyboardEvent,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import { useLocale } from "@/components/locale-provider";
 import { getLocalizedPetName } from "@/lib/codex-links";
@@ -39,9 +44,9 @@ function rankClass(rank: number) {
 
 function sortRanked<T extends { weeklyScore: number; allScore: number }>(
   entries: T[],
-  window: RankingWindow,
+  rankingWindow: RankingWindow,
 ) {
-  const key = window === "weekly" ? "weeklyScore" : "allScore";
+  const key = rankingWindow === "weekly" ? "weeklyScore" : "allScore";
   return [...entries].sort((a, b) => b[key] - a[key]);
 }
 
@@ -113,7 +118,8 @@ export function RankingsPageContent({
 }) {
   const { locale, t } = useLocale();
   const [tab, setTab] = useState<RankingTab>("pets");
-  const [window, setWindow] = useState<RankingWindow>("weekly");
+  const [rankingWindow, setRankingWindow] =
+    useState<RankingWindow>("weekly");
   const [selectedVotes, setSelectedVotes] = useState<
     Record<VoteKind, string | null>
   >({
@@ -144,16 +150,16 @@ export function RankingsPageContent({
   }, [data.votePeriod.id]);
 
   const rankedPets = useMemo(
-    () => sortRanked(data.pets, window).slice(0, rankingLimit),
-    [data.pets, window],
+    () => sortRanked(data.pets, rankingWindow).slice(0, rankingLimit),
+    [data.pets, rankingWindow],
   );
   const rankedContributors = useMemo(
-    () => sortRanked(data.contributors, window).slice(0, rankingLimit),
-    [data.contributors, window],
+    () => sortRanked(data.contributors, rankingWindow).slice(0, rankingLimit),
+    [data.contributors, rankingWindow],
   );
   const rankedCollections = useMemo(
-    () => sortRanked(data.collections, window).slice(0, rankingLimit),
-    [data.collections, window],
+    () => sortRanked(data.collections, rankingWindow).slice(0, rankingLimit),
+    [data.collections, rankingWindow],
   );
   const hasWeeklyActivity =
     data.pets.some(
@@ -164,6 +170,26 @@ export function RankingsPageContent({
     { value: "contributors", label: t("rankingContributors") },
     { value: "collections", label: t("rankingCollections") },
   ];
+
+  function handleTabKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
+      return;
+    }
+    event.preventDefault();
+    const currentIndex = tabs.findIndex((item) => item.value === tab);
+    const nextIndex =
+      event.key === "Home"
+        ? 0
+        : event.key === "End"
+          ? tabs.length - 1
+          : event.key === "ArrowRight"
+            ? (currentIndex + 1) % tabs.length
+            : (currentIndex - 1 + tabs.length) % tabs.length;
+    setTab(tabs[nextIndex].value);
+    event.currentTarget
+      .querySelectorAll<HTMLButtonElement>('[role="tab"]')
+      [nextIndex]?.focus();
+  }
 
   async function castVote(kind: VoteKind, slug: string) {
     setVoteError(false);
@@ -245,19 +271,23 @@ export function RankingsPageContent({
           <div
             aria-label={t("rankings")}
             className="grid h-11 grid-cols-3 rounded-lg border border-border bg-bg-secondary p-1"
+            onKeyDown={handleTabKeyDown}
             role="tablist"
           >
             {tabs.map((item) => (
               <button
+                aria-controls="rankings-panel"
                 aria-selected={tab === item.value}
                 className={`min-w-0 rounded-md px-3 text-sm font-medium transition-colors sm:min-w-32 ${
                   tab === item.value
                     ? "bg-bg-elevated text-text shadow-sm"
                     : "text-muted hover:text-text"
                 }`}
+                id={`rankings-tab-${item.value}`}
                 key={item.value}
                 onClick={() => setTab(item.value)}
                 role="tab"
+                tabIndex={tab === item.value ? 0 : -1}
                 type="button"
               >
                 <span className="block truncate">{item.label}</span>
@@ -270,14 +300,14 @@ export function RankingsPageContent({
           >
             {(["weekly", "all"] as const).map((value) => (
               <button
-                aria-pressed={window === value}
+                aria-pressed={rankingWindow === value}
                 className={`rounded-md px-5 text-sm font-medium transition-colors ${
-                  window === value
+                  rankingWindow === value
                     ? "bg-bg-elevated text-text shadow-sm"
                     : "text-muted hover:text-text"
                 }`}
                 key={value}
-                onClick={() => setWindow(value)}
+                onClick={() => setRankingWindow(value)}
                 type="button"
               >
                 {t(value === "weekly" ? "rankingWeekly" : "rankingAllTime")}
@@ -287,7 +317,7 @@ export function RankingsPageContent({
         </div>
       </div>
 
-      {!hasWeeklyActivity && window === "weekly" ? (
+      {!hasWeeklyActivity && rankingWindow === "weekly" ? (
         <p className="border-b border-border py-5 text-sm text-muted">
           {t("rankingNoActivity")}
         </p>
@@ -298,14 +328,19 @@ export function RankingsPageContent({
         </p>
       ) : null}
 
-      <section className="mt-8" role="tabpanel">
+      <section
+        aria-labelledby={`rankings-tab-${tab}`}
+        className="mt-8"
+        id="rankings-panel"
+        role="tabpanel"
+      >
         {tab === "pets" ? (
           <PetRanking
             entries={rankedPets}
             locale={locale}
             pendingVote={pendingVote}
             selectedVote={selectedVotes.pet}
-            showVote={window === "weekly"}
+            showVote={rankingWindow === "weekly"}
             votes={petVotes}
             onVote={(slug) => void castVote("pet", slug)}
           />
@@ -313,8 +348,7 @@ export function RankingsPageContent({
         {tab === "contributors" ? (
           <ContributorRanking
             entries={rankedContributors}
-            locale={locale}
-            window={window}
+            rankingWindow={rankingWindow}
           />
         ) : null}
         {tab === "collections" ? (
@@ -323,7 +357,7 @@ export function RankingsPageContent({
             locale={locale}
             pendingVote={pendingVote}
             selectedVote={selectedVotes.collection}
-            showVote={window === "weekly"}
+            showVote={rankingWindow === "weekly"}
             votes={collectionVotes}
             onVote={(slug) => void castVote("collection", slug)}
           />
@@ -432,12 +466,10 @@ function PetRanking({
 
 function ContributorRanking({
   entries,
-  locale,
-  window,
+  rankingWindow,
 }: {
   entries: RankedContributor[];
-  locale: "en" | "zh";
-  window: RankingWindow;
+  rankingWindow: RankingWindow;
 }) {
   const { t } = useLocale();
   return (
@@ -483,7 +515,11 @@ function ContributorRanking({
             <div className="hidden sm:block">
               <Metric
                 label={t("rankingInstalls")}
-                value={window === "weekly" ? entry.installs7d : entry.installs}
+                value={
+                  rankingWindow === "weekly"
+                    ? entry.installs7d
+                    : entry.installs
+                }
               />
             </div>
             <div className="hidden md:block">
@@ -491,11 +527,15 @@ function ContributorRanking({
             </div>
             <Metric
               label={
-                window === "weekly"
+                rankingWindow === "weekly"
                   ? t("rankingVotes")
                   : t("rankingPets")
               }
-              value={window === "weekly" ? entry.weeklyVotes : entry.petCount}
+              value={
+                rankingWindow === "weekly"
+                  ? entry.weeklyVotes
+                  : entry.petCount
+              }
             />
           </li>
         );

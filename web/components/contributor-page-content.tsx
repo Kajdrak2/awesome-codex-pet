@@ -50,7 +50,7 @@ export function ContributorPageContent({
       <header className="mt-8 grid gap-8 border-b border-border pb-10 lg:grid-cols-[1fr_auto] lg:items-end">
         <div>
           <p className="mb-3 text-xs font-semibold uppercase text-accent">
-            {t("contributorCollection")}
+            {t("contributorRoleLabel")}
           </p>
           <h1 className="text-4xl font-semibold text-text sm:text-5xl">
             {contributor.name}
