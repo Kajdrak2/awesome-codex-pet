@@ -18,7 +18,7 @@ Cloudflare Worker that records privacy-conscious install, like, and weekly commu
 
 The API never stores raw IP addresses or client event IDs. Metric receipts are salted and hashed before short-lived deduplication. Likes store only a salted, pet-scoped IP hash so the same IP cannot like one pet twice and cannot be correlated across different pets.
 
-Weekly ballots use a salt-hashed identity scoped to the UTC week and target kind. A visitor can cast one pet vote and one collection vote per week, and can move either vote to another eligible target. Ballots expire automatically after thirteen weeks.
+Weekly ballots use a salt-hashed identity scoped to the UTC week and target kind. A visitor can cast one pet vote and one collection vote per week, and can move either vote to another eligible target. Vote writes are capped per source and hour to protect D1 from automated switching; ballots expire automatically after thirteen weeks.
 
 Normal page loads never invoke this Worker. Browsers read the deployment-time `/stats.json` snapshot from Cloudflare Pages as a free static asset, and pet detail views are not written to D1.
 

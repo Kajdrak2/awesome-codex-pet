@@ -5,6 +5,7 @@ import worker, {
   buildInstallKeys,
   buildLikeKey,
   buildVoteKey,
+  buildVoteRateKey,
   computeTrendingScore,
   isOriginAllowed,
   serializeStatsRows,
@@ -132,6 +133,9 @@ test("weekly vote keys allow one ballot per IP, kind, and week", async () => {
       "User-Agent": "another browser",
     },
   });
+  const otherIpRequest = new Request("https://stats.example/track/vote", {
+    headers: { "CF-Connecting-IP": "203.0.113.5" },
+  });
   const week = "2026-07-13";
 
   const first = await buildVoteKey(firstRequest, env, "pet", week);
@@ -143,10 +147,46 @@ test("weekly vote keys allow one ballot per IP, kind, and week", async () => {
     week,
   );
   const nextWeek = await buildVoteKey(firstRequest, env, "pet", "2026-07-20");
+  const otherIp = await buildVoteKey(otherIpRequest, env, "pet", week);
+  const firstRate = await buildVoteRateKey(
+    firstRequest,
+    env,
+    "pet",
+    Date.UTC(2026, 6, 13, 1),
+  );
+  const sameRate = await buildVoteRateKey(
+    sameIpRequest,
+    env,
+    "pet",
+    Date.UTC(2026, 6, 13, 1, 59),
+  );
+  const otherIpRate = await buildVoteRateKey(
+    otherIpRequest,
+    env,
+    "pet",
+    Date.UTC(2026, 6, 13, 1),
+  );
+  const collectionRate = await buildVoteRateKey(
+    firstRequest,
+    env,
+    "collection",
+    Date.UTC(2026, 6, 13, 1),
+  );
+  const nextHourRate = await buildVoteRateKey(
+    firstRequest,
+    env,
+    "pet",
+    Date.UTC(2026, 6, 13, 2),
+  );
 
   assert.equal(first, sameBallot);
+  assert.notEqual(first, otherIp);
   assert.notEqual(first, collectionBallot);
   assert.notEqual(first, nextWeek);
+  assert.equal(firstRate.key, sameRate.key);
+  assert.notEqual(firstRate.key, otherIpRate.key);
+  assert.notEqual(firstRate.key, collectionRate.key);
+  assert.notEqual(firstRate.key, nextHourRate.key);
 });
 
 test("UTC vote periods start on Monday", () => {

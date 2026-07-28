@@ -8,6 +8,7 @@ import { siteConfig } from "@/lib/site";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const pets = getAllPets();
   const staticEntries: MetadataRoute.Sitemap = [
     {
       url: `${siteConfig.url}/collections`,
@@ -55,17 +56,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
   ];
-  const petEntries = getAllPets().map((pet) => ({
+  const petEntries = pets.map((pet) => ({
     url: `${siteConfig.url}/pets/${pet.slug}`,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
-  const collectionEntries = getCollectionSlugs(getAllPets()).map((slug) => ({
+  const collectionEntries = getCollectionSlugs(pets).map((slug) => ({
     url: `${siteConfig.url}/collections/${slug}`,
     changeFrequency: "weekly" as const,
     priority: 0.75,
   }));
-  const contributorEntries = getContributorSlugs(getAllPets()).map((slug) => ({
+  const contributorEntries = getContributorSlugs(pets).map((slug) => ({
     url: `${siteConfig.url}/contributors/${slug}`,
     changeFrequency: "weekly" as const,
     priority: 0.65,

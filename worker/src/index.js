@@ -10,6 +10,7 @@ const COLLECTION_SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const EVENT_ID_RE = /^[A-Za-z0-9._:-]{8,128}$/;
 const VOTE_KINDS = new Set(["pet", "collection"]);
 const INSTALL_RATE_LIMIT = 30;
+const VOTE_RATE_LIMIT = 60;
 const RECEIPT_TTL_MS = 8 * 24 * 60 * 60 * 1000;
 const VOTE_RETENTION_MS = 13 * 7 * 24 * 60 * 60 * 1000;
 const VOTE_CHANGE_COOLDOWN_MS = 2_000;
@@ -163,6 +164,22 @@ export async function buildVoteKey(request, env, kind, weekStart) {
   return sha256(
     `${env.HASH_SALT}|vote|${weekStart}|${kind}|${clientAddress(request)}`,
   );
+}
+
+export async function buildVoteRateKey(request, env, kind, timestamp) {
+  if (!env.HASH_SALT || env.HASH_SALT.length < 16) {
+    throw new HttpError(500, "metric hashing is not configured");
+  }
+  if (!VOTE_KINDS.has(kind)) {
+    throw new HttpError(400, "invalid vote kind");
+  }
+  const bucket = hourBucket(timestamp);
+  return {
+    key: await sha256(
+      `${env.HASH_SALT}|rate|vote|${kind}|${clientAddress(request)}|${bucket}`,
+    ),
+    bucket,
+  };
 }
 
 export function computeTrendingScore(installs7d, weeklyVotes = 0) {
@@ -359,6 +376,28 @@ async function trackVote(request, env, kind, slug) {
     throw new HttpError(403, "origin not allowed");
   }
 
+  const timestamp = Date.now();
+  const rate = await buildVoteRateKey(request, env, kind, timestamp);
+  const rateResult = await env.DB.prepare(
+    `INSERT INTO vote_rate_limits
+       (rate_key, target_kind, bucket_start, event_count, expires_at)
+     VALUES (?, ?, ?, 1, ?)
+     ON CONFLICT(rate_key) DO UPDATE SET
+       event_count = vote_rate_limits.event_count + 1,
+       expires_at = excluded.expires_at
+     RETURNING event_count`,
+  )
+    .bind(
+      rate.key,
+      kind,
+      rate.bucket,
+      timestamp + 2 * 60 * 60 * 1000,
+    )
+    .first();
+  if ((Number(rateResult?.event_count) || 0) > VOTE_RATE_LIMIT) {
+    throw new HttpError(429, "rate limit exceeded");
+  }
+
   const target = await env.DB.prepare(
     `SELECT slug
      FROM vote_targets
@@ -370,7 +409,6 @@ async function trackVote(request, env, kind, slug) {
     throw new HttpError(404, "vote target not found");
   }
 
-  const timestamp = Date.now();
   const period = votePeriod(timestamp);
   const visitorHash = await buildVoteKey(request, env, kind, period.id);
   const previous = await env.DB.prepare(
@@ -481,6 +519,9 @@ async function cleanupMetrics(env) {
       timestamp,
     ),
     env.DB.prepare("DELETE FROM weekly_votes WHERE expires_at < ?").bind(
+      timestamp,
+    ),
+    env.DB.prepare("DELETE FROM vote_rate_limits WHERE expires_at < ?").bind(
       timestamp,
     ),
   ]);

@@ -84,7 +84,7 @@ npx wrangler pages deploy out --project-name=awesome-codex-pet
 - **Community pages**: Static contributor profiles and pet, contributor, and collection rankings are generated at build time
 - **Hosting**: Cloudflare Pages (global CDN, free tier)
 - **Stats reads**: deployment-time `public/stats.json`, served as a free Pages static asset; rankings do not poll the Worker
-- **Stats writes**: a separate Worker at `https://api.codexpet.top` records explicit installs, IP-limited likes, and one weekly pet or collection vote per privacy-scoped visitor. Ordinary page views never invoke it. See `worker/README.md`.
+- **Stats writes**: a separate Worker at `https://api.codexpet.top` records explicit installs, IP-limited likes, and one pet vote plus one collection vote per privacy-scoped visitor each week. Ordinary page views never invoke it. See `worker/README.md`.
 - **Preview delivery**: cards load a static thumbnail first and fetch animation on hover or keyboard focus; detail pages keep the complete action set
 - **Caching**: Next.js hashed assets are immutable, preview assets use a seven-day browser cache, and the deployment-time statistics snapshot uses a ten-minute cache
 

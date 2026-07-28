@@ -1,5 +1,12 @@
 "use client";
 
+import {
+  normalizeVotePeriod,
+  type VotePeriod,
+} from "@/lib/vote-period";
+
+export type { VotePeriod } from "@/lib/vote-period";
+
 export type PetStats = {
   installs: number;
   likes: number;
@@ -18,12 +25,6 @@ export type CollectionStats = {
 
 export type VoteKind = "pet" | "collection";
 
-export type VotePeriod = {
-  id: string;
-  startsAt: number;
-  endsAt: number;
-};
-
 export type StatsPayload = {
   pets: StatsMap;
   collections: Record<string, CollectionStats>;
@@ -35,8 +36,15 @@ export type StatsPayload = {
 const STATS_SNAPSHOT_PATH = "/stats.json";
 const STATS_WRITE_API =
   process.env.NEXT_PUBLIC_STATS_WRITE_API ?? "https://api.codexpet.top";
-const LIKE_TIMEOUT_MS = 8_000;
+const STATS_WRITE_TIMEOUT_MS = 8_000;
 const STATS_CACHE_TTL_MS = 60_000;
+
+export class StatsWriteTimeoutError extends Error {
+  constructor(options?: ErrorOptions) {
+    super("The statistics write request timed out", options);
+    this.name = "StatsWriteTimeoutError";
+  }
+}
 
 let cachedStats: { payload: StatsPayload; expiresAt: number } | undefined;
 let pendingStats: Promise<StatsPayload> | undefined;
@@ -80,23 +88,17 @@ function normalizeStatsPayload(value: unknown): StatsPayload {
   }
   const rawPeriod = isRecord(value.votePeriod) ? value.votePeriod : {};
   const generatedAt = asNonNegativeNumber(value.generatedAt);
-  const fallbackStart = generatedAt;
+  const votePeriod = normalizeVotePeriod(
+    rawPeriod,
+    generatedAt || Date.now(),
+  );
 
   return {
     pets,
     collections,
     generatedAt,
     windowDays: asNonNegativeNumber(value.windowDays) || 7,
-    votePeriod: {
-      id:
-        typeof rawPeriod.id === "string" && rawPeriod.id
-          ? rawPeriod.id
-          : "current",
-      startsAt: asNonNegativeNumber(rawPeriod.startsAt) || fallbackStart,
-      endsAt:
-        asNonNegativeNumber(rawPeriod.endsAt) ||
-        fallbackStart + 7 * 24 * 60 * 60 * 1000,
-    },
+    votePeriod,
   };
 }
 
@@ -183,7 +185,7 @@ export async function likePet(slug: string): Promise<LikeResult> {
   const controller = new AbortController();
   const timeoutId = window.setTimeout(
     () => controller.abort(),
-    LIKE_TIMEOUT_MS,
+    STATS_WRITE_TIMEOUT_MS,
   );
 
   try {
@@ -216,6 +218,11 @@ export async function likePet(slug: string): Promise<LikeResult> {
       logStatsError("Unable to persist anonymous like receipt", error);
     }
     return result;
+  } catch (error: unknown) {
+    if (error instanceof DOMException && error.name === "AbortError") {
+      throw new StatsWriteTimeoutError({ cause: error });
+    }
+    throw error;
   } finally {
     window.clearTimeout(timeoutId);
   }
@@ -253,7 +260,7 @@ export async function voteForTarget(
   const controller = new AbortController();
   const timeoutId = window.setTimeout(
     () => controller.abort(),
-    LIKE_TIMEOUT_MS,
+    STATS_WRITE_TIMEOUT_MS,
   );
 
   try {
@@ -297,13 +304,21 @@ export async function voteForTarget(
 
     try {
       window.localStorage.setItem(
-        voteMarker(result.week || periodId, kind),
+        voteMarker(periodId, kind),
         slug,
       );
+      if (result.week !== periodId) {
+        window.localStorage.setItem(voteMarker(result.week, kind), slug);
+      }
     } catch (error: unknown) {
       logStatsError("Unable to persist anonymous weekly vote receipt", error);
     }
     return result;
+  } catch (error: unknown) {
+    if (error instanceof DOMException && error.name === "AbortError") {
+      throw new StatsWriteTimeoutError({ cause: error });
+    }
+    throw error;
   } finally {
     window.clearTimeout(timeoutId);
   }

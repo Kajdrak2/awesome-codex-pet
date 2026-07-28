@@ -16,6 +16,7 @@ const repoRoot = join(webRoot, "..");
 const dataDir = join(webRoot, ".generated");
 const publicDir = join(webRoot, "public");
 const publicAssetsDir = join(publicDir, "assets");
+const authorSlugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const collectionCatalog = readJson("collections.json");
 const categoryCatalog = readJson("categories.json");
 const categoryByName = new Map(
@@ -90,6 +91,24 @@ function animatedPreviewForPet(slug, gifs, previewImage) {
   return gifs.idle ?? previewImage ?? `/assets/previews/${slug}/thumbnail.png`;
 }
 
+function resolveAuthorSlug(pet, submission) {
+  const declared =
+    typeof submission.author_slug === "string"
+      ? submission.author_slug.trim()
+      : "";
+  const fromPetSlug = pet.slug.split("--").slice(1).join("--");
+  const fromAuthor = String(submission.author ?? pet.author ?? "")
+    .normalize("NFKD")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  const authorSlug = declared || fromPetSlug || fromAuthor;
+  if (!authorSlugPattern.test(authorSlug)) {
+    throw new Error(`Unable to resolve a valid author slug for ${pet.slug}`);
+  }
+  return authorSlug;
+}
+
 const pets = readJson("pets.json").map((pet) => {
   const submission = readJson(`pets/${pet.slug}/submission.json`);
   const runtime = readJson(`pets/${pet.slug}/pet.json`);
@@ -103,8 +122,7 @@ const pets = readJson("pets.json").map((pet) => {
 
   return {
     ...pet,
-    author_slug:
-      submission.author_slug ?? pet.slug.split("--").slice(1).join("--"),
+    author_slug: resolveAuthorSlug(pet, submission),
     categoryLabel: categoryByName.get(pet.primary_category)?.label ?? {
       en: pet.primary_category,
       zh: pet.primary_category,
