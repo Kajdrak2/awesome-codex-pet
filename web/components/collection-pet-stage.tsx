@@ -4,10 +4,10 @@ import Link from "next/link";
 
 import { useLocale } from "@/components/locale-provider";
 import { getLocalizedPetName } from "@/lib/codex-links";
-import type { Pet } from "@/lib/pets";
+import type { GalleryPet } from "@/lib/pets";
 
 type CollectionPetStageProps = {
-  pets: Pet[];
+  pets: GalleryPet[];
   variant?: "card" | "hero";
 };
 
@@ -73,7 +73,7 @@ export function CollectionPetStage({
           >
             <img
               className="max-h-full max-w-full object-contain [image-rendering:pixelated] transition-transform duration-200 group-hover/pet:scale-105"
-              src={pet.animatedPreviewImage}
+              src={pet.previewImage}
               alt={localizedName}
               loading={variant === "card" ? "lazy" : undefined}
               style={{ transform: `scale(${placement.scale})`, transformOrigin: "bottom center" }}

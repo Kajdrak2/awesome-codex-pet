@@ -37,13 +37,35 @@ export type Pet = CatalogPet & {
   sourceUrl: string;
   previewImage: string;
   animatedPreviewImage: string;
-  contactSheet: string;
   actions: PreviewAction[];
   gifs: Record<PreviewAction, string>;
   installCommand: string;
   installCommandPowerShell: string;
   repositoryPath: string;
 };
+
+export type PetNameSource = Pick<
+  Pet,
+  "slug" | "name" | "localizedNames" | "displayName"
+>;
+
+export type GalleryPet = Pick<
+  Pet,
+  | "slug"
+  | "name"
+  | "author"
+  | "author_handle"
+  | "author_url"
+  | "primary_category"
+  | "description"
+  | "categoryLabel"
+  | "localizedNames"
+  | "displayName"
+  | "runtimeDescription"
+  | "tags"
+  | "previewImage"
+  | "animatedPreviewImage"
+>;
 
 function readGeneratedPets(): Pet[] {
   const path = join(process.cwd(), ".generated", "pets.generated.json");
@@ -58,7 +80,28 @@ export function getPetBySlug(slug: string) {
   return getAllPets().find((pet) => pet.slug === slug) ?? null;
 }
 
-export function getCategories(pets: Pet[]) {
+export function toGalleryPet(pet: Pet): GalleryPet {
+  return {
+    slug: pet.slug,
+    name: pet.name,
+    author: pet.author,
+    author_handle: pet.author_handle,
+    author_url: pet.author_url,
+    primary_category: pet.primary_category,
+    description: pet.description,
+    categoryLabel: pet.categoryLabel,
+    localizedNames: pet.localizedNames,
+    displayName: pet.displayName,
+    runtimeDescription: pet.runtimeDescription,
+    tags: pet.tags,
+    previewImage: pet.previewImage,
+    animatedPreviewImage: pet.animatedPreviewImage,
+  };
+}
+
+export function getCategories(
+  pets: Array<Pick<Pet, "primary_category" | "categoryLabel">>,
+) {
   return Array.from(
     new Map(
       pets.map((pet) => [

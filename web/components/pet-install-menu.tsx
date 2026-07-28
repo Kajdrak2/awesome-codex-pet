@@ -7,10 +7,11 @@ import { ActionDropdown } from "@/components/action-dropdown";
 import { ChatGPTIcon } from "@/components/chatgpt-icon";
 import { useLocale } from "@/components/locale-provider";
 import { buildChatGPTUrl, getPetInstallPrompt } from "@/lib/codex-links";
-import type { Pet } from "@/lib/pets";
+import { getPetInstallCommands } from "@/lib/install";
+import type { PetNameSource } from "@/lib/pets";
 
 type PetInstallMenuProps = {
-  pet: Pet;
+  pet: PetNameSource;
   variant?: "card" | "detail";
 };
 
@@ -24,6 +25,7 @@ function logCopyError(error: unknown) {
 export function PetInstallMenu({ pet, variant = "card" }: PetInstallMenuProps) {
   const { locale, t } = useLocale();
   const [copied, setCopied] = useState(false);
+  const commands = getPetInstallCommands(pet.slug);
 
   async function copyCommand(command: string) {
     try {
@@ -103,7 +105,7 @@ export function PetInstallMenu({ pet, variant = "card" }: PetInstallMenuProps) {
         className="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2.5 text-left text-sm text-text transition-colors hover:bg-surface"
         type="button"
         role="menuitem"
-        onClick={() => void copyCommand(pet.installCommand)}
+        onClick={() => void copyCommand(commands.bash)}
       >
         <span className="w-6 text-center font-mono text-muted">&gt;_</span>
         <span>
@@ -115,7 +117,7 @@ export function PetInstallMenu({ pet, variant = "card" }: PetInstallMenuProps) {
         className="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2.5 text-left text-sm text-text transition-colors hover:bg-surface"
         type="button"
         role="menuitem"
-        onClick={() => void copyCommand(pet.installCommandPowerShell)}
+        onClick={() => void copyCommand(commands.powershell)}
       >
         <span className="w-6 text-center font-mono text-muted">PS</span>
         <span>

@@ -7,11 +7,11 @@ import { ActionDropdown } from "@/components/action-dropdown";
 import { PetCard } from "@/components/pet-card";
 import { useLocale } from "@/components/locale-provider";
 import { fetchStats, type StatsMap } from "@/lib/stats";
-import type { Pet } from "@/lib/pets";
+import type { GalleryPet } from "@/lib/pets";
 
 type PetGalleryProps = {
-  pets: Pet[];
-  categories: Array<{ name: string; label: Pet["categoryLabel"] }>;
+  pets: GalleryPet[];
+  categories: Array<{ name: string; label: GalleryPet["categoryLabel"] }>;
 };
 
 type SortKey = "random" | "trending" | "downloads" | "likes" | "name";
@@ -28,7 +28,7 @@ function normalizeSortText(value: string) {
   return value.normalize("NFKD").toLowerCase();
 }
 
-function comparePetsByName(a: Pet, b: Pet) {
+function comparePetsByName(a: GalleryPet, b: GalleryPet) {
   const aName = normalizeSortText(a.name);
   const bName = normalizeSortText(b.name);
 
@@ -39,7 +39,7 @@ function comparePetsByName(a: Pet, b: Pet) {
   return 0;
 }
 
-function createPetRanks(pets: Pet[], shuffle = false) {
+function createPetRanks(pets: GalleryPet[], shuffle = false) {
   const slugs = pets.map((pet) => pet.slug);
 
   if (shuffle) {

@@ -12,10 +12,13 @@ export default [
     ignores: [".next/**", "node_modules/**", "public/assets/**", ".generated/**"],
   },
   {
-    files: ["**/*.{ts,tsx}"],
     plugins: {
       "@next/next": nextPlugin,
     },
+    rules: {},
+  },
+  {
+    files: ["**/*.{ts,tsx}"],
     languageOptions: {
       parser: tsParser,
       parserOptions: {

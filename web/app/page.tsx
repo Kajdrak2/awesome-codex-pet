@@ -4,7 +4,13 @@ import { FeaturedCollections } from "@/components/featured-collections";
 import { HeroSection } from "@/components/hero-section";
 import { PetGallery } from "@/components/pet-gallery";
 import { getCollections } from "@/lib/collection-catalog";
-import { getAllPets, getCategories } from "@/lib/pets";
+import { toCollectionCardData } from "@/lib/collections";
+import {
+  getAllPets,
+  getCategories,
+  toGalleryPet,
+} from "@/lib/pets";
+import { getTrendingPets } from "@/lib/ranking";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -46,8 +52,10 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   const pets = getAllPets();
-  const categories = getCategories(pets);
-  const collections = getCollections(pets);
+  const galleryPets = pets.map(toGalleryPet);
+  const categories = getCategories(galleryPets);
+  const collections = getCollections(pets).map(toCollectionCardData);
+  const featured = getTrendingPets(pets, 6).map(toGalleryPet);
 
   const pageJsonLd = {
     "@context": "https://schema.org",
@@ -129,12 +137,12 @@ export default function HomePage() {
       <HeroSection
         petCount={pets.length}
         categoryCount={categories.length}
-        featured={pets}
+        featured={featured}
       />
       <section className="px-6 py-16">
         <div className="mx-auto max-w-[1720px]">
           <FeaturedCollections collections={collections} />
-          <PetGallery pets={pets} categories={categories} />
+          <PetGallery pets={galleryPets} categories={categories} />
         </div>
       </section>
       <script

@@ -1,18 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, type PointerEvent } from "react";
+import { useRef, useState, type PointerEvent } from "react";
 
-import type { Pet } from "@/lib/pets";
+import type { GalleryPet } from "@/lib/pets";
 import { PetInstallMenu } from "@/components/pet-install-menu";
 import { PetLikeButton } from "@/components/pet-like-button";
 import { ShareMenu } from "@/components/share-menu";
 import { useLocale } from "@/components/locale-provider";
 import { getLocalizedPetName, getPetInstallPrompt } from "@/lib/codex-links";
+import { getPetInstallCommands } from "@/lib/install";
 import { siteConfig } from "@/lib/site";
 
 type PetCardProps = {
-  pet: Pet;
+  pet: GalleryPet;
   installs?: number;
   likes?: number;
 };
@@ -28,6 +29,8 @@ export function PetCard({ pet, installs = 0, likes = 0 }: PetCardProps) {
   const detailHref = `/pets/${pet.slug}`;
   const localizedName = getLocalizedPetName(pet, locale);
   const cardRef = useRef<HTMLElement>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const commands = getPetInstallCommands(pet.slug);
 
   function updateCardTilt(event: PointerEvent<HTMLElement>) {
     if (event.pointerType === "touch") return;
@@ -62,9 +65,19 @@ export function PetCard({ pet, installs = 0, likes = 0 }: PetCardProps) {
       ref={cardRef}
       className="pet-card group relative z-0 flex h-full flex-col rounded-lg border border-border bg-bg-elevated hover:z-20 hover:border-border-hover hover:shadow-xl focus-within:z-30"
       onPointerMove={updateCardTilt}
-      onPointerLeave={resetCardTilt}
+      onPointerEnter={(event) => {
+        if (event.pointerType !== "touch") setIsAnimating(true);
+      }}
+      onPointerLeave={() => {
+        setIsAnimating(false);
+        resetCardTilt();
+      }}
+      onFocus={() => setIsAnimating(true)}
       onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) resetCardTilt();
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          setIsAnimating(false);
+          resetCardTilt();
+        }
       }}
     >
       {/* Visual area */}
@@ -77,7 +90,7 @@ export function PetCard({ pet, installs = 0, likes = 0 }: PetCardProps) {
         <div className="pet-card__character-stage pointer-events-none flex size-full items-center justify-center">
           <img
             className="pet-card__character relative h-full w-auto max-w-full object-contain [image-rendering:pixelated]"
-            src={pet.animatedPreviewImage}
+            src={isAnimating ? pet.animatedPreviewImage : pet.previewImage}
             alt={`${localizedName} preview`}
             loading="lazy"
             decoding="async"
@@ -156,7 +169,7 @@ export function PetCard({ pet, installs = 0, likes = 0 }: PetCardProps) {
             title={localizedName}
             url={`${siteConfig.url}${detailHref}`}
             codexPrompt={getPetInstallPrompt(pet, locale)}
-            installCommand={pet.installCommand}
+            installCommand={commands.bash}
           />
         </div>
       </div>

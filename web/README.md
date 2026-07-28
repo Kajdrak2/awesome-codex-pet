@@ -22,13 +22,15 @@ npm run build
 
 Output is in `web/out/` (static HTML export).
 
+Pull-request CI uses `npm run build:pr` because a clean contributor checkout does not contain the ignored full preview tree. The production `npm run build` additionally verifies that every catalog preview is present and that QA-only GIF/contact-sheet files are absent from the Pages bundle.
+
 ## Deployment (Cloudflare Pages)
 
 The site deploys automatically after commits land on `main`. The `Pet previews` workflow regenerates previews/README data, commits those generated files, then builds and deploys the web gallery from the latest `main` state.
 
 There is also a separate manual/tag-based deploy workflow available as a fallback (`v*`, `web-v*`, or manual dispatch).
 
-Preview GIFs and contact sheets are generated during CI/deploy and bundled into the site, rather than being kept as long-lived tracked files under `assets/previews/`.
+Complete GIF, WebP, and contact-sheet previews are generated for the CI artifact. The Pages bundle only includes thumbnails and animated WebP files referenced by the gallery and README, rather than every QA output under `assets/previews/`.
 
 This means README preview links can point at the deployed site while the repository stays leaner over time.
 
@@ -82,6 +84,8 @@ npx wrangler pages deploy out --project-name=awesome-codex-pet
 - **Hosting**: Cloudflare Pages (global CDN, free tier)
 - **Stats reads**: deployment-time `public/stats.json`, served as a free Pages static asset
 - **Stats writes**: a separate Worker at `https://api.codexpet.top` records explicit installs and IP-limited likes; ordinary page views never invoke it. See `worker/README.md`.
+- **Preview delivery**: cards load a static thumbnail first and fetch animation on hover or keyboard focus; detail pages keep the complete action set
+- **Caching**: Next.js hashed assets are immutable, preview assets use a seven-day browser cache, and the deployment-time statistics snapshot uses a ten-minute cache
 
 ## Environment variables
 

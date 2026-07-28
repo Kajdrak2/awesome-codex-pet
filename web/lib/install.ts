@@ -7,3 +7,10 @@ export const BASH_INSTALL_COMMAND =
 export const POWERSHELL_INSTALL_COMMAND = `powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -UseB https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.ps1 | iex; Install-CodexPet ${INSTALL_PLACEHOLDER}"`;
 
 export const LOCAL_INSTALL_COMMAND = `npm run install:pet -- ${INSTALL_PLACEHOLDER}`;
+
+export function getPetInstallCommands(slug: string) {
+  return {
+    bash: BASH_INSTALL_COMMAND.replace(INSTALL_PLACEHOLDER, slug),
+    powershell: POWERSHELL_INSTALL_COMMAND.replace(INSTALL_PLACEHOLDER, slug),
+  };
+}

@@ -1,5 +1,6 @@
 import type { Locale } from "@/lib/i18n";
-import type { Pet } from "@/lib/pets";
+import { getPetInstallCommands } from "@/lib/install";
+import type { PetNameSource } from "@/lib/pets";
 
 const repositoryUrl = "https://github.com/legeling/awesome-codex-pet";
 
@@ -11,7 +12,7 @@ export function buildCodexUrl(prompt: string) {
   return `codex://new?prompt=${encodeURIComponent(prompt)}`;
 }
 
-export function getLocalizedPetName(pet: Pet, locale: Locale) {
+export function getLocalizedPetName(pet: PetNameSource, locale: Locale) {
   if (locale === "zh") {
     return pet.localizedNames?.zh || pet.displayName || pet.name;
   }
@@ -94,13 +95,14 @@ Requirements:
 Ask whether I want live creation, continued production, or submission of existing files first. Then inspect my references and assets and carry production or repair, frame-by-frame review, validation, GitHub API upload, pull request creation, and CI follow-up through end to end.`;
 }
 
-export function getPetInstallPrompt(pet: Pet, locale: Locale) {
+export function getPetInstallPrompt(pet: PetNameSource, locale: Locale) {
   const petName = getLocalizedPetName(pet, locale);
+  const commands = getPetInstallCommands(pet.slug);
   if (locale === "zh") {
-    return `请全程使用中文，为我安装 Awesome Codex Pet 中的「${petName}」（${pet.slug}）。先判断当前操作系统，再运行对应的官方安装命令；确认 pet.json 与 spritesheet.webp 已写入 Codex pets 目录，说明实际安装路径，并告诉我是否需要重启 Codex 以及如何在“设置 → 宠物”中启用它。\n\nmacOS / Linux：\n${pet.installCommand}\n\nWindows PowerShell：\n${pet.installCommandPowerShell}`;
+    return `请全程使用中文，为我安装 Awesome Codex Pet 中的「${petName}」（${pet.slug}）。先判断当前操作系统，再运行对应的官方安装命令；确认 pet.json 与 spritesheet.webp 已写入 Codex pets 目录，说明实际安装路径，并告诉我是否需要重启 Codex 以及如何在“设置 → 宠物”中启用它。\n\nmacOS / Linux：\n${commands.bash}\n\nWindows PowerShell：\n${commands.powershell}`;
   }
 
-  return `Use English throughout this task. Install "${petName}" (${pet.slug}) from Awesome Codex Pet. Detect the current operating system, run the matching official command, verify that pet.json and spritesheet.webp were written to the Codex pets directory, report the actual install path, and explain whether Codex needs to restart and how to enable the pet under Settings → Pets.\n\nmacOS / Linux:\n${pet.installCommand}\n\nWindows PowerShell:\n${pet.installCommandPowerShell}`;
+  return `Use English throughout this task. Install "${petName}" (${pet.slug}) from Awesome Codex Pet. Detect the current operating system, run the matching official command, verify that pet.json and spritesheet.webp were written to the Codex pets directory, report the actual install path, and explain whether Codex needs to restart and how to enable the pet under Settings → Pets.\n\nmacOS / Linux:\n${commands.bash}\n\nWindows PowerShell:\n${commands.powershell}`;
 }
 
 export function getInstallGuidePrompt(locale: Locale) {

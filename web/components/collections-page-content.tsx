@@ -4,32 +4,18 @@ import { useDeferredValue, useMemo, useRef, useState } from "react";
 
 import { CollectionCard } from "@/components/collection-card";
 import { useLocale } from "@/components/locale-provider";
-import type { CollectionKind, PetCollection } from "@/lib/collections";
+import type {
+  CollectionCardData,
+  CollectionKind,
+} from "@/lib/collections";
 
 type CollectionFilter = "all" | CollectionKind;
 
-function searchableText(collection: PetCollection) {
-  return [
-    collection.slug,
-    collection.title.en,
-    collection.title.zh,
-    collection.description.en,
-    collection.description.zh,
-    ...collection.pets.flatMap((pet) => [
-      pet.slug,
-      pet.name,
-      pet.displayName ?? "",
-      pet.localizedNames.en ?? "",
-      pet.localizedNames.zh ?? "",
-      ...pet.tags,
-    ]),
-  ]
-    .join(" ")
-    .normalize("NFKC")
-    .toLocaleLowerCase();
-}
-
-export function CollectionsPageContent({ collections }: { collections: PetCollection[] }) {
+export function CollectionsPageContent({
+  collections,
+}: {
+  collections: CollectionCardData[];
+}) {
   const { t } = useLocale();
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState("");
@@ -40,7 +26,7 @@ export function CollectionsPageContent({ collections }: { collections: PetCollec
       collections.filter(
         (collection) =>
           (kind === "all" || collection.kind === kind) &&
-          (!deferredQuery || searchableText(collection).includes(deferredQuery)),
+          (!deferredQuery || collection.searchText.includes(deferredQuery)),
       ),
     [collections, deferredQuery, kind],
   );

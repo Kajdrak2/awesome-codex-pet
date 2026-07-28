@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { CollectionsPageContent } from "@/components/collections-page-content";
 import { getCollections } from "@/lib/collection-catalog";
+import { toCollectionCardData } from "@/lib/collections";
 import { getAllPets } from "@/lib/pets";
 import { siteConfig } from "@/lib/site";
 
@@ -47,6 +48,7 @@ export const metadata: Metadata = {
 
 export default function CollectionsPage() {
   const collections = getCollections(getAllPets());
+  const collectionCards = collections.map(toCollectionCardData);
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -72,7 +74,7 @@ export default function CollectionsPage() {
 
   return (
     <>
-      <CollectionsPageContent collections={collections} />
+      <CollectionsPageContent collections={collectionCards} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

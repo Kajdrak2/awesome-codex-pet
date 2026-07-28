@@ -5,12 +5,12 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { CollectionCard } from "@/components/collection-card";
 import { useLocale } from "@/components/locale-provider";
-import type { PetCollection } from "@/lib/collections";
+import type { CollectionCardData } from "@/lib/collections";
 
 export function FeaturedCollections({
   collections,
 }: {
-  collections: PetCollection[];
+  collections: CollectionCardData[];
 }) {
   const { t } = useLocale();
   const trackRef = useRef<HTMLDivElement>(null);

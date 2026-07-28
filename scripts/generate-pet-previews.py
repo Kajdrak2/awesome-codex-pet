@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate contact sheets and action GIFs from Codex pet spritesheets."""
+"""Generate QA sheets and web-ready animations from Codex pet spritesheets."""
 
 from __future__ import annotations
 
@@ -19,6 +19,8 @@ GIF_SIZE = (CELL_WIDTH * GIF_SCALE, CELL_HEIGHT * GIF_SCALE)
 THUMBNAIL_SCALE = 2
 THUMBNAIL_SIZE = (CELL_WIDTH * THUMBNAIL_SCALE, CELL_HEIGHT * THUMBNAIL_SCALE)
 LABEL_HEIGHT = 22
+WEBP_QUALITY = 90
+WEBP_METHOD = 4
 
 STANDARD_STATES = [
     ("idle", 0, [280, 110, 110, 140, 140, 320]),
@@ -137,9 +139,10 @@ def make_webp(atlas: Image.Image, state: str, row: int, durations: list[int], ou
         append_images=frames[1:],
         duration=durations,
         loop=0,
-        lossless=True,
-        quality=100,
-        method=0,
+        lossless=False,
+        quality=WEBP_QUALITY,
+        method=WEBP_METHOD,
+        exact=True,
     )
     with Image.open(output) as generated:
         if generated.size != GIF_SIZE:

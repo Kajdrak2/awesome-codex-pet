@@ -4,13 +4,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useLocale } from "@/components/locale-provider";
 import { getLocalizedPetName } from "@/lib/codex-links";
-import type { Pet } from "@/lib/pets";
-import { fetchStats } from "@/lib/stats";
+import type { GalleryPet } from "@/lib/pets";
 
 type HeroSectionProps = {
   petCount: number;
   categoryCount: number;
-  featured: Pet[];
+  featured: GalleryPet[];
 };
 
 export function HeroSection({
@@ -20,38 +19,11 @@ export function HeroSection({
 }: HeroSectionProps) {
   const { t, locale } = useLocale();
   const [mounted, setMounted] = useState(false);
-  const [hotPets, setHotPets] = useState(() => featured.slice(0, 6));
+  const hotPets = featured.slice(0, 6);
 
   useEffect(() => {
     setMounted(true);
-    const controller = new AbortController();
-    void fetchStats(controller.signal)
-      .then((payload) => {
-        setHotPets(
-          [...featured]
-            .sort((a, b) => {
-              const aStats = payload.pets[a.slug];
-              const bStats = payload.pets[b.slug];
-              return (
-                (bStats?.trendingScore ?? 0) - (aStats?.trendingScore ?? 0) ||
-                (bStats?.installs7d ?? 0) - (aStats?.installs7d ?? 0) ||
-                (bStats?.installs ?? 0) - (aStats?.installs ?? 0) ||
-                a.name.localeCompare(b.name)
-              );
-            })
-            .slice(0, 6),
-        );
-      })
-      .catch((error: unknown) => {
-        if (!controller.signal.aborted) {
-          console.warn(
-            "Unable to rank hero pets",
-            error instanceof Error ? error.stack : String(error),
-          );
-        }
-      });
-    return () => controller.abort();
-  }, [featured]);
+  }, []);
 
   return (
     <section className="relative isolate overflow-hidden pt-20 pb-24 px-6">

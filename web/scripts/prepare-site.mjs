@@ -1,4 +1,5 @@
 import {
+  copyFileSync,
   cpSync,
   existsSync,
   mkdirSync,
@@ -121,9 +122,6 @@ const pets = readJson("pets.json").map((pet) => {
       gifs,
       previewImageForPet(pet.slug, submission, gifs),
     ),
-    contactSheet: submission.preview_assets?.contact_sheet
-      ? toWebPath(submission.preview_assets.contact_sheet)
-      : `/assets/previews/${pet.slug}/contact-sheet.png`,
     actions,
     gifs,
     installCommand: `curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- ${pet.slug}`,
@@ -291,10 +289,25 @@ mkdirSync(publicAssetsDir, { recursive: true });
 
 const previewsSrc = join(repoRoot, "assets", "previews");
 if (existsSync(previewsSrc)) {
-  cpSync(previewsSrc, join(publicAssetsDir, "previews"), {
-    recursive: true,
-    filter: (src) => !src.endsWith(".DS_Store"),
-  });
+  const referencedPreviews = new Set(
+    pets.flatMap((pet) => [
+      pet.previewImage,
+      pet.animatedPreviewImage,
+      ...Object.values(pet.gifs),
+    ]),
+  );
+
+  for (const webPath of referencedPreviews) {
+    const relativePath = webPath.split("?", 1)[0].replace(/^\/+/, "");
+    if (!relativePath.startsWith("assets/previews/")) continue;
+
+    const source = join(repoRoot, relativePath);
+    if (!existsSync(source)) continue;
+
+    const destination = join(publicDir, relativePath);
+    mkdirSync(dirname(destination), { recursive: true });
+    copyFileSync(source, destination);
+  }
 }
 
 const brandAssetsSrc = join(repoRoot, "assets", "brand");

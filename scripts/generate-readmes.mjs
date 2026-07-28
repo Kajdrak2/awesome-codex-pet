@@ -128,8 +128,8 @@ function petBlock(pet, lang) {
   const stateNames = previewStates.map((state) =>
     lang === "zh" ? state[2] : state[1],
   );
-  const gifs = previewStates.map(([state]) => {
-    const path = `${websiteUrl}/assets/previews/${pet.slug}/gifs/${state}.gif`;
+  const previews = previewStates.map(([state]) => {
+    const path = `${websiteUrl}/assets/previews/${pet.slug}/webp/${state}.webp`;
     return `<img src="${path}" alt="${displayName} ${state}" width="120" height="130">`;
   });
 
@@ -138,7 +138,7 @@ function petBlock(pet, lang) {
     `<tr><th>${labels[0]}</th><td colspan="5"><a href="${rootPrefix}/pets/${pet.slug}">${displayName}</a> · ${by} ${authorLink(pet)} · ${categoryName} · v${pet.spriteVersionNumber}</td></tr>`,
     `<tr><th>${labels[1]}</th><td colspan="5"><code>${bashInstallCommand(pet.slug)}</code></td></tr>`,
     `<tr><th>${labels[2]}</th>${stateNames.map((name) => `<td><strong>${name}</strong></td>`).join("")}</tr>`,
-    `<tr><th>${labels[3]}</th>${gifs.map((gif) => `<td>${gif}</td>`).join("")}</tr>`,
+    `<tr><th>${labels[3]}</th>${previews.map((preview) => `<td>${preview}</td>`).join("")}</tr>`,
     `</table>`,
   ].join("\n");
 }
