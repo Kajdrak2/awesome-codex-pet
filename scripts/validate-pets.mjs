@@ -1,13 +1,17 @@
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
-import { execSync } from "node:child_process";
+import { execFileSync, execSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
+
+import { analyzePetDuplicates } from "./lib/pet-duplicates.mjs";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const petsDir = join(repoRoot, "pets");
 const collectionsPath = join(repoRoot, "collections.json");
 const categoriesPath = join(repoRoot, "categories.json");
-const requireGeneratedAssets = process.argv.includes("--require-generated-assets");
+const requireGeneratedAssets = process.argv.includes(
+  "--require-generated-assets",
+);
 
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*--[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const collectionSlugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -24,13 +28,18 @@ const requiredGeneratedPaths = [
   join(repoRoot, "pets.json"),
 ];
 const errors = [];
+const warnings = [];
 
 function gitChangedPaths() {
   try {
     if (process.env.GITHUB_BASE_REF) {
       const output = execSync(
         `git diff --name-only --diff-filter=AMR origin/${process.env.GITHUB_BASE_REF}...HEAD`,
-        { cwd: repoRoot, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
+        {
+          cwd: repoRoot,
+          encoding: "utf8",
+          stdio: ["ignore", "pipe", "ignore"],
+        },
       );
       return new Set(output.split(/\r?\n/).filter(Boolean));
     }
@@ -52,6 +61,85 @@ function gitChangedPaths() {
 }
 
 const changedPaths = requireGeneratedAssets ? new Set() : gitChangedPaths();
+function gitAddedPaths() {
+  if (requireGeneratedAssets) return new Set();
+  try {
+    const diffCommand = process.env.GITHUB_BASE_REF
+      ? `git diff --name-only --diff-filter=A origin/${process.env.GITHUB_BASE_REF}...HEAD`
+      : "git diff --name-only --diff-filter=A HEAD";
+    const added = execSync(diffCommand, {
+      cwd: repoRoot,
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    });
+    const untracked = process.env.GITHUB_BASE_REF
+      ? ""
+      : execSync("git ls-files --others --exclude-standard", {
+          cwd: repoRoot,
+          encoding: "utf8",
+          stdio: ["ignore", "pipe", "ignore"],
+        });
+    return new Set(`${added}\n${untracked}`.split(/\r?\n/).filter(Boolean));
+  } catch {
+    return new Set();
+  }
+}
+
+const addedPaths = gitAddedPaths();
+const changedSubmissionSlugs = new Set();
+const changedAssetSlugs = new Set();
+const newSubmissionSlugs = new Set();
+
+for (const path of changedPaths) {
+  const submissionMatch = path.match(/^pets\/([^/]+)\/submission\.json$/);
+  if (submissionMatch) {
+    changedSubmissionSlugs.add(submissionMatch[1]);
+    if (addedPaths.has(path)) newSubmissionSlugs.add(submissionMatch[1]);
+  }
+
+  const assetMatch = path.match(/^pets\/([^/]+)\/spritesheet\.webp$/);
+  if (assetMatch) changedAssetSlugs.add(assetMatch[1]);
+}
+
+function gitAssetFingerprints() {
+  const fingerprints = new Map();
+  try {
+    const output = execSync("git ls-files --stage -- pets", {
+      cwd: repoRoot,
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    });
+    for (const line of output.split(/\r?\n/)) {
+      const match = line.match(/^\d+\s+([0-9a-f]+)\s+\d+\t(.+)$/);
+      if (match?.[2].endsWith("/spritesheet.webp")) {
+        fingerprints.set(match[2], match[1]);
+      }
+    }
+
+    for (const slug of changedAssetSlugs) {
+      const relativePath = `pets/${slug}/spritesheet.webp`;
+      const absolutePath = join(repoRoot, relativePath);
+      if (!existsSync(absolutePath)) continue;
+      const fingerprint = execFileSync(
+        "git",
+        ["hash-object", "--no-filters", relativePath],
+        {
+          cwd: repoRoot,
+          encoding: "utf8",
+          stdio: ["ignore", "pipe", "ignore"],
+        },
+      ).trim();
+      fingerprints.set(relativePath, fingerprint);
+    }
+  } catch (error) {
+    warnings.push(
+      `exact spritesheet duplicate check is unavailable: ${error.message}`,
+    );
+  }
+  return fingerprints;
+}
+
+const assetFingerprints = gitAssetFingerprints();
 
 function readJson(path) {
   try {
@@ -67,8 +155,11 @@ const collectionCatalog = existsSync(collectionsPath)
   : null;
 const collectionBySlug = new Map();
 const collectionMembers = new Map();
-const categoryCatalog = existsSync(categoriesPath) ? readJson(categoriesPath) : null;
+const categoryCatalog = existsSync(categoriesPath)
+  ? readJson(categoriesPath)
+  : null;
 const allowedCategoryNames = new Set();
+const petRecords = [];
 
 if (!categoryCatalog) {
   errors.push("missing categories.json");
@@ -91,7 +182,9 @@ if (!categoryCatalog) {
       errors.push(`${category.name}: category label must include en and zh`);
     }
     if (!category.description?.en || !category.description?.zh) {
-      errors.push(`${category.name}: category description must include en and zh`);
+      errors.push(
+        `${category.name}: category description must include en and zh`,
+      );
     }
     allowedCategoryNames.add(category.name);
     categorySlugs.add(category.slug);
@@ -122,7 +215,10 @@ if (!collectionCatalog) {
     if (!collection.description?.en || !collection.description?.zh) {
       errors.push(`${slug}: collection description must include en and zh`);
     }
-    if (collection.featured !== undefined && typeof collection.featured !== "boolean") {
+    if (
+      collection.featured !== undefined &&
+      typeof collection.featured !== "boolean"
+    ) {
       errors.push(`${slug}: collection featured must be a boolean`);
     }
     if (!Array.isArray(collection.cover_pets)) {
@@ -134,7 +230,9 @@ if (!collectionCatalog) {
 }
 
 function readUInt24LE(buffer, offset) {
-  return buffer[offset] | (buffer[offset + 1] << 8) | (buffer[offset + 2] << 16);
+  return (
+    buffer[offset] | (buffer[offset + 1] << 8) | (buffer[offset + 2] << 16)
+  );
 }
 
 function readWebpDimensions(path) {
@@ -210,7 +308,11 @@ for (const entry of petEntries) {
   const submissionPath = join(petDir, "submission.json");
   const petJsonPath = join(petDir, "pet.json");
   const spritesheetPath = join(petDir, "spritesheet.webp");
-  const allowedEntries = new Set(["submission.json", "pet.json", "spritesheet.webp"]);
+  const allowedEntries = new Set([
+    "submission.json",
+    "pet.json",
+    "spritesheet.webp",
+  ]);
   const localOnlyEntries = new Set(["qa"]);
 
   for (const child of readdirSync(petDir)) {
@@ -223,11 +325,17 @@ for (const entry of petEntries) {
 
   for (const requiredPath of [submissionPath, petJsonPath, spritesheetPath]) {
     if (!existsSync(requiredPath)) {
-      errors.push(`${entry}: missing ${requiredPath.replace(`${petDir}/`, "")}`);
+      errors.push(
+        `${entry}: missing ${requiredPath.replace(`${petDir}/`, "")}`,
+      );
     }
   }
 
-  if (existsSync(spritesheetPath) && !requireGeneratedAssets && changedPaths.has(`pets/${entry}/spritesheet.webp`)) {
+  if (
+    existsSync(spritesheetPath) &&
+    !requireGeneratedAssets &&
+    changedPaths.has(`pets/${entry}/spritesheet.webp`)
+  ) {
     const spritesheetSize = statSync(spritesheetPath).size;
     if (spritesheetSize > maxSpritesheetBytesForPr) {
       errors.push(
@@ -236,15 +344,30 @@ for (const entry of petEntries) {
     }
   }
 
-  const submission = existsSync(submissionPath) ? readJson(submissionPath) : null;
+  const submission = existsSync(submissionPath)
+    ? readJson(submissionPath)
+    : null;
   const pet = existsSync(petJsonPath) ? readJson(petJsonPath) : null;
 
   if (submission) {
+    petRecords.push({
+      slug: entry,
+      submission,
+      assetFingerprint: assetFingerprints.get(`pets/${entry}/spritesheet.webp`),
+    });
+
     if (submission.slug !== entry) {
       errors.push(`${entry}: submission.json slug must match folder name`);
     }
 
-    for (const key of ["pet_slug", "author_slug", "name", "author", "primary_category", "license"]) {
+    for (const key of [
+      "pet_slug",
+      "author_slug",
+      "name",
+      "author",
+      "primary_category",
+      "license",
+    ]) {
       if (!submission[key]) {
         errors.push(`${entry}: submission.json missing ${key}`);
       }
@@ -257,7 +380,9 @@ for (const entry of petEntries) {
         Array.isArray(localizedNames) ||
         typeof localizedNames !== "object"
       ) {
-        errors.push(`${entry}: submission.json localized_names must be an object`);
+        errors.push(
+          `${entry}: submission.json localized_names must be an object`,
+        );
       } else if (
         typeof localizedNames.en !== "string" ||
         !localizedNames.en.trim() ||
@@ -279,12 +404,17 @@ for (const entry of petEntries) {
       );
     }
 
-    if (submission.collections !== undefined && !Array.isArray(submission.collections)) {
+    if (
+      submission.collections !== undefined &&
+      !Array.isArray(submission.collections)
+    ) {
       errors.push(`${entry}: submission.json collections must be an array`);
     } else {
       const memberships = submission.collections ?? [];
       if (new Set(memberships).size !== memberships.length) {
-        errors.push(`${entry}: submission.json collections contains duplicates`);
+        errors.push(
+          `${entry}: submission.json collections contains duplicates`,
+        );
       }
       for (const collectionSlug of memberships) {
         if (!collectionBySlug.has(collectionSlug)) {
@@ -294,7 +424,8 @@ for (const entry of petEntries) {
         const collection = collectionBySlug.get(collectionSlug);
         if (
           collection.kind === "franchise" &&
-          (!Array.isArray(submission.tags) || !submission.tags.includes(collectionSlug))
+          (!Array.isArray(submission.tags) ||
+            !submission.tags.includes(collectionSlug))
         ) {
           errors.push(
             `${entry}: franchise collection ${collectionSlug} must also appear in submission.json tags`,
@@ -311,17 +442,24 @@ for (const entry of petEntries) {
     }
 
     if (pet.spritesheetPath !== "spritesheet.webp") {
-      errors.push(`${entry}: pet.json spritesheetPath should be spritesheet.webp`);
+      errors.push(
+        `${entry}: pet.json spritesheetPath should be spritesheet.webp`,
+      );
     }
 
     const spriteVersionNumber = pet.spriteVersionNumber ?? 1;
     const contract = spriteContracts.get(spriteVersionNumber);
     if (!contract) {
-      errors.push(`${entry}: pet.json spriteVersionNumber must be 1, 2, or omitted for v1`);
+      errors.push(
+        `${entry}: pet.json spriteVersionNumber must be 1, 2, or omitted for v1`,
+      );
     } else if (existsSync(spritesheetPath)) {
       try {
         const dimensions = readWebpDimensions(spritesheetPath);
-        if (dimensions.width !== contract.width || dimensions.height !== contract.height) {
+        if (
+          dimensions.width !== contract.width ||
+          dimensions.height !== contract.height
+        ) {
           errors.push(
             `${entry}: v${spriteVersionNumber} spritesheet.webp must be ${contract.width}x${contract.height}, got ${dimensions.width}x${dimensions.height}`,
           );
@@ -333,20 +471,35 @@ for (const entry of petEntries) {
   }
 }
 
+const duplicateReview = analyzePetDuplicates(petRecords, {
+  changedSubmissionSlugs,
+  changedAssetSlugs,
+  newSubmissionSlugs,
+  collectionKinds: new Map(
+    [...collectionBySlug].map(([slug, collection]) => [slug, collection.kind]),
+  ),
+});
+errors.push(...duplicateReview.errors);
+warnings.push(...duplicateReview.warnings);
+
 for (const [slug, collection] of collectionBySlug) {
   if (!Array.isArray(collection.cover_pets)) continue;
   for (const petSlug of collection.cover_pets) {
     if (!petSlugs.has(petSlug)) {
       errors.push(`${slug}: cover pet ${petSlug} does not exist`);
     } else if (!collectionMembers.get(slug).has(petSlug)) {
-      errors.push(`${slug}: cover pet ${petSlug} does not declare this collection`);
+      errors.push(
+        `${slug}: cover pet ${petSlug} does not declare this collection`,
+      );
     }
   }
 }
 
 for (const generatedPath of requiredGeneratedPaths) {
   if (!existsSync(generatedPath)) {
-    errors.push(`missing generated repository file ${generatedPath.replace(`${repoRoot}/`, "")}`);
+    errors.push(
+      `missing generated repository file ${generatedPath.replace(`${repoRoot}/`, "")}`,
+    );
   }
 }
 
@@ -364,11 +517,32 @@ if (requireGeneratedAssets) {
     ];
 
     for (const state of requiredPreviewStates) {
-      const previewPath = join(repoRoot, "assets", "previews", entry, "gifs", `${state}.gif`);
+      const previewPath = join(
+        repoRoot,
+        "assets",
+        "previews",
+        entry,
+        "gifs",
+        `${state}.gif`,
+      );
       if (!existsSync(previewPath)) {
-        errors.push(`${entry}: missing generated preview ${previewPath.replace(`${repoRoot}/`, "")}`);
+        errors.push(
+          `${entry}: missing generated preview ${previewPath.replace(`${repoRoot}/`, "")}`,
+        );
       }
     }
+  }
+}
+
+for (const warning of warnings) {
+  if (process.env.GITHUB_ACTIONS) {
+    const escaped = warning
+      .replaceAll("%", "%25")
+      .replaceAll("\r", "%0D")
+      .replaceAll("\n", "%0A");
+    console.warn(`::warning title=Pet duplicate review::${escaped}`);
+  } else {
+    console.warn(`Warning: ${warning}`);
   }
 }
 

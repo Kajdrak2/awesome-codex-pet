@@ -13,7 +13,9 @@ Drag a contact sheet here. CI also uploads a downloadable preview artifact for c
 ## Checklist
 
 - [ ] This pull request focuses on one pet only
-- [ ] I checked the gallery and open issues for duplicate character submissions
+- [ ] I checked the gallery and open issues for the same character or concept
+- [ ] `canonical_key` groups the character correctly; if that key already exists, `variant_note` explains this independent version
+- [ ] This spritesheet is independently produced and is not a byte-identical copy of another package
 - [ ] Folder name uses `pet-slug--author-slug`
 - [ ] Pet folder contains only `submission.json`, `pet.json`, and `spritesheet.webp`
 - [ ] `pet.json` `id` matches the folder name

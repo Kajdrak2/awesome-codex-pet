@@ -111,8 +111,8 @@ body:
     id: duplicate_check
     attributes:
       label: Similar pets already checked
-      description: AI should search pets.json and existing issues before creating this request. Link similar pets and explain the difference.
-      placeholder: No matching canonical character found, or links to related variants
+      description: AI should search pets.json and existing issues before creating this request. Link the same character and franchise when found; an independent interpretation may still be requested, but its difference must be clear.
+      placeholder: Links to the existing character versions or requests, followed by the intended difference
     validations:
       required: true
   - type: checkboxes

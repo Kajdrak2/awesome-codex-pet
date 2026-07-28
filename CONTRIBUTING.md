@@ -20,6 +20,7 @@ Quick checklist:
 - For v1, omit `spriteVersionNumber` or set it to `1`, and use a `1536x1872` spritesheet
 - For v2, set `spriteVersionNumber: 2`, and use a `1536x2288` spritesheet with 16 look directions
 - Fill in `submission.json`
+- Give new submissions a stable `canonical_key`; different authors may publish independent versions of the same character under the same key, but each later version needs a clear `variant_note` and a non-identical spritesheet
 - State either a formal asset license or an explicit non-commercial-only usage restriction; a formal license name is optional
 - Do not place previews, QA files, references, or README files inside the pet folder
 - Contributors should run `npm run validate:pr` and `npm run lint`

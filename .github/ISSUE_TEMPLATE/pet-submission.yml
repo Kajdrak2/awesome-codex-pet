@@ -135,7 +135,7 @@ body:
     id: canonical_key
     attributes:
       label: Canonical character or concept key
-      description: Use a stable key such as genshin-impact/nahida; for an original use original/author/name. This is used to prevent duplicate collection.
+      description: Use a stable grouping key such as genshin-impact/nahida; for an original use original/author/name. Independent versions of one character use the same key.
       placeholder: original/your-handle/your-character
     validations:
       required: true
@@ -143,8 +143,8 @@ body:
     id: variant_note
     attributes:
       label: Variant or uniqueness note
-      description: Explain the material design or runtime difference if a similar character, mascot, or avatar already exists.
-      placeholder: This is a materially different design with a distinct v2 directional atlas.
+      description: Required when this canonical key already exists. Explain the independent author, visual, animation, or runtime distinction.
+      placeholder: Independently produced by this author with a distinct v2 directional atlas; no existing spritesheet was reused.
   - type: textarea
     id: description
     attributes:
