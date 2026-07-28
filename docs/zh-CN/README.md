@@ -1230,7 +1230,7 @@ curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scr
 </table>
 
 <table>
-<tr><th>名称</th><td colspan="5"><a href="../../pets/fengge--qzl1-stack">峰哥</a> · 作者 <a href="https://github.com/qzl1-stack">@qzl1-stack</a> · 人物头像 · v2</td></tr>
+<tr><th>名称</th><td colspan="5"><a href="../../pets/fengge--qzl1-stack">峰哥</a> · 作者 <a href="https://github.com/qzl1-stack">@qzl1-stack</a> · 人物头像 · v1</td></tr>
 <tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- fengge--qzl1-stack</code></td></tr>
 <tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
 <tr><th>预览</th><td><img src="https://codexpet.top/assets/previews/fengge--qzl1-stack/webp/idle.webp" alt="峰哥 idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/fengge--qzl1-stack/webp/waving.webp" alt="峰哥 waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/fengge--qzl1-stack/webp/running-right.webp" alt="峰哥 running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/fengge--qzl1-stack/webp/waiting.webp" alt="峰哥 waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/fengge--qzl1-stack/webp/review.webp" alt="峰哥 review" width="120" height="130"></td></tr>
