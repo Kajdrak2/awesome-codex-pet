@@ -5,6 +5,7 @@ export const translations = {
     // Header
     gallery: "Gallery",
     collections: "Collections",
+    rankings: "Rankings",
     install: "Install",
     guide: "Craft Guide",
     requestPet: "Request a Pet",
@@ -81,6 +82,36 @@ export const translations = {
       "Cross-franchise groups built around a shared subject, style, or companion type.",
     backToCollections: "Back to collections",
     openCollectionInCodex: "Open collection in ChatGPT",
+
+    // Rankings
+    rankingsPageTitle: "Community rankings",
+    rankingsPageSubtitle:
+      "See which pets, creators, and collections are earning attention across the community. Weekly rankings reward current momentum; all-time rankings recognize lasting impact.",
+    rankingPets: "Pets",
+    rankingContributors: "Contributors",
+    rankingCollections: "Collections",
+    rankingWeekly: "This week",
+    rankingAllTime: "All time",
+    rankingWeeklyVote: "Weekly vote",
+    rankingVote: "Vote",
+    rankingVoted: "Voted",
+    rankingVoteFailed: "The vote could not be saved. Please try again.",
+    rankingInstalls: "Installs",
+    rankingLikes: "Likes",
+    rankingVotes: "Votes",
+    rankingPetCount: "{count} pets",
+    rankingSnapshot: "Statistics snapshot",
+    rankingEnds: "Voting ends {date}",
+    rankingFairness:
+      "Momentum uses recent installs and weekly votes. Creator scores use only their strongest pets, while collection scores use a capped average so larger catalogs do not win by size alone.",
+    rankingNoActivity:
+      "The weekly board is just getting started. Cast a vote to help shape the first results.",
+    contributorBack: "Back to rankings",
+    contributorCollection: "Community creator",
+    contributorPageTitle: "Pets by {name}",
+    contributorPageSubtitle:
+      "{name} has {count} accepted pets in the Awesome Codex Pet community.",
+    contributorExternalProfile: "Open creator profile",
 
     // Card
     by: "by",
@@ -378,6 +409,7 @@ export const translations = {
     // Header
     gallery: "精品画廊",
     collections: "合集",
+    rankings: "榜单",
     install: "安装",
     guide: "制作指南",
     requestPet: "制作申请",
@@ -453,6 +485,35 @@ export const translations = {
       "跨越不同作品，按题材、风格或伙伴类型整理的精选组合。",
     backToCollections: "返回合集",
     openCollectionInCodex: "在 ChatGPT 中打开合集",
+
+    // Rankings
+    rankingsPageTitle: "社区排行榜",
+    rankingsPageSubtitle:
+      "看看哪些宠物、创作者和系列正在获得社区关注。本周榜奖励近期热度，总榜记录长期影响力。",
+    rankingPets: "宠物榜",
+    rankingContributors: "贡献者榜",
+    rankingCollections: "系列榜",
+    rankingWeekly: "本周",
+    rankingAllTime: "总榜",
+    rankingWeeklyVote: "每周投票",
+    rankingVote: "投票",
+    rankingVoted: "已投票",
+    rankingVoteFailed: "投票保存失败，请稍后重试。",
+    rankingInstalls: "安装",
+    rankingLikes: "点赞",
+    rankingVotes: "票",
+    rankingPetCount: "{count} 只宠物",
+    rankingSnapshot: "部署统计快照",
+    rankingEnds: "本期投票于 {date} 结束",
+    rankingFairness:
+      "近期热度由近 7 日安装和每周投票共同决定。贡献者只计算表现最好的作品，系列使用限制数量后的平均分，避免单纯靠作品数量霸榜。",
+    rankingNoActivity: "本周榜刚刚开始，投出一票来决定第一批排名。",
+    contributorBack: "返回榜单",
+    contributorCollection: "社区创作者",
+    contributorPageTitle: "{name} 的宠物",
+    contributorPageSubtitle:
+      "{name} 已在 Awesome Codex Pet 社区收录 {count} 只宠物。",
+    contributorExternalProfile: "打开作者主页",
 
     // Card
     by: "作者",

@@ -6,9 +6,13 @@
  */
 
 const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*--[a-z0-9]+(-[a-z0-9]+)*$/;
+const COLLECTION_SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const EVENT_ID_RE = /^[A-Za-z0-9._:-]{8,128}$/;
+const VOTE_KINDS = new Set(["pet", "collection"]);
 const INSTALL_RATE_LIMIT = 30;
 const RECEIPT_TTL_MS = 8 * 24 * 60 * 60 * 1000;
+const VOTE_RETENTION_MS = 13 * 7 * 24 * 60 * 60 * 1000;
+const VOTE_CHANGE_COOLDOWN_MS = 2_000;
 
 class HttpError extends Error {
   constructor(status, message, options) {
@@ -65,6 +69,24 @@ function jsonResponse(
 
 function utcDay(timestamp) {
   return new Date(timestamp).toISOString().slice(0, 10);
+}
+
+export function utcWeekStart(timestamp) {
+  const date = new Date(timestamp);
+  const daysSinceMonday = (date.getUTCDay() + 6) % 7;
+  date.setUTCDate(date.getUTCDate() - daysSinceMonday);
+  date.setUTCHours(0, 0, 0, 0);
+  return date.toISOString().slice(0, 10);
+}
+
+function votePeriod(timestamp) {
+  const id = utcWeekStart(timestamp);
+  const startsAt = Date.parse(`${id}T00:00:00.000Z`);
+  return {
+    id,
+    startsAt,
+    endsAt: startsAt + 7 * 24 * 60 * 60 * 1000,
+  };
 }
 
 function hourBucket(timestamp) {
@@ -131,10 +153,25 @@ export async function buildLikeKey(request, env, slug) {
   return sha256(`${env.HASH_SALT}|like|${slug}|${clientAddress(request)}`);
 }
 
-export function computeTrendingScore(installs7d) {
+export async function buildVoteKey(request, env, kind, weekStart) {
+  if (!env.HASH_SALT || env.HASH_SALT.length < 16) {
+    throw new HttpError(500, "metric hashing is not configured");
+  }
+  if (!VOTE_KINDS.has(kind)) {
+    throw new HttpError(400, "invalid vote kind");
+  }
+  return sha256(
+    `${env.HASH_SALT}|vote|${weekStart}|${kind}|${clientAddress(request)}`,
+  );
+}
+
+export function computeTrendingScore(installs7d, weeklyVotes = 0) {
   const installs = Math.max(0, Number(installs7d) || 0);
-  if (installs === 0) return 0;
-  return Math.round(Math.log1p(installs) * 1_000_000);
+  const votes = Math.max(0, Number(weeklyVotes) || 0);
+  if (installs === 0 && votes === 0) return 0;
+  return Math.round(
+    (Math.log1p(installs) * 0.7 + Math.log1p(votes) * 0.3) * 1_000_000,
+  );
 }
 
 function stableDailyRank(slug, day) {
@@ -147,26 +184,40 @@ function stableDailyRank(slug, day) {
   return hash >>> 0;
 }
 
-export function serializeStatsRows(rows, timestamp = Date.now()) {
+export function serializeStatsRows(
+  rows,
+  timestamp = Date.now(),
+  collectionRows = [],
+) {
   const day = utcDay(timestamp);
   const pets = {};
 
   for (const row of rows) {
     const installs7d = Number(row.installs_7d) || 0;
+    const weeklyVotes = Number(row.weekly_votes) || 0;
     pets[row.slug] = {
       installs: Number(row.installs) || 0,
       likes: Number(row.likes) || 0,
       installs7d,
-      trendingScore: computeTrendingScore(installs7d),
+      weeklyVotes,
+      trendingScore: computeTrendingScore(installs7d, weeklyVotes),
       dailyRank: stableDailyRank(row.slug, day),
       updatedAt: Number(row.updated_at) || 0,
     };
   }
+  const collections = Object.fromEntries(
+    collectionRows.map((row) => [
+      row.slug,
+      { weeklyVotes: Number(row.weekly_votes) || 0 },
+    ]),
+  );
 
   return {
     pets,
+    collections,
     generatedAt: timestamp,
     windowDays: 7,
+    votePeriod: votePeriod(timestamp),
   };
 }
 
@@ -281,6 +332,108 @@ async function trackLike(request, env, slug) {
   );
 }
 
+function validateVoteTarget(kind, slug) {
+  if (!VOTE_KINDS.has(kind)) {
+    throw new HttpError(400, "invalid vote kind");
+  }
+  const pattern = kind === "pet" ? SLUG_RE : COLLECTION_SLUG_RE;
+  if (!pattern.test(slug)) {
+    throw new HttpError(400, "invalid vote target");
+  }
+}
+
+async function countWeeklyVotes(env, weekStart, kind, slug) {
+  const row = await env.DB.prepare(
+    `SELECT COUNT(*) AS votes
+     FROM weekly_votes
+     WHERE week_start = ? AND target_kind = ? AND target_slug = ?`,
+  )
+    .bind(weekStart, kind, slug)
+    .first();
+  return Number(row?.votes) || 0;
+}
+
+async function trackVote(request, env, kind, slug) {
+  validateVoteTarget(kind, slug);
+  if (!isOriginAllowed(request, env)) {
+    throw new HttpError(403, "origin not allowed");
+  }
+
+  const target = await env.DB.prepare(
+    `SELECT slug
+     FROM vote_targets
+     WHERE kind = ? AND slug = ? AND active = 1`,
+  )
+    .bind(kind, slug)
+    .first();
+  if (!target) {
+    throw new HttpError(404, "vote target not found");
+  }
+
+  const timestamp = Date.now();
+  const period = votePeriod(timestamp);
+  const visitorHash = await buildVoteKey(request, env, kind, period.id);
+  const previous = await env.DB.prepare(
+    `SELECT target_slug, updated_at
+     FROM weekly_votes
+     WHERE week_start = ? AND target_kind = ? AND visitor_hash = ?`,
+  )
+    .bind(period.id, kind, visitorHash)
+    .first();
+  const previousSlug = previous?.target_slug || null;
+
+  if (
+    previousSlug &&
+    previousSlug !== slug &&
+    timestamp - (Number(previous.updated_at) || 0) < VOTE_CHANGE_COOLDOWN_MS
+  ) {
+    throw new HttpError(429, "vote changed too quickly");
+  }
+
+  if (previousSlug !== slug) {
+    await env.DB.prepare(
+      `INSERT INTO weekly_votes
+         (week_start, target_kind, visitor_hash, target_slug, created_at, updated_at, expires_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?)
+       ON CONFLICT(week_start, target_kind, visitor_hash) DO UPDATE SET
+         target_slug = excluded.target_slug,
+         updated_at = excluded.updated_at,
+         expires_at = excluded.expires_at`,
+    )
+      .bind(
+        period.id,
+        kind,
+        visitorHash,
+        slug,
+        timestamp,
+        timestamp,
+        period.startsAt + VOTE_RETENTION_MS,
+      )
+      .run();
+  }
+
+  const votes = await countWeeklyVotes(env, period.id, kind, slug);
+  const previousVotes =
+    previousSlug && previousSlug !== slug
+      ? await countWeeklyVotes(env, period.id, kind, previousSlug)
+      : null;
+
+  return jsonResponse(
+    {
+      kind,
+      slug,
+      week: period.id,
+      votes,
+      voted: true,
+      counted: previousSlug !== slug,
+      previousSlug,
+      previousVotes,
+    },
+    request,
+    env,
+  );
+}
+
 async function routeRequest(request, env) {
   const url = new URL(request.url);
 
@@ -306,6 +459,15 @@ async function routeRequest(request, env) {
     return trackLike(request, env, url.searchParams.get("slug") || "");
   }
 
+  if (url.pathname === "/track/vote" && request.method === "POST") {
+    return trackVote(
+      request,
+      env,
+      url.searchParams.get("kind") || "",
+      url.searchParams.get("slug") || "",
+    );
+  }
+
   throw new HttpError(404, "not found");
 }
 
@@ -316,6 +478,9 @@ async function cleanupMetrics(env) {
       timestamp,
     ),
     env.DB.prepare("DELETE FROM metric_rate_limits WHERE expires_at < ?").bind(
+      timestamp,
+    ),
+    env.DB.prepare("DELETE FROM weekly_votes WHERE expires_at < ?").bind(
       timestamp,
     ),
   ]);

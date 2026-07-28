@@ -48,6 +48,14 @@ export function SiteFooter() {
               <li>
                 <Link
                   className="text-muted hover:text-text transition-colors"
+                  href="/rankings"
+                >
+                  {t("rankings")}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-muted hover:text-text transition-colors"
                   href="/install"
                 >
                   {t("install")}

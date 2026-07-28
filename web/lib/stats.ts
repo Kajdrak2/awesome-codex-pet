@@ -4,6 +4,7 @@ export type PetStats = {
   installs: number;
   likes: number;
   installs7d: number;
+  weeklyVotes: number;
   trendingScore: number;
   dailyRank: number;
   updatedAt: number;
@@ -11,10 +12,24 @@ export type PetStats = {
 
 export type StatsMap = Record<string, PetStats>;
 
+export type CollectionStats = {
+  weeklyVotes: number;
+};
+
+export type VoteKind = "pet" | "collection";
+
+export type VotePeriod = {
+  id: string;
+  startsAt: number;
+  endsAt: number;
+};
+
 export type StatsPayload = {
   pets: StatsMap;
+  collections: Record<string, CollectionStats>;
   generatedAt: number;
   windowDays: number;
+  votePeriod: VotePeriod;
 };
 
 const STATS_SNAPSHOT_PATH = "/stats.json";
@@ -48,16 +63,40 @@ function normalizeStatsPayload(value: unknown): StatsPayload {
       installs: asNonNegativeNumber(rawStats.installs),
       likes: asNonNegativeNumber(rawStats.likes),
       installs7d: asNonNegativeNumber(rawStats.installs7d),
+      weeklyVotes: asNonNegativeNumber(rawStats.weeklyVotes),
       trendingScore: asNonNegativeNumber(rawStats.trendingScore),
       dailyRank: asNonNegativeNumber(rawStats.dailyRank),
       updatedAt: asNonNegativeNumber(rawStats.updatedAt),
     };
   }
+  const collections: Record<string, CollectionStats> = {};
+  if (isRecord(value.collections)) {
+    for (const [slug, rawStats] of Object.entries(value.collections)) {
+      if (!isRecord(rawStats)) continue;
+      collections[slug] = {
+        weeklyVotes: asNonNegativeNumber(rawStats.weeklyVotes),
+      };
+    }
+  }
+  const rawPeriod = isRecord(value.votePeriod) ? value.votePeriod : {};
+  const generatedAt = asNonNegativeNumber(value.generatedAt);
+  const fallbackStart = generatedAt;
 
   return {
     pets,
-    generatedAt: asNonNegativeNumber(value.generatedAt),
+    collections,
+    generatedAt,
     windowDays: asNonNegativeNumber(value.windowDays) || 7,
+    votePeriod: {
+      id:
+        typeof rawPeriod.id === "string" && rawPeriod.id
+          ? rawPeriod.id
+          : "current",
+      startsAt: asNonNegativeNumber(rawPeriod.startsAt) || fallbackStart,
+      endsAt:
+        asNonNegativeNumber(rawPeriod.endsAt) ||
+        fallbackStart + 7 * 24 * 60 * 60 * 1000,
+    },
   };
 }
 
@@ -175,6 +214,94 @@ export async function likePet(slug: string): Promise<LikeResult> {
       window.localStorage.setItem(likedMarker(slug), "1");
     } catch (error: unknown) {
       logStatsError("Unable to persist anonymous like receipt", error);
+    }
+    return result;
+  } finally {
+    window.clearTimeout(timeoutId);
+  }
+}
+
+export type VoteResult = {
+  kind: VoteKind;
+  slug: string;
+  week: string;
+  votes: number;
+  voted: boolean;
+  counted: boolean;
+  previousSlug: string | null;
+  previousVotes: number | null;
+};
+
+const voteMarker = (periodId: string, kind: VoteKind) =>
+  `awesome-codex-pet:stats:vote:${periodId}:${kind}`;
+
+export function getWeeklyVote(periodId: string, kind: VoteKind) {
+  if (typeof window === "undefined") return null;
+  try {
+    return window.localStorage.getItem(voteMarker(periodId, kind));
+  } catch (error: unknown) {
+    logStatsError("Unable to read anonymous weekly vote receipt", error);
+    return null;
+  }
+}
+
+export async function voteForTarget(
+  kind: VoteKind,
+  slug: string,
+  periodId: string,
+): Promise<VoteResult> {
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(
+    () => controller.abort(),
+    LIKE_TIMEOUT_MS,
+  );
+
+  try {
+    const response = await fetch(
+      `${STATS_WRITE_API}/track/vote?kind=${encodeURIComponent(kind)}&slug=${encodeURIComponent(slug)}`,
+      { method: "POST", signal: controller.signal },
+    );
+    if (!response.ok) {
+      throw new Error(`Vote API returned HTTP ${response.status}`);
+    }
+
+    const payload: unknown = await response.json();
+    if (
+      !isRecord(payload) ||
+      payload.kind !== kind ||
+      payload.slug !== slug ||
+      typeof payload.week !== "string"
+    ) {
+      throw new Error("Vote API returned an invalid payload");
+    }
+
+    const result: VoteResult = {
+      kind,
+      slug,
+      week: payload.week,
+      votes: asNonNegativeNumber(payload.votes),
+      voted: payload.voted === true,
+      counted: payload.counted === true,
+      previousSlug:
+        typeof payload.previousSlug === "string"
+          ? payload.previousSlug
+          : null,
+      previousVotes:
+        typeof payload.previousVotes === "number"
+          ? asNonNegativeNumber(payload.previousVotes)
+          : null,
+    };
+    if (!result.voted) {
+      throw new Error("Vote API did not confirm the vote");
+    }
+
+    try {
+      window.localStorage.setItem(
+        voteMarker(result.week || periodId, kind),
+        slug,
+      );
+    } catch (error: unknown) {
+      logStatsError("Unable to persist anonymous weekly vote receipt", error);
     }
     return result;
   } finally {

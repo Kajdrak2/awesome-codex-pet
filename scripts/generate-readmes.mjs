@@ -191,7 +191,7 @@ This repository is the source catalog behind [codexpet.top](${websiteUrl}): it k
 ## Highlights
 
 - **One-command install** — no clone, no manual setup, works on macOS / Linux / Windows
-- **Free community gallery** — complete animation previews, collections, creator credits, sharing, and community statistics at [codexpet.top](${websiteUrl})
+- **Free community gallery** — complete animation previews, collections, creator profiles, weekly rankings and voting, sharing, and community statistics at [codexpet.top](${websiteUrl})
 - **Free character requests** — submit a character and references without making a spritesheet; a community contributor may volunteer to create it, with no delivery guarantee
 - **AI-first contributions** — contributors can create, repair, and submit pets with Codex; advanced contributors can still open a PR
 - **Open licensing** — code under MIT, pet assets under CC BY-NC 4.0
@@ -373,7 +373,7 @@ ${badges(pets)}
 ## 亮点
 
 - **一条命令安装** — 不需要克隆仓库，macOS / Linux / Windows 全平台支持
-- **免费社区画廊** — [codexpet.top](${websiteUrl}) 提供完整动作预览、合集、作者署名、便捷分享和社区统计
+- **免费社区画廊** — [codexpet.top](${websiteUrl}) 提供完整动作预览、合集、作者主页、每周榜单与投票、便捷分享和社区统计
 - **免费角色申请** — 不需要自己制作 spritesheet；提交角色和参考资料后，社区贡献者可能会志愿制作，但不承诺交付
 - **AI 优先投稿** — 贡献者可在 Codex 中制作、修复并提交自己的宠物，熟悉 Git 的用户也可以直接提交 PR
 - **非商用原则** — 正式许可证可选；没有正式许可证时必须明确禁止商用

@@ -140,16 +140,12 @@ export function PetCard({ pet, installs = 0, likes = 0 }: PetCardProps) {
 
         <p className="text-sm text-muted mb-1">
           {t("by")}{" "}
-          {pet.author_url ? (
-            <a
-              href={pet.author_url}
-              className="relative z-20 text-accent hover:underline"
-            >
-              {pet.author_handle ?? pet.author}
-            </a>
-          ) : (
-            pet.author
-          )}
+          <Link
+            className="relative z-20 text-accent hover:underline"
+            href={`/contributors/${pet.author_slug}`}
+          >
+            {pet.author_handle ?? pet.author}
+          </Link>
         </p>
 
         <p className="text-sm text-muted leading-relaxed mt-2 mb-4 flex-grow line-clamp-2">

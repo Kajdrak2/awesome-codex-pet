@@ -1,0 +1,292 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
+import { getCollections } from "@/lib/collection-catalog";
+import {
+  toCollectionCardData,
+  type CollectionCardData,
+} from "@/lib/collections";
+import { toGalleryPet, type GalleryPet, type Pet } from "@/lib/pets";
+import type { PetStats, VotePeriod } from "@/lib/stats";
+
+type RawStatsSnapshot = {
+  pets?: Record<string, Partial<PetStats>>;
+  collections?: Record<string, { weeklyVotes?: number }>;
+  generatedAt?: number;
+  votePeriod?: Partial<VotePeriod>;
+};
+
+export type RankingWindow = "weekly" | "all";
+
+export type RankedPet = {
+  pet: GalleryPet;
+  stats: PetStats;
+  weeklyScore: number;
+  allScore: number;
+};
+
+export type RankedContributor = {
+  slug: string;
+  name: string;
+  handle: string;
+  url: string;
+  petCount: number;
+  pets: GalleryPet[];
+  installs: number;
+  installs7d: number;
+  likes: number;
+  weeklyVotes: number;
+  weeklyScore: number;
+  allScore: number;
+};
+
+export type RankedCollection = {
+  collection: CollectionCardData;
+  installs: number;
+  installs7d: number;
+  likes: number;
+  weeklyVotes: number;
+  weeklyScore: number;
+  allScore: number;
+};
+
+export type LeaderboardData = {
+  pets: RankedPet[];
+  contributors: RankedContributor[];
+  collections: RankedCollection[];
+  generatedAt: number;
+  votePeriod: VotePeriod;
+};
+
+const emptyPetStats = (): PetStats => ({
+  installs: 0,
+  likes: 0,
+  installs7d: 0,
+  weeklyVotes: 0,
+  trendingScore: 0,
+  dailyRank: 0,
+  updatedAt: 0,
+});
+
+function nonNegative(value: unknown) {
+  return typeof value === "number" && Number.isFinite(value) && value >= 0
+    ? value
+    : 0;
+}
+
+function fallbackVotePeriod(timestamp: number): VotePeriod {
+  const date = new Date(timestamp || Date.now());
+  const daysSinceMonday = (date.getUTCDay() + 6) % 7;
+  date.setUTCDate(date.getUTCDate() - daysSinceMonday);
+  date.setUTCHours(0, 0, 0, 0);
+  const startsAt = date.getTime();
+  return {
+    id: date.toISOString().slice(0, 10),
+    startsAt,
+    endsAt: startsAt + 7 * 24 * 60 * 60 * 1000,
+  };
+}
+
+function readStatsSnapshot() {
+  let snapshot: RawStatsSnapshot = {};
+  try {
+    snapshot = JSON.parse(
+      readFileSync(join(process.cwd(), "public", "stats.json"), "utf8"),
+    ) as RawStatsSnapshot;
+  } catch {
+    // A fresh checkout can build with an empty ranking snapshot.
+  }
+
+  const generatedAt = nonNegative(snapshot.generatedAt);
+  const fallbackPeriod = fallbackVotePeriod(generatedAt);
+  const period = snapshot.votePeriod ?? {};
+  return {
+    pets: snapshot.pets ?? {},
+    collections: snapshot.collections ?? {},
+    generatedAt,
+    votePeriod: {
+      id:
+        typeof period.id === "string" && period.id
+          ? period.id
+          : fallbackPeriod.id,
+      startsAt: nonNegative(period.startsAt) || fallbackPeriod.startsAt,
+      endsAt: nonNegative(period.endsAt) || fallbackPeriod.endsAt,
+    },
+  };
+}
+
+function petStats(
+  snapshot: ReturnType<typeof readStatsSnapshot>,
+  slug: string,
+): PetStats {
+  const raw = snapshot.pets[slug] ?? {};
+  return {
+    installs: nonNegative(raw.installs),
+    likes: nonNegative(raw.likes),
+    installs7d: nonNegative(raw.installs7d),
+    weeklyVotes: nonNegative(raw.weeklyVotes),
+    trendingScore: nonNegative(raw.trendingScore),
+    dailyRank: nonNegative(raw.dailyRank),
+    updatedAt: nonNegative(raw.updatedAt),
+  };
+}
+
+function scorePet(stats: PetStats) {
+  return {
+    weekly:
+      Math.log1p(stats.installs7d) * 55 +
+      Math.log1p(stats.weeklyVotes) * 35 +
+      Math.log1p(stats.likes) * 10,
+    all:
+      Math.log1p(stats.installs) * 55 +
+      Math.log1p(stats.likes) * 30 +
+      Math.log1p(stats.weeklyVotes) * 15,
+  };
+}
+
+function sortByScore<T extends { weeklyScore: number; allScore: number }>(
+  entries: T[],
+  window: RankingWindow,
+) {
+  const score = window === "weekly" ? "weeklyScore" : "allScore";
+  return [...entries].sort((a, b) => b[score] - a[score]);
+}
+
+function buildRankedPets(
+  pets: Pet[],
+  snapshot: ReturnType<typeof readStatsSnapshot>,
+) {
+  return pets.map((pet) => {
+    const stats = petStats(snapshot, pet.slug);
+    const scores = scorePet(stats);
+    return {
+      pet: toGalleryPet(pet),
+      stats,
+      weeklyScore: scores.weekly,
+      allScore: scores.all,
+    };
+  });
+}
+
+function buildContributors(rankedPets: RankedPet[]) {
+  const groups = new Map<string, RankedPet[]>();
+  for (const pet of rankedPets) {
+    const entries = groups.get(pet.pet.author_slug) ?? [];
+    entries.push(pet);
+    groups.set(pet.pet.author_slug, entries);
+  }
+
+  return [...groups.entries()].map(([slug, entries]) => {
+    const representative = entries[0].pet;
+    const topWeekly = sortByScore(entries, "weekly").slice(0, 3);
+    const topAll = sortByScore(entries, "all").slice(0, 3);
+    const contributionBonus = Math.sqrt(entries.length) * 8;
+    return {
+      slug,
+      name: representative.author,
+      handle: representative.author_handle || representative.author,
+      url: representative.author_url || "",
+      petCount: entries.length,
+      pets: topAll.slice(0, 4).map((entry) => entry.pet),
+      installs: entries.reduce(
+        (total, entry) => total + entry.stats.installs,
+        0,
+      ),
+      installs7d: entries.reduce(
+        (total, entry) => total + entry.stats.installs7d,
+        0,
+      ),
+      likes: entries.reduce((total, entry) => total + entry.stats.likes, 0),
+      weeklyVotes: entries.reduce(
+        (total, entry) => total + entry.stats.weeklyVotes,
+        0,
+      ),
+      weeklyScore:
+        topWeekly.reduce((total, entry) => total + entry.weeklyScore, 0) +
+        contributionBonus,
+      allScore:
+        topAll.reduce((total, entry) => total + entry.allScore, 0) +
+        contributionBonus,
+    };
+  });
+}
+
+function buildCollections(
+  pets: Pet[],
+  rankedPets: RankedPet[],
+  snapshot: ReturnType<typeof readStatsSnapshot>,
+) {
+  const rankedBySlug = new Map(
+    rankedPets.map((entry) => [entry.pet.slug, entry]),
+  );
+  return getCollections(pets).map((collection) => {
+    const entries = collection.pets
+      .map((pet) => rankedBySlug.get(pet.slug))
+      .filter((entry): entry is RankedPet => entry !== undefined);
+    const topWeekly = sortByScore(entries, "weekly").slice(0, 5);
+    const topAll = sortByScore(entries, "all").slice(0, 5);
+    const weeklyVotes = nonNegative(
+      snapshot.collections[collection.slug]?.weeklyVotes,
+    );
+    const sizeBonus = Math.sqrt(entries.length) * 4;
+    return {
+      collection: toCollectionCardData(collection),
+      installs: entries.reduce(
+        (total, entry) => total + entry.stats.installs,
+        0,
+      ),
+      installs7d: entries.reduce(
+        (total, entry) => total + entry.stats.installs7d,
+        0,
+      ),
+      likes: entries.reduce((total, entry) => total + entry.stats.likes, 0),
+      weeklyVotes,
+      weeklyScore:
+        (topWeekly.reduce((total, entry) => total + entry.weeklyScore, 0) /
+          Math.max(1, topWeekly.length)) +
+        Math.log1p(weeklyVotes) * 25 +
+        sizeBonus,
+      allScore:
+        (topAll.reduce((total, entry) => total + entry.allScore, 0) /
+          Math.max(1, topAll.length)) +
+        Math.log1p(weeklyVotes) * 10 +
+        sizeBonus,
+    };
+  });
+}
+
+export function getLeaderboardData(pets: Pet[]): LeaderboardData {
+  const snapshot = readStatsSnapshot();
+  const rankedPets = buildRankedPets(pets, snapshot);
+  return {
+    pets: rankedPets,
+    contributors: buildContributors(rankedPets),
+    collections: buildCollections(pets, rankedPets, snapshot),
+    generatedAt: snapshot.generatedAt,
+    votePeriod: snapshot.votePeriod,
+  };
+}
+
+export function getContributorBySlug(pets: Pet[], slug: string) {
+  const leaderboard = getLeaderboardData(pets);
+  const contributor = leaderboard.contributors.find(
+    (entry) => entry.slug === slug,
+  );
+  if (!contributor) return null;
+  const contributorPets = leaderboard.pets.filter(
+    (entry) => entry.pet.author_slug === slug,
+  );
+  return { contributor, pets: contributorPets };
+}
+
+export function getContributorSlugs(pets: Pet[]) {
+  return getLeaderboardData(pets).contributors.map(
+    (contributor) => contributor.slug,
+  );
+}
+
+export function rankEntries<
+  T extends { weeklyScore: number; allScore: number },
+>(entries: T[], window: RankingWindow) {
+  return sortByScore(entries, window);
+}

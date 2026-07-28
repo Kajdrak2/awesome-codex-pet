@@ -217,16 +217,12 @@ export function PetDetailContent({
                 <div>
                   <dt className="mb-1 text-xs text-muted">{t("author")}</dt>
                   <dd className="font-medium text-text">
-                    {pet.author_url ? (
-                      <a
-                        className="text-accent hover:underline"
-                        href={pet.author_url}
-                      >
-                        {pet.author_handle ?? pet.author}
-                      </a>
-                    ) : (
-                      pet.author
-                    )}
+                    <Link
+                      className="text-accent hover:underline"
+                      href={`/contributors/${pet.author_slug}`}
+                    >
+                      {pet.author_handle ?? pet.author}
+                    </Link>
                   </dd>
                 </div>
                 <div>
