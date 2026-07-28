@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  getUtcVotePeriod,
+  normalizeVotePeriod,
   type VotePeriod,
 } from "@/lib/vote-period";
 
@@ -88,24 +88,17 @@ function normalizeStatsPayload(value: unknown): StatsPayload {
   }
   const rawPeriod = isRecord(value.votePeriod) ? value.votePeriod : {};
   const generatedAt = asNonNegativeNumber(value.generatedAt);
-  const fallbackPeriod = getUtcVotePeriod(generatedAt || Date.now());
+  const votePeriod = normalizeVotePeriod(
+    rawPeriod,
+    generatedAt || Date.now(),
+  );
 
   return {
     pets,
     collections,
     generatedAt,
     windowDays: asNonNegativeNumber(value.windowDays) || 7,
-    votePeriod: {
-      id:
-        typeof rawPeriod.id === "string" && rawPeriod.id
-          ? rawPeriod.id
-          : fallbackPeriod.id,
-      startsAt:
-        asNonNegativeNumber(rawPeriod.startsAt) || fallbackPeriod.startsAt,
-      endsAt:
-        asNonNegativeNumber(rawPeriod.endsAt) ||
-        fallbackPeriod.endsAt,
-    },
+    votePeriod,
   };
 }
 

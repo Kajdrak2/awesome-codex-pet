@@ -154,6 +154,24 @@ test("weekly vote keys allow one ballot per IP, kind, and week", async () => {
     "pet",
     Date.UTC(2026, 6, 13, 1),
   );
+  const sameRate = await buildVoteRateKey(
+    sameIpRequest,
+    env,
+    "pet",
+    Date.UTC(2026, 6, 13, 1, 59),
+  );
+  const otherIpRate = await buildVoteRateKey(
+    otherIpRequest,
+    env,
+    "pet",
+    Date.UTC(2026, 6, 13, 1),
+  );
+  const collectionRate = await buildVoteRateKey(
+    firstRequest,
+    env,
+    "collection",
+    Date.UTC(2026, 6, 13, 1),
+  );
   const nextHourRate = await buildVoteRateKey(
     firstRequest,
     env,
@@ -165,6 +183,9 @@ test("weekly vote keys allow one ballot per IP, kind, and week", async () => {
   assert.notEqual(first, otherIp);
   assert.notEqual(first, collectionBallot);
   assert.notEqual(first, nextWeek);
+  assert.equal(firstRate.key, sameRate.key);
+  assert.notEqual(firstRate.key, otherIpRate.key);
+  assert.notEqual(firstRate.key, collectionRate.key);
   assert.notEqual(firstRate.key, nextHourRate.key);
 });
 

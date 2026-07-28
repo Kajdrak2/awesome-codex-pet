@@ -9,7 +9,7 @@ import {
 import { toGalleryPet, type GalleryPet, type Pet } from "@/lib/pets";
 import type { PetStats } from "@/lib/stats";
 import {
-  getUtcVotePeriod,
+  normalizeVotePeriod,
   type VotePeriod,
 } from "@/lib/vote-period";
 
@@ -105,20 +105,14 @@ function loadStatsSnapshot() {
   }
 
   const generatedAt = nonNegative(snapshot.generatedAt);
-  const fallbackPeriod = getUtcVotePeriod(generatedAt || Date.now());
-  const period = snapshot.votePeriod ?? {};
   return {
     pets: snapshot.pets ?? {},
     collections: snapshot.collections ?? {},
     generatedAt,
-    votePeriod: {
-      id:
-        typeof period.id === "string" && period.id
-          ? period.id
-          : fallbackPeriod.id,
-      startsAt: nonNegative(period.startsAt) || fallbackPeriod.startsAt,
-      endsAt: nonNegative(period.endsAt) || fallbackPeriod.endsAt,
-    },
+    votePeriod: normalizeVotePeriod(
+      snapshot.votePeriod,
+      generatedAt || Date.now(),
+    ),
   };
 }
 

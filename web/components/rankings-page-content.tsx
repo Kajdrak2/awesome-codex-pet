@@ -276,7 +276,7 @@ export function RankingsPageContent({
           >
             {tabs.map((item) => (
               <button
-                aria-controls="rankings-panel"
+                aria-controls={`rankings-panel-${item.value}`}
                 aria-selected={tab === item.value}
                 className={`min-w-0 rounded-md px-3 text-sm font-medium transition-colors sm:min-w-32 ${
                   tab === item.value
@@ -329,9 +329,10 @@ export function RankingsPageContent({
       ) : null}
 
       <section
-        aria-labelledby={`rankings-tab-${tab}`}
+        aria-labelledby="rankings-tab-pets"
         className="mt-8"
-        id="rankings-panel"
+        hidden={tab !== "pets"}
+        id="rankings-panel-pets"
         role="tabpanel"
       >
         {tab === "pets" ? (
@@ -345,12 +346,28 @@ export function RankingsPageContent({
             onVote={(slug) => void castVote("pet", slug)}
           />
         ) : null}
+      </section>
+      <section
+        aria-labelledby="rankings-tab-contributors"
+        className="mt-8"
+        hidden={tab !== "contributors"}
+        id="rankings-panel-contributors"
+        role="tabpanel"
+      >
         {tab === "contributors" ? (
           <ContributorRanking
             entries={rankedContributors}
             rankingWindow={rankingWindow}
           />
         ) : null}
+      </section>
+      <section
+        aria-labelledby="rankings-tab-collections"
+        className="mt-8"
+        hidden={tab !== "collections"}
+        id="rankings-panel-collections"
+        role="tabpanel"
+      >
         {tab === "collections" ? (
           <CollectionRanking
             entries={rankedCollections}

@@ -99,7 +99,7 @@ function resolveAuthorSlug(pet, submission) {
   const fromPetSlug = pet.slug.split("--").slice(1).join("--");
   const fromAuthor = String(submission.author ?? pet.author ?? "")
     .normalize("NFKD")
-    .toLocaleLowerCase()
+    .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
   const authorSlug = declared || fromPetSlug || fromAuthor;
