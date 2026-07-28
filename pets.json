@@ -1321,6 +1321,19 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "salary-cat--zuochunjie",
+    "name": "SalaryCat",
+    "localized_names": { "en": "SalaryCat", "zh": "月薪喵" },
+    "author": "Zuochunjie",
+    "author_handle": "Zuochunjie",
+    "author_url": "https://github.com/Zuochunjie",
+    "primary_category": "Animals",
+    "collections": ["animal-companions"],
+    "license": "CC BY-NC 4.0 for this adapted pet artwork; derived from Einswen/SalaryCat under Apache-2.0. Non-commercial repository use only.",
+    "description": "An AI-assisted Codex pet adaptation of Einswen's SalaryCat, extended with nine standard animations and sixteen clockwise look directions.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "shian-helper--mistyshen",
     "name": "Shian",
     "author": "mistyShen",
