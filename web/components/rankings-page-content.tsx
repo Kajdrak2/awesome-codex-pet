@@ -3,6 +3,7 @@
 import Link from "next/link";
 import {
   type KeyboardEvent,
+  type PointerEvent,
   useEffect,
   useMemo,
   useState,
@@ -74,13 +75,16 @@ function PreviewMosaic({
   href,
   label,
   locale,
+  motionAllowed,
   pets,
 }: {
   href: string;
   label: string;
   locale: "en" | "zh";
+  motionAllowed: boolean;
   pets: GalleryPet[];
 }) {
+  const [isAnimating, setIsAnimating] = useState(false);
   const visiblePets = pets.slice(0, 3);
   const layoutClass =
     visiblePets.length === 1
@@ -94,6 +98,22 @@ function PreviewMosaic({
       aria-label={label}
       className={`grid h-16 w-24 shrink-0 overflow-hidden rounded-md border border-border bg-bg-secondary sm:h-20 sm:w-32 ${layoutClass}`}
       href={href}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          setIsAnimating(false);
+        }
+      }}
+      onFocus={() => {
+        if (motionAllowed) {
+          setIsAnimating(true);
+        }
+      }}
+      onPointerEnter={(event) => {
+        if (event.pointerType !== "touch" && motionAllowed) {
+          setIsAnimating(true);
+        }
+      }}
+      onPointerLeave={() => setIsAnimating(false)}
     >
       {visiblePets.map((pet, index) => (
         <span
@@ -109,10 +129,58 @@ function PreviewMosaic({
           <img
             alt={getLocalizedPetName(pet, locale)}
             className="max-h-full max-w-full object-contain [image-rendering:pixelated]"
-            src={pet.previewImage}
+            decoding="async"
+            loading="lazy"
+            src={
+              motionAllowed && isAnimating
+                ? pet.animatedPreviewImage
+                : pet.previewImage
+            }
           />
         </span>
       ))}
+    </Link>
+  );
+}
+
+function PetRankingPreview({
+  autoAnimate,
+  motionAllowed,
+  name,
+  pet,
+}: {
+  autoAnimate: boolean;
+  motionAllowed: boolean;
+  name: string;
+  pet: GalleryPet;
+}) {
+  const [isInteracting, setIsInteracting] = useState(false);
+  const isAnimating = motionAllowed && (autoAnimate || isInteracting);
+
+  function startAnimation(event?: PointerEvent<HTMLAnchorElement>) {
+    if (event?.pointerType === "touch" || !motionAllowed) {
+      return;
+    }
+    setIsInteracting(true);
+  }
+
+  return (
+    <Link
+      aria-label={name}
+      className="flex size-16 items-center justify-center overflow-hidden rounded-md border border-border bg-bg-secondary sm:size-20"
+      href={`/pets/${pet.slug}`}
+      onBlur={() => setIsInteracting(false)}
+      onFocus={() => startAnimation()}
+      onPointerEnter={startAnimation}
+      onPointerLeave={() => setIsInteracting(false)}
+    >
+      <img
+        alt={name}
+        className="max-h-full max-w-full object-contain [image-rendering:pixelated]"
+        decoding="async"
+        loading="lazy"
+        src={isAnimating ? pet.animatedPreviewImage : pet.previewImage}
+      />
     </Link>
   );
 }
@@ -178,6 +246,7 @@ export function RankingsPageContent({
   });
   const [pendingVote, setPendingVote] = useState<string | null>(null);
   const [voteError, setVoteError] = useState(false);
+  const [motionAllowed, setMotionAllowed] = useState(false);
   const [petVotes, setPetVotes] = useState(() =>
     Object.fromEntries(
       data.pets.map((entry) => [entry.pet.slug, entry.stats.weeklyVotes]),
@@ -198,6 +267,14 @@ export function RankingsPageContent({
       collection: getWeeklyVote(data.votePeriod.id, "collection"),
     });
   }, [data.votePeriod.id]);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateMotionPreference = () => setMotionAllowed(!media.matches);
+    updateMotionPreference();
+    media.addEventListener("change", updateMotionPreference);
+    return () => media.removeEventListener("change", updateMotionPreference);
+  }, []);
 
   const rankedPets = useMemo(
     () => sortRanked(data.pets, rankingWindow).slice(0, rankingLimit),
@@ -389,6 +466,7 @@ export function RankingsPageContent({
           <PetRanking
             entries={rankedPets}
             locale={locale}
+            motionAllowed={motionAllowed}
             pendingVote={pendingVote}
             selectedVote={selectedVotes.pet}
             showVote={rankingWindow === "weekly"}
@@ -407,6 +485,7 @@ export function RankingsPageContent({
         {tab === "contributors" ? (
           <ContributorRanking
             entries={rankedContributors}
+            motionAllowed={motionAllowed}
             rankingWindow={rankingWindow}
           />
         ) : null}
@@ -422,6 +501,7 @@ export function RankingsPageContent({
           <CollectionRanking
             entries={rankedCollections}
             locale={locale}
+            motionAllowed={motionAllowed}
             pendingVote={pendingVote}
             selectedVote={selectedVotes.collection}
             showVote={rankingWindow === "weekly"}
@@ -444,6 +524,7 @@ export function RankingsPageContent({
 function PetRanking({
   entries,
   locale,
+  motionAllowed,
   pendingVote,
   selectedVote,
   showVote,
@@ -452,6 +533,7 @@ function PetRanking({
 }: {
   entries: RankedPet[];
   locale: "en" | "zh";
+  motionAllowed: boolean;
   pendingVote: string | null;
   selectedVote: string | null;
   showVote: boolean;
@@ -474,17 +556,12 @@ function PetRanking({
             >
               {rank}
             </span>
-            <Link
-              aria-label={name}
-              className="flex size-16 items-center justify-center overflow-hidden rounded-md border border-border bg-bg-secondary sm:size-20"
-              href={`/pets/${entry.pet.slug}`}
-            >
-              <img
-                alt={name}
-                className="max-h-full max-w-full object-contain [image-rendering:pixelated]"
-                src={entry.pet.previewImage}
-              />
-            </Link>
+            <PetRankingPreview
+              autoAnimate={rank <= 3}
+              motionAllowed={motionAllowed}
+              name={name}
+              pet={entry.pet}
+            />
             <div className="min-w-0">
               <Link
                 className="block truncate text-sm font-semibold text-text hover:text-accent sm:text-base"
@@ -537,9 +614,11 @@ function PetRanking({
 
 function ContributorRanking({
   entries,
+  motionAllowed,
   rankingWindow,
 }: {
   entries: RankedContributor[];
+  motionAllowed: boolean;
   rankingWindow: RankingWindow;
 }) {
   const { locale, t } = useLocale();
@@ -561,6 +640,7 @@ function ContributorRanking({
               href={`/contributors/${entry.slug}`}
               label={entry.name}
               locale={locale}
+              motionAllowed={motionAllowed}
               pets={entry.pets}
             />
             <div className="min-w-0">
@@ -611,6 +691,7 @@ function ContributorRanking({
 function CollectionRanking({
   entries,
   locale,
+  motionAllowed,
   pendingVote,
   selectedVote,
   showVote,
@@ -619,6 +700,7 @@ function CollectionRanking({
 }: {
   entries: RankedCollection[];
   locale: "en" | "zh";
+  motionAllowed: boolean;
   pendingVote: string | null;
   selectedVote: string | null;
   showVote: boolean;
@@ -645,6 +727,7 @@ function CollectionRanking({
               href={`/collections/${collection.slug}`}
               label={collection.title[locale]}
               locale={locale}
+              motionAllowed={motionAllowed}
               pets={collection.coverPets}
             />
             <div className="min-w-0">
