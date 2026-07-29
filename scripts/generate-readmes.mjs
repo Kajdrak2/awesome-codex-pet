@@ -22,6 +22,19 @@ const categories = categoryCatalog.map((category) => category.name);
 const categoryZh = Object.fromEntries(
   categoryCatalog.map((category) => [category.name, category.label.zh]),
 );
+const categoryKo = {
+  "Game Characters": "게임 캐릭터",
+  "Anime Characters": "애니메이션 캐릭터",
+  "Original Characters": "오리지널 캐릭터",
+  Mascots: "마스코트",
+  Animals: "동물",
+  "Fantasy Creatures": "판타지 생물",
+  Robots: "로봇",
+  "Human Avatars": "인물 아바타",
+  Memes: "밈",
+  "Objects & Props": "사물과 소품",
+  Others: "기타",
+};
 
 const categoryAliases = {
   "Anime and Game Fan Art": "Anime Characters",
@@ -34,12 +47,36 @@ const categoryAliases = {
 };
 
 const previewStates = [
-  ["idle", "Idle", "待机"],
-  ["waving", "Waving", "挥手"],
-  ["running-right", "Running", "奔跑"],
-  ["waiting", "Waiting", "等待"],
-  ["review", "Review", "审阅"],
+  ["idle", "Idle", "待机", "대기"],
+  ["waving", "Waving", "挥手", "인사"],
+  ["running-right", "Running", "奔跑", "달리기"],
+  ["waiting", "Waiting", "等待", "입력 대기"],
+  ["review", "Review", "审阅", "검토"],
 ];
+
+const readmeLocales = {
+  en: {
+    rootPrefix: ".",
+    labels: ["Name", "Install", "Action", "Preview"],
+    by: "by",
+    categoryLabels: {},
+    stateIndex: 1,
+  },
+  zh: {
+    rootPrefix: "../..",
+    labels: ["名称", "安装", "动作", "预览"],
+    by: "作者",
+    categoryLabels: categoryZh,
+    stateIndex: 2,
+  },
+  ko: {
+    rootPrefix: "../..",
+    labels: ["이름", "설치", "동작", "미리 보기"],
+    by: "제작자",
+    categoryLabels: categoryKo,
+    stateIndex: 3,
+  },
+};
 
 const featuredSlugs = ["firefly--lingxiaotian"];
 const featuredRank = new Map(featuredSlugs.map((slug, index) => [slug, index]));
@@ -88,7 +125,7 @@ function badges(pets) {
   return [
     badge("pets", String(pets.length), "2ea44f"),
     badge("categories", String(categories.length), "0969da"),
-    badge("languages", "en | zh--CN", "8250df"),
+    badge("languages", "en | zh--CN | ko", "8250df"),
     badge("code", "MIT", "111111"),
     badge("assets", "CC BY--NC 4.0", "f97316"),
     badge("install", "one command", "111111"),
@@ -115,19 +152,11 @@ function localizedPetName(pet, lang) {
 }
 
 function petBlock(pet, lang) {
-  const rootPrefix = lang === "zh" ? "../.." : ".";
-  const labels =
-    lang === "zh"
-      ? ["名称", "安装", "动作", "预览"]
-      : ["Name", "Install", "Action", "Preview"];
-  const by = lang === "zh" ? "作者" : "by";
+  const locale = readmeLocales[lang];
   const category = normalizeCategory(pet.primary_category);
-  const categoryName =
-    lang === "zh" ? categoryZh[category] || category : category;
+  const categoryName = locale.categoryLabels[category] || category;
   const displayName = localizedPetName(pet, lang);
-  const stateNames = previewStates.map((state) =>
-    lang === "zh" ? state[2] : state[1],
-  );
+  const stateNames = previewStates.map((state) => state[locale.stateIndex]);
   const previews = previewStates.map(([state]) => {
     const path = `${websiteUrl}/assets/previews/${pet.slug}/webp/${state}.webp`;
     return `<img src="${path}" alt="${displayName} ${state}" width="120" height="130">`;
@@ -135,10 +164,10 @@ function petBlock(pet, lang) {
 
   return [
     `<table>`,
-    `<tr><th>${labels[0]}</th><td colspan="5"><a href="${rootPrefix}/pets/${pet.slug}">${displayName}</a> · ${by} ${authorLink(pet)} · ${categoryName} · v${pet.spriteVersionNumber}</td></tr>`,
-    `<tr><th>${labels[1]}</th><td colspan="5"><code>${bashInstallCommand(pet.slug)}</code></td></tr>`,
-    `<tr><th>${labels[2]}</th>${stateNames.map((name) => `<td><strong>${name}</strong></td>`).join("")}</tr>`,
-    `<tr><th>${labels[3]}</th>${previews.map((preview) => `<td>${preview}</td>`).join("")}</tr>`,
+    `<tr><th>${locale.labels[0]}</th><td colspan="5"><a href="${locale.rootPrefix}/pets/${pet.slug}">${displayName}</a> · ${locale.by} ${authorLink(pet)} · ${categoryName} · v${pet.spriteVersionNumber}</td></tr>`,
+    `<tr><th>${locale.labels[1]}</th><td colspan="5"><code>${bashInstallCommand(pet.slug)}</code></td></tr>`,
+    `<tr><th>${locale.labels[2]}</th>${stateNames.map((name) => `<td><strong>${name}</strong></td>`).join("")}</tr>`,
+    `<tr><th>${locale.labels[3]}</th>${previews.map((preview) => `<td>${preview}</td>`).join("")}</tr>`,
     `</table>`,
   ].join("\n");
 }
@@ -154,7 +183,7 @@ function categorySections(pets, lang) {
         (pet) => normalizeCategory(pet.primary_category) === category,
       );
       if (items.length === 0) return [];
-      const title = lang === "zh" ? categoryZh[category] || category : category;
+      const title = readmeLocales[lang].categoryLabels[category] || category;
       return [
         [
           `### ${title}`,
@@ -172,7 +201,7 @@ function englishReadme(pets) {
 
 # Awesome Codex Pet
 
-[简体中文](./docs/zh-CN/README.md) | English
+[简体中文](./docs/zh-CN/README.md) | [한국어](./docs/ko/README.md) | English
 
 <h2><a href="${websiteUrl}">Browse and install free community Codex pets at codexpet.top →</a></h2>
 
@@ -323,6 +352,7 @@ Choose the skill explicitly. For an upgrade, give \`$hatch-pet-v2\` the existing
 
 - English: [docs/en](./docs/en)
 - 简体中文: [docs/zh-CN](./docs/zh-CN)
+- 한국어: [docs/ko](./docs/ko)
 - Web gallery source: [web/](./web)
 - Stats worker: [worker/](./worker)
 - Contribution guide: [CONTRIBUTING.md](./CONTRIBUTING.md)
@@ -354,7 +384,7 @@ function chineseReadme(pets) {
 
 # Awesome Codex Pet
 
-简体中文 | [English](../../README.md)
+简体中文 | [한국어](../ko/README.md) | [English](../../README.md)
 
 <h2><a href="${websiteUrl}">免费浏览并安装 Codex 小宠物：codexpet.top →</a></h2>
 
@@ -505,6 +535,7 @@ npm run lint
 
 - English: [docs/en](../en)
 - 简体中文: [docs/zh-CN](./)
+- 한국어: [docs/ko](../ko)
 - 在线画廊源码: [web/](../../web)
 - 统计 Worker: [worker/](../../worker)
 - 贡献指南: [CONTRIBUTING.md](./CONTRIBUTING.md)
@@ -530,6 +561,189 @@ npm run lint
 `;
 }
 
+function koreanReadme(pets) {
+  const sampleSlug = pets[0]?.slug || "pet-slug--author-slug";
+  return `<div align="center">
+
+# Awesome Codex Pet
+
+[简体中文](../zh-CN/README.md) | 한국어 | [English](../../README.md)
+
+<h2><a href="${websiteUrl}">codexpet.top에서 무료 커뮤니티 Codex 펫을 둘러보고 설치하세요 →</a></h2>
+
+<p><strong>Awesome Codex Pet은 무료 커뮤니티 펫 갤러리입니다.</strong> 펫 상점처럼 완성된 애니메이션을 둘러보고, 저장소를 복제하지 않아도 마음에 드는 펫을 설치할 수 있습니다. 원하는 캐릭터가 없다면 커뮤니티에 제작을 요청할 수 있습니다.</p>
+
+<p><a href="${websiteUrl}"><strong>펫 둘러보기</strong></a> · <a href="${websiteUrl}/install"><strong>펫 설치하기</strong></a> · <a href="${websiteUrl}/request"><strong>캐릭터 요청하기</strong></a></p>
+
+<a href="${websiteUrl}"><img src="../../assets/cover/awesome-codex-pet-cover.png" alt="Awesome Codex Pet 갤러리 열기"></a>
+
+${badges(pets)}
+
+</div>
+
+이 저장소는 [codexpet.top](${websiteUrl})의 원본 카탈로그입니다. 설치 가능한 펫 패키지, 제작자 정보, 컬렉션 메타데이터, 검증 도구, 기여 이력을 관리합니다. 펫을 둘러보고 설치하려면 웹사이트를 먼저 이용하세요.
+
+## 주요 기능
+
+- **한 줄 설치** — 저장소 복제나 수동 설정 없이 macOS / Linux / Windows에서 설치
+- **무료 커뮤니티 갤러리** — [codexpet.top](${websiteUrl})에서 완성된 애니메이션 미리 보기, 컬렉션, 제작자 프로필, 주간 순위와 투표, 공유, 커뮤니티 통계 제공
+- **무료 캐릭터 요청** — spritesheet를 만들지 않아도 캐릭터와 참고 자료를 제출할 수 있으며, 커뮤니티 제작자가 자원할 수 있습니다. 제작을 보장하지는 않습니다.
+- **AI 우선 기여** — Codex로 펫을 만들고, 고치고, 제출할 수 있으며, 숙련된 기여자는 직접 PR을 열 수 있습니다.
+- **열린 라이선스** — 코드에는 MIT, 펫 자산에는 CC BY-NC 4.0 적용
+
+각 펫은 공유할 수 있는 작은 패키지입니다.
+
+\`\`\`text
+pets/<pet-slug>--<author-slug>/
+├── submission.json
+├── pet.json
+└── spritesheet.webp
+\`\`\`
+
+미리 보기 이미지는 로컬 또는 CI 빌드 결과로 \`assets/previews/<pet-id>/\`에 생성되며, 펫 폴더 안에는 넣지 않습니다.
+
+저장소에서 정의한 시리즈와 컬렉션은 \`collections.json\`에 있습니다. \`kind: franchise\`는 같은 원작의 펫을, \`kind: theme\`는 주제나 스타일이 이어지는 여러 원작의 펫을 나타냅니다. 펫은 \`submission.json.collections\`에 slug를 적어 소속을 선언하며, 카탈로그와 웹사이트는 이 메타데이터로 생성됩니다. 소속 정보는 바로 기록되지만, 컬렉션은 펫이 3개 이상일 때만 웹사이트에 공개됩니다.
+
+\`submission.json.name\`은 필수 기본 이름입니다. 제작자는 \`localized_names\`를 생략해 한 언어만 사용할 수 있고, \`localized_names.en\`과 \`localized_names.zh\`를 함께 제공해 이중 언어 이름을 지원할 수도 있습니다. 웹사이트는 방문자가 선택한 언어를 따르며 이름을 임의로 번역하지 않습니다.
+
+## 펫 버전
+
+| 버전 | 아틀라스                | 런타임 메타데이터                   | 용도                                  |
+| ---- | ----------------------- | ----------------------------------- | ------------------------------------- |
+| v1   | \`1536x1872\`, 8열 × 9행  | \`spriteVersionNumber\` 생략 또는 \`1\` | 기존 표준 애니메이션 펫               |
+| v2   | \`1536x2288\`, 8열 × 11행 | \`spriteVersionNumber: 2\`            | 표준 애니메이션과 16개 시계 방향 시선 |
+
+두 버전 모두 설치할 수 있습니다. 기존 9행 펫을 관리할 때는 v1을 사용하고, 시선 방향이 필요한 새 펫이나 업그레이드 펫에는 v2를 사용하세요.
+
+## 빠른 설치
+
+저장소를 복제할 필요가 없습니다. 사용하는 셸에 맞는 명령을 선택하세요.
+
+\`\`\`bash
+# macOS / Linux
+${bashInstallCommand(sampleSlug)}
+\`\`\`
+
+\`\`\`powershell
+# Windows PowerShell
+${powershellInstallCommand(sampleSlug)}
+\`\`\`
+
+\`\`\`bash
+# Node.js를 실행할 수 있는 모든 환경
+npx awesome-codex-pet ${sampleSlug}
+\`\`\`
+
+설치 가능한 펫 목록 보기:
+
+\`\`\`bash
+curl -fsSL ${rawBase}/scripts/install-pet.sh | bash -s -- --list
+\`\`\`
+
+기본 설치 위치:
+
+- macOS / Linux: \`~/.codex/pets/<pet-id>/\`
+- Windows: \`%USERPROFILE%\\.codex\\pets\\<pet-id>\\\`
+
+\`CODEX_HOME\`으로 설치 위치를 바꾸거나 \`AWESOME_CODEX_PET_NO_STATS=1\`을 설정해 익명 설치 집계를 끌 수 있습니다.
+
+## 기존 v1 펫 업그레이드
+
+1. Codex에서 **Settings → Pets**를 엽니다.
+2. 설치한 사용자 펫을 찾아 **Update**를 선택합니다.
+3. Codex가 Hatch Pet 작업을 엽니다. 현재 v2 흐름은 기존 9개 애니메이션 행을 검증하고 보존한 뒤, 네 방향 기준점과 16개 시선 방향을 생성하여 \`spriteVersionNumber: 2\`가 설정된 11행 아틀라스를 작성합니다.
+4. 교체를 수락하기 전에 생성된 contact sheet와 방향 미리 보기를 검토합니다.
+
+**Update** 동작은 이 저장소의 다운로드 알림이 아니라 AI가 돕는 v1-to-v2 변환입니다. \`~/.codex/pets/\` 아래의 로컬 패키지만 갱신하며 GitHub 저장소 사본을 자동으로 수정하거나 제출하지 않습니다.
+
+## 펫 목록
+
+${categorySections(pets, "ko")}
+
+## 펫 요청 또는 제출
+
+원하는 캐릭터가 없다면 [무료 커뮤니티 요청 페이지](${websiteUrl}/request)를 여세요. 요청은 무료이며 spritesheet가 없어도 됩니다. 커뮤니티 제작자가 제작을 자원할 수 있지만, 요청이 수록이나 제작을 보장하지는 않습니다.
+
+기여를 시작하려면 [웹사이트 기여 가이드](${websiteUrl}/guide)를 확인하세요. 모든 기여자가 큰 자산 저장소를 내려받지 않아도 되도록 세 가지 경로를 제공합니다.
+
+1. **펫 요청** — Codex가 중복을 확인하고 참고 자료와 요구 사항을 수집한 뒤, 라벨이 지정된 요청 issue를 엽니다.
+2. **내 펫 만들기 또는 제출하기** — Codex는 참고 자료나 기존 파일에서 시작해 세 파일 패키지를 완성하고 검증한 뒤, 전체 복제 없이 GitHub API로 전용 브랜치와 PR을 만듭니다.
+3. **고급 PR** — 숙련된 기여자는 GitHub Codespaces, 부분 복제 또는 선호하는 Git 작업 흐름을 사용할 수 있습니다.
+
+저장소의 [\`.agents/skills/submit-codex-pet\`](../../.agents/skills/submit-codex-pet) 스킬은 호환되는 AI agent가 올바른 경로를 선택하도록 돕습니다. 인증 정보나 저장소 쓰기 권한이 없으면, 기여물을 잃지 않도록 라벨이 지정된 제출 issue로 대체합니다.
+
+고급 기여자는 최종 패키지 하나만 추가해야 합니다.
+
+\`\`\`text
+pets/
+└── pet-slug--author-slug/
+    ├── submission.json
+    ├── pet.json
+    └── spritesheet.webp
+\`\`\`
+
+여러 제작자가 같은 캐릭터의 변형을 함께 제공할 수 있도록 \`pet-slug--author-slug\` 형식을 사용합니다. v1 제출물은 \`spriteVersionNumber\`를 생략할 수 있으며 \`1536x1872\` WebP를 제공해야 합니다. v2 제출물은 \`spriteVersionNumber: 2\`와 \`1536x2288\` WebP를 제공해야 합니다.
+
+v2 런타임 매니페스트는 다음과 같습니다.
+
+\`\`\`json
+{
+  "id": "pet-slug--author-slug",
+  "displayName": "펫 이름",
+  "description": "한 문장의 짧은 설명.",
+  "spriteVersionNumber": 2,
+  "spritesheetPath": "spritesheet.webp"
+}
+\`\`\`
+
+미리 보기와 README 목록은 CI가 생성합니다.
+
+\`\`\`bash
+python -m pip install -r requirements.txt
+npm run validate:pr
+npm run lint
+\`\`\`
+
+기여자 PR에는 \`submission.json\`, \`pet.json\`, \`spritesheet.webp\`만 포함해야 합니다. prompt, 참고 자료, QA 폴더, contact sheet, 동영상, 디코드 프레임, Hatch Pet 실행 디렉터리는 제출하지 마세요. 유지 관리자나 CI가 병합 뒤 미리 보기, README 목록, \`pets.json\`을 다시 생성하며 미리 보기 바이너리는 장기간 Git 추적 파일로 유지하지 않습니다.
+
+## 펫 만들기
+
+- [.agents/skills/submit-codex-pet](../../.agents/skills/submit-codex-pet) — 커뮤니티 제작을 요청하거나 GitHub API로 내 펫을 만들고 제출하고, 고급 PR을 준비합니다.
+- [.agents/skills/hatch-pet-v1](../../.agents/skills/hatch-pet-v1) — 기존 8x9 v1 펫을 보존하거나 수리합니다.
+- [.agents/skills/hatch-pet-v2](../../.agents/skills/hatch-pet-v2) — 16개 시선 방향을 포함한 8x11 v2 펫을 만들거나 업그레이드합니다.
+
+스킬 버전을 명시적으로 선택하세요. 기존 펫을 업그레이드할 때는 \`$hatch-pet-v2\`에 설치된 \`pet.json\`과 \`spritesheet.webp\`를 제공합니다. 승인된 0–8행은 새로 생성하지 않고 보존됩니다.
+
+## 문서
+
+- English: [docs/en](../en)
+- 简体中文: [docs/zh-CN](../zh-CN)
+- 한국어: [docs/ko](./)
+- 웹 갤러리 소스: [web/](../../web)
+- 통계 Worker: [worker/](../../worker)
+- 기여 가이드(영어): [CONTRIBUTING.md](../../CONTRIBUTING.md)
+
+## Star 기록
+
+[![Awesome Codex Pet의 GitHub Star 기록](../../assets/community/star-history.svg)](https://github.com/legeling/awesome-codex-pet/stargazers)
+
+이 차트는 GitHub stargazer 데이터로 매일 갱신됩니다. 더 많은 사람이 이 펫을 발견할 수 있도록 [저장소에 Star를 남겨 주세요](https://github.com/legeling/awesome-codex-pet).
+
+## 기여자
+
+<a href="https://github.com/legeling/awesome-codex-pet/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=legeling/awesome-codex-pet" alt="Awesome Codex Pet 기여자">
+</a>
+
+펫, 코드, 문서, 검토, 아이디어를 기여해 주신 모든 분께 감사드립니다.
+
+## 라이선스
+
+- 코드와 스크립트: [MIT](../../LICENSE)
+- 펫 자산과 생성된 미리 보기: 각 펫 폴더에 별도 표기가 없다면 [CC BY-NC 4.0](../../ASSETS-LICENSE.md)
+`;
+}
+
 const pets = loadPets();
 
 writeFileSync(join(repoRoot, "README.md"), englishReadme(pets), "utf8");
@@ -537,6 +751,12 @@ mkdirSync(join(repoRoot, "docs", "zh-CN"), { recursive: true });
 writeFileSync(
   join(repoRoot, "docs", "zh-CN", "README.md"),
   chineseReadme(pets),
+  "utf8",
+);
+mkdirSync(join(repoRoot, "docs", "ko"), { recursive: true });
+writeFileSync(
+  join(repoRoot, "docs", "ko", "README.md"),
+  koreanReadme(pets),
   "utf8",
 );
 const catalog = pets.map((pet) => ({
