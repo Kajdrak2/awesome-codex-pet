@@ -75,11 +75,13 @@ function PreviewMosaic({
   href,
   label,
   locale,
+  motionAllowed,
   pets,
 }: {
   href: string;
   label: string;
   locale: "en" | "zh";
+  motionAllowed: boolean;
   pets: GalleryPet[];
 }) {
   const [isAnimating, setIsAnimating] = useState(false);
@@ -102,15 +104,12 @@ function PreviewMosaic({
         }
       }}
       onFocus={() => {
-        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        if (motionAllowed) {
           setIsAnimating(true);
         }
       }}
       onPointerEnter={(event) => {
-        if (
-          event.pointerType !== "touch" &&
-          !window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ) {
+        if (event.pointerType !== "touch" && motionAllowed) {
           setIsAnimating(true);
         }
       }}
@@ -133,7 +132,9 @@ function PreviewMosaic({
             decoding="async"
             loading="lazy"
             src={
-              isAnimating ? pet.animatedPreviewImage : pet.previewImage
+              motionAllowed && isAnimating
+                ? pet.animatedPreviewImage
+                : pet.previewImage
             }
           />
         </span>
@@ -144,21 +145,20 @@ function PreviewMosaic({
 
 function PetRankingPreview({
   autoAnimate,
+  motionAllowed,
   name,
   pet,
 }: {
   autoAnimate: boolean;
+  motionAllowed: boolean;
   name: string;
   pet: GalleryPet;
 }) {
   const [isInteracting, setIsInteracting] = useState(false);
-  const isAnimating = autoAnimate || isInteracting;
+  const isAnimating = motionAllowed && (autoAnimate || isInteracting);
 
   function startAnimation(event?: PointerEvent<HTMLAnchorElement>) {
-    if (
-      event?.pointerType === "touch" ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
+    if (event?.pointerType === "touch" || !motionAllowed) {
       return;
     }
     setIsInteracting(true);
@@ -485,6 +485,7 @@ export function RankingsPageContent({
         {tab === "contributors" ? (
           <ContributorRanking
             entries={rankedContributors}
+            motionAllowed={motionAllowed}
             rankingWindow={rankingWindow}
           />
         ) : null}
@@ -500,6 +501,7 @@ export function RankingsPageContent({
           <CollectionRanking
             entries={rankedCollections}
             locale={locale}
+            motionAllowed={motionAllowed}
             pendingVote={pendingVote}
             selectedVote={selectedVotes.collection}
             showVote={rankingWindow === "weekly"}
@@ -555,7 +557,8 @@ function PetRanking({
               {rank}
             </span>
             <PetRankingPreview
-              autoAnimate={motionAllowed && rank <= 3}
+              autoAnimate={rank <= 3}
+              motionAllowed={motionAllowed}
               name={name}
               pet={entry.pet}
             />
@@ -611,9 +614,11 @@ function PetRanking({
 
 function ContributorRanking({
   entries,
+  motionAllowed,
   rankingWindow,
 }: {
   entries: RankedContributor[];
+  motionAllowed: boolean;
   rankingWindow: RankingWindow;
 }) {
   const { locale, t } = useLocale();
@@ -635,6 +640,7 @@ function ContributorRanking({
               href={`/contributors/${entry.slug}`}
               label={entry.name}
               locale={locale}
+              motionAllowed={motionAllowed}
               pets={entry.pets}
             />
             <div className="min-w-0">
@@ -685,6 +691,7 @@ function ContributorRanking({
 function CollectionRanking({
   entries,
   locale,
+  motionAllowed,
   pendingVote,
   selectedVote,
   showVote,
@@ -693,6 +700,7 @@ function CollectionRanking({
 }: {
   entries: RankedCollection[];
   locale: "en" | "zh";
+  motionAllowed: boolean;
   pendingVote: string | null;
   selectedVote: string | null;
   showVote: boolean;
@@ -719,6 +727,7 @@ function CollectionRanking({
               href={`/collections/${collection.slug}`}
               label={collection.title[locale]}
               locale={locale}
+              motionAllowed={motionAllowed}
               pets={collection.coverPets}
             />
             <div className="min-w-0">
