@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { RequestPageContent } from "@/components/request-page-content";
+import { LocalizedDocumentTitle } from "@/components/localized-document-title";
 import { getAllPets } from "@/lib/pets";
 import { withSiteKeywords } from "@/lib/seo-keywords";
 import { siteConfig } from "@/lib/site";
@@ -129,6 +130,10 @@ export default function RequestPage() {
 
   return (
     <>
+      <LocalizedDocumentTitle
+        en="Request a Codex pet for free"
+        zh="免费申请 Codex 宠物"
+      />
       <RequestPageContent locale="en" petCount={pets.length} />
       <script
         type="application/ld+json"

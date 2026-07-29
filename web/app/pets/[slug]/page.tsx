@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { PetDetailContent } from "@/components/pet-detail-content";
+import { LocalizedDocumentTitle } from "@/components/localized-document-title";
 import { getActionEntries, getAllPets, getPetBySlug } from "@/lib/pets";
 import { getPetSeoKeywords } from "@/lib/seo-keywords";
 import { siteConfig } from "@/lib/site";
@@ -139,6 +140,12 @@ export default async function PetDetailPage({
 
   return (
     <>
+      <LocalizedDocumentTitle
+        en={`${pet.localizedNames.en ?? pet.name} Codex pet by ${
+          pet.author_handle ?? pet.author
+        }`}
+        zh={`${pet.localizedNames.zh ?? pet.name} Codex 宠物`}
+      />
       <PetDetailContent
         pet={pet}
         actions={actions}

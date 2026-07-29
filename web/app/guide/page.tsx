@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { GuidePageContent } from "@/components/guide-page-content";
+import { LocalizedDocumentTitle } from "@/components/localized-document-title";
 import { getCategoryCatalog } from "@/lib/categories";
 import { withSiteKeywords } from "@/lib/seo-keywords";
 import { siteConfig } from "@/lib/site";
@@ -78,6 +79,10 @@ export default function GuidePage() {
 
   return (
     <>
+      <LocalizedDocumentTitle
+        en="Craft and submit a selected Codex pet"
+        zh="制作与投稿 Codex 宠物"
+      />
       <GuidePageContent categories={categories} />
       <script
         type="application/ld+json"

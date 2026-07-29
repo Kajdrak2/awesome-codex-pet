@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { ContributorPageContent } from "@/components/contributor-page-content";
+import { LocalizedDocumentTitle } from "@/components/localized-document-title";
 import {
   getContributorBySlug,
   getContributorSlugs,
@@ -72,6 +73,10 @@ export default async function ContributorPage({
 
   return (
     <>
+      <LocalizedDocumentTitle
+        en={`${contributor.name} Codex pets and community contributions`}
+        zh={`${contributor.name} 的 Codex 宠物与社区贡献`}
+      />
       <ContributorPageContent contributor={contributor} pets={pets} />
       <script
         dangerouslySetInnerHTML={{

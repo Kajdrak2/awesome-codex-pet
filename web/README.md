@@ -78,7 +78,7 @@ npx wrangler pages deploy out --project-name=awesome-codex-pet
 
 - **Framework**: Next.js 15 with static export (`output: "export"`)
 - **Styling**: Tailwind CSS v4
-- **i18n**: Client-side locale detection (zh/en) with React Context
+- **i18n**: Client-side locale detection (zh/en) with React Context; visible browser-tab titles follow the active locale while static route metadata remains crawlable
 - **Data**: Generated at build time from `pets.json` + individual pet metadata
 - **Collection visibility**: Series and themes are published after they contain at least three pets
 - **Community pages**: Static contributor profiles and pet, contributor, and collection rankings are generated at build time

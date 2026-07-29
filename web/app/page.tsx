@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { FeaturedCollections } from "@/components/featured-collections";
 import { HeroSection } from "@/components/hero-section";
+import { LocalizedDocumentTitle } from "@/components/localized-document-title";
 import { PetGallery } from "@/components/pet-gallery";
 import { CommunityPulse } from "@/components/community-pulse";
 import { getCollections } from "@/lib/collection-catalog";
@@ -141,6 +142,10 @@ export default function HomePage() {
 
   return (
     <main>
+      <LocalizedDocumentTitle
+        en="Free Codex pet gallery and community"
+        zh="Codex 宠物画廊与社区"
+      />
       <HeroSection
         petCount={pets.length}
         categoryCount={categories.length}
