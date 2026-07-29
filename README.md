@@ -2,7 +2,7 @@
 
 # Awesome Codex Pet
 
-[简体中文](./docs/zh-CN/README.md) | English
+[简体中文](./docs/zh-CN/README.md) | [한국어](./docs/ko/README.md) | English
 
 <h2><a href="https://codexpet.top">Browse and install free community Codex pets at codexpet.top →</a></h2>
 
@@ -12,7 +12,7 @@
 
 <a href="https://codexpet.top"><img src="./assets/cover/awesome-codex-pet-cover.png" alt="Open the Awesome Codex Pet gallery"></a>
 
-![pets: 168](https://img.shields.io/badge/pets-168-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN](https://img.shields.io/badge/languages-en%20%7C%20zh--CN-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
+![pets: 168](https://img.shields.io/badge/pets-168-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN | ko](https://img.shields.io/badge/languages-en%20%7C%20zh--CN%20%7C%20ko-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
 
 </div>
 
@@ -1349,6 +1349,7 @@ Choose the skill explicitly. For an upgrade, give `$hatch-pet-v2` the existing i
 
 - English: [docs/en](./docs/en)
 - 简体中文: [docs/zh-CN](./docs/zh-CN)
+- 한국어: [docs/ko](./docs/ko)
 - Web gallery source: [web/](./web)
 - Stats worker: [worker/](./worker)
 - Contribution guide: [CONTRIBUTING.md](./CONTRIBUTING.md)
