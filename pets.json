@@ -1230,6 +1230,23 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "remielle-dan--erlla",
+    "name": "Remielle-Dan / Leimi",
+    "localized_names": {
+      "en": "Remielle-Dan / Leimi",
+      "zh": "蕾米埃尔·丹 / 蕾米"
+    },
+    "author": "Erlla",
+    "author_handle": "Erlla",
+    "author_url": "https://github.com/Erlla",
+    "primary_category": "Game Characters",
+    "canonical_key": "zenless-zone-zero/remielle-dan",
+    "collections": ["zenless-zone-zero"],
+    "license": "Personal non-commercial use only. The original character and related intellectual property belong to miHoYo/HoYoverse.",
+    "description": "《绝区零》中的蕾米埃尔·丹，初代虚狩之一。",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "rinami--siiverash",
     "name": "Rinami Himesaki",
     "author": "SiIverAsh",
@@ -1446,6 +1463,20 @@
     "license": "MIT License",
     "description": "A white chibi unicorn with a multicolor horn and a yellow star marking.",
     "spriteVersionNumber": 1
+  },
+  {
+    "slug": "takamatsu-tomori--a1wace-dev",
+    "name": "Takamatsu Tomori",
+    "localized_names": { "en": "Takamatsu Tomori", "zh": "高松灯" },
+    "author": "A1w",
+    "author_handle": "A1wace-dev",
+    "primary_category": "Anime Characters",
+    "canonical_key": "fictional/bang-dream/takamatsu-tomori",
+    "variant_note": "Independent soft-pixel v2 adaptation by A1w, based on Tomori's blue-gray layered stage outfit, restrained body language, and a screen-left-facing jump loop.",
+    "collections": [],
+    "license": "Non-commercial use only. AI-assisted fan-art Codex pet adaptation by A1w; no official affiliation or commercial use permitted.",
+    "description": "A soft-pixel chibi pet inspired by Takamatsu Tomori, with her charcoal bob, crossed hairpins, blue-gray layered outfit, and quiet but readable task reactions.",
+    "spriteVersionNumber": 2
   },
   {
     "slug": "tangdouren--carl312",
