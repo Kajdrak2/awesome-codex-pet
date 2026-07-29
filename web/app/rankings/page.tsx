@@ -9,7 +9,7 @@ import { siteConfig } from "@/lib/site";
 
 const title = "Codex pet rankings / Codex 宠物排行榜";
 const description =
-  "Weekly and all-time Codex pet, creator, and collection rankings with privacy-conscious voting. 查看热门 Codex 宠物、贡献者、系列与每周投票。";
+  "Weekly and all-time Codex pet, creator, and collection rankings based on installs and likes. 查看按安装与点赞形成的热门 Codex 宠物、贡献者和系列榜单。";
 
 export const metadata: Metadata = {
   title,
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     "Codex pet collections ranking",
     "Codex pet weekly ranking",
     "Codex pet all-time ranking",
-    "Codex pet vote",
+    "most liked Codex pets",
     "community pet leaderboard",
     "Codex 宠物排行榜",
     "热门 Codex 宠物",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     "Codex 宠物作者排行",
     "Codex 宠物贡献者",
     "Codex 宠物系列排行",
-    "Codex 宠物投票",
+    "Codex 宠物点赞",
     "社区宠物排行榜",
   ]),
   openGraph: {

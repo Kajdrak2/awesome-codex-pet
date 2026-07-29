@@ -13,6 +13,7 @@
     "install:pet": "node scripts/install-pet.mjs",
     "lint": "prettier --check \"**/*.{md,json}\"",
     "previews": "python3 scripts/generate-pet-previews.py",
+    "requests": "node scripts/generate-request-catalog.mjs",
     "readmes": "node scripts/generate-readmes.mjs",
     "star-history": "node scripts/generate-star-history.mjs",
     "test:duplicates": "node --test scripts/test/pet-duplicates.test.mjs",

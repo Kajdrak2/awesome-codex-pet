@@ -3,12 +3,14 @@ import type { MetadataRoute } from "next";
 import { getAllPets } from "@/lib/pets";
 import { getCollectionSlugs } from "@/lib/collection-catalog";
 import { getContributorSlugs } from "@/lib/leaderboards";
+import { getAllRequests } from "@/lib/request-catalog";
 import { siteConfig } from "@/lib/site";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const pets = getAllPets();
+  const requests = getAllRequests();
   const staticEntries: MetadataRoute.Sitemap = [
     {
       url: `${siteConfig.url}/collections`,
@@ -46,6 +48,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${siteConfig.url}/requests`,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
       url: `${siteConfig.url}/zh/request`,
       changeFrequency: "weekly",
       priority: 0.9,
@@ -71,10 +78,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "weekly" as const,
     priority: 0.65,
   }));
+  const requestEntries = requests.map((request) => ({
+    url: `${siteConfig.url}/requests/${request.number}`,
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
+  }));
   return [
     ...staticEntries,
     ...collectionEntries,
     ...contributorEntries,
+    ...requestEntries,
     ...petEntries,
   ];
 }

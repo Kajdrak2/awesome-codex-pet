@@ -1,19 +1,17 @@
 /**
  * Awesome Codex Pet stats Worker.
  *
- * D1 is the source of truth for explicit install and like actions. Public
- * reads use a static snapshot exported during the website deployment.
+ * D1 is the source of truth for explicit install, like, and creator follow
+ * actions. Public reads use a static snapshot exported during deploy.
  */
 
 const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*--[a-z0-9]+(-[a-z0-9]+)*$/;
-const COLLECTION_SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const CREATOR_SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const EVENT_ID_RE = /^[A-Za-z0-9._:-]{8,128}$/;
-const VOTE_KINDS = new Set(["pet", "collection"]);
 const INSTALL_RATE_LIMIT = 30;
-const VOTE_RATE_LIMIT = 60;
+const CREATOR_FOLLOW_RATE_LIMIT = 60;
+const REQUEST_SUPPORT_RATE_LIMIT = 60;
 const RECEIPT_TTL_MS = 8 * 24 * 60 * 60 * 1000;
-const VOTE_RETENTION_MS = 13 * 7 * 24 * 60 * 60 * 1000;
-const VOTE_CHANGE_COOLDOWN_MS = 2_000;
 
 class HttpError extends Error {
   constructor(status, message, options) {
@@ -38,7 +36,7 @@ export function isOriginAllowed(request, env) {
 function corsHeaders(request, env) {
   const origin = request.headers.get("Origin");
   const headers = {
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Methods": "POST, DELETE, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, X-Event-ID",
     "Access-Control-Max-Age": "86400",
     Vary: "Origin",
@@ -70,24 +68,6 @@ function jsonResponse(
 
 function utcDay(timestamp) {
   return new Date(timestamp).toISOString().slice(0, 10);
-}
-
-export function utcWeekStart(timestamp) {
-  const date = new Date(timestamp);
-  const daysSinceMonday = (date.getUTCDay() + 6) % 7;
-  date.setUTCDate(date.getUTCDate() - daysSinceMonday);
-  date.setUTCHours(0, 0, 0, 0);
-  return date.toISOString().slice(0, 10);
-}
-
-function votePeriod(timestamp) {
-  const id = utcWeekStart(timestamp);
-  const startsAt = Date.parse(`${id}T00:00:00.000Z`);
-  return {
-    id,
-    startsAt,
-    endsAt: startsAt + 7 * 24 * 60 * 60 * 1000,
-  };
 }
 
 function hourBucket(timestamp) {
@@ -154,40 +134,56 @@ export async function buildLikeKey(request, env, slug) {
   return sha256(`${env.HASH_SALT}|like|${slug}|${clientAddress(request)}`);
 }
 
-export async function buildVoteKey(request, env, kind, weekStart) {
+export async function buildCreatorFollowKey(request, env, slug) {
   if (!env.HASH_SALT || env.HASH_SALT.length < 16) {
     throw new HttpError(500, "metric hashing is not configured");
   }
-  if (!VOTE_KINDS.has(kind)) {
-    throw new HttpError(400, "invalid vote kind");
-  }
   return sha256(
-    `${env.HASH_SALT}|vote|${weekStart}|${kind}|${clientAddress(request)}`,
+    `${env.HASH_SALT}|creator-follow|${slug}|${clientAddress(request)}`,
   );
 }
 
-export async function buildVoteRateKey(request, env, kind, timestamp) {
+export async function buildCreatorFollowRateKey(request, env, timestamp) {
   if (!env.HASH_SALT || env.HASH_SALT.length < 16) {
     throw new HttpError(500, "metric hashing is not configured");
-  }
-  if (!VOTE_KINDS.has(kind)) {
-    throw new HttpError(400, "invalid vote kind");
   }
   const bucket = hourBucket(timestamp);
   return {
     key: await sha256(
-      `${env.HASH_SALT}|rate|vote|${kind}|${clientAddress(request)}|${bucket}`,
+      `${env.HASH_SALT}|rate|creator-follow|${clientAddress(request)}|${bucket}`,
     ),
     bucket,
   };
 }
 
-export function computeTrendingScore(installs7d, weeklyVotes = 0) {
+export async function buildRequestSupportKey(request, env, issueNumber) {
+  if (!env.HASH_SALT || env.HASH_SALT.length < 16) {
+    throw new HttpError(500, "metric hashing is not configured");
+  }
+  return sha256(
+    `${env.HASH_SALT}|request-support|${issueNumber}|${clientAddress(request)}`,
+  );
+}
+
+export async function buildRequestSupportRateKey(request, env, timestamp) {
+  if (!env.HASH_SALT || env.HASH_SALT.length < 16) {
+    throw new HttpError(500, "metric hashing is not configured");
+  }
+  const bucket = hourBucket(timestamp);
+  return {
+    key: await sha256(
+      `${env.HASH_SALT}|rate|request-support|${clientAddress(request)}|${bucket}`,
+    ),
+    bucket,
+  };
+}
+
+export function computeTrendingScore(installs7d, likes7d = 0) {
   const installs = Math.max(0, Number(installs7d) || 0);
-  const votes = Math.max(0, Number(weeklyVotes) || 0);
-  if (installs === 0 && votes === 0) return 0;
+  const likes = Math.max(0, Number(likes7d) || 0);
+  if (installs === 0 && likes === 0) return 0;
   return Math.round(
-    (Math.log1p(installs) * 0.7 + Math.log1p(votes) * 0.3) * 1_000_000,
+    (Math.log1p(installs) * 0.7 + Math.log1p(likes) * 0.3) * 1_000_000,
   );
 }
 
@@ -204,37 +200,47 @@ function stableDailyRank(slug, day) {
 export function serializeStatsRows(
   rows,
   timestamp = Date.now(),
-  collectionRows = [],
+  creatorRows = [],
+  requestRows = [],
 ) {
   const day = utcDay(timestamp);
   const pets = {};
 
   for (const row of rows) {
     const installs7d = Number(row.installs_7d) || 0;
-    const weeklyVotes = Number(row.weekly_votes) || 0;
+    const likes7d = Number(row.likes_7d) || 0;
     pets[row.slug] = {
       installs: Number(row.installs) || 0,
       likes: Number(row.likes) || 0,
       installs7d,
-      weeklyVotes,
-      trendingScore: computeTrendingScore(installs7d, weeklyVotes),
+      likes7d,
+      trendingScore: computeTrendingScore(installs7d, likes7d),
       dailyRank: stableDailyRank(row.slug, day),
       updatedAt: Number(row.updated_at) || 0,
     };
   }
-  const collections = Object.fromEntries(
-    collectionRows.map((row) => [
+  const creators = Object.fromEntries(
+    creatorRows.map((row) => [
       row.slug,
-      { weeklyVotes: Number(row.weekly_votes) || 0 },
+      { followers: Number(row.followers) || 0 },
+    ]),
+  );
+  const requests = Object.fromEntries(
+    requestRows.map((row) => [
+      String(row.issue_number),
+      {
+        supporters: Number(row.supporters) || 0,
+        updatedAt: Number(row.updated_at) || 0,
+      },
     ]),
   );
 
   return {
     pets,
-    collections,
+    creators,
+    requests,
     generatedAt: timestamp,
     windowDays: 7,
-    votePeriod: votePeriod(timestamp),
   };
 }
 
@@ -349,123 +355,152 @@ async function trackLike(request, env, slug) {
   );
 }
 
-function validateVoteTarget(kind, slug) {
-  if (!VOTE_KINDS.has(kind)) {
-    throw new HttpError(400, "invalid vote kind");
-  }
-  const pattern = kind === "pet" ? SLUG_RE : COLLECTION_SLUG_RE;
-  if (!pattern.test(slug)) {
-    throw new HttpError(400, "invalid vote target");
-  }
-}
-
-async function countWeeklyVotes(env, weekStart, kind, slug) {
-  const row = await env.DB.prepare(
-    `SELECT COUNT(*) AS votes
-     FROM weekly_votes
-     WHERE week_start = ? AND target_kind = ? AND target_slug = ?`,
+async function readCreatorStats(env, slug) {
+  return env.DB.prepare(
+    `SELECT slug, followers, updated_at
+     FROM creator_stats
+     WHERE slug = ? AND active = 1`,
   )
-    .bind(weekStart, kind, slug)
+    .bind(slug)
     .first();
-  return Number(row?.votes) || 0;
 }
 
-async function trackVote(request, env, kind, slug) {
-  validateVoteTarget(kind, slug);
+async function trackCreatorFollow(request, env, slug, following) {
+  if (!CREATOR_SLUG_RE.test(slug)) {
+    throw new HttpError(400, "invalid creator slug");
+  }
   if (!isOriginAllowed(request, env)) {
     throw new HttpError(403, "origin not allowed");
   }
 
+  const existing = await readCreatorStats(env, slug);
+  if (!existing) {
+    throw new HttpError(404, "creator not found");
+  }
+
   const timestamp = Date.now();
-  const rate = await buildVoteRateKey(request, env, kind, timestamp);
+  const rate = await buildCreatorFollowRateKey(request, env, timestamp);
   const rateResult = await env.DB.prepare(
-    `INSERT INTO vote_rate_limits
-       (rate_key, target_kind, bucket_start, event_count, expires_at)
-     VALUES (?, ?, ?, 1, ?)
+    `INSERT INTO creator_follow_rate_limits
+       (rate_key, bucket_start, event_count, expires_at)
+     VALUES (?, ?, 1, ?)
      ON CONFLICT(rate_key) DO UPDATE SET
-       event_count = vote_rate_limits.event_count + 1,
+       event_count = creator_follow_rate_limits.event_count + 1,
        expires_at = excluded.expires_at
      RETURNING event_count`,
   )
-    .bind(
-      rate.key,
-      kind,
-      rate.bucket,
-      timestamp + 2 * 60 * 60 * 1000,
-    )
+    .bind(rate.key, rate.bucket, timestamp + 2 * 60 * 60 * 1000)
     .first();
-  if ((Number(rateResult?.event_count) || 0) > VOTE_RATE_LIMIT) {
+  if ((Number(rateResult?.event_count) || 0) > CREATOR_FOLLOW_RATE_LIMIT) {
     throw new HttpError(429, "rate limit exceeded");
   }
 
-  const target = await env.DB.prepare(
-    `SELECT slug
-     FROM vote_targets
-     WHERE kind = ? AND slug = ? AND active = 1`,
-  )
-    .bind(kind, slug)
-    .first();
-  if (!target) {
-    throw new HttpError(404, "vote target not found");
-  }
-
-  const period = votePeriod(timestamp);
-  const visitorHash = await buildVoteKey(request, env, kind, period.id);
-  const previous = await env.DB.prepare(
-    `SELECT target_slug, updated_at
-     FROM weekly_votes
-     WHERE week_start = ? AND target_kind = ? AND visitor_hash = ?`,
-  )
-    .bind(period.id, kind, visitorHash)
-    .first();
-  const previousSlug = previous?.target_slug || null;
-
-  if (
-    previousSlug &&
-    previousSlug !== slug &&
-    timestamp - (Number(previous.updated_at) || 0) < VOTE_CHANGE_COOLDOWN_MS
-  ) {
-    throw new HttpError(429, "vote changed too quickly");
-  }
-
-  if (previousSlug !== slug) {
-    await env.DB.prepare(
-      `INSERT INTO weekly_votes
-         (week_start, target_kind, visitor_hash, target_slug, created_at, updated_at, expires_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?)
-       ON CONFLICT(week_start, target_kind, visitor_hash) DO UPDATE SET
-         target_slug = excluded.target_slug,
-         updated_at = excluded.updated_at,
-         expires_at = excluded.expires_at`,
-    )
-      .bind(
-        period.id,
-        kind,
-        visitorHash,
-        slug,
-        timestamp,
-        timestamp,
-        period.startsAt + VOTE_RETENTION_MS,
+  const visitorHash = await buildCreatorFollowKey(request, env, slug);
+  const result = following
+    ? await env.DB.prepare(
+        `INSERT OR IGNORE INTO creator_follows
+           (slug, visitor_hash, created_at)
+         VALUES (?, ?, ?)`,
       )
-      .run();
-  }
-
-  const votes = await countWeeklyVotes(env, period.id, kind, slug);
-  const previousVotes =
-    previousSlug && previousSlug !== slug
-      ? await countWeeklyVotes(env, period.id, kind, previousSlug)
-      : null;
+        .bind(slug, visitorHash, timestamp)
+        .run()
+    : await env.DB.prepare(
+        `DELETE FROM creator_follows
+         WHERE slug = ? AND visitor_hash = ?`,
+      )
+        .bind(slug, visitorHash)
+        .run();
+  const changed = (Number(result.meta?.changes) || 0) > 0;
+  const current = await readCreatorStats(env, slug);
 
   return jsonResponse(
     {
-      kind,
       slug,
-      week: period.id,
-      votes,
-      voted: true,
-      counted: previousSlug !== slug,
-      previousSlug,
-      previousVotes,
+      followers: Number(current?.followers) || 0,
+      following,
+      changed,
+    },
+    request,
+    env,
+  );
+}
+
+function parseIssueNumber(value) {
+  const issueNumber = Number(value);
+  return Number.isSafeInteger(issueNumber) && issueNumber > 0
+    ? issueNumber
+    : null;
+}
+
+async function readRequestStats(env, issueNumber) {
+  return env.DB.prepare(
+    `SELECT issue_number, supporters, updated_at
+     FROM request_stats
+     WHERE issue_number = ? AND active = 1`,
+  )
+    .bind(issueNumber)
+    .first();
+}
+
+async function trackRequestSupport(request, env, rawIssueNumber, supporting) {
+  const issueNumber = parseIssueNumber(rawIssueNumber);
+  if (!issueNumber) {
+    throw new HttpError(400, "invalid request number");
+  }
+  if (!isOriginAllowed(request, env)) {
+    throw new HttpError(403, "origin not allowed");
+  }
+
+  const existing = await readRequestStats(env, issueNumber);
+  if (!existing) {
+    throw new HttpError(404, "request not found");
+  }
+
+  const timestamp = Date.now();
+  const rate = await buildRequestSupportRateKey(request, env, timestamp);
+  const rateResult = await env.DB.prepare(
+    `INSERT INTO request_support_rate_limits
+       (rate_key, bucket_start, event_count, expires_at)
+     VALUES (?, ?, 1, ?)
+     ON CONFLICT(rate_key) DO UPDATE SET
+       event_count = request_support_rate_limits.event_count + 1,
+       expires_at = excluded.expires_at
+     RETURNING event_count`,
+  )
+    .bind(rate.key, rate.bucket, timestamp + 2 * 60 * 60 * 1000)
+    .first();
+  if ((Number(rateResult?.event_count) || 0) > REQUEST_SUPPORT_RATE_LIMIT) {
+    throw new HttpError(429, "rate limit exceeded");
+  }
+
+  const visitorHash = await buildRequestSupportKey(
+    request,
+    env,
+    issueNumber,
+  );
+  const result = supporting
+    ? await env.DB.prepare(
+        `INSERT OR IGNORE INTO request_supports
+           (issue_number, visitor_hash, created_at)
+         VALUES (?, ?, ?)`,
+      )
+        .bind(issueNumber, visitorHash, timestamp)
+        .run()
+    : await env.DB.prepare(
+        `DELETE FROM request_supports
+         WHERE issue_number = ? AND visitor_hash = ?`,
+      )
+        .bind(issueNumber, visitorHash)
+        .run();
+  const changed = (Number(result.meta?.changes) || 0) > 0;
+  const current = await readRequestStats(env, issueNumber);
+
+  return jsonResponse(
+    {
+      number: issueNumber,
+      supporters: Number(current?.supporters) || 0,
+      supporting,
+      changed,
     },
     request,
     env,
@@ -497,12 +532,27 @@ async function routeRequest(request, env) {
     return trackLike(request, env, url.searchParams.get("slug") || "");
   }
 
-  if (url.pathname === "/track/vote" && request.method === "POST") {
-    return trackVote(
+  if (
+    url.pathname === "/track/creator-follow" &&
+    (request.method === "POST" || request.method === "DELETE")
+  ) {
+    return trackCreatorFollow(
       request,
       env,
-      url.searchParams.get("kind") || "",
       url.searchParams.get("slug") || "",
+      request.method === "POST",
+    );
+  }
+
+  if (
+    url.pathname === "/track/request-support" &&
+    (request.method === "POST" || request.method === "DELETE")
+  ) {
+    return trackRequestSupport(
+      request,
+      env,
+      url.searchParams.get("number") || "",
+      request.method === "POST",
     );
   }
 
@@ -518,12 +568,12 @@ async function cleanupMetrics(env) {
     env.DB.prepare("DELETE FROM metric_rate_limits WHERE expires_at < ?").bind(
       timestamp,
     ),
-    env.DB.prepare("DELETE FROM weekly_votes WHERE expires_at < ?").bind(
-      timestamp,
-    ),
-    env.DB.prepare("DELETE FROM vote_rate_limits WHERE expires_at < ?").bind(
-      timestamp,
-    ),
+    env.DB.prepare(
+      "DELETE FROM creator_follow_rate_limits WHERE expires_at < ?",
+    ).bind(timestamp),
+    env.DB.prepare(
+      "DELETE FROM request_support_rate_limits WHERE expires_at < ?",
+    ).bind(timestamp),
   ]);
 }
 

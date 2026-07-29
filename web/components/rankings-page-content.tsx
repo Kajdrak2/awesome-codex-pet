@@ -10,6 +10,7 @@ import {
 } from "react";
 
 import { useLocale } from "@/components/locale-provider";
+import { PetLikeButton } from "@/components/pet-like-button";
 import { getLocalizedPetName } from "@/lib/codex-links";
 import type {
   LeaderboardData,
@@ -19,11 +20,6 @@ import type {
   RankingWindow,
 } from "@/lib/leaderboards";
 import type { GalleryPet } from "@/lib/pets";
-import {
-  getWeeklyVote,
-  voteForTarget,
-  type VoteKind,
-} from "@/lib/stats";
 
 type RankingTab = "pets" | "contributors" | "collections";
 
@@ -38,9 +34,12 @@ function formatCount(value: number) {
 }
 
 function rankClass(rank: number) {
-  if (rank === 1) return "border-amber-400/50 bg-amber-400/5 text-amber-700 dark:text-amber-300";
-  if (rank === 2) return "border-zinc-400/50 bg-zinc-400/5 text-zinc-600 dark:text-zinc-300";
-  if (rank === 3) return "border-orange-500/40 bg-orange-500/5 text-orange-700 dark:text-orange-300";
+  if (rank === 1)
+    return "border-amber-400/50 bg-amber-400/5 text-amber-700 dark:text-amber-300";
+  if (rank === 2)
+    return "border-zinc-400/50 bg-zinc-400/5 text-zinc-600 dark:text-zinc-300";
+  if (rank === 3)
+    return "border-orange-500/40 bg-orange-500/5 text-orange-700 dark:text-orange-300";
   return "border-border bg-bg-elevated text-muted";
 }
 
@@ -52,13 +51,7 @@ function sortRanked<T extends { weeklyScore: number; allScore: number }>(
   return [...entries].sort((a, b) => b[key] - a[key]);
 }
 
-function Metric({
-  label,
-  value,
-}: {
-  label: string;
-  value: number;
-}) {
+function Metric({ label, value }: { label: string; value: number }) {
   return (
     <div className="min-w-14 text-left sm:min-w-16 sm:text-right">
       <div className="font-mono text-sm font-semibold tabular-nums text-text">
@@ -185,88 +178,11 @@ function PetRankingPreview({
   );
 }
 
-function VoteButton({
-  active,
-  disabled,
-  label,
-  onClick,
-}: {
-  active: boolean;
-  disabled: boolean;
-  label: string;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      aria-pressed={active}
-      className={`inline-flex h-9 min-w-20 items-center justify-center gap-1.5 rounded-md border px-3 text-xs font-semibold transition-colors ${
-        active
-          ? "border-accent bg-accent text-white"
-          : "border-border bg-bg text-text hover:border-accent hover:text-accent"
-      } disabled:cursor-wait disabled:opacity-60`}
-      disabled={disabled || active}
-      onClick={onClick}
-      type="button"
-    >
-      <svg
-        aria-hidden="true"
-        className="size-3.5"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        viewBox="0 0 24 24"
-      >
-        {active ? (
-          <path d="m5 12 4 4L19 6" />
-        ) : (
-          <path d="M12 20V4m0 0L6 10m6-6 6 6" />
-        )}
-      </svg>
-      {label}
-    </button>
-  );
-}
-
-export function RankingsPageContent({
-  data,
-}: {
-  data: LeaderboardData;
-}) {
+export function RankingsPageContent({ data }: { data: LeaderboardData }) {
   const { locale, t } = useLocale();
   const [tab, setTab] = useState<RankingTab>("pets");
-  const [rankingWindow, setRankingWindow] =
-    useState<RankingWindow>("weekly");
-  const [selectedVotes, setSelectedVotes] = useState<
-    Record<VoteKind, string | null>
-  >({
-    pet: null,
-    collection: null,
-  });
-  const [pendingVote, setPendingVote] = useState<string | null>(null);
-  const [voteError, setVoteError] = useState(false);
+  const [rankingWindow, setRankingWindow] = useState<RankingWindow>("weekly");
   const [motionAllowed, setMotionAllowed] = useState(false);
-  const [petVotes, setPetVotes] = useState(() =>
-    Object.fromEntries(
-      data.pets.map((entry) => [entry.pet.slug, entry.stats.weeklyVotes]),
-    ),
-  );
-  const [collectionVotes, setCollectionVotes] = useState(() =>
-    Object.fromEntries(
-      data.collections.map((entry) => [
-        entry.collection.slug,
-        entry.weeklyVotes,
-      ]),
-    ),
-  );
-
-  useEffect(() => {
-    setSelectedVotes({
-      pet: getWeeklyVote(data.votePeriod.id, "pet"),
-      collection: getWeeklyVote(data.votePeriod.id, "collection"),
-    });
-  }, [data.votePeriod.id]);
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -290,8 +206,8 @@ export function RankingsPageContent({
   );
   const hasWeeklyActivity =
     data.pets.some(
-      (entry) => entry.stats.installs7d > 0 || entry.stats.weeklyVotes > 0,
-    ) || data.collections.some((entry) => entry.weeklyVotes > 0);
+      (entry) => entry.stats.installs7d > 0 || entry.stats.likes7d > 0,
+    );
   const tabs: Array<{ value: RankingTab; label: string }> = [
     { value: "pets", label: t("rankingPets") },
     { value: "contributors", label: t("rankingContributors") },
@@ -318,36 +234,6 @@ export function RankingsPageContent({
       [nextIndex]?.focus();
   }
 
-  async function castVote(kind: VoteKind, slug: string) {
-    setVoteError(false);
-    setPendingVote(`${kind}:${slug}`);
-    try {
-      const result = await voteForTarget(
-        kind,
-        slug,
-        data.votePeriod.id,
-      );
-      const update =
-        kind === "pet" ? setPetVotes : setCollectionVotes;
-      update((current) => {
-        const next = { ...current, [slug]: result.votes };
-        if (result.previousSlug && result.previousVotes !== null) {
-          next[result.previousSlug] = result.previousVotes;
-        }
-        return next;
-      });
-      setSelectedVotes((current) => ({ ...current, [kind]: slug }));
-    } catch (error: unknown) {
-      console.warn(
-        "Unable to save weekly vote",
-        error instanceof Error ? error.stack : String(error),
-      );
-      setVoteError(true);
-    } finally {
-      setPendingVote(null);
-    }
-  }
-
   const dateFormatter = new Intl.DateTimeFormat(
     locale === "zh" ? "zh-CN" : "en-US",
     { month: "short", day: "numeric", timeZone: "UTC" },
@@ -355,7 +241,6 @@ export function RankingsPageContent({
   const snapshotLabel = data.generatedAt
     ? dateFormatter.format(data.generatedAt)
     : "—";
-  const voteEndLabel = dateFormatter.format(data.votePeriod.endsAt);
 
   return (
     <main className="mx-auto max-w-[1200px] px-4 pb-24 pt-12 sm:px-6 sm:pt-16">
@@ -383,10 +268,10 @@ export function RankingsPageContent({
             </div>
             <div className="px-4 py-3">
               <dt className="text-[10px] uppercase text-muted">
-                {t("rankingWeeklyVote")}
+                {t("rankingRefresh")}
               </dt>
               <dd className="mt-1 text-sm font-medium text-text">
-                {voteEndLabel}
+                {t("rankingRefreshOnDeploy")}
               </dd>
             </div>
           </dl>
@@ -449,11 +334,6 @@ export function RankingsPageContent({
           {t("rankingNoActivity")}
         </p>
       ) : null}
-      {voteError ? (
-        <p className="border-b border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950/20 dark:text-red-300">
-          {t("rankingVoteFailed")}
-        </p>
-      ) : null}
 
       <section
         aria-labelledby="rankings-tab-pets"
@@ -467,11 +347,7 @@ export function RankingsPageContent({
             entries={rankedPets}
             locale={locale}
             motionAllowed={motionAllowed}
-            pendingVote={pendingVote}
-            selectedVote={selectedVotes.pet}
-            showVote={rankingWindow === "weekly"}
-            votes={petVotes}
-            onVote={(slug) => void castVote("pet", slug)}
+            rankingWindow={rankingWindow}
           />
         ) : null}
       </section>
@@ -502,20 +378,13 @@ export function RankingsPageContent({
             entries={rankedCollections}
             locale={locale}
             motionAllowed={motionAllowed}
-            pendingVote={pendingVote}
-            selectedVote={selectedVotes.collection}
-            showVote={rankingWindow === "weekly"}
-            votes={collectionVotes}
-            onVote={(slug) => void castVote("collection", slug)}
+            rankingWindow={rankingWindow}
           />
         ) : null}
       </section>
 
       <aside className="mt-10 border-y border-border py-5 text-sm leading-relaxed text-muted">
         {t("rankingFairness")}
-        <span className="ml-2 text-text-secondary">
-          {t("rankingEnds", { date: voteEndLabel })}
-        </span>
       </aside>
     </main>
   );
@@ -525,20 +394,12 @@ function PetRanking({
   entries,
   locale,
   motionAllowed,
-  pendingVote,
-  selectedVote,
-  showVote,
-  votes,
-  onVote,
+  rankingWindow,
 }: {
   entries: RankedPet[];
   locale: "en" | "zh";
   motionAllowed: boolean;
-  pendingVote: string | null;
-  selectedVote: string | null;
-  showVote: boolean;
-  votes: Record<string, number>;
-  onVote: (slug: string) => void;
+  rankingWindow: RankingWindow;
 }) {
   const { t } = useLocale();
   return (
@@ -579,31 +440,26 @@ function PetRanking({
             <div className="col-span-2 col-start-2 mt-1 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border/60 pt-3 sm:col-span-1 sm:col-start-4 sm:mt-0 sm:flex-nowrap sm:justify-end sm:border-0 sm:pt-0">
               <Metric
                 label={t(
-                  showVote ? "rankingInstalls7d" : "rankingTotalInstalls",
+                  rankingWindow === "weekly"
+                    ? "rankingInstalls7d"
+                    : "rankingTotalInstalls",
                 )}
                 value={
-                  showVote ? entry.stats.installs7d : entry.stats.installs
+                  rankingWindow === "weekly"
+                    ? entry.stats.installs7d
+                    : entry.stats.installs
                 }
               />
-              <Metric label={t("rankingLikes")} value={entry.stats.likes} />
-              {showVote ? (
-                <>
-                  <Metric
-                    label={t("rankingVotes")}
-                    value={votes[entry.pet.slug] ?? 0}
-                  />
-                  <VoteButton
-                    active={selectedVote === entry.pet.slug}
-                    disabled={pendingVote !== null}
-                    label={t(
-                      selectedVote === entry.pet.slug
-                        ? "rankingVoted"
-                        : "rankingVote",
-                    )}
-                    onClick={() => onVote(entry.pet.slug)}
-                  />
-                </>
+              {rankingWindow === "weekly" ? (
+                <Metric
+                  label={t("rankingLikes7d")}
+                  value={entry.stats.likes7d}
+                />
               ) : null}
+              <PetLikeButton
+                initialLikes={entry.stats.likes}
+                slug={entry.pet.slug}
+              />
             </div>
           </li>
         );
@@ -651,7 +507,8 @@ function ContributorRanking({
                 {entry.name}
               </Link>
               <p className="mt-1 truncate text-xs text-muted">
-                @{entry.handle} · {t("rankingPetCount", { count: entry.petCount })}
+                @{entry.handle} ·{" "}
+                {t("rankingPetCount", { count: entry.petCount })}
               </p>
             </div>
             <div className="col-span-2 col-start-2 mt-1 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border/60 pt-3 sm:col-span-1 sm:col-start-4 sm:mt-0 sm:flex-nowrap sm:justify-end sm:border-0 sm:pt-0">
@@ -662,23 +519,24 @@ function ContributorRanking({
                     : "rankingTotalInstalls",
                 )}
                 value={
-                  rankingWindow === "weekly"
-                    ? entry.installs7d
-                    : entry.installs
+                  rankingWindow === "weekly" ? entry.installs7d : entry.installs
                 }
               />
-              <Metric label={t("rankingLikes")} value={entry.likes} />
               <Metric
                 label={t(
                   rankingWindow === "weekly"
-                    ? "rankingVotes"
-                    : "rankingPetMetric",
+                    ? "rankingLikes7d"
+                    : "rankingLikes",
                 )}
                 value={
                   rankingWindow === "weekly"
-                    ? entry.weeklyVotes
-                    : entry.petCount
+                    ? entry.likes7d
+                    : entry.likes
                 }
+              />
+              <Metric
+                label={t("rankingFollowers")}
+                value={entry.followers}
               />
             </div>
           </li>
@@ -692,20 +550,12 @@ function CollectionRanking({
   entries,
   locale,
   motionAllowed,
-  pendingVote,
-  selectedVote,
-  showVote,
-  votes,
-  onVote,
+  rankingWindow,
 }: {
   entries: RankedCollection[];
   locale: "en" | "zh";
   motionAllowed: boolean;
-  pendingVote: string | null;
-  selectedVote: string | null;
-  showVote: boolean;
-  votes: Record<string, number>;
-  onVote: (slug: string) => void;
+  rankingWindow: RankingWindow;
 }) {
   const { t } = useLocale();
   return (
@@ -749,34 +599,30 @@ function CollectionRanking({
             <div className="col-span-2 col-start-2 mt-1 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border/60 pt-3 sm:col-span-1 sm:col-start-4 sm:mt-0 sm:flex-nowrap sm:justify-end sm:border-0 sm:pt-0">
               <Metric
                 label={t(
-                  showVote ? "rankingInstalls7d" : "rankingTotalInstalls",
+                  rankingWindow === "weekly"
+                    ? "rankingInstalls7d"
+                    : "rankingTotalInstalls",
                 )}
-                value={showVote ? entry.installs7d : entry.installs}
+                value={
+                  rankingWindow === "weekly"
+                    ? entry.installs7d
+                    : entry.installs
+                }
               />
-              <Metric label={t("rankingLikes")} value={entry.likes} />
-              {showVote ? (
-                <>
-                  <Metric
-                    label={t("rankingVotes")}
-                    value={votes[collection.slug] ?? 0}
-                  />
-                  <VoteButton
-                    active={selectedVote === collection.slug}
-                    disabled={pendingVote !== null}
-                    label={t(
-                      selectedVote === collection.slug
-                        ? "rankingVoted"
-                        : "rankingVote",
-                    )}
-                    onClick={() => onVote(collection.slug)}
-                  />
-                </>
-              ) : (
-                <Metric
-                  label={t("rankingPetMetric")}
-                  value={collection.petSlugs.length}
-                />
-              )}
+              <Metric
+                label={t(
+                  rankingWindow === "weekly"
+                    ? "rankingLikes7d"
+                    : "rankingLikes",
+                )}
+                value={
+                  rankingWindow === "weekly" ? entry.likes7d : entry.likes
+                }
+              />
+              <Metric
+                label={t("rankingPetMetric")}
+                value={collection.petSlugs.length}
+              />
             </div>
           </li>
         );

@@ -8,16 +8,11 @@ import {
 } from "@/lib/collections";
 import { toGalleryPet, type GalleryPet, type Pet } from "@/lib/pets";
 import type { PetStats } from "@/lib/stats";
-import {
-  normalizeVotePeriod,
-  type VotePeriod,
-} from "@/lib/vote-period";
 
 type RawStatsSnapshot = {
   pets?: Record<string, Partial<PetStats>>;
-  collections?: Record<string, { weeklyVotes?: number }>;
+  creators?: Record<string, { followers?: number }>;
   generatedAt?: number;
-  votePeriod?: Partial<VotePeriod>;
 };
 
 export type RankingWindow = "weekly" | "all";
@@ -39,7 +34,8 @@ export type RankedContributor = {
   installs: number;
   installs7d: number;
   likes: number;
-  weeklyVotes: number;
+  likes7d: number;
+  followers: number;
   weeklyScore: number;
   allScore: number;
 };
@@ -49,7 +45,7 @@ export type RankedCollection = {
   installs: number;
   installs7d: number;
   likes: number;
-  weeklyVotes: number;
+  likes7d: number;
   weeklyScore: number;
   allScore: number;
 };
@@ -59,7 +55,6 @@ export type LeaderboardData = {
   contributors: RankedContributor[];
   collections: RankedCollection[];
   generatedAt: number;
-  votePeriod: VotePeriod;
 };
 
 export type CommunityPulseData = {
@@ -82,7 +77,7 @@ const emptyPetStats = (): PetStats => ({
   installs: 0,
   likes: 0,
   installs7d: 0,
-  weeklyVotes: 0,
+  likes7d: 0,
   trendingScore: 0,
   dailyRank: 0,
   updatedAt: 0,
@@ -107,12 +102,8 @@ function loadStatsSnapshot() {
   const generatedAt = nonNegative(snapshot.generatedAt);
   return {
     pets: snapshot.pets ?? {},
-    collections: snapshot.collections ?? {},
+    creators: snapshot.creators ?? {},
     generatedAt,
-    votePeriod: normalizeVotePeriod(
-      snapshot.votePeriod,
-      generatedAt || Date.now(),
-    ),
   };
 }
 
@@ -132,7 +123,7 @@ function petStats(
     installs: nonNegative(raw.installs),
     likes: nonNegative(raw.likes),
     installs7d: nonNegative(raw.installs7d),
-    weeklyVotes: nonNegative(raw.weeklyVotes),
+    likes7d: nonNegative(raw.likes7d),
     trendingScore: nonNegative(raw.trendingScore),
     dailyRank: nonNegative(raw.dailyRank),
     updatedAt: nonNegative(raw.updatedAt),
@@ -142,13 +133,9 @@ function petStats(
 function scorePet(stats: PetStats) {
   return {
     weekly:
-      Math.log1p(stats.installs7d) * 55 +
-      Math.log1p(stats.weeklyVotes) * 35 +
-      Math.log1p(stats.likes) * 10,
-    all:
-      Math.log1p(stats.installs) * 55 +
-      Math.log1p(stats.likes) * 30 +
-      Math.log1p(stats.weeklyVotes) * 15,
+      Math.log1p(stats.installs7d) * 65 +
+      Math.log1p(stats.likes7d) * 35,
+    all: Math.log1p(stats.installs) * 60 + Math.log1p(stats.likes) * 40,
   };
 }
 
@@ -156,8 +143,7 @@ function sortByScore<T extends { weeklyScore: number; allScore: number }>(
   entries: T[],
   rankingWindow: RankingWindow,
 ) {
-  const score =
-    rankingWindow === "weekly" ? "weeklyScore" : "allScore";
+  const score = rankingWindow === "weekly" ? "weeklyScore" : "allScore";
   return [...entries].sort((a, b) => b[score] - a[score]);
 }
 
@@ -177,7 +163,10 @@ function buildRankedPets(
   });
 }
 
-function buildContributors(rankedPets: RankedPet[]) {
+function buildContributors(
+  rankedPets: RankedPet[],
+  snapshot: ReturnType<typeof readStatsSnapshot>,
+) {
   const groups = new Map<string, RankedPet[]>();
   for (const pet of rankedPets) {
     const entries = groups.get(pet.pet.author_slug) ?? [];
@@ -193,6 +182,7 @@ function buildContributors(rankedPets: RankedPet[]) {
     const topWeekly = sortByScore(stableEntries, "weekly").slice(0, 3);
     const topAll = sortByScore(stableEntries, "all").slice(0, 3);
     const contributionBonus = Math.sqrt(stableEntries.length) * 8;
+    const followers = nonNegative(snapshot.creators[slug]?.followers);
     return {
       slug,
       name: representative.author,
@@ -212,25 +202,23 @@ function buildContributors(rankedPets: RankedPet[]) {
         (total, entry) => total + entry.stats.likes,
         0,
       ),
-      weeklyVotes: stableEntries.reduce(
-        (total, entry) => total + entry.stats.weeklyVotes,
+      likes7d: stableEntries.reduce(
+        (total, entry) => total + entry.stats.likes7d,
         0,
       ),
+      followers,
       weeklyScore:
         topWeekly.reduce((total, entry) => total + entry.weeklyScore, 0) +
         contributionBonus,
       allScore:
         topAll.reduce((total, entry) => total + entry.allScore, 0) +
-        contributionBonus,
+        contributionBonus +
+        Math.log1p(followers) * 20,
     };
   });
 }
 
-function buildCollections(
-  pets: Pet[],
-  rankedPets: RankedPet[],
-  snapshot: ReturnType<typeof readStatsSnapshot>,
-) {
+function buildCollections(pets: Pet[], rankedPets: RankedPet[]) {
   const rankedBySlug = new Map(
     rankedPets.map((entry) => [entry.pet.slug, entry]),
   );
@@ -240,9 +228,6 @@ function buildCollections(
       .filter((entry): entry is RankedPet => entry !== undefined);
     const topWeekly = sortByScore(entries, "weekly").slice(0, 5);
     const topAll = sortByScore(entries, "all").slice(0, 5);
-    const weeklyVotes = nonNegative(
-      snapshot.collections[collection.slug]?.weeklyVotes,
-    );
     const sizeBonus = Math.sqrt(entries.length) * 4;
     return {
       collection: toCollectionCardData(collection),
@@ -255,16 +240,17 @@ function buildCollections(
         0,
       ),
       likes: entries.reduce((total, entry) => total + entry.stats.likes, 0),
-      weeklyVotes,
+      likes7d: entries.reduce(
+        (total, entry) => total + entry.stats.likes7d,
+        0,
+      ),
       weeklyScore:
-        (topWeekly.reduce((total, entry) => total + entry.weeklyScore, 0) /
-          Math.max(1, topWeekly.length)) +
-        Math.log1p(weeklyVotes) * 25 +
+        topWeekly.reduce((total, entry) => total + entry.weeklyScore, 0) /
+          Math.max(1, topWeekly.length) +
         sizeBonus,
       allScore:
-        (topAll.reduce((total, entry) => total + entry.allScore, 0) /
-          Math.max(1, topAll.length)) +
-        Math.log1p(weeklyVotes) * 10 +
+        topAll.reduce((total, entry) => total + entry.allScore, 0) /
+          Math.max(1, topAll.length) +
         sizeBonus,
     };
   });
@@ -278,10 +264,9 @@ export function getLeaderboardData(pets: Pet[]): LeaderboardData {
   const rankedPets = buildRankedPets(pets, snapshot);
   leaderboardCache = {
     pets: rankedPets,
-    contributors: buildContributors(rankedPets),
-    collections: buildCollections(pets, rankedPets, snapshot),
+    contributors: buildContributors(rankedPets, snapshot),
+    collections: buildCollections(pets, rankedPets),
     generatedAt: snapshot.generatedAt,
-    votePeriod: snapshot.votePeriod,
   };
   return leaderboardCache;
 }

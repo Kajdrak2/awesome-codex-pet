@@ -4,12 +4,13 @@ import test from "node:test";
 import worker, {
   buildInstallKeys,
   buildLikeKey,
-  buildVoteKey,
-  buildVoteRateKey,
+  buildCreatorFollowKey,
+  buildCreatorFollowRateKey,
+  buildRequestSupportKey,
+  buildRequestSupportRateKey,
   computeTrendingScore,
   isOriginAllowed,
   serializeStatsRows,
-  utcWeekStart,
 } from "../src/index.js";
 
 const env = {
@@ -42,7 +43,7 @@ test("origin checks allow scripts and configured browser origins", () => {
   );
 });
 
-test("high-volume public read and view routes stay disabled", async () => {
+test("removed public read, view, and vote routes stay disabled", async () => {
   const routeEnv = { ...env, DB: {} };
   const stats = await worker.fetch(
     new Request("https://api.example/stats"),
@@ -55,9 +56,20 @@ test("high-volume public read and view routes stay disabled", async () => {
     }),
     routeEnv,
   );
+  const vote = await worker.fetch(
+    new Request(
+      "https://api.example/track/vote?kind=pet&slug=firefly--lingxiaotian",
+      {
+        method: "POST",
+        headers: { Origin: "https://codexpet.top" },
+      },
+    ),
+    routeEnv,
+  );
 
   assert.equal(stats.status, 404);
   assert.equal(view.status, 404);
+  assert.equal(vote.status, 404);
 });
 
 test("install receipt IDs are idempotent", async () => {
@@ -123,79 +135,107 @@ test("like keys allow one like per IP and pet", async () => {
   assert.notEqual(first, otherPet);
 });
 
-test("weekly vote keys allow one ballot per IP, kind, and week", async () => {
-  const firstRequest = new Request("https://stats.example/track/vote", {
-    headers: { "CF-Connecting-IP": "203.0.113.4" },
-  });
-  const sameIpRequest = new Request("https://stats.example/track/vote", {
-    headers: {
-      "CF-Connecting-IP": "203.0.113.4",
-      "User-Agent": "another browser",
+test("creator follow keys are scoped by IP and creator", async () => {
+  const firstRequest = new Request(
+    "https://stats.example/track/creator-follow",
+    {
+      headers: { "CF-Connecting-IP": "203.0.113.4" },
     },
-  });
-  const otherIpRequest = new Request("https://stats.example/track/vote", {
-    headers: { "CF-Connecting-IP": "203.0.113.5" },
-  });
-  const week = "2026-07-13";
+  );
+  const sameIpRequest = new Request(
+    "https://stats.example/track/creator-follow",
+    {
+      headers: {
+        "CF-Connecting-IP": "203.0.113.4",
+        "User-Agent": "another browser",
+      },
+    },
+  );
+  const otherIpRequest = new Request(
+    "https://stats.example/track/creator-follow",
+    { headers: { "CF-Connecting-IP": "203.0.113.5" } },
+  );
 
-  const first = await buildVoteKey(firstRequest, env, "pet", week);
-  const sameBallot = await buildVoteKey(sameIpRequest, env, "pet", week);
-  const collectionBallot = await buildVoteKey(
-    firstRequest,
-    env,
-    "collection",
-    week,
-  );
-  const nextWeek = await buildVoteKey(firstRequest, env, "pet", "2026-07-20");
-  const otherIp = await buildVoteKey(otherIpRequest, env, "pet", week);
-  const firstRate = await buildVoteRateKey(
-    firstRequest,
-    env,
-    "pet",
-    Date.UTC(2026, 6, 13, 1),
-  );
-  const sameRate = await buildVoteRateKey(
+  const first = await buildCreatorFollowKey(firstRequest, env, "lingxiaotian");
+  const sameIp = await buildCreatorFollowKey(
     sameIpRequest,
     env,
-    "pet",
-    Date.UTC(2026, 6, 13, 1, 59),
+    "lingxiaotian",
   );
-  const otherIpRate = await buildVoteRateKey(
+  const otherIp = await buildCreatorFollowKey(
     otherIpRequest,
     env,
-    "pet",
-    Date.UTC(2026, 6, 13, 1),
+    "lingxiaotian",
   );
-  const collectionRate = await buildVoteRateKey(
+  const otherCreator = await buildCreatorFollowKey(
     firstRequest,
     env,
-    "collection",
-    Date.UTC(2026, 6, 13, 1),
+    "chenxin-dlut",
   );
-  const nextHourRate = await buildVoteRateKey(
+  const firstRate = await buildCreatorFollowRateKey(
     firstRequest,
     env,
-    "pet",
+    Date.UTC(2026, 6, 13, 1),
+  );
+  const sameRate = await buildCreatorFollowRateKey(
+    sameIpRequest,
+    env,
+    Date.UTC(2026, 6, 13, 1, 59),
+  );
+  const nextHourRate = await buildCreatorFollowRateKey(
+    firstRequest,
+    env,
     Date.UTC(2026, 6, 13, 2),
   );
 
-  assert.equal(first, sameBallot);
+  assert.equal(first, sameIp);
   assert.notEqual(first, otherIp);
-  assert.notEqual(first, collectionBallot);
-  assert.notEqual(first, nextWeek);
+  assert.notEqual(first, otherCreator);
   assert.equal(firstRate.key, sameRate.key);
-  assert.notEqual(firstRate.key, otherIpRate.key);
-  assert.notEqual(firstRate.key, collectionRate.key);
   assert.notEqual(firstRate.key, nextHourRate.key);
 });
 
-test("UTC vote periods start on Monday", () => {
-  assert.equal(utcWeekStart(Date.UTC(2026, 6, 13, 0)), "2026-07-13");
-  assert.equal(utcWeekStart(Date.UTC(2026, 6, 19, 23, 59)), "2026-07-13");
-  assert.equal(utcWeekStart(Date.UTC(2026, 6, 20, 0)), "2026-07-20");
+test("request support keys are scoped by IP and issue", async () => {
+  const firstRequest = new Request(
+    "https://stats.example/track/request-support",
+    { headers: { "CF-Connecting-IP": "203.0.113.4" } },
+  );
+  const sameIpRequest = new Request(
+    "https://stats.example/track/request-support",
+    {
+      headers: {
+        "CF-Connecting-IP": "203.0.113.4",
+        "User-Agent": "another browser",
+      },
+    },
+  );
+  const otherIpRequest = new Request(
+    "https://stats.example/track/request-support",
+    { headers: { "CF-Connecting-IP": "203.0.113.5" } },
+  );
+
+  const first = await buildRequestSupportKey(firstRequest, env, 77);
+  const sameIp = await buildRequestSupportKey(sameIpRequest, env, 77);
+  const otherIp = await buildRequestSupportKey(otherIpRequest, env, 77);
+  const otherIssue = await buildRequestSupportKey(firstRequest, env, 69);
+  const firstRate = await buildRequestSupportRateKey(
+    firstRequest,
+    env,
+    Date.UTC(2026, 6, 29, 1),
+  );
+  const nextHourRate = await buildRequestSupportRateKey(
+    firstRequest,
+    env,
+    Date.UTC(2026, 6, 29, 2),
+  );
+
+  assert.equal(first, sameIp);
+  assert.notEqual(first, otherIp);
+  assert.notEqual(first, otherIssue);
+  assert.notEqual(firstRate.key, nextHourRate.key);
 });
 
-test("stats serialization exposes trend, vote, and collection fields", () => {
+test("stats serialization exposes recent likes and creator fields", () => {
   const payload = serializeStatsRows(
     [
       {
@@ -203,28 +243,32 @@ test("stats serialization exposes trend, vote, and collection fields", () => {
         installs: 10,
         likes: 7,
         installs_7d: 3,
-        weekly_votes: 5,
+        likes_7d: 5,
         updated_at: 42,
       },
     ],
     Date.UTC(2026, 6, 14),
-    [{ slug: "animal-companions", weekly_votes: 4 }],
+    [{ slug: "lingxiaotian", followers: 12 }],
+    [{ issue_number: 77, supporters: 4, updated_at: 43 }],
   );
 
   assert.equal(payload.windowDays, 7);
   assert.equal(payload.pets["firefly--lingxiaotian"].installs7d, 3);
   assert.equal(payload.pets["firefly--lingxiaotian"].likes, 7);
-  assert.equal(payload.pets["firefly--lingxiaotian"].weeklyVotes, 5);
+  assert.equal(payload.pets["firefly--lingxiaotian"].likes7d, 5);
   assert.equal(
     payload.pets["firefly--lingxiaotian"].trendingScore,
     computeTrendingScore(3, 5),
   );
-  assert.equal(payload.collections["animal-companions"].weeklyVotes, 4);
-  assert.equal(payload.votePeriod.id, "2026-07-13");
+  assert.equal(payload.creators.lingxiaotian.followers, 12);
+  assert.deepEqual(payload.requests["77"], {
+    supporters: 4,
+    updatedAt: 43,
+  });
   assert.ok(payload.pets["firefly--lingxiaotian"].dailyRank >= 0);
 });
 
-test("trending score combines recent installs and weekly votes", () => {
+test("trending score combines recent installs and likes", () => {
   assert.ok(computeTrendingScore(5) > computeTrendingScore(1));
   assert.ok(computeTrendingScore(1, 5) > computeTrendingScore(1, 1));
   assert.equal(computeTrendingScore(-1), 0);

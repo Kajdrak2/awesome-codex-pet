@@ -6,5 +6,6 @@ public/collections.json
 public/llms.txt
 public/llms-full.txt
 public/pets.json
+public/requests.json
 .generated/
 out/

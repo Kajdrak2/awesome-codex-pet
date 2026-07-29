@@ -9,6 +9,7 @@ on:
       - "worker/**"
       - "pets.json"
       - "collections.json"
+      - "requests.json"
       - ".github/workflows/deploy-stats.yml"
   workflow_dispatch:
 

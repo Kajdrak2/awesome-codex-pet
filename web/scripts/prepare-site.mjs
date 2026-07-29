@@ -19,6 +19,7 @@ const publicAssetsDir = join(publicDir, "assets");
 const authorSlugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const collectionCatalog = readJson("collections.json");
 const categoryCatalog = readJson("categories.json");
+const requestCatalog = readJson("requests.json");
 const categoryByName = new Map(
   categoryCatalog.map((category) => [category.name, category]),
 );
@@ -177,6 +178,11 @@ writeFileSync(
   `${JSON.stringify(categoryCatalog, null, 2)}\n`,
   "utf8",
 );
+writeFileSync(
+  join(dataDir, "requests.generated.json"),
+  `${JSON.stringify(requestCatalog, null, 2)}\n`,
+  "utf8",
+);
 
 mkdirSync(publicDir, { recursive: true });
 writeFileSync(
@@ -192,6 +198,11 @@ writeFileSync(
 writeFileSync(
   join(publicDir, "categories.json"),
   `${JSON.stringify(categoryCatalog, null, 2)}\n`,
+  "utf8",
+);
+writeFileSync(
+  join(publicDir, "requests.json"),
+  `${JSON.stringify(requestCatalog, null, 2)}\n`,
   "utf8",
 );
 
@@ -219,7 +230,7 @@ Awesome Codex Pet works like a free Codex pet store or library, but it is an ind
 - [Request a Codex pet](${siteUrl}/request): Submit a free character request that a community contributor may volunteer to make.
 - [免费申请制作 Codex 小宠物](${siteUrl}/zh/request): 免费提交喜欢角色的制作申请、准备参考资料并等待社区志愿者认领。
 - [Collections](${siteUrl}/collections): Browse franchise series and themed collections.
-- [Community rankings](${siteUrl}/rankings): Discover popular pets, recognized contributors, and community-voted collections.
+- [Community rankings](${siteUrl}/rankings): Discover popular pets, recognized contributors, and collections ranked by installs and likes.
 - [Install guide](${siteUrl}/install): Install and activate a pet on macOS, Linux, or Windows.
 - [Craft and submission guide](${siteUrl}/guide): Create, review, request, or submit a pet.
 - [GitHub repository](https://github.com/legeling/awesome-codex-pet): Source, contribution history, and issue workflows.
@@ -347,4 +358,6 @@ if (existsSync(coverAssetsSrc)) {
   });
 }
 
-console.log(`Prepared web data for ${pets.length} pet(s).`);
+console.log(
+  `Prepared web data for ${pets.length} pet(s) and ${requestCatalog.length} request(s).`,
+);

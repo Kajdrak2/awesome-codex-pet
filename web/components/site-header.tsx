@@ -9,7 +9,7 @@ import { SubmissionMenu } from "@/components/submission-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export function SiteHeader() {
-  const { locale, t } = useLocale();
+  const { t } = useLocale();
   const pathname = usePathname();
 
   const navItems: { href: string; label: string; matchPrefix?: string }[] = [
@@ -22,8 +22,8 @@ export function SiteHeader() {
     },
     { href: "/install", label: t("install") },
     {
-      href: locale === "zh" ? "/zh/request" : "/request",
-      label: t("requestPet"),
+      href: "/requests",
+      label: t("requestPlaza"),
     },
   ];
 

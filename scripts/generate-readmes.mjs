@@ -220,7 +220,7 @@ This repository is the source catalog behind [codexpet.top](${websiteUrl}): it k
 ## Highlights
 
 - **One-command install** — no clone, no manual setup, works on macOS / Linux / Windows
-- **Free community gallery** — complete animation previews, collections, creator profiles, weekly rankings and voting, sharing, and community statistics at [codexpet.top](${websiteUrl})
+- **Free community gallery** — complete animation previews, collections, creator profiles, weekly rankings based on installs and likes, sharing, and community statistics at [codexpet.top](${websiteUrl})
 - **Free character requests** — submit a character and references without making a spritesheet; a community contributor may volunteer to create it, with no delivery guarantee
 - **AI-first contributions** — contributors can create, repair, and submit pets with Codex; advanced contributors can still open a PR
 - **Open licensing** — code under MIT, pet assets under CC BY-NC 4.0
@@ -403,7 +403,7 @@ ${badges(pets)}
 ## 亮点
 
 - **一条命令安装** — 不需要克隆仓库，macOS / Linux / Windows 全平台支持
-- **免费社区画廊** — [codexpet.top](${websiteUrl}) 提供完整动作预览、合集、作者主页、每周榜单与投票、便捷分享和社区统计
+- **免费社区画廊** — [codexpet.top](${websiteUrl}) 提供完整动作预览、合集、作者主页、基于安装与点赞的每周榜单、便捷分享和社区统计
 - **免费角色申请** — 不需要自己制作 spritesheet；提交角色和参考资料后，社区贡献者可能会志愿制作，但不承诺交付
 - **AI 优先投稿** — 贡献者可在 Codex 中制作、修复并提交自己的宠物，熟悉 Git 的用户也可以直接提交 PR
 - **非商用原则** — 正式许可证可选；没有正式许可证时必须明确禁止商用
@@ -586,7 +586,7 @@ ${badges(pets)}
 ## 주요 기능
 
 - **한 줄 설치** — 저장소 복제나 수동 설정 없이 macOS / Linux / Windows에서 설치
-- **무료 커뮤니티 갤러리** — [codexpet.top](${websiteUrl})에서 완성된 애니메이션 미리 보기, 컬렉션, 제작자 프로필, 주간 순위와 투표, 공유, 커뮤니티 통계 제공
+- **무료 커뮤니티 갤러리** — [codexpet.top](${websiteUrl})에서 완성된 애니메이션 미리 보기, 컬렉션, 제작자 프로필, 설치 수와 좋아요를 기준으로 한 주간 순위, 공유, 커뮤니티 통계 제공
 - **무료 캐릭터 요청** — spritesheet를 만들지 않아도 캐릭터와 참고 자료를 제출할 수 있으며, 커뮤니티 제작자가 자원할 수 있습니다. 제작을 보장하지는 않습니다.
 - **AI 우선 기여** — Codex로 펫을 만들고, 고치고, 제출할 수 있으며, 숙련된 기여자는 직접 PR을 열 수 있습니다.
 - **열린 라이선스** — 코드에는 MIT, 펫 자산에는 CC BY-NC 4.0 적용

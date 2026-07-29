@@ -1,17 +1,10 @@
 "use client";
 
-import {
-  normalizeVotePeriod,
-  type VotePeriod,
-} from "@/lib/vote-period";
-
-export type { VotePeriod } from "@/lib/vote-period";
-
 export type PetStats = {
   installs: number;
   likes: number;
   installs7d: number;
-  weeklyVotes: number;
+  likes7d: number;
   trendingScore: number;
   dailyRank: number;
   updatedAt: number;
@@ -19,18 +12,21 @@ export type PetStats = {
 
 export type StatsMap = Record<string, PetStats>;
 
-export type CollectionStats = {
-  weeklyVotes: number;
+export type CreatorStats = {
+  followers: number;
 };
 
-export type VoteKind = "pet" | "collection";
+export type RequestStats = {
+  supporters: number;
+  updatedAt: number;
+};
 
 export type StatsPayload = {
   pets: StatsMap;
-  collections: Record<string, CollectionStats>;
+  creators: Record<string, CreatorStats>;
+  requests: Record<string, RequestStats>;
   generatedAt: number;
   windowDays: number;
-  votePeriod: VotePeriod;
 };
 
 const STATS_SNAPSHOT_PATH = "/stats.json";
@@ -71,34 +67,39 @@ function normalizeStatsPayload(value: unknown): StatsPayload {
       installs: asNonNegativeNumber(rawStats.installs),
       likes: asNonNegativeNumber(rawStats.likes),
       installs7d: asNonNegativeNumber(rawStats.installs7d),
-      weeklyVotes: asNonNegativeNumber(rawStats.weeklyVotes),
+      likes7d: asNonNegativeNumber(rawStats.likes7d),
       trendingScore: asNonNegativeNumber(rawStats.trendingScore),
       dailyRank: asNonNegativeNumber(rawStats.dailyRank),
       updatedAt: asNonNegativeNumber(rawStats.updatedAt),
     };
   }
-  const collections: Record<string, CollectionStats> = {};
-  if (isRecord(value.collections)) {
-    for (const [slug, rawStats] of Object.entries(value.collections)) {
+  const creators: Record<string, CreatorStats> = {};
+  if (isRecord(value.creators)) {
+    for (const [slug, rawStats] of Object.entries(value.creators)) {
       if (!isRecord(rawStats)) continue;
-      collections[slug] = {
-        weeklyVotes: asNonNegativeNumber(rawStats.weeklyVotes),
+      creators[slug] = {
+        followers: asNonNegativeNumber(rawStats.followers),
       };
     }
   }
-  const rawPeriod = isRecord(value.votePeriod) ? value.votePeriod : {};
+  const requests: Record<string, RequestStats> = {};
+  if (isRecord(value.requests)) {
+    for (const [number, rawStats] of Object.entries(value.requests)) {
+      if (!isRecord(rawStats)) continue;
+      requests[number] = {
+        supporters: asNonNegativeNumber(rawStats.supporters),
+        updatedAt: asNonNegativeNumber(rawStats.updatedAt),
+      };
+    }
+  }
   const generatedAt = asNonNegativeNumber(value.generatedAt);
-  const votePeriod = normalizeVotePeriod(
-    rawPeriod,
-    generatedAt || Date.now(),
-  );
 
   return {
     pets,
-    collections,
+    creators,
+    requests,
     generatedAt,
     windowDays: asNonNegativeNumber(value.windowDays) || 7,
-    votePeriod,
   };
 }
 
@@ -162,6 +163,192 @@ export function fetchStats(signal?: AbortSignal): Promise<StatsPayload> {
   return withAbort(loadStats(), signal);
 }
 
+const requestFollowMarker = (number: number) =>
+  `awesome-codex-pet:request-follow:${number}`;
+const requestSupportMarker = (number: number) =>
+  `awesome-codex-pet:stats:request-support:${number}`;
+
+export function isFollowingRequest(number: number) {
+  if (typeof window === "undefined") return false;
+  try {
+    return window.localStorage.getItem(requestFollowMarker(number)) === "1";
+  } catch (error: unknown) {
+    logStatsError("Unable to read request follow marker", error);
+    return false;
+  }
+}
+
+export function setRequestFollowed(number: number, following: boolean) {
+  try {
+    if (following) {
+      window.localStorage.setItem(requestFollowMarker(number), "1");
+    } else {
+      window.localStorage.removeItem(requestFollowMarker(number));
+    }
+    window.dispatchEvent(
+      new CustomEvent("request-follow-changed", {
+        detail: { number, following },
+      }),
+    );
+  } catch (error: unknown) {
+    logStatsError("Unable to persist request follow marker", error);
+  }
+}
+
+export function isSupportingRequest(number: number) {
+  if (typeof window === "undefined") return false;
+  try {
+    return window.localStorage.getItem(requestSupportMarker(number)) === "1";
+  } catch (error: unknown) {
+    logStatsError("Unable to read request support receipt", error);
+    return false;
+  }
+}
+
+export type RequestSupportResult = {
+  number: number;
+  supporters: number;
+  supporting: boolean;
+  changed: boolean;
+};
+
+export async function setRequestSupporting(
+  number: number,
+  supporting: boolean,
+): Promise<RequestSupportResult> {
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(
+    () => controller.abort(),
+    STATS_WRITE_TIMEOUT_MS,
+  );
+
+  try {
+    const response = await fetch(
+      `${STATS_WRITE_API}/track/request-support?number=${number}`,
+      {
+        method: supporting ? "POST" : "DELETE",
+        signal: controller.signal,
+      },
+    );
+    if (!response.ok) {
+      throw new Error(`Request support API returned HTTP ${response.status}`);
+    }
+    const payload: unknown = await response.json();
+    if (
+      !isRecord(payload) ||
+      payload.number !== number ||
+      payload.supporting !== supporting
+    ) {
+      throw new Error("Request support API returned an invalid payload");
+    }
+
+    const result: RequestSupportResult = {
+      number,
+      supporters: asNonNegativeNumber(payload.supporters),
+      supporting,
+      changed: payload.changed === true,
+    };
+    try {
+      if (supporting) {
+        window.localStorage.setItem(requestSupportMarker(number), "1");
+        setRequestFollowed(number, true);
+      } else {
+        window.localStorage.removeItem(requestSupportMarker(number));
+      }
+    } catch (error: unknown) {
+      logStatsError("Unable to persist request support receipt", error);
+    }
+    return result;
+  } catch (error: unknown) {
+    if (error instanceof DOMException && error.name === "AbortError") {
+      throw new StatsWriteTimeoutError({ cause: error });
+    }
+    throw error;
+  } finally {
+    window.clearTimeout(timeoutId);
+  }
+}
+
+export type CreatorFollowResult = {
+  slug: string;
+  followers: number;
+  following: boolean;
+  changed: boolean;
+};
+
+const creatorFollowMarker = (slug: string) =>
+  `awesome-codex-pet:stats:creator-follow:${slug}`;
+
+export function isFollowingCreator(slug: string) {
+  if (typeof window === "undefined") return false;
+  try {
+    return window.localStorage.getItem(creatorFollowMarker(slug)) === "1";
+  } catch (error: unknown) {
+    logStatsError("Unable to read anonymous creator follow receipt", error);
+    return false;
+  }
+}
+
+export async function setCreatorFollowing(
+  slug: string,
+  following: boolean,
+): Promise<CreatorFollowResult> {
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(
+    () => controller.abort(),
+    STATS_WRITE_TIMEOUT_MS,
+  );
+
+  try {
+    const response = await fetch(
+      `${STATS_WRITE_API}/track/creator-follow?slug=${encodeURIComponent(slug)}`,
+      {
+        method: following ? "POST" : "DELETE",
+        signal: controller.signal,
+      },
+    );
+    if (!response.ok) {
+      throw new Error(`Creator follow API returned HTTP ${response.status}`);
+    }
+
+    const payload: unknown = await response.json();
+    if (
+      !isRecord(payload) ||
+      payload.slug !== slug ||
+      payload.following !== following
+    ) {
+      throw new Error("Creator follow API returned an invalid payload");
+    }
+
+    const result: CreatorFollowResult = {
+      slug,
+      followers: asNonNegativeNumber(payload.followers),
+      following,
+      changed: payload.changed === true,
+    };
+    try {
+      if (following) {
+        window.localStorage.setItem(creatorFollowMarker(slug), "1");
+      } else {
+        window.localStorage.removeItem(creatorFollowMarker(slug));
+      }
+    } catch (error: unknown) {
+      logStatsError(
+        "Unable to persist anonymous creator follow receipt",
+        error,
+      );
+    }
+    return result;
+  } catch (error: unknown) {
+    if (error instanceof DOMException && error.name === "AbortError") {
+      throw new StatsWriteTimeoutError({ cause: error });
+    }
+    throw error;
+  } finally {
+    window.clearTimeout(timeoutId);
+  }
+}
+
 type LikeResult = {
   slug: string;
   likes: number;
@@ -216,102 +403,6 @@ export async function likePet(slug: string): Promise<LikeResult> {
       window.localStorage.setItem(likedMarker(slug), "1");
     } catch (error: unknown) {
       logStatsError("Unable to persist anonymous like receipt", error);
-    }
-    return result;
-  } catch (error: unknown) {
-    if (error instanceof DOMException && error.name === "AbortError") {
-      throw new StatsWriteTimeoutError({ cause: error });
-    }
-    throw error;
-  } finally {
-    window.clearTimeout(timeoutId);
-  }
-}
-
-export type VoteResult = {
-  kind: VoteKind;
-  slug: string;
-  week: string;
-  votes: number;
-  voted: boolean;
-  counted: boolean;
-  previousSlug: string | null;
-  previousVotes: number | null;
-};
-
-const voteMarker = (periodId: string, kind: VoteKind) =>
-  `awesome-codex-pet:stats:vote:${periodId}:${kind}`;
-
-export function getWeeklyVote(periodId: string, kind: VoteKind) {
-  if (typeof window === "undefined") return null;
-  try {
-    return window.localStorage.getItem(voteMarker(periodId, kind));
-  } catch (error: unknown) {
-    logStatsError("Unable to read anonymous weekly vote receipt", error);
-    return null;
-  }
-}
-
-export async function voteForTarget(
-  kind: VoteKind,
-  slug: string,
-  periodId: string,
-): Promise<VoteResult> {
-  const controller = new AbortController();
-  const timeoutId = window.setTimeout(
-    () => controller.abort(),
-    STATS_WRITE_TIMEOUT_MS,
-  );
-
-  try {
-    const response = await fetch(
-      `${STATS_WRITE_API}/track/vote?kind=${encodeURIComponent(kind)}&slug=${encodeURIComponent(slug)}`,
-      { method: "POST", signal: controller.signal },
-    );
-    if (!response.ok) {
-      throw new Error(`Vote API returned HTTP ${response.status}`);
-    }
-
-    const payload: unknown = await response.json();
-    if (
-      !isRecord(payload) ||
-      payload.kind !== kind ||
-      payload.slug !== slug ||
-      typeof payload.week !== "string"
-    ) {
-      throw new Error("Vote API returned an invalid payload");
-    }
-
-    const result: VoteResult = {
-      kind,
-      slug,
-      week: payload.week,
-      votes: asNonNegativeNumber(payload.votes),
-      voted: payload.voted === true,
-      counted: payload.counted === true,
-      previousSlug:
-        typeof payload.previousSlug === "string"
-          ? payload.previousSlug
-          : null,
-      previousVotes:
-        typeof payload.previousVotes === "number"
-          ? asNonNegativeNumber(payload.previousVotes)
-          : null,
-    };
-    if (!result.voted) {
-      throw new Error("Vote API did not confirm the vote");
-    }
-
-    try {
-      window.localStorage.setItem(
-        voteMarker(periodId, kind),
-        slug,
-      );
-      if (result.week !== periodId) {
-        window.localStorage.setItem(voteMarker(result.week, kind), slug);
-      }
-    } catch (error: unknown) {
-      logStatsError("Unable to persist anonymous weekly vote receipt", error);
     }
     return result;
   } catch (error: unknown) {

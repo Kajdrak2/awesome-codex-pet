@@ -64,6 +64,14 @@ export function SiteFooter() {
               <li>
                 <Link
                   className="text-muted hover:text-text transition-colors"
+                  href="/requests"
+                >
+                  {t("requestPlaza")}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-muted hover:text-text transition-colors"
                   href={locale === "zh" ? "/zh/request" : "/request"}
                 >
                   {t("requestPet")}

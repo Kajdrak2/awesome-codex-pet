@@ -1,13 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
+import { FollowCreatorButton } from "@/components/follow-creator-button";
 import { useLocale } from "@/components/locale-provider";
 import { PetCard } from "@/components/pet-card";
-import type {
-  RankedContributor,
-  RankedPet,
-} from "@/lib/leaderboards";
+import type { RankedContributor, RankedPet } from "@/lib/leaderboards";
 
 function formatCount(value: number) {
   if (value < 1_000) return value.toString();
@@ -25,6 +24,11 @@ export function ContributorPageContent({
   pets: RankedPet[];
 }) {
   const { t } = useLocale();
+  const [followers, setFollowers] = useState(contributor.followers);
+
+  useEffect(() => {
+    setFollowers(contributor.followers);
+  }, [contributor.followers, contributor.slug]);
 
   return (
     <main className="mx-auto max-w-[1200px] px-6 pb-24 pt-12 sm:pt-16">
@@ -62,37 +66,47 @@ export function ContributorPageContent({
               count: contributor.petCount,
             })}
           </p>
-          {contributor.url ? (
-            <a
-              className="mt-5 inline-flex h-9 items-center gap-2 rounded-md border border-border px-3 text-sm font-medium text-text transition-colors hover:border-border-hover hover:bg-surface"
-              href={contributor.url}
-              rel="noreferrer"
-              target="_blank"
-            >
-              {t("contributorExternalProfile")}
-              <svg
-                aria-hidden="true"
-                className="size-3.5"
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
+          <div className="mt-5 flex flex-wrap items-center gap-2">
+            <FollowCreatorButton
+              followers={followers}
+              onFollowersChange={setFollowers}
+              slug={contributor.slug}
+            />
+            {contributor.url ? (
+              <a
+                className="inline-flex h-9 items-center gap-2 rounded-md border border-border px-3 text-sm font-medium text-text transition-colors hover:border-border-hover hover:bg-surface"
+                href={contributor.url}
+                rel="noreferrer"
+                target="_blank"
               >
-                <path d="M14 5h5v5M10 14 19 5M19 13v6H5V5h6" />
-              </svg>
-            </a>
-          ) : null}
+                {t("contributorExternalProfile")}
+                <svg
+                  aria-hidden="true"
+                  className="size-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M14 5h5v5M10 14 19 5M19 13v6H5V5h6" />
+                </svg>
+              </a>
+            ) : null}
+          </div>
         </div>
         <dl className="grid grid-cols-4 divide-x divide-border border-y border-border">
           {[
             [t("rankingPets"), contributor.petCount],
+            [t("rankingFollowers"), followers],
             [t("rankingInstalls"), contributor.installs],
             [t("rankingLikes"), contributor.likes],
-            [t("rankingVotes"), contributor.weeklyVotes],
           ].map(([label, value]) => (
-            <div className="min-w-20 px-3 py-3 text-center sm:min-w-24" key={label}>
+            <div
+              className="min-w-14 px-2 py-3 text-center sm:min-w-20 sm:px-3"
+              key={label}
+            >
               <dd className="font-mono text-lg font-semibold tabular-nums text-text">
                 {formatCount(Number(value))}
               </dd>

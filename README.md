@@ -21,7 +21,7 @@ This repository is the source catalog behind [codexpet.top](https://codexpet.top
 ## Highlights
 
 - **One-command install** — no clone, no manual setup, works on macOS / Linux / Windows
-- **Free community gallery** — complete animation previews, collections, creator profiles, weekly rankings and voting, sharing, and community statistics at [codexpet.top](https://codexpet.top)
+- **Free community gallery** — complete animation previews, collections, creator profiles, weekly rankings based on installs and likes, sharing, and community statistics at [codexpet.top](https://codexpet.top)
 - **Free character requests** — submit a character and references without making a spritesheet; a community contributor may volunteer to create it, with no delivery guarantee
 - **AI-first contributions** — contributors can create, repair, and submit pets with Codex; advanced contributors can still open a PR
 - **Open licensing** — code under MIT, pet assets under CC BY-NC 4.0

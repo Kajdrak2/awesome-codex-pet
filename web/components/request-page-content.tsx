@@ -19,6 +19,7 @@ const content = {
       "Submitting a request is free. Tell the Awesome Codex Pet community which character, mascot, animal, or original idea you want. A community contributor may volunteer to create and publish it for free, but requests are not delivery promises.",
     codexCta: "Prepare my request in Codex",
     githubCta: "Open the request form",
+    plazaCta: "Browse open requests",
     note: "No finished spritesheet or coding experience is required.",
     howEyebrow: "How it works",
     howTitle: "From character idea to community request",
@@ -84,6 +85,7 @@ const content = {
       "提交申请本身完全免费。告诉 Awesome Codex Pet 社区你想要哪个动漫角色、游戏人物、吉祥物、动物或原创形象；社区贡献者可能会志愿认领并免费制作，但申请不等于承诺交付。",
     codexCta: "让 Codex 帮我整理申请",
     githubCta: "直接填写申请表",
+    plazaCta: "先看已有制作请求",
     note: "不需要现成 spritesheet，也不要求会画画或写代码。",
     howEyebrow: "申请流程",
     howTitle: "从喜欢的角色到社区制作申请",
@@ -194,6 +196,12 @@ export function RequestPageContent({
           >
             {copy.githubCta}
           </a>
+          <Link
+            className="inline-flex h-12 items-center justify-center rounded-lg border border-border bg-bg-elevated px-5 text-sm font-medium text-text transition-colors hover:bg-surface"
+            href="/requests"
+          >
+            {copy.plazaCta}
+          </Link>
         </div>
         <p className="mt-4 text-sm text-muted">{copy.note}</p>
       </header>

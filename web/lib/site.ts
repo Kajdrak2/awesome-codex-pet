@@ -24,6 +24,7 @@ export const siteConfig = {
   repo: "https://github.com/legeling/awesome-codex-pet",
   catalog: "/pets.json",
   collectionsCatalog: "/collections.json",
+  requestsCatalog: "/requests.json",
   keywords: [
     "Codex",
     "Codex pet",

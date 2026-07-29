@@ -5,6 +5,7 @@ import { HeroSection } from "@/components/hero-section";
 import { LocalizedDocumentTitle } from "@/components/localized-document-title";
 import { PetGallery } from "@/components/pet-gallery";
 import { CommunityPulse } from "@/components/community-pulse";
+import { HomeRequestSection } from "@/components/home-request-section";
 import { getCollections } from "@/lib/collection-catalog";
 import { toCollectionCardData } from "@/lib/collections";
 import {
@@ -17,6 +18,7 @@ import {
   toGalleryPet,
 } from "@/lib/pets";
 import { getTrendingPets } from "@/lib/ranking";
+import { getAllRequests, getOpenRequests } from "@/lib/request-catalog";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -64,6 +66,7 @@ export default function HomePage() {
   const featured = getTrendingPets(pets, 6).map(toGalleryPet);
   const leaderboard = getLeaderboardData(pets);
   const communityPulse = getCommunityPulseData(leaderboard);
+  const requests = getOpenRequests(getAllRequests()).slice(0, 4);
 
   const pageJsonLd = {
     "@context": "https://schema.org",
@@ -154,6 +157,7 @@ export default function HomePage() {
       <section className="px-6 py-16">
         <div className="mx-auto max-w-[1720px]">
           <CommunityPulse data={communityPulse} />
+          <HomeRequestSection requests={requests} />
           <FeaturedCollections collections={collections} />
           <PetGallery pets={galleryPets} categories={categories} />
         </div>

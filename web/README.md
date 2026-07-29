@@ -79,12 +79,12 @@ npx wrangler pages deploy out --project-name=awesome-codex-pet
 - **Framework**: Next.js 15 with static export (`output: "export"`)
 - **Styling**: Tailwind CSS v4
 - **i18n**: Client-side locale detection (zh/en) with React Context; visible browser-tab titles follow the active locale while static route metadata remains crawlable
-- **Data**: Generated at build time from `pets.json` + individual pet metadata
+- **Data**: Generated at build time from `pets.json`, `requests.json`, and individual pet metadata
 - **Collection visibility**: Series and themes are published after they contain at least three pets
-- **Community pages**: Static contributor profiles and pet, contributor, and collection rankings are generated at build time
+- **Community pages**: Static contributor profiles, rankings, `/requests`, and `/requests/<issue-number>` request details are generated at build time
 - **Hosting**: Cloudflare Pages (global CDN, free tier)
 - **Stats reads**: deployment-time `public/stats.json`, served as a free Pages static asset; rankings do not poll the Worker
-- **Stats writes**: a separate Worker at `https://api.codexpet.top` records explicit installs, IP-limited likes, and one pet vote plus one collection vote per privacy-scoped visitor each week. Ordinary page views never invoke it. See `worker/README.md`.
+- **Stats writes**: a separate Worker at `https://api.codexpet.top` records explicit installs, IP-limited pet likes, creator follows, and request support. Rankings reuse total and 7-day like counts instead of introducing another popularity action. Ordinary page views never invoke the Worker. See `worker/README.md`.
 - **Preview delivery**: cards load a static thumbnail first and fetch animation on hover or keyboard focus; the top three pet rankings animate automatically while lower pet rows and contributor/collection mosaics animate on interaction; detail pages keep the complete action set
 - **Caching**: Next.js hashed assets are immutable, preview assets use a seven-day browser cache, and the deployment-time statistics snapshot uses a ten-minute cache
 

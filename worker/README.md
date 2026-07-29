@@ -1,6 +1,6 @@
 # awesome-codex-pet-stats Worker
 
-Cloudflare Worker that records privacy-conscious install, like, and weekly community vote actions for the Awesome Codex Pet gallery.
+Cloudflare Worker that records privacy-conscious install, like, creator-follow, and request-support actions for the Awesome Codex Pet gallery.
 
 - **Production URL**: `https://api.codexpet.top`
 - **Storage**: Cloudflare D1 (`DB` binding)
@@ -10,15 +10,18 @@ Cloudflare Worker that records privacy-conscious install, like, and weekly commu
 
 ## Endpoints
 
-| Method | Path                                | Purpose                                                          |
-| ------ | ----------------------------------- | ---------------------------------------------------------------- |
-| `POST` | `/track/install?slug=<pet-id>`      | Count a completed install; `X-Event-ID` makes retries idempotent |
-| `POST` | `/track/like?slug=<pet-id>`         | Count at most one like per source IP and pet                     |
-| `POST` | `/track/vote?kind=<kind>&slug=<id>` | Cast or move one weekly vote per source IP and target kind       |
+| Method   | Path                              | Purpose                                                          |
+| -------- | --------------------------------- | ---------------------------------------------------------------- |
+| `POST`   | `/track/install?slug=<pet-id>`    | Count a completed install; `X-Event-ID` makes retries idempotent |
+| `POST`   | `/track/like?slug=<pet-id>`       | Count at most one like per source IP and pet                     |
+| `POST`   | `/track/creator-follow?slug=<id>` | Follow one creator, deduplicated per source IP and creator       |
+| `DELETE` | `/track/creator-follow?slug=<id>` | Unfollow one creator                                             |
+| `POST`   | `/track/request-support?number=N` | Support one open GitHub-backed pet request                       |
+| `DELETE` | `/track/request-support?number=N` | Remove support from one request                                  |
 
-The API never stores raw IP addresses or client event IDs. Metric receipts are salted and hashed before short-lived deduplication. Likes store only a salted, pet-scoped IP hash so the same IP cannot like one pet twice and cannot be correlated across different pets.
+The API never stores raw IP addresses or client event IDs. Metric receipts are salted and hashed before short-lived deduplication. Likes store only a salted, pet-scoped IP hash so the same IP cannot like one pet twice and cannot be correlated across different pets. Creator follows and request supports use the same approach with creator- or request-scoped hashes and may be removed from the corresponding page.
 
-Weekly ballots use a salt-hashed identity scoped to the UTC week and target kind. A visitor can cast one pet vote and one collection vote per week, and can move either vote to another eligible target. Vote writes are capped per source and hour to protect D1 from automated switching; ballots expire automatically after thirteen weeks.
+The rankings reuse pet likes rather than maintaining a second popularity action. The deployment snapshot derives 7-day likes directly from `pet_likes.created_at`; contributor and collection momentum aggregate those pet signals.
 
 Normal page loads never invoke this Worker. Browsers read the deployment-time `/stats.json` snapshot from Cloudflare Pages as a free static asset, and pet detail views are not written to D1.
 
@@ -41,7 +44,7 @@ npm run db:export -- --remote
 npm run deploy
 ```
 
-`db:sync` reads `../pets.json` and activates current slugs without lowering existing counters. For a one-time migration from a legacy JSON endpoint, pass `--stats-url <url>` explicitly.
+`db:sync` reads `../pets.json` and `../requests.json`, activates current pets, creators, and open requests, and never lowers existing counters. For a one-time migration from a legacy JSON endpoint, pass `--stats-url <url>` explicitly.
 
 `db:export` queries D1 through Wrangler and atomically writes `../web/public/stats.json`. The web deployment workflows run it once before building Pages, so statistics update when the site is deployed rather than on every page request.
 
@@ -61,11 +64,11 @@ npm test
 npx wrangler deploy --dry-run
 ```
 
-To test likes or weekly votes against the local Worker, set `NEXT_PUBLIC_STATS_WRITE_API=http://localhost:8787` before starting the web development server. Vote `kind` is either `pet` or `collection`. Statistics displayed by the site still come from the static `web/public/stats.json` snapshot.
+To test likes, creator follows, or request supports against the local Worker, set `NEXT_PUBLIC_STATS_WRITE_API=http://localhost:8787` before starting the web development server. Statistics displayed by the site still come from the static `web/public/stats.json` snapshot.
 
 ## Continuous deployment
 
-`.github/workflows/deploy-stats.yml` runs tests, applies D1 migrations, synchronizes the catalog, and deploys the write-only Worker whenever `worker/**` or `pets.json` changes on `main`. Both web deployment workflows export the latest D1 snapshot before building Pages.
+`.github/workflows/deploy-stats.yml` runs tests, applies D1 migrations, synchronizes the catalog, and deploys the write-only Worker whenever `worker/**`, `pets.json`, or `requests.json` changes on `main`. Both web deployment workflows export the latest D1 snapshot before building Pages.
 
 The repository must provide `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets. The token needs Workers Scripts and D1 edit permissions. The `HASH_SALT` value stays attached to the Worker as an encrypted Cloudflare secret and is not stored in GitHub.
 
