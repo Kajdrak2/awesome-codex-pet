@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { RankingsPageContent } from "@/components/rankings-page-content";
+import { LocalizedDocumentTitle } from "@/components/localized-document-title";
 import { getLeaderboardData } from "@/lib/leaderboards";
 import { getAllPets } from "@/lib/pets";
 import { withSiteKeywords } from "@/lib/seo-keywords";
@@ -93,6 +94,10 @@ export default function RankingsPage() {
 
   return (
     <>
+      <LocalizedDocumentTitle
+        en="Codex pet rankings"
+        zh="Codex 宠物排行榜"
+      />
       <RankingsPageContent data={data} />
       <script
         dangerouslySetInnerHTML={{

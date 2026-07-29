@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { CollectionsPageContent } from "@/components/collections-page-content";
+import { LocalizedDocumentTitle } from "@/components/localized-document-title";
 import { getCollections } from "@/lib/collection-catalog";
 import { toCollectionCardData } from "@/lib/collections";
 import { getAllPets } from "@/lib/pets";
@@ -81,6 +82,10 @@ export default function CollectionsPage() {
 
   return (
     <>
+      <LocalizedDocumentTitle
+        en="Codex pet series and themed collections"
+        zh="Codex 宠物系列与主题合集"
+      />
       <CollectionsPageContent collections={collectionCards} />
       <script
         type="application/ld+json"

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { CollectionDetailContent } from "@/components/collection-detail-content";
+import { LocalizedDocumentTitle } from "@/components/localized-document-title";
 import {
   getCollectionBySlug,
   getCollectionSlugs,
@@ -107,6 +108,10 @@ export default async function CollectionPage({
 
   return (
     <>
+      <LocalizedDocumentTitle
+        en={`${collection.title.en} Codex pets`}
+        zh={`${collection.title.zh} Codex 宠物合集`}
+      />
       <CollectionDetailContent collection={collection} />
       <script
         type="application/ld+json"

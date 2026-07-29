@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { InstallPageContent } from "@/components/install-page-content";
+import { LocalizedDocumentTitle } from "@/components/localized-document-title";
 import { withSiteKeywords } from "@/lib/seo-keywords";
 import { siteConfig } from "@/lib/site";
 
@@ -140,6 +141,10 @@ export default function InstallPage() {
 
   return (
     <>
+      <LocalizedDocumentTitle
+        en="Install a Codex pet in seconds"
+        zh="快速安装 Codex 宠物"
+      />
       <InstallPageContent />
       <script
         type="application/ld+json"
