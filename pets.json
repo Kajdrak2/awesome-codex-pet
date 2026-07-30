@@ -2029,6 +2029,19 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "wucanrou--ch",
+    "name": "金渐层（午餐肉）",
+    "author": "ch",
+    "author_handle": "huanchu0213-ui",
+    "author_url": "https://github.com/huanchu0213-ui",
+    "primary_category": "Animals",
+    "canonical_key": "original/huanchu0213-ui/wucanrou",
+    "collections": ["animal-companions"],
+    "license": "Non-commercial use only.",
+    "description": "一只圆脸绿眼、粉鼻、金灰渐层短毛、体态敦实且尾尖较深的猫咪 Codex 宠物。",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "youmu--ai-generated",
     "name": "魂魄妖梦",
     "author": "AI 生成（Gemini）",
