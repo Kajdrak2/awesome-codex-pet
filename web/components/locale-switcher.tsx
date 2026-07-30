@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 
+import { ActionDropdown } from "@/components/action-dropdown";
 import { useLocale } from "@/components/locale-provider";
 import {
   type Locale,
@@ -28,26 +29,67 @@ export function LocaleSwitcher() {
   }
 
   return (
-    <label className="relative">
-      <span className="sr-only">Language</span>
-      <select
-        aria-label="Language"
-        className="h-9 w-[104px] cursor-pointer appearance-none rounded-md border border-border bg-bg-elevated py-0 pl-3 pr-7 text-xs font-medium text-text transition-colors hover:border-border-hover hover:bg-bg-secondary"
-        onChange={(event) => changeLocale(event.target.value as Locale)}
-        value={locale}
-      >
-        {supportedLocales.map((item) => (
-          <option key={item} value={item}>
-            {localeConfig[item].label}
-          </option>
-        ))}
-      </select>
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-muted"
-      >
-        ▾
-      </span>
-    </label>
+    <ActionDropdown
+      label="Language"
+      menuWidth={164}
+      triggerClassName="inline-flex h-9 w-[104px] cursor-pointer items-center justify-between gap-2 rounded-md border border-border bg-bg-elevated px-3 text-xs font-medium text-text transition-colors hover:border-border-hover hover:bg-bg-secondary"
+      trigger={
+        <>
+          <span className="truncate">{localeConfig[locale].label}</span>
+          <svg
+            aria-hidden="true"
+            className="size-3 shrink-0 text-muted"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="m7 10 5 5 5-5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </>
+      }
+    >
+      <div className="p-1" role="none">
+        {supportedLocales.map((item) => {
+          const selected = item === locale;
+          return (
+            <button
+              aria-checked={selected}
+              className={`flex w-full cursor-pointer items-center justify-between gap-3 rounded-md px-3 py-2 text-left text-sm transition-colors ${
+                selected
+                  ? "bg-surface text-text"
+                  : "text-muted hover:bg-surface hover:text-text"
+              }`}
+              key={item}
+              onClick={() => changeLocale(item)}
+              role="menuitemradio"
+              type="button"
+            >
+              <span>{localeConfig[item].label}</span>
+              {selected ? (
+                <svg
+                  aria-hidden="true"
+                  className="size-4 shrink-0 text-accent"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2.25}
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="m5 12 4 4L19 6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              ) : null}
+            </button>
+          );
+        })}
+      </div>
+    </ActionDropdown>
   );
 }

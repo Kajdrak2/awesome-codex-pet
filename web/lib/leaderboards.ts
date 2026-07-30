@@ -274,9 +274,10 @@ export function getLeaderboardData(pets: Pet[]): LeaderboardData {
 export function getCommunityPulseData(
   leaderboard: LeaderboardData,
 ): CommunityPulseData {
+  const homeRankingLimit = 5;
   return {
     pets: sortByScore(leaderboard.pets, "weekly")
-      .slice(0, 3)
+      .slice(0, homeRankingLimit)
       .map((entry) => ({
         pet: {
           slug: entry.pet.slug,
@@ -288,7 +289,7 @@ export function getCommunityPulseData(
         installs7d: entry.stats.installs7d,
       })),
     contributors: sortByScore(leaderboard.contributors, "weekly")
-      .slice(0, 3)
+      .slice(0, homeRankingLimit)
       .map((entry) => ({
         slug: entry.slug,
         name: entry.name,

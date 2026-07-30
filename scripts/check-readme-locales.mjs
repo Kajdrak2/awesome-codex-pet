@@ -15,6 +15,7 @@ const readmes = [
   "docs/es/README.md",
 ];
 const languageLabels = ["English", "简体中文", "한국어", "日本語", "Español"];
+const localeCodes = ["en", "zh", "ko", "ja", "es"];
 const failures = [];
 
 for (const relativePath of readmes) {
@@ -40,10 +41,25 @@ for (const relativePath of readmes) {
   }
 }
 
+const collections = JSON.parse(
+  readFileSync(join(repoRoot, "collections.json"), "utf8"),
+);
+for (const collection of collections) {
+  for (const field of ["title", "description"]) {
+    for (const locale of localeCodes) {
+      if (!collection[field]?.[locale]?.trim()) {
+        failures.push(
+          `collections.json: ${collection.slug}.${field}.${locale} is missing`,
+        );
+      }
+    }
+  }
+}
+
 if (failures.length > 0) {
-  throw new Error(`README locale validation failed:\n- ${failures.join("\n- ")}`);
+  throw new Error(`Locale validation failed:\n- ${failures.join("\n- ")}`);
 }
 
 console.log(
-  `README locale validation passed for ${readmes.length} languages and ${petCount} pets.`,
+  `Locale validation passed for ${readmes.length} languages, ${petCount} pets, and ${collections.length} collections.`,
 );
