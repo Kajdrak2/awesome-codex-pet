@@ -49,6 +49,7 @@ export function ActionDropdown({
     if (!triggerElement || !menuElement) return;
 
     const triggerRect = triggerElement.getBoundingClientRect();
+    const renderedMenuWidth = menuElement.offsetWidth;
     const menuHeight = menuElement.offsetHeight;
     const viewportPadding = 12;
     const gap = 8;
@@ -58,8 +59,8 @@ export function ActionDropdown({
         ? triggerRect.bottom + gap
         : triggerRect.top - menuHeight - gap;
     const left = Math.min(
-      Math.max(viewportPadding, triggerRect.right - menuWidth),
-      window.innerWidth - menuWidth - viewportPadding,
+      Math.max(viewportPadding, triggerRect.right - renderedMenuWidth),
+      window.innerWidth - renderedMenuWidth - viewportPadding,
     );
     setPosition({ left, top: Math.max(viewportPadding, top), visible: true });
   }, [menuWidth, open]);
@@ -123,6 +124,7 @@ export function ActionDropdown({
               role="menu"
               style={{
                 left: position.left,
+                maxWidth: "calc(100vw - 24px)",
                 top: position.top,
                 visibility: position.visible ? "visible" : "hidden",
                 width: menuWidth,

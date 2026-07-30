@@ -10,6 +10,18 @@ const categoryStyle: Record<string, string> = {
   other: "bg-bg-tertiary text-muted",
 };
 
+const categoryPlaceholder: Record<string, string> = {
+  animal: "animal",
+  anime: "anime",
+  game: "game",
+  mascot: "other",
+  meme: "other",
+  object: "other",
+  original: "other",
+  other: "other",
+  robot: "other",
+};
+
 export function RequestVisual({
   name,
   category,
@@ -22,20 +34,31 @@ export function RequestVisual({
   className?: string;
 }) {
   const [failed, setFailed] = useState(false);
+  const [placeholderFailed, setPlaceholderFailed] = useState(false);
+  const placeholder = `/assets/request-placeholders/${
+    categoryPlaceholder[category] ?? "other"
+  }.webp`;
+  const showReference = Boolean(image) && !failed;
 
-  useEffect(() => setFailed(false), [image]);
+  useEffect(() => {
+    setFailed(false);
+    setPlaceholderFailed(false);
+  }, [image]);
 
   return (
     <div
       className={`relative flex min-h-0 items-center justify-center overflow-hidden ${categoryStyle[category] ?? categoryStyle.other} ${className}`}
     >
-      {image && !failed ? (
+      {!placeholderFailed ? (
         <img
-          alt={`${name} reference`}
+          alt={showReference ? `${name} reference` : ""}
           className="h-full w-full object-cover"
           loading="lazy"
-          onError={() => setFailed(true)}
-          src={image}
+          onError={() => {
+            if (showReference) setFailed(true);
+            else setPlaceholderFailed(true);
+          }}
+          src={showReference ? image : placeholder}
         />
       ) : (
         <>

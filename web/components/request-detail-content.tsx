@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { useLocale } from "@/components/locale-provider";
 import { RequestActions } from "@/components/request-actions";
+import { RequestCraftMenu } from "@/components/request-craft-menu";
 import { RequestVisual } from "@/components/request-visual";
 import {
   formatRequestDate,
@@ -26,11 +27,12 @@ const content = {
     details: "Request details",
     source: "Source and usage notes",
     discussion: "Open GitHub discussion",
-    claim: "Volunteer to make this",
     claimNote:
-      "Claims and production discussion stay on GitHub so the work remains public and reviewable.",
+      "Choose Codex for a guided production task, or submit an existing build as a pull request.",
     noReference: "No public reference link was included.",
     comments: "comments",
+    completed: "This community request has become a published pet.",
+    viewPet: "View the finished pet",
   },
   zh: {
     back: "制作需求广场",
@@ -45,11 +47,12 @@ const content = {
     details: "请求说明",
     source: "来源与使用说明",
     discussion: "打开 GitHub 讨论",
-    claim: "我要认领制作",
     claimNote:
-      "认领和制作讨论继续保留在 GitHub，方便社区公开协作与审查。",
+      "可以交给 Codex 按当前请求制作，也可以把已有成品手动提交为 PR。",
     noReference: "这个请求暂未提供公开参考链接。",
     comments: "条讨论",
+    completed: "这个社区制作请求已经变成了正式收录的小宠物。",
+    viewPet: "查看已完成宠物",
   },
 } as const;
 
@@ -158,14 +161,23 @@ export function RequestDetailContent({ request }: { request: PetRequest }) {
           </dl>
 
           <div className="mt-7">
-            <RequestActions
-              disabled={
-                request.status === "completed" ||
-                request.status === "declined"
-              }
-              initialSupporters={request.reactions}
-              number={request.number}
-            />
+            {request.completedPet ? (
+              <div className="flex flex-wrap items-center gap-4 border-l-2 border-accent pl-4">
+                <p className="text-sm text-text-secondary">{text.completed}</p>
+                <Link
+                  className="text-sm font-semibold text-accent hover:underline"
+                  href={`/pets/${request.completedPet.slug}`}
+                >
+                  {text.viewPet} →
+                </Link>
+              </div>
+            ) : (
+              <RequestActions
+                disabled={request.status === "declined"}
+                initialSupporters={request.reactions}
+                number={request.number}
+              />
+            )}
           </div>
         </div>
 
@@ -173,19 +185,23 @@ export function RequestDetailContent({ request }: { request: PetRequest }) {
           <RequestVisual
             category={request.category}
             className="aspect-square w-full rounded-lg border border-border"
-            image={request.referenceImages[0]}
+            image={
+              request.completedPet?.previewImage ?? request.referenceImages[0]
+            }
             name={request.character}
           />
-          <div className="mt-4 grid grid-cols-2 gap-3">
-            <a
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-text px-4 text-sm font-medium text-bg transition-opacity hover:opacity-85"
-              href={`${request.githubUrl}#issuecomment-new`}
-              rel="noreferrer"
-              target="_blank"
-            >
-              {text.claim}
-              <span aria-hidden="true">↗</span>
-            </a>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            {request.completedPet ? (
+              <Link
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-text px-4 text-sm font-medium text-bg transition-opacity hover:opacity-85"
+                href={`/pets/${request.completedPet.slug}`}
+              >
+                {text.viewPet}
+                <span aria-hidden="true">→</span>
+              </Link>
+            ) : (
+              <RequestCraftMenu request={request} />
+            )}
             <a
               className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-border bg-bg-elevated px-4 text-sm font-medium text-text transition-colors hover:bg-surface"
               href={request.githubUrl}
@@ -198,7 +214,11 @@ export function RequestDetailContent({ request }: { request: PetRequest }) {
               </span>
             </a>
           </div>
-          <p className="mt-3 text-xs leading-5 text-muted">{text.claimNote}</p>
+          {!request.completedPet ? (
+            <p className="mt-3 text-xs leading-5 text-muted">
+              {text.claimNote}
+            </p>
+          ) : null}
         </div>
       </header>
 

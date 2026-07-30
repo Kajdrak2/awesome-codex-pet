@@ -42,6 +42,12 @@ export type PetRequest = {
   comments: number;
   reactions: number;
   githubUrl: string;
+  completedPet?: {
+    slug: string;
+    name: string;
+    localizedNames: { en?: string; zh?: string };
+    previewImage: string;
+  };
 };
 
 function readGeneratedRequests(): PetRequest[] {

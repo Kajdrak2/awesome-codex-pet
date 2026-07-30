@@ -40,7 +40,9 @@ export function RequestCard({
         <RequestVisual
           category={request.category}
           className="h-full w-full"
-          image={request.referenceImages[0]}
+          image={
+            request.completedPet?.previewImage ?? request.referenceImages[0]
+          }
           name={request.character}
         />
       </Link>
@@ -84,15 +86,23 @@ export function RequestCard({
           </span>
         </div>
         <div className="mt-3">
-          <RequestActions
-            compact={compact}
-            disabled={
-              request.status === "completed" || request.status === "declined"
-            }
-            initialSupporters={request.reactions}
-            number={request.number}
-            onFollowChange={onFollowChange}
-          />
+          {request.completedPet ? (
+            <Link
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-text px-4 text-sm font-medium text-bg transition-opacity hover:opacity-85"
+              href={`/pets/${request.completedPet.slug}`}
+            >
+              {locale === "zh" ? "查看已完成宠物" : "View finished pet"}
+              <span aria-hidden="true">→</span>
+            </Link>
+          ) : (
+            <RequestActions
+              compact={compact}
+              disabled={request.status === "declined"}
+              initialSupporters={request.reactions}
+              number={request.number}
+              onFollowChange={onFollowChange}
+            />
+          )}
         </div>
       </div>
     </article>

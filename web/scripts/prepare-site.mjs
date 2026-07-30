@@ -151,6 +151,60 @@ const pets = readJson("pets.json").map((pet) => {
   };
 });
 
+function normalizedIdentity(value) {
+  return String(value ?? "")
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/[^a-z0-9\u3400-\u9fff]+/g, "");
+}
+
+function completedPetForRequest(request) {
+  if (request.status !== "completed") return null;
+  const issueUrl = `https://github.com/legeling/awesome-codex-pet/issues/${request.number}`;
+  const direct = pets.find((pet) => pet.sourceUrl === issueUrl);
+  if (direct) return direct;
+
+  const requestName = normalizedIdentity(request.character);
+  const requestAuthor = request.author?.login?.toLowerCase();
+  return (
+    pets.find((pet) => {
+      const sameAuthor =
+        requestAuthor &&
+        [pet.author_handle, pet.author_slug]
+          .filter(Boolean)
+          .some((value) => value.toLowerCase() === requestAuthor);
+      const petNames = [
+        pet.name,
+        pet.localizedNames.en,
+        pet.localizedNames.zh,
+      ]
+        .map(normalizedIdentity)
+        .filter((value) => value.length >= 2);
+      return (
+        sameAuthor &&
+        petNames.some(
+          (name) => requestName.includes(name) || name.includes(requestName),
+        )
+      );
+    }) ?? null
+  );
+}
+
+const requests = requestCatalog.map((request) => {
+  const completedPet = completedPetForRequest(request);
+  return completedPet
+    ? {
+        ...request,
+        completedPet: {
+          slug: completedPet.slug,
+          name: completedPet.name,
+          localizedNames: completedPet.localizedNames,
+          previewImage: completedPet.previewImage,
+        },
+      }
+    : request;
+});
+
 mkdirSync(dataDir, { recursive: true });
 writeFileSync(
   join(dataDir, "pets.generated.json"),
@@ -180,7 +234,7 @@ writeFileSync(
 );
 writeFileSync(
   join(dataDir, "requests.generated.json"),
-  `${JSON.stringify(requestCatalog, null, 2)}\n`,
+  `${JSON.stringify(requests, null, 2)}\n`,
   "utf8",
 );
 
@@ -202,7 +256,7 @@ writeFileSync(
 );
 writeFileSync(
   join(publicDir, "requests.json"),
-  `${JSON.stringify(requestCatalog, null, 2)}\n`,
+  `${JSON.stringify(requests, null, 2)}\n`,
   "utf8",
 );
 
@@ -358,6 +412,22 @@ if (existsSync(coverAssetsSrc)) {
   });
 }
 
+const requestPlaceholdersSrc = join(
+  repoRoot,
+  "assets",
+  "request-placeholders",
+);
+if (existsSync(requestPlaceholdersSrc)) {
+  cpSync(
+    requestPlaceholdersSrc,
+    join(publicAssetsDir, "request-placeholders"),
+    {
+      recursive: true,
+      filter: (src) => !src.endsWith(".DS_Store"),
+    },
+  );
+}
+
 console.log(
-  `Prepared web data for ${pets.length} pet(s) and ${requestCatalog.length} request(s).`,
+  `Prepared web data for ${pets.length} pet(s) and ${requests.length} request(s).`,
 );
