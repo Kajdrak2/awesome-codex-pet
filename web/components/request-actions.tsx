@@ -30,6 +30,33 @@ const copy = {
     supportTitle: "支持这个制作请求，让创作者看到社区需求",
     followTitle: "在这台设备上把该请求加入关注列表",
   },
+  ko: {
+    support: "저도 원해요",
+    supported: "응원함",
+    follow: "진행 상황 팔로우",
+    following: "팔로우 중",
+    error: "업데이트하지 못했습니다. 다시 시도하세요.",
+    supportTitle: "제작자가 커뮤니티 수요를 볼 수 있도록 응원합니다",
+    followTitle: "이 기기에서 요청 진행 상황을 팔로우합니다",
+  },
+  ja: {
+    support: "私も欲しい",
+    supported: "応援済み",
+    follow: "進捗をフォロー",
+    following: "フォロー中",
+    error: "更新できませんでした。もう一度お試しください。",
+    supportTitle: "作者にコミュニティの需要を伝えます",
+    followTitle: "この端末でリクエストの進捗をフォローします",
+  },
+  es: {
+    support: "Yo también la quiero",
+    supported: "Apoyada",
+    follow: "Seguir progreso",
+    following: "Siguiendo",
+    error: "No se pudo actualizar. Inténtalo de nuevo.",
+    supportTitle: "Apoya la petición para mostrar el interés de la comunidad",
+    followTitle: "Guarda esta petición entre las seguidas en este dispositivo",
+  },
 } as const;
 
 export function RequestActions({

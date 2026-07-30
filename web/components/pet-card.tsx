@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRef, useState, type PointerEvent } from "react";
 
+import { getLocalizedCategoryLabel } from "@/lib/pet-localization";
 import type { GalleryPet } from "@/lib/pets";
 import { PetInstallMenu } from "@/components/pet-install-menu";
 import { PetLikeButton } from "@/components/pet-like-button";
@@ -134,7 +135,7 @@ export function PetCard({ pet, installs = 0, likes = 0 }: PetCardProps) {
             </Link>
           </h2>
           <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-bg-secondary text-muted border border-border">
-            {pet.categoryLabel[locale]}
+            {getLocalizedCategoryLabel(pet.categoryLabel, locale)}
           </span>
         </div>
 

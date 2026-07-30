@@ -3,21 +3,17 @@
 import { useEffect } from "react";
 
 import { useLocale } from "@/components/locale-provider";
+import type { Locale } from "@/lib/i18n";
 import { siteConfig } from "@/lib/site";
 
-type LocalizedDocumentTitleProps = {
-  en: string;
-  zh: string;
-};
+type LocalizedDocumentTitleProps = Record<"en" | "zh", string> &
+  Partial<Record<Exclude<Locale, "en" | "zh">, string>>;
 
-export function LocalizedDocumentTitle({
-  en,
-  zh,
-}: LocalizedDocumentTitleProps) {
+export function LocalizedDocumentTitle(props: LocalizedDocumentTitleProps) {
   const { locale } = useLocale();
 
   useEffect(() => {
-    const localizedTitle = `${locale === "zh" ? zh : en} · ${siteConfig.title}`;
+    const localizedTitle = `${props[locale] ?? props.en} · ${siteConfig.title}`;
     const applyTitle = () => {
       if (document.title !== localizedTitle) {
         document.title = localizedTitle;
@@ -36,7 +32,7 @@ export function LocalizedDocumentTitle({
     });
 
     return () => observer.disconnect();
-  }, [en, locale, zh]);
+  }, [locale, props]);
 
   return null;
 }

@@ -13,6 +13,14 @@ import {
 } from "@/lib/request-display";
 import type { PetRequest } from "@/lib/request-catalog";
 
+const cardCopy = {
+  en: { updated: "Updated ", completed: "View finished pet" },
+  zh: { updated: "更新于 ", completed: "查看已完成宠物" },
+  ko: { updated: "업데이트 ", completed: "완성된 펫 보기" },
+  ja: { updated: "更新 ", completed: "完成したペットを見る" },
+  es: { updated: "Actualizada ", completed: "Ver mascota terminada" },
+} as const;
+
 export function RequestCard({
   request,
   onFollowChange,
@@ -23,6 +31,7 @@ export function RequestCard({
   compact?: boolean;
 }) {
   const { locale } = useLocale();
+  const text = cardCopy[locale];
 
   return (
     <article
@@ -81,7 +90,7 @@ export function RequestCard({
         <div className="mt-4 flex items-center justify-between gap-3 border-t border-border pt-3 text-xs text-muted">
           <span>#{request.number}</span>
           <span>
-            {locale === "zh" ? "更新于 " : "Updated "}
+            {text.updated}
             {formatRequestDate(request.updatedAt, locale)}
           </span>
         </div>
@@ -91,7 +100,7 @@ export function RequestCard({
               className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-text px-4 text-sm font-medium text-bg transition-opacity hover:opacity-85"
               href={`/pets/${request.completedPet.slug}`}
             >
-              {locale === "zh" ? "查看已完成宠物" : "View finished pet"}
+              {text.completed}
               <span aria-hidden="true">→</span>
             </Link>
           ) : (

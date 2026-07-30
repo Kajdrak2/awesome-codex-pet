@@ -5,7 +5,7 @@ import {
   buildCodexUrl,
   getPetRequestPrompt,
 } from "@/lib/codex-links";
-import type { Locale } from "@/lib/i18n";
+import { localeConfig, localePath, type Locale } from "@/lib/i18n";
 
 const requestIssueUrl =
   "https://github.com/legeling/awesome-codex-pet/issues/new?template=pet-request.yml";
@@ -13,6 +13,7 @@ const requestIssueUrl =
 const content = {
   en: {
     breadcrumb: "Codex pet gallery",
+    pageLabel: "Pet request",
     eyebrow: "Free community request",
     title: "Request a Codex pet for a character you love",
     intro:
@@ -79,6 +80,7 @@ const content = {
   },
   zh: {
     breadcrumb: "Codex 小宠物画廊",
+    pageLabel: "制作申请",
     eyebrow: "免费社区制作申请",
     title: "免费提交喜欢角色的 Codex 小宠物制作申请",
     intro:
@@ -143,6 +145,197 @@ const content = {
       },
     ],
   },
+  ko: {
+    breadcrumb: "Codex 펫 갤러리",
+    pageLabel: "펫 요청",
+    eyebrow: "무료 커뮤니티 요청",
+    title: "좋아하는 캐릭터의 Codex 펫을 요청하세요",
+    intro:
+      "요청 등록은 무료입니다. 원하는 캐릭터, 마스코트, 동물 또는 오리지널 아이디어를 알려 주세요. 커뮤니티 제작자가 무료로 만들 수 있지만 완성이나 채택은 보장되지 않습니다.",
+    codexCta: "Codex로 요청 준비",
+    githubCta: "요청 양식 열기",
+    plazaCta: "기존 요청 보기",
+    note: "완성된 spritesheet나 코딩 경험이 필요하지 않습니다.",
+    howEyebrow: "진행 방식",
+    howTitle: "캐릭터 아이디어에서 커뮤니티 요청까지",
+    steps: [
+      {
+        index: "01",
+        title: "갤러리 확인",
+        description: "같은 캐릭터가 이미 있는지 갤러리와 요청을 먼저 검색합니다.",
+      },
+      {
+        index: "02",
+        title: "알아볼 수 있는 참고 자료 제공",
+        description:
+          "캐릭터 이름, 원작, 공개 참고 이미지와 중요한 외형 정보를 제공합니다.",
+      },
+      {
+        index: "03",
+        title: "무료 요청 게시",
+        description:
+          "Codex가 정보를 정리해 GitHub 요청을 만들거나 직접 양식을 작성할 수 있습니다.",
+      },
+      {
+        index: "04",
+        title: "자원 제작자 기다리기",
+        description:
+          "기여자가 토론, 제작, 검토, 제출할 수 있으며 일정은 관심과 여력에 따라 달라집니다.",
+      },
+    ],
+    promiseEyebrow: "커뮤니티가 제공하는 것",
+    promiseTitle: "유료 주문 상점이 아닌 무료 요청 대기열",
+    promiseBody:
+      "Awesome Codex Pet은 열린 커뮤니티 갤러리입니다. 요청 비용은 없으며 제작자, 출처, 사용 조건을 공개합니다. 요청은 미완료 상태로 남거나 추가 자료가 필요할 수 있습니다.",
+    afterTitle: "펫이 공개되면",
+    afterBody:
+      "애니메이션 미리 보기와 설치 옵션이 있는 상세 페이지가 만들어집니다.",
+    browseCta: "현재 펫 보기",
+    installCta: "설치 가이드 읽기",
+    faqTitle: "Codex 펫 요청 FAQ",
+    faq: [
+      {
+        question: "Codex 펫 요청은 유료인가요?",
+        answer: "아니요. 요청은 무료이며 완성 시점이나 채택은 보장되지 않습니다.",
+      },
+      {
+        question: "애니메이션이나 게임 캐릭터도 요청할 수 있나요?",
+        answer: "네. 알아볼 수 있는 공개 참고 자료와 정확한 출처를 포함해 주세요.",
+      },
+      {
+        question: "spritesheet를 직접 만들어야 하나요?",
+        answer: "아니요. 요청에는 명확한 캐릭터 정보, 참고 자료와 선호 사항만 필요합니다.",
+      },
+    ],
+  },
+  ja: {
+    breadcrumb: "Codex ペットギャラリー",
+    pageLabel: "ペットリクエスト",
+    eyebrow: "無料コミュニティリクエスト",
+    title: "好きなキャラクターの Codex ペットをリクエスト",
+    intro:
+      "リクエストは無料です。欲しいキャラクター、マスコット、動物、オリジナル案をコミュニティに伝えましょう。有志が無料で制作する場合がありますが、完成や採用は保証されません。",
+    codexCta: "Codex でリクエストを準備",
+    githubCta: "リクエストフォームを開く",
+    plazaCta: "既存のリクエストを見る",
+    note: "完成した spritesheet やプログラミング経験は不要です。",
+    howEyebrow: "仕組み",
+    howTitle: "キャラクター案からコミュニティリクエストまで",
+    steps: [
+      {
+        index: "01",
+        title: "ギャラリーを確認",
+        description:
+          "同じキャラクターの重複を避けるため、ギャラリーと既存リクエストを検索します。",
+      },
+      {
+        index: "02",
+        title: "分かりやすい参考資料を共有",
+        description:
+          "キャラクター名、原作、公開参考画像、重要な外見や動作を記載します。",
+      },
+      {
+        index: "03",
+        title: "無料リクエストを公開",
+        description:
+          "Codex に情報整理と GitHub Issue 作成を任せるか、自分でフォームを入力します。",
+      },
+      {
+        index: "04",
+        title: "有志の作者を待つ",
+        description:
+          "作者は相談、制作、レビュー、投稿を行えます。時期は関心と作業量によります。",
+      },
+    ],
+    promiseEyebrow: "コミュニティの仕組み",
+    promiseTitle: "有料依頼店ではなく、無料のリクエストキュー",
+    promiseBody:
+      "Awesome Codex Pet はオープンなコミュニティギャラリーです。料金はなく、作者、出典、利用条件を公開します。未着手のまま残る場合や追加資料が必要な場合もあります。",
+    afterTitle: "ペットが公開されたら",
+    afterBody:
+      "アニメーションプレビューとインストール方法を備えた詳細ページが作られます。",
+    browseCta: "公開済みペットを見る",
+    installCta: "インストールガイド",
+    faqTitle: "Codex ペットリクエスト FAQ",
+    faq: [
+      {
+        question: "リクエストは有料ですか？",
+        answer: "いいえ、無料です。完成時期や採用は保証されません。",
+      },
+      {
+        question: "アニメやゲームのキャラクターも依頼できますか？",
+        answer: "はい。判別できる公開参考資料と正確な出典を添えてください。",
+      },
+      {
+        question: "spritesheet を自分で作る必要がありますか？",
+        answer: "いいえ。明確なキャラクター情報、参考資料、希望だけで十分です。",
+      },
+    ],
+  },
+  es: {
+    breadcrumb: "Galería de mascotas Codex",
+    pageLabel: "Petición de mascota",
+    eyebrow: "Petición comunitaria gratuita",
+    title: "Pide una mascota Codex de tu personaje favorito",
+    intro:
+      "Publicar una petición es gratis. Dinos qué personaje, mascota, animal o idea original quieres. Alguien de la comunidad puede ofrecerse a crearla, pero no se garantiza la entrega ni la aceptación.",
+    codexCta: "Preparar mi petición con Codex",
+    githubCta: "Abrir el formulario",
+    plazaCta: "Ver peticiones abiertas",
+    note: "No necesitas un spritesheet terminado ni experiencia programando.",
+    howEyebrow: "Cómo funciona",
+    howTitle: "De una idea a una petición comunitaria",
+    steps: [
+      {
+        index: "01",
+        title: "Revisa la galería",
+        description:
+          "Busca primero en la galería y en las peticiones para evitar duplicados.",
+      },
+      {
+        index: "02",
+        title: "Comparte referencias reconocibles",
+        description:
+          "Incluye el personaje, su obra, una imagen pública y los detalles visuales importantes.",
+      },
+      {
+        index: "03",
+        title: "Publica la petición gratuita",
+        description:
+          "Codex puede organizar los datos y abrir el Issue, o puedes completar el formulario.",
+      },
+      {
+        index: "04",
+        title: "Espera a una persona voluntaria",
+        description:
+          "La comunidad puede debatir, crear, revisar y enviar la mascota según su interés y disponibilidad.",
+      },
+    ],
+    promiseEyebrow: "Qué ofrece la comunidad",
+    promiseTitle: "Una cola gratuita, no una tienda de encargos",
+    promiseBody:
+      "Awesome Codex Pet es una galería comunitaria abierta. No cobra por las peticiones y publica la autoría, fuente y condiciones de uso. Una petición puede quedar pendiente o necesitar mejores referencias.",
+    afterTitle: "Cuando se publique",
+    afterBody:
+      "Tendrá una página propia con animaciones y opciones de instalación para macOS, Linux y Windows.",
+    browseCta: "Explorar mascotas disponibles",
+    installCta: "Leer la guía de instalación",
+    faqTitle: "Preguntas frecuentes",
+    faq: [
+      {
+        question: "¿Cuesta dinero pedir una mascota Codex?",
+        answer: "No. Publicar la petición es gratis; no se garantiza la fecha ni la aceptación.",
+      },
+      {
+        question: "¿Puedo pedir un personaje de anime o videojuego?",
+        answer: "Sí. Incluye una referencia pública reconocible y datos honestos sobre la fuente.",
+      },
+      {
+        question: "¿Debo crear el spritesheet?",
+        answer: "No. Basta con una idea clara, referencias y preferencias.",
+      },
+    ],
+  },
 } as const;
 
 export function RequestPageContent({
@@ -153,13 +346,12 @@ export function RequestPageContent({
   petCount: number;
 }) {
   const copy = content[locale];
-  const localePrefix = locale === "zh" ? "/zh" : "";
   const requestPrompt = getPetRequestPrompt(locale);
 
   return (
     <main
       className="mx-auto max-w-[1120px] px-6 pb-24 pt-14 sm:pt-20"
-      lang={locale === "zh" ? "zh-CN" : "en"}
+      lang={localeConfig[locale].htmlLang}
     >
       <header className="border-b border-border pb-12">
         <nav className="mb-6 text-sm text-muted" aria-label="Breadcrumb">
@@ -169,7 +361,7 @@ export function RequestPageContent({
           <span className="mx-2" aria-hidden="true">
             /
           </span>
-          <span>{locale === "zh" ? "制作申请" : "Pet request"}</span>
+          <span>{copy.pageLabel}</span>
         </nav>
         <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-accent">
           {copy.eyebrow}
@@ -252,7 +444,7 @@ export function RequestPageContent({
             </Link>
             <Link
               className="text-accent hover:underline"
-              href={`${localePrefix}/install`}
+              href={localePath(locale, "/install")}
             >
               {copy.installCta}
             </Link>

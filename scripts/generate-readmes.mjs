@@ -19,22 +19,18 @@ const categoryCatalog = JSON.parse(
   readFileSync(join(repoRoot, "categories.json"), "utf8"),
 );
 const categories = categoryCatalog.map((category) => category.name);
-const categoryZh = Object.fromEntries(
-  categoryCatalog.map((category) => [category.name, category.label.zh]),
-);
-const categoryKo = {
-  "Game Characters": "게임 캐릭터",
-  "Anime Characters": "애니메이션 캐릭터",
-  "Original Characters": "오리지널 캐릭터",
-  Mascots: "마스코트",
-  Animals: "동물",
-  "Fantasy Creatures": "판타지 생물",
-  Robots: "로봇",
-  "Human Avatars": "인물 아바타",
-  Memes: "밈",
-  "Objects & Props": "사물과 소품",
-  Others: "기타",
-};
+function categoryLabelsFor(locale) {
+  return Object.fromEntries(
+    categoryCatalog.map((category) => [
+      category.name,
+      category.label[locale] ?? category.label.en ?? category.name,
+    ]),
+  );
+}
+const categoryZh = categoryLabelsFor("zh");
+const categoryKo = categoryLabelsFor("ko");
+const categoryJa = categoryLabelsFor("ja");
+const categoryEs = categoryLabelsFor("es");
 
 const categoryAliases = {
   "Anime and Game Fan Art": "Anime Characters",
@@ -47,11 +43,11 @@ const categoryAliases = {
 };
 
 const previewStates = [
-  ["idle", "Idle", "待机", "대기"],
-  ["waving", "Waving", "挥手", "인사"],
-  ["running-right", "Running", "奔跑", "달리기"],
-  ["waiting", "Waiting", "等待", "입력 대기"],
-  ["review", "Review", "审阅", "검토"],
+  ["idle", "Idle", "待机", "대기", "待機", "Reposo"],
+  ["waving", "Waving", "挥手", "인사", "手を振る", "Saludo"],
+  ["running-right", "Running", "奔跑", "달리기", "走る", "Correr"],
+  ["waiting", "Waiting", "等待", "입력 대기", "待機中", "Esperar"],
+  ["review", "Review", "审阅", "검토", "レビュー", "Revisar"],
 ];
 
 const readmeLocales = {
@@ -76,7 +72,47 @@ const readmeLocales = {
     categoryLabels: categoryKo,
     stateIndex: 3,
   },
+  ja: {
+    rootPrefix: "../..",
+    labels: ["名前", "インストール", "アクション", "プレビュー"],
+    by: "作者",
+    categoryLabels: categoryJa,
+    stateIndex: 4,
+  },
+  es: {
+    rootPrefix: "../..",
+    labels: ["Nombre", "Instalación", "Acción", "Vista previa"],
+    by: "por",
+    categoryLabels: categoryEs,
+    stateIndex: 5,
+  },
 };
+
+const languageEntries = [
+  ["en", "English", "../../README.md"],
+  ["zh", "简体中文", "../zh-CN/README.md"],
+  ["ko", "한국어", "../ko/README.md"],
+  ["ja", "日本語", "../ja/README.md"],
+  ["es", "Español", "../es/README.md"],
+];
+
+function docsLanguageNav(active) {
+  return languageEntries
+    .map(([locale, label, path]) =>
+      locale === active ? label : `[${label}](${path})`,
+    )
+    .join(" | ");
+}
+
+function rootLanguageNav() {
+  return [
+    "[简体中文](./docs/zh-CN/README.md)",
+    "[한국어](./docs/ko/README.md)",
+    "[日本語](./docs/ja/README.md)",
+    "[Español](./docs/es/README.md)",
+    "English",
+  ].join(" | ");
+}
 
 const featuredSlugs = ["firefly--lingxiaotian"];
 const featuredRank = new Map(featuredSlugs.map((slug, index) => [slug, index]));
@@ -125,7 +161,7 @@ function badges(pets) {
   return [
     badge("pets", String(pets.length), "2ea44f"),
     badge("categories", String(categories.length), "0969da"),
-    badge("languages", "en | zh--CN | ko", "8250df"),
+    badge("languages", "en | zh--CN | ko | ja | es", "8250df"),
     badge("code", "MIT", "111111"),
     badge("assets", "CC BY--NC 4.0", "f97316"),
     badge("install", "one command", "111111"),
@@ -201,7 +237,7 @@ function englishReadme(pets) {
 
 # Awesome Codex Pet
 
-[简体中文](./docs/zh-CN/README.md) | [한국어](./docs/ko/README.md) | English
+${rootLanguageNav()}
 
 <h2><a href="${websiteUrl}">Browse and install free community Codex pets at codexpet.top →</a></h2>
 
@@ -353,6 +389,8 @@ Choose the skill explicitly. For an upgrade, give \`$hatch-pet-v2\` the existing
 - English: [docs/en](./docs/en)
 - 简体中文: [docs/zh-CN](./docs/zh-CN)
 - 한국어: [docs/ko](./docs/ko)
+- 日本語: [docs/ja](./docs/ja)
+- Español: [docs/es](./docs/es)
 - Web gallery source: [web/](./web)
 - Stats worker: [worker/](./worker)
 - Contribution guide: [CONTRIBUTING.md](./CONTRIBUTING.md)
@@ -384,7 +422,7 @@ function chineseReadme(pets) {
 
 # Awesome Codex Pet
 
-简体中文 | [한국어](../ko/README.md) | [English](../../README.md)
+${docsLanguageNav("zh")}
 
 <h2><a href="${websiteUrl}">免费浏览并安装 Codex 小宠物：codexpet.top →</a></h2>
 
@@ -536,6 +574,8 @@ npm run lint
 - English: [docs/en](../en)
 - 简体中文: [docs/zh-CN](./)
 - 한국어: [docs/ko](../ko)
+- 日本語: [docs/ja](../ja)
+- Español: [docs/es](../es)
 - 在线画廊源码: [web/](../../web)
 - 统计 Worker: [worker/](../../worker)
 - 贡献指南: [CONTRIBUTING.md](./CONTRIBUTING.md)
@@ -567,7 +607,7 @@ function koreanReadme(pets) {
 
 # Awesome Codex Pet
 
-[简体中文](../zh-CN/README.md) | 한국어 | [English](../../README.md)
+${docsLanguageNav("ko")}
 
 <h2><a href="${websiteUrl}">codexpet.top에서 무료 커뮤니티 Codex 펫을 둘러보고 설치하세요 →</a></h2>
 
@@ -719,6 +759,8 @@ npm run lint
 - English: [docs/en](../en)
 - 简体中文: [docs/zh-CN](../zh-CN)
 - 한국어: [docs/ko](./)
+- 日本語: [docs/ja](../ja)
+- Español: [docs/es](../es)
 - 웹 갤러리 소스: [web/](../../web)
 - 통계 Worker: [worker/](../../worker)
 - 기여 가이드(영어): [CONTRIBUTING.md](../../CONTRIBUTING.md)
@@ -744,20 +786,199 @@ npm run lint
 `;
 }
 
+const additionalReadmeCopy = {
+  ja: {
+    language: "日本語",
+    siteHeading:
+      "codexpet.top で無料のコミュニティ Codex ペットを探してインストール →",
+    intro:
+      "Awesome Codex Pet は、コミュニティが制作した無料の Codex ペットギャラリーです。アニメーションを確認し、リポジトリを複製せずにお気に入りをインストールできます。まだないキャラクターはコミュニティへ制作をリクエストできます。",
+    browse: "ペットを見る",
+    install: "インストール",
+    request: "キャラクターをリクエスト",
+    imageAlt: "Awesome Codex Pet ギャラリーを開く",
+    source:
+      "このリポジトリは [codexpet.top] のソースカタログです。インストール可能なペット、作者と出典、コレクション情報、検証ツール、貢献履歴を管理しています。",
+    highlightsTitle: "特徴",
+    highlights: [
+      "**ワンコマンドでインストール** — クローンや手動設定なしで macOS / Linux / Windows に対応",
+      "**無料コミュニティギャラリー** — アニメーション、コレクション、作者ページ、週間ランキング、いいね、共有機能",
+      "**無料のキャラクターリクエスト** — spritesheet がなくてもキャラクターと参考資料を投稿可能。制作や採用は保証されません",
+      "**AI ファーストの投稿フロー** — Codex でペットの制作、修正、検証、投稿が可能",
+    ],
+    packageIntro: "各ペットは次の 3 ファイルだけで構成されます。",
+    nameNote:
+      "`submission.json.name` は必須のフォールバック名です。翻訳名は投稿者が明示的に提供した場合のみ使用し、サイトがキャラクター名を自動翻訳することはありません。",
+    versionsTitle: "ペットのバージョン",
+    versionUse: "用途",
+    v1Use: "従来の標準アニメーション",
+    v2Use: "標準アニメーションと 16 方向の視線",
+    installTitle: "クイックインストール",
+    installIntro:
+      "リポジトリのクローンは不要です。利用するシェルに合ったコマンドを選んでください。",
+    petsTitle: "ペット一覧",
+    contributeTitle: "リクエストと投稿",
+    contribute:
+      "欲しいキャラクターが見つからない場合は、無料のコミュニティリクエストを送信できます。自分のペットを投稿する場合は、最終パッケージを 3 ファイルだけにし、`npm run validate:pr` と `npm run lint` を実行してください。",
+    docsTitle: "ドキュメント",
+    licenseTitle: "ライセンス",
+    codeLicense: "コードとスクリプト",
+    assetLicense: "ペット素材と生成プレビュー",
+  },
+  es: {
+    language: "Español",
+    siteHeading:
+      "Explora e instala mascotas gratuitas de Codex en codexpet.top →",
+    intro:
+      "Awesome Codex Pet es una galería gratuita de mascotas creadas por la comunidad. Puedes revisar sus animaciones, instalar tus favoritas sin clonar el repositorio o pedir un personaje que todavía no exista.",
+    browse: "Explorar mascotas",
+    install: "Instalar una mascota",
+    request: "Pedir un personaje",
+    imageAlt: "Abrir la galería de Awesome Codex Pet",
+    source:
+      "Este repositorio es el catálogo fuente de [codexpet.top]. Conserva los paquetes instalables, la autoría y procedencia, las colecciones, las herramientas de validación y el historial de contribuciones.",
+    highlightsTitle: "Características",
+    highlights: [
+      "**Instalación con un comando** — sin clonar ni configurar manualmente; funciona en macOS, Linux y Windows",
+      "**Galería comunitaria gratuita** — animaciones completas, colecciones, perfiles, clasificación semanal, Me gusta y opciones para compartir",
+      "**Peticiones gratuitas** — publica un personaje y sus referencias sin crear un spritesheet; la realización y aceptación no están garantizadas",
+      "**Contribuciones asistidas por IA** — Codex puede ayudar a crear, reparar, validar y enviar una mascota",
+    ],
+    packageIntro: "Cada mascota es un paquete pequeño de solo tres archivos:",
+    nameNote:
+      "`submission.json.name` es el nombre de respaldo obligatorio. Los nombres traducidos solo se muestran cuando el autor los proporciona expresamente; el sitio no inventa traducciones de personajes.",
+    versionsTitle: "Versiones de mascotas",
+    versionUse: "Uso",
+    v1Use: "Animaciones estándar heredadas",
+    v2Use: "Animaciones estándar y 16 direcciones de mirada",
+    installTitle: "Instalación rápida",
+    installIntro:
+      "No necesitas clonar el repositorio. Elige el comando correspondiente a tu sistema.",
+    petsTitle: "Catálogo de mascotas",
+    contributeTitle: "Pedir o enviar una mascota",
+    contribute:
+      "Si falta un personaje, puedes publicar una petición comunitaria gratuita. Para contribuir una mascota, conserva únicamente los tres archivos finales y ejecuta `npm run validate:pr` y `npm run lint` antes de abrir el PR.",
+    docsTitle: "Documentación",
+    licenseTitle: "Licencia",
+    codeLicense: "Código y scripts",
+    assetLicense: "Recursos de mascotas y vistas previas generadas",
+  },
+};
+
+function additionalReadme(pets, lang) {
+  const copy = additionalReadmeCopy[lang];
+  const sampleSlug = pets[0]?.slug || "pet-slug--author-slug";
+  const localePath = lang === "ja" ? "ja" : "es";
+  return `<div align="center">
+
+# Awesome Codex Pet
+
+${docsLanguageNav(lang)}
+
+<h2><a href="${websiteUrl}/${localePath}">${copy.siteHeading}</a></h2>
+
+<p><strong>${copy.intro}</strong></p>
+
+<p><a href="${websiteUrl}/${localePath}"><strong>${copy.browse}</strong></a> · <a href="${websiteUrl}/${localePath}/install"><strong>${copy.install}</strong></a> · <a href="${websiteUrl}/${localePath}/request"><strong>${copy.request}</strong></a></p>
+
+<a href="${websiteUrl}/${localePath}"><img src="../../assets/cover/awesome-codex-pet-cover.png" alt="${copy.imageAlt}"></a>
+
+${badges(pets)}
+
+</div>
+
+${copy.source.replace("[codexpet.top]", `[codexpet.top](${websiteUrl}/${localePath})`)}
+
+## ${copy.highlightsTitle}
+
+${copy.highlights.map((item) => `- ${item}`).join("\n")}
+
+${copy.packageIntro}
+
+\`\`\`text
+pets/<pet-slug>--<author-slug>/
+├── submission.json
+├── pet.json
+└── spritesheet.webp
+\`\`\`
+
+${copy.nameNote}
+
+## ${copy.versionsTitle}
+
+| Version | Atlas | Runtime metadata | ${copy.versionUse} |
+| --- | --- | --- | --- |
+| v1 | \`1536x1872\`, 8 × 9 | omit \`spriteVersionNumber\` or set \`1\` | ${copy.v1Use} |
+| v2 | \`1536x2288\`, 8 × 11 | \`spriteVersionNumber: 2\` | ${copy.v2Use} |
+
+## ${copy.installTitle}
+
+${copy.installIntro}
+
+\`\`\`bash
+# macOS / Linux
+${bashInstallCommand(sampleSlug)}
+\`\`\`
+
+\`\`\`powershell
+# Windows PowerShell
+${powershellInstallCommand(sampleSlug)}
+\`\`\`
+
+## ${copy.petsTitle}
+
+${categorySections(pets, lang)}
+
+## ${copy.contributeTitle}
+
+${copy.contribute}
+
+- [Codex pet request](${websiteUrl}/${localePath}/request)
+- [Contribution guide](${websiteUrl}/guide)
+- [\`.agents/skills/submit-codex-pet\`](../../.agents/skills/submit-codex-pet)
+
+## ${copy.docsTitle}
+
+- English: [docs/en](../en)
+- 简体中文: [docs/zh-CN](../zh-CN)
+- 한국어: [docs/ko](../ko)
+- 日本語: [docs/ja](../ja)
+- Español: [docs/es](../es)
+
+## ${copy.licenseTitle}
+
+- ${copy.codeLicense}: [MIT](../../LICENSE)
+- ${copy.assetLicense}: [CC BY-NC 4.0](../../ASSETS-LICENSE.md), unless a pet package states otherwise
+`;
+}
+
 const pets = loadPets();
 
-writeFileSync(join(repoRoot, "README.md"), englishReadme(pets), "utf8");
+async function writeReadme(path, content) {
+  const formatted = await format(content, { parser: "markdown" });
+  writeFileSync(path, formatted, "utf8");
+}
+
+await writeReadme(join(repoRoot, "README.md"), englishReadme(pets));
 mkdirSync(join(repoRoot, "docs", "zh-CN"), { recursive: true });
-writeFileSync(
+await writeReadme(
   join(repoRoot, "docs", "zh-CN", "README.md"),
   chineseReadme(pets),
-  "utf8",
 );
 mkdirSync(join(repoRoot, "docs", "ko"), { recursive: true });
-writeFileSync(
+await writeReadme(
   join(repoRoot, "docs", "ko", "README.md"),
   koreanReadme(pets),
-  "utf8",
+);
+mkdirSync(join(repoRoot, "docs", "ja"), { recursive: true });
+await writeReadme(
+  join(repoRoot, "docs", "ja", "README.md"),
+  additionalReadme(pets, "ja"),
+);
+mkdirSync(join(repoRoot, "docs", "es"), { recursive: true });
+await writeReadme(
+  join(repoRoot, "docs", "es", "README.md"),
+  additionalReadme(pets, "es"),
 );
 const catalog = pets.map((pet) => ({
   slug: pet.slug,

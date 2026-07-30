@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { CodexIcon } from "@/components/codex-icon";
 import { useLocale } from "@/components/locale-provider";
+import { getLocalizedCategoryLabel } from "@/lib/pet-localization";
 import { ShareMenu } from "@/components/share-menu";
 import {
   buildCodexUrl,
@@ -398,7 +399,7 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
                   key={category.name}
                   className="rounded-full border border-border bg-bg-secondary px-3 py-1.5 text-sm text-text"
                 >
-                  {category.label[locale]}
+                  {getLocalizedCategoryLabel(category.label, locale)}
                 </span>
               ))}
             </div>

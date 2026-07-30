@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ActionDropdown } from "@/components/action-dropdown";
 import { CodexIcon } from "@/components/codex-icon";
@@ -122,12 +123,26 @@ export function SubmissionMenu() {
     <ActionDropdown
       label={t("submitPet")}
       menuWidth={340}
-      triggerClassName="ml-1 inline-flex cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-full bg-accent px-3.5 py-1.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-accent-hover"
+      triggerClassName="ml-1 inline-flex size-9 cursor-pointer items-center justify-center whitespace-nowrap rounded-full bg-accent text-sm font-medium text-white shadow-sm transition-colors hover:bg-accent-hover sm:h-auto sm:w-auto sm:gap-1.5 sm:px-3.5 sm:py-1.5"
       trigger={
         <>
-          {t("submitPet")}
           <svg
-            className="size-3"
+            className="size-4 sm:hidden"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2.25}
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 5v14M5 12h14"
+            />
+          </svg>
+          <span className="hidden sm:inline">{t("submitPet")}</span>
+          <svg
+            className="hidden size-3 sm:block"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -188,7 +203,7 @@ export function SubmissionMenu() {
           </span>
         </span>
       </a>
-      <a
+      <Link
         className="flex items-start gap-3 rounded-md px-3 py-3 text-text transition-colors hover:bg-surface"
         href="/guide"
         role="menuitem"
@@ -215,7 +230,7 @@ export function SubmissionMenu() {
             {t("submissionGuideDesc")}
           </span>
         </span>
-      </a>
+      </Link>
     </ActionDropdown>
   );
 }

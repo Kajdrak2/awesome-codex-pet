@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { InstallPageContent } from "@/components/install-page-content";
 import { LocalizedDocumentTitle } from "@/components/localized-document-title";
+import { languageAlternates } from "@/lib/localized-route-metadata";
 import { withSiteKeywords } from "@/lib/seo-keywords";
 import { siteConfig } from "@/lib/site";
 
@@ -14,11 +15,7 @@ export const metadata: Metadata = {
   description,
   alternates: {
     canonical: "/install",
-    languages: {
-      "en-US": "/install",
-      "zh-CN": "/zh/install",
-      "x-default": "/install",
-    },
+    languages: languageAlternates("/install"),
   },
   keywords: withSiteKeywords([
     "install Codex pet",
@@ -46,7 +43,7 @@ export const metadata: Metadata = {
     url: `${siteConfig.url}/install`,
     type: "article",
     locale: "en_US",
-    alternateLocale: ["zh_CN"],
+    alternateLocale: ["zh_CN", "ko_KR", "ja_JP", "es_ES"],
     images: [
       {
         url: siteConfig.ogImage,
@@ -143,6 +140,9 @@ export default function InstallPage() {
     <>
       <LocalizedDocumentTitle
         en="Install a Codex pet in seconds"
+        es="Cómo instalar una mascota Codex"
+        ja="Codex ペットのインストール方法"
+        ko="Codex 펫 설치 방법"
         zh="快速安装 Codex 宠物"
       />
       <InstallPageContent />

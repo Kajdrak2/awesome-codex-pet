@@ -18,18 +18,31 @@ async function findHtmlFiles(directory) {
   return nested.flat();
 }
 
-const chinesePages = [
-  join(outDir, "zh.html"),
-  ...(await findHtmlFiles(join(outDir, "zh"))),
-];
+const localeDirectories = {
+  zh: "zh-CN",
+  ko: "ko",
+  ja: "ja",
+  es: "es",
+};
 
-for (const path of chinesePages) {
-  const html = await readFile(path, "utf8");
-  const localized = html.replace('<html lang="en">', '<html lang="zh-CN">');
-  if (localized === html) {
-    throw new Error(`${path}: expected an English root language to localize`);
+let localizedCount = 0;
+for (const [directory, htmlLang] of Object.entries(localeDirectories)) {
+  const pages = [
+    join(outDir, `${directory}.html`),
+    ...(await findHtmlFiles(join(outDir, directory))),
+  ];
+  for (const path of pages) {
+    const html = await readFile(path, "utf8");
+    const localized = html.replace(
+      '<html lang="en">',
+      `<html lang="${htmlLang}">`,
+    );
+    if (localized === html) {
+      throw new Error(`${path}: expected an English root language to localize`);
+    }
+    await writeFile(path, localized, "utf8");
+    localizedCount += 1;
   }
-  await writeFile(path, localized, "utf8");
 }
 
-console.log(`Localized ${chinesePages.length} exported Chinese page(s).`);
+console.log(`Localized ${localizedCount} exported page(s).`);

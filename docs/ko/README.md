@@ -2,7 +2,7 @@
 
 # Awesome Codex Pet
 
-[简体中文](../zh-CN/README.md) | 한국어 | [English](../../README.md)
+[English](../../README.md) | [简体中文](../zh-CN/README.md) | 한국어 | [日本語](../ja/README.md) | [Español](../es/README.md)
 
 <h2><a href="https://codexpet.top">codexpet.top에서 무료 커뮤니티 Codex 펫을 둘러보고 설치하세요 →</a></h2>
 
@@ -12,7 +12,7 @@
 
 <a href="https://codexpet.top"><img src="../../assets/cover/awesome-codex-pet-cover.png" alt="Awesome Codex Pet 갤러리 열기"></a>
 
-![pets: 168](https://img.shields.io/badge/pets-168-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN | ko](https://img.shields.io/badge/languages-en%20%7C%20zh--CN%20%7C%20ko-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
+![pets: 171](https://img.shields.io/badge/pets-171-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN | ko | ja | es](https://img.shields.io/badge/languages-en%20%7C%20zh--CN%20%7C%20ko%20%7C%20ja%20%7C%20es-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
 
 </div>
 
@@ -296,6 +296,13 @@ curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scr
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- reimu--lingxiaotian</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/reimu--lingxiaotian/webp/idle.webp" alt="Reimu idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/reimu--lingxiaotian/webp/waving.webp" alt="Reimu waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/reimu--lingxiaotian/webp/running-right.webp" alt="Reimu running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/reimu--lingxiaotian/webp/waiting.webp" alt="Reimu waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/reimu--lingxiaotian/webp/review.webp" alt="Reimu review" width="120" height="130"></td></tr>
+</table>
+
+<table>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/remielle-dan--erlla">Remielle-Dan / Leimi</a> · 제작자 <a href="https://github.com/Erlla">@Erlla</a> · 게임 캐릭터 · v2</td></tr>
+<tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- remielle-dan--erlla</code></td></tr>
+<tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
+<tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/remielle-dan--erlla/webp/idle.webp" alt="Remielle-Dan / Leimi idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/remielle-dan--erlla/webp/waving.webp" alt="Remielle-Dan / Leimi waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/remielle-dan--erlla/webp/running-right.webp" alt="Remielle-Dan / Leimi running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/remielle-dan--erlla/webp/waiting.webp" alt="Remielle-Dan / Leimi waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/remielle-dan--erlla/webp/review.webp" alt="Remielle-Dan / Leimi review" width="120" height="130"></td></tr>
 </table>
 
 <table>
@@ -616,6 +623,13 @@ curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scr
 </table>
 
 <table>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/takamatsu-tomori--a1wace-dev">Takamatsu Tomori</a> · 제작자 @A1wace-dev · 애니메이션 캐릭터 · v2</td></tr>
+<tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- takamatsu-tomori--a1wace-dev</code></td></tr>
+<tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
+<tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/takamatsu-tomori--a1wace-dev/webp/idle.webp" alt="Takamatsu Tomori idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/takamatsu-tomori--a1wace-dev/webp/waving.webp" alt="Takamatsu Tomori waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/takamatsu-tomori--a1wace-dev/webp/running-right.webp" alt="Takamatsu Tomori running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/takamatsu-tomori--a1wace-dev/webp/waiting.webp" alt="Takamatsu Tomori waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/takamatsu-tomori--a1wace-dev/webp/review.webp" alt="Takamatsu Tomori review" width="120" height="130"></td></tr>
+</table>
+
+<table>
 <tr><th>이름</th><td colspan="5"><a href="../../pets/violet--lazenca">Violet</a> · 제작자 <a href="https://codex-pets.net/users/lazenca">@lazenca</a> · 애니메이션 캐릭터 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- violet--lazenca</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
@@ -892,258 +906,265 @@ curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scr
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/happynailong--aquaxyy/webp/idle.webp" alt="大笑奶龙 idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/happynailong--aquaxyy/webp/waving.webp" alt="大笑奶龙 waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/happynailong--aquaxyy/webp/running-right.webp" alt="大笑奶龙 running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/happynailong--aquaxyy/webp/waiting.webp" alt="大笑奶龙 waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/happynailong--aquaxyy/webp/review.webp" alt="大笑奶龙 review" width="120" height="130"></td></tr>
 </table>
 
-### 동물
+### 동물 친구
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/becky--natewanggg">Becky</a> · 제작자 <a href="https://github.com/NateWanggg">@NateWanggg</a> · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/becky--natewanggg">Becky</a> · 제작자 <a href="https://github.com/NateWanggg">@NateWanggg</a> · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- becky--natewanggg</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/becky--natewanggg/webp/idle.webp" alt="Becky idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/becky--natewanggg/webp/waving.webp" alt="Becky waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/becky--natewanggg/webp/running-right.webp" alt="Becky running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/becky--natewanggg/webp/waiting.webp" alt="Becky waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/becky--natewanggg/webp/review.webp" alt="Becky review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/bubu--gbn666">Bubu</a> · 제작자 <a href="https://github.com/gbn666">@gbn666</a> · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/bubu--gbn666">Bubu</a> · 제작자 <a href="https://github.com/gbn666">@gbn666</a> · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- bubu--gbn666</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/bubu--gbn666/webp/idle.webp" alt="Bubu idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/bubu--gbn666/webp/waving.webp" alt="Bubu waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/bubu--gbn666/webp/running-right.webp" alt="Bubu running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/bubu--gbn666/webp/waiting.webp" alt="Bubu waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/bubu--gbn666/webp/review.webp" alt="Bubu review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/corgi-companion--cxian0928-afk">Corgi Companion</a> · 제작자 <a href="https://github.com/cxian0928-afk">@cxian0928-afk</a> · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/corgi-companion--cxian0928-afk">Corgi Companion</a> · 제작자 <a href="https://github.com/cxian0928-afk">@cxian0928-afk</a> · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- corgi-companion--cxian0928-afk</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/corgi-companion--cxian0928-afk/webp/idle.webp" alt="Corgi Companion idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/corgi-companion--cxian0928-afk/webp/waving.webp" alt="Corgi Companion waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/corgi-companion--cxian0928-afk/webp/running-right.webp" alt="Corgi Companion running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/corgi-companion--cxian0928-afk/webp/waiting.webp" alt="Corgi Companion waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/corgi-companion--cxian0928-afk/webp/review.webp" alt="Corgi Companion review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/desk-otter--zihualiu1997">Desk Otter</a> · 제작자 <a href="https://github.com/zihualiu1997">@zihualiu1997</a> · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/desk-otter--zihualiu1997">Desk Otter</a> · 제작자 <a href="https://github.com/zihualiu1997">@zihualiu1997</a> · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- desk-otter--zihualiu1997</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/desk-otter--zihualiu1997/webp/idle.webp" alt="Desk Otter idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/desk-otter--zihualiu1997/webp/waving.webp" alt="Desk Otter waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/desk-otter--zihualiu1997/webp/running-right.webp" alt="Desk Otter running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/desk-otter--zihualiu1997/webp/waiting.webp" alt="Desk Otter waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/desk-otter--zihualiu1997/webp/review.webp" alt="Desk Otter review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/diandian--lllucasxu">Diandian</a> · 제작자 <a href="https://github.com/LLLucasXU">@LLLucasXU</a> · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/diandian--lllucasxu">Diandian</a> · 제작자 <a href="https://github.com/LLLucasXU">@LLLucasXU</a> · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- diandian--lllucasxu</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/diandian--lllucasxu/webp/idle.webp" alt="Diandian idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/diandian--lllucasxu/webp/waving.webp" alt="Diandian waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/diandian--lllucasxu/webp/running-right.webp" alt="Diandian running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/diandian--lllucasxu/webp/waiting.webp" alt="Diandian waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/diandian--lllucasxu/webp/review.webp" alt="Diandian review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/dudu-bubu--clembuilds">Dudu & Bubu</a> · 제작자 @clembuilds · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/dudu-bubu--clembuilds">Dudu & Bubu</a> · 제작자 @clembuilds · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- dudu-bubu--clembuilds</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/dudu-bubu--clembuilds/webp/idle.webp" alt="Dudu & Bubu idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/dudu-bubu--clembuilds/webp/waving.webp" alt="Dudu & Bubu waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/dudu-bubu--clembuilds/webp/running-right.webp" alt="Dudu & Bubu running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/dudu-bubu--clembuilds/webp/waiting.webp" alt="Dudu & Bubu waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/dudu-bubu--clembuilds/webp/review.webp" alt="Dudu & Bubu review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/ella-wave--sehjk">Ella Wave</a> · 제작자 @sehjk · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/ella-wave--sehjk">Ella Wave</a> · 제작자 @sehjk · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- ella-wave--sehjk</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/ella-wave--sehjk/webp/idle.webp" alt="Ella Wave idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/ella-wave--sehjk/webp/waving.webp" alt="Ella Wave waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/ella-wave--sehjk/webp/running-right.webp" alt="Ella Wave running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/ella-wave--sehjk/webp/waiting.webp" alt="Ella Wave waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/ella-wave--sehjk/webp/review.webp" alt="Ella Wave review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/fleta--natewanggg">Fleta</a> · 제작자 <a href="https://github.com/NateWanggg">@NateWanggg</a> · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/fleta--natewanggg">Fleta</a> · 제작자 <a href="https://github.com/NateWanggg">@NateWanggg</a> · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- fleta--natewanggg</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/fleta--natewanggg/webp/idle.webp" alt="Fleta idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/fleta--natewanggg/webp/waving.webp" alt="Fleta waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/fleta--natewanggg/webp/running-right.webp" alt="Fleta running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/fleta--natewanggg/webp/waiting.webp" alt="Fleta waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/fleta--natewanggg/webp/review.webp" alt="Fleta review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/frankie--aygunvarol">Frankie</a> · 제작자 <a href="https://github.com/AygunVarol">@AygunVarol</a> · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/frankie--aygunvarol">Frankie</a> · 제작자 <a href="https://github.com/AygunVarol">@AygunVarol</a> · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- frankie--aygunvarol</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/frankie--aygunvarol/webp/idle.webp" alt="Frankie idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/frankie--aygunvarol/webp/waving.webp" alt="Frankie waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/frankie--aygunvarol/webp/running-right.webp" alt="Frankie running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/frankie--aygunvarol/webp/waiting.webp" alt="Frankie waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/frankie--aygunvarol/webp/review.webp" alt="Frankie review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/jiji--yena">Jiji</a> · 제작자 @yena · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/jiji--yena">Jiji</a> · 제작자 @yena · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- jiji--yena</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/jiji--yena/webp/idle.webp" alt="Jiji idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/jiji--yena/webp/waving.webp" alt="Jiji waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/jiji--yena/webp/running-right.webp" alt="Jiji running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/jiji--yena/webp/waiting.webp" alt="Jiji waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/jiji--yena/webp/review.webp" alt="Jiji review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/kiko--untko">Kiko</a> · 제작자 <a href="https://github.com/untko">@untko</a> · 동물 · v2</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/kiko--untko">Kiko</a> · 제작자 <a href="https://github.com/untko">@untko</a> · 동물 친구 · v2</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- kiko--untko</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/kiko--untko/webp/idle.webp" alt="Kiko idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/kiko--untko/webp/waving.webp" alt="Kiko waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/kiko--untko/webp/running-right.webp" alt="Kiko running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/kiko--untko/webp/waiting.webp" alt="Kiko waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/kiko--untko/webp/review.webp" alt="Kiko review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/kimoju--andiac">Kimoju</a> · 제작자 @andiac · 동물 · v2</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/kimoju--andiac">Kimoju</a> · 제작자 @andiac · 동물 친구 · v2</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- kimoju--andiac</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/kimoju--andiac/webp/idle.webp" alt="Kimoju idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/kimoju--andiac/webp/waving.webp" alt="Kimoju waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/kimoju--andiac/webp/running-right.webp" alt="Kimoju running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/kimoju--andiac/webp/waiting.webp" alt="Kimoju waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/kimoju--andiac/webp/review.webp" alt="Kimoju review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/lil-swole--gg0805">Lil Swole</a> · 제작자 <a href="https://github.com/gg0805">@gg0805</a> · 동물 · v2</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/lil-swole--gg0805">Lil Swole</a> · 제작자 <a href="https://github.com/gg0805">@gg0805</a> · 동물 친구 · v2</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- lil-swole--gg0805</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/lil-swole--gg0805/webp/idle.webp" alt="Lil Swole idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/lil-swole--gg0805/webp/waving.webp" alt="Lil Swole waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/lil-swole--gg0805/webp/running-right.webp" alt="Lil Swole running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/lil-swole--gg0805/webp/waiting.webp" alt="Lil Swole waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/lil-swole--gg0805/webp/review.webp" alt="Lil Swole review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/little-sheep--mingdong">Little Sheep</a> · 제작자 @MingDong · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/little-sheep--mingdong">Little Sheep</a> · 제작자 @MingDong · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- little-sheep--mingdong</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/little-sheep--mingdong/webp/idle.webp" alt="Little Sheep idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/little-sheep--mingdong/webp/waving.webp" alt="Little Sheep waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/little-sheep--mingdong/webp/running-right.webp" alt="Little Sheep running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/little-sheep--mingdong/webp/waiting.webp" alt="Little Sheep waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/little-sheep--mingdong/webp/review.webp" alt="Little Sheep review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/mai--dwdestiny">Mai</a> · 제작자 <a href="https://github.com/DwDestiny">@DwDestiny</a> · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/mai--dwdestiny">Mai</a> · 제작자 <a href="https://github.com/DwDestiny">@DwDestiny</a> · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- mai--dwdestiny</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/mai--dwdestiny/webp/idle.webp" alt="Mai idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/mai--dwdestiny/webp/waving.webp" alt="Mai waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/mai--dwdestiny/webp/running-right.webp" alt="Mai running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/mai--dwdestiny/webp/waiting.webp" alt="Mai waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/mai--dwdestiny/webp/review.webp" alt="Mai review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/mellow-duck--sally-entr">Mellow Duck</a> · 제작자 @sally-entr · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/mellow-duck--sally-entr">Mellow Duck</a> · 제작자 @sally-entr · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- mellow-duck--sally-entr</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/mellow-duck--sally-entr/webp/idle.webp" alt="Mellow Duck idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/mellow-duck--sally-entr/webp/waving.webp" alt="Mellow Duck waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/mellow-duck--sally-entr/webp/running-right.webp" alt="Mellow Duck running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/mellow-duck--sally-entr/webp/waiting.webp" alt="Mellow Duck waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/mellow-duck--sally-entr/webp/review.webp" alt="Mellow Duck review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/mimi--spacebody">Mimi</a> · 제작자 <a href="https://github.com/Spacebody">@Spacebody</a> · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/mimi--spacebody">Mimi</a> · 제작자 <a href="https://github.com/Spacebody">@Spacebody</a> · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- mimi--spacebody</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/mimi--spacebody/webp/idle.webp" alt="Mimi idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/mimi--spacebody/webp/waving.webp" alt="Mimi waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/mimi--spacebody/webp/running-right.webp" alt="Mimi running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/mimi--spacebody/webp/waiting.webp" alt="Mimi waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/mimi--spacebody/webp/review.webp" alt="Mimi review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/moomew-coder-cat--ping">MooMew Coder</a> · 제작자 @ping · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/moomew-coder-cat--ping">MooMew Coder</a> · 제작자 @ping · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- moomew-coder-cat--ping</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/moomew-coder-cat--ping/webp/idle.webp" alt="MooMew Coder idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/moomew-coder-cat--ping/webp/waving.webp" alt="MooMew Coder waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/moomew-coder-cat--ping/webp/running-right.webp" alt="MooMew Coder running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/moomew-coder-cat--ping/webp/waiting.webp" alt="MooMew Coder waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/moomew-coder-cat--ping/webp/review.webp" alt="MooMew Coder review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/panda--jason-bai">Panda</a> · 제작자 <a href="https://github.com/Jason-Bai">@Jason-Bai</a> · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/panda--jason-bai">Panda</a> · 제작자 <a href="https://github.com/Jason-Bai">@Jason-Bai</a> · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- panda--jason-bai</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/panda--jason-bai/webp/idle.webp" alt="Panda idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/panda--jason-bai/webp/waving.webp" alt="Panda waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/panda--jason-bai/webp/running-right.webp" alt="Panda running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/panda--jason-bai/webp/waiting.webp" alt="Panda waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/panda--jason-bai/webp/review.webp" alt="Panda review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/pixel-duck--flamurmaliqi">Pixel Duck</a> · 제작자 <a href="https://github.com/FlamurMaliqi">@FlamurMaliqi</a> · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/pixel-duck--flamurmaliqi">Pixel Duck</a> · 제작자 <a href="https://github.com/FlamurMaliqi">@FlamurMaliqi</a> · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- pixel-duck--flamurmaliqi</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/pixel-duck--flamurmaliqi/webp/idle.webp" alt="Pixel Duck idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/pixel-duck--flamurmaliqi/webp/waving.webp" alt="Pixel Duck waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/pixel-duck--flamurmaliqi/webp/running-right.webp" alt="Pixel Duck running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/pixel-duck--flamurmaliqi/webp/waiting.webp" alt="Pixel Duck waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/pixel-duck--flamurmaliqi/webp/review.webp" alt="Pixel Duck review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/rook--klubbyte">Rook</a> · 제작자 @klubbyte · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/rook--klubbyte">Rook</a> · 제작자 @klubbyte · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- rook--klubbyte</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/rook--klubbyte/webp/idle.webp" alt="Rook idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/rook--klubbyte/webp/waving.webp" alt="Rook waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/rook--klubbyte/webp/running-right.webp" alt="Rook running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/rook--klubbyte/webp/waiting.webp" alt="Rook waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/rook--klubbyte/webp/review.webp" alt="Rook review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/miu-meo--lemon-z">SalaryCat</a> · 제작자 @lemon-z · 동물 · v2</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/miu-meo--lemon-z">SalaryCat</a> · 제작자 @lemon-z · 동물 친구 · v2</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- miu-meo--lemon-z</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/miu-meo--lemon-z/webp/idle.webp" alt="SalaryCat idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/miu-meo--lemon-z/webp/waving.webp" alt="SalaryCat waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/miu-meo--lemon-z/webp/running-right.webp" alt="SalaryCat running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/miu-meo--lemon-z/webp/waiting.webp" alt="SalaryCat waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/miu-meo--lemon-z/webp/review.webp" alt="SalaryCat review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/salary-cat--zuochunjie">SalaryCat</a> · 제작자 <a href="https://github.com/Zuochunjie">@Zuochunjie</a> · 동물 · v2</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/salary-cat--zuochunjie">SalaryCat</a> · 제작자 <a href="https://github.com/Zuochunjie">@Zuochunjie</a> · 동물 친구 · v2</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- salary-cat--zuochunjie</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/salary-cat--zuochunjie/webp/idle.webp" alt="SalaryCat idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/salary-cat--zuochunjie/webp/waving.webp" alt="SalaryCat waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/salary-cat--zuochunjie/webp/running-right.webp" alt="SalaryCat running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/salary-cat--zuochunjie/webp/waiting.webp" alt="SalaryCat waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/salary-cat--zuochunjie/webp/review.webp" alt="SalaryCat review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/teddy--danieloleary">Teddy</a> · 제작자 <a href="https://github.com/danieloleary">@danieloleary</a> · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/teddy--danieloleary">Teddy</a> · 제작자 <a href="https://github.com/danieloleary">@danieloleary</a> · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- teddy--danieloleary</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/teddy--danieloleary/webp/idle.webp" alt="Teddy idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/teddy--danieloleary/webp/waving.webp" alt="Teddy waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/teddy--danieloleary/webp/running-right.webp" alt="Teddy running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/teddy--danieloleary/webp/waiting.webp" alt="Teddy waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/teddy--danieloleary/webp/review.webp" alt="Teddy review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/tian-hua-hua--d1a0y1bb">Tian Hua Hua</a> · 제작자 <a href="https://github.com/D1a0y1bb">@D1a0y1bb</a> · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/tian-hua-hua--d1a0y1bb">Tian Hua Hua</a> · 제작자 <a href="https://github.com/D1a0y1bb">@D1a0y1bb</a> · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- tian-hua-hua--d1a0y1bb</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/tian-hua-hua--d1a0y1bb/webp/idle.webp" alt="Tian Hua Hua idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/tian-hua-hua--d1a0y1bb/webp/waving.webp" alt="Tian Hua Hua waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/tian-hua-hua--d1a0y1bb/webp/running-right.webp" alt="Tian Hua Hua running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/tian-hua-hua--d1a0y1bb/webp/waiting.webp" alt="Tian Hua Hua waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/tian-hua-hua--d1a0y1bb/webp/review.webp" alt="Tian Hua Hua review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/usachi--jack">乌萨奇</a> · 제작자 @jack · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/usachi--jack">乌萨奇</a> · 제작자 @jack · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- usachi--jack</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/usachi--jack/webp/idle.webp" alt="乌萨奇 idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/usachi--jack/webp/waving.webp" alt="乌萨奇 waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/usachi--jack/webp/running-right.webp" alt="乌萨奇 running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/usachi--jack/webp/waiting.webp" alt="乌萨奇 waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/usachi--jack/webp/review.webp" alt="乌萨奇 review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/dai-dai-nai-you--1wphantom">呆呆奶油</a> · 제작자 @1wphantom · 동물 · v2</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/dai-dai-nai-you--1wphantom">呆呆奶油</a> · 제작자 @1wphantom · 동물 친구 · v2</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- dai-dai-nai-you--1wphantom</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/dai-dai-nai-you--1wphantom/webp/idle.webp" alt="呆呆奶油 idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/dai-dai-nai-you--1wphantom/webp/waving.webp" alt="呆呆奶油 waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/dai-dai-nai-you--1wphantom/webp/running-right.webp" alt="呆呆奶油 running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/dai-dai-nai-you--1wphantom/webp/waiting.webp" alt="呆呆奶油 waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/dai-dai-nai-you--1wphantom/webp/review.webp" alt="呆呆奶油 review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/tuantuan--jbbom">团团</a> · 제작자 <a href="https://github.com/JbBom">@JbBom</a> · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/tuantuan--jbbom">团团</a> · 제작자 <a href="https://github.com/JbBom">@JbBom</a> · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- tuantuan--jbbom</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/tuantuan--jbbom/webp/idle.webp" alt="团团 idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/tuantuan--jbbom/webp/waving.webp" alt="团团 waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/tuantuan--jbbom/webp/running-right.webp" alt="团团 running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/tuantuan--jbbom/webp/waiting.webp" alt="团团 waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/tuantuan--jbbom/webp/review.webp" alt="团团 review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/duodong--froggie">多栋</a> · 제작자 @froggie · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/duodong--froggie">多栋</a> · 제작자 @froggie · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- duodong--froggie</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/duodong--froggie/webp/idle.webp" alt="多栋 idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/duodong--froggie/webp/waving.webp" alt="多栋 waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/duodong--froggie/webp/running-right.webp" alt="多栋 running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/duodong--froggie/webp/waiting.webp" alt="多栋 waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/duodong--froggie/webp/review.webp" alt="多栋 review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/naiwa--sandytruant">奶蛙</a> · 제작자 <a href="https://github.com/sandytruant">@sandytruant</a> · 동물 · v2</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/naiwa--sandytruant">奶蛙</a> · 제작자 <a href="https://github.com/sandytruant">@sandytruant</a> · 동물 친구 · v2</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- naiwa--sandytruant</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/naiwa--sandytruant/webp/idle.webp" alt="奶蛙 idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/naiwa--sandytruant/webp/waving.webp" alt="奶蛙 waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/naiwa--sandytruant/webp/running-right.webp" alt="奶蛙 running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/naiwa--sandytruant/webp/waiting.webp" alt="奶蛙 waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/naiwa--sandytruant/webp/review.webp" alt="奶蛙 review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/xiaoba-cat--jack">小八猫</a> · 제작자 @jack · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/xiaoba-cat--jack">小八猫</a> · 제작자 @jack · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- xiaoba-cat--jack</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/xiaoba-cat--jack/webp/idle.webp" alt="小八猫 idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/xiaoba-cat--jack/webp/waving.webp" alt="小八猫 waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/xiaoba-cat--jack/webp/running-right.webp" alt="小八猫 running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/xiaoba-cat--jack/webp/waiting.webp" alt="小八猫 waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/xiaoba-cat--jack/webp/review.webp" alt="小八猫 review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/xiaomai--brian-3">小麦 XiaoMai</a> · 제작자 @brian-3 · 동물 · v2</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/xiaomai--brian-3">小麦 XiaoMai</a> · 제작자 @brian-3 · 동물 친구 · v2</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- xiaomai--brian-3</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/xiaomai--brian-3/webp/idle.webp" alt="小麦 XiaoMai idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/xiaomai--brian-3/webp/waving.webp" alt="小麦 XiaoMai waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/xiaomai--brian-3/webp/running-right.webp" alt="小麦 XiaoMai running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/xiaomai--brian-3/webp/waiting.webp" alt="小麦 XiaoMai waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/xiaomai--brian-3/webp/review.webp" alt="小麦 XiaoMai review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/koukou-penguin--hoody">扣扣企鹅</a> · 제작자 @hoody · 동물 · v2</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/koukou-penguin--hoody">扣扣企鹅</a> · 제작자 @hoody · 동물 친구 · v2</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- koukou-penguin--hoody</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/koukou-penguin--hoody/webp/idle.webp" alt="扣扣企鹅 idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/koukou-penguin--hoody/webp/waving.webp" alt="扣扣企鹅 waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/koukou-penguin--hoody/webp/running-right.webp" alt="扣扣企鹅 running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/koukou-penguin--hoody/webp/waiting.webp" alt="扣扣企鹅 waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/koukou-penguin--hoody/webp/review.webp" alt="扣扣企鹅 review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/capybara-lulu--jiushu">水豚噜噜</a> · 제작자 @jiushu · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/capybara-lulu--jiushu">水豚噜噜</a> · 제작자 @jiushu · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- capybara-lulu--jiushu</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/capybara-lulu--jiushu/webp/idle.webp" alt="水豚噜噜 idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/capybara-lulu--jiushu/webp/waving.webp" alt="水豚噜噜 waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/capybara-lulu--jiushu/webp/running-right.webp" alt="水豚噜噜 running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/capybara-lulu--jiushu/webp/waiting.webp" alt="水豚噜噜 waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/capybara-lulu--jiushu/webp/review.webp" alt="水豚噜噜 review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/niumou--jarvis-2">牛哞</a> · 제작자 @jarvis-2 · 동물 · v2</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/niumou--jarvis-2">牛哞</a> · 제작자 @jarvis-2 · 동물 친구 · v2</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- niumou--jarvis-2</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/niumou--jarvis-2/webp/idle.webp" alt="牛哞 idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/niumou--jarvis-2/webp/waving.webp" alt="牛哞 waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/niumou--jarvis-2/webp/running-right.webp" alt="牛哞 running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/niumou--jarvis-2/webp/waiting.webp" alt="牛哞 waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/niumou--jarvis-2/webp/review.webp" alt="牛哞 review" width="120" height="130"></td></tr>
 </table>
 
 <table>
-<tr><th>이름</th><td colspan="5"><a href="../../pets/zichao-xiong--z-kzhang">自嘲熊</a> · 제작자 @z-kzhang · 동물 · v1</td></tr>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/zichao-xiong--z-kzhang">自嘲熊</a> · 제작자 @z-kzhang · 동물 친구 · v1</td></tr>
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- zichao-xiong--z-kzhang</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/zichao-xiong--z-kzhang/webp/idle.webp" alt="自嘲熊 idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/zichao-xiong--z-kzhang/webp/waving.webp" alt="自嘲熊 waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/zichao-xiong--z-kzhang/webp/running-right.webp" alt="自嘲熊 running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/zichao-xiong--z-kzhang/webp/waiting.webp" alt="自嘲熊 waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/zichao-xiong--z-kzhang/webp/review.webp" alt="自嘲熊 review" width="120" height="130"></td></tr>
+</table>
+
+<table>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/wucanrou--ch">金渐层（午餐肉）</a> · 제작자 <a href="https://github.com/huanchu0213-ui">@huanchu0213-ui</a> · 동물 친구 · v2</td></tr>
+<tr><th>설치</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- wucanrou--ch</code></td></tr>
+<tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
+<tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/wucanrou--ch/webp/idle.webp" alt="金渐层（午餐肉） idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/wucanrou--ch/webp/waving.webp" alt="金渐层（午餐肉） waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/wucanrou--ch/webp/running-right.webp" alt="金渐层（午餐肉） running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/wucanrou--ch/webp/waiting.webp" alt="金渐层（午餐肉） waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/wucanrou--ch/webp/review.webp" alt="金渐层（午餐肉） review" width="120" height="130"></td></tr>
 </table>
 
 ### 판타지 생물
@@ -1350,6 +1371,8 @@ npm run lint
 - English: [docs/en](../en)
 - 简体中文: [docs/zh-CN](../zh-CN)
 - 한국어: [docs/ko](./)
+- 日本語: [docs/ja](../ja)
+- Español: [docs/es](../es)
 - 웹 갤러리 소스: [web/](../../web)
 - 통계 Worker: [worker/](../../worker)
 - 기여 가이드(영어): [CONTRIBUTING.md](../../CONTRIBUTING.md)

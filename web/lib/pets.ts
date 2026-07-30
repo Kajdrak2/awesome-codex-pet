@@ -1,6 +1,8 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
+import type { CategoryLabel } from "@/lib/pet-localization";
+
 export type PreviewAction = string;
 
 type CatalogPet = {
@@ -18,10 +20,7 @@ type CatalogPet = {
   spriteVersionNumber: 1 | 2;
 };
 
-export type LocalizedCategoryLabel = {
-  en: string;
-  zh: string;
-};
+export type LocalizedCategoryLabel = CategoryLabel;
 
 export type LocalizedPetNames = {
   en?: string;

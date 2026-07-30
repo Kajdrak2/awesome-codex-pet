@@ -7,6 +7,7 @@ import { BackToTop } from "@/components/back-to-top";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider, themeInitScript } from "@/components/theme-provider";
+import { languageAlternates } from "@/lib/localized-route-metadata";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -31,6 +32,7 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/",
+    languages: languageAlternates("/"),
   },
   robots: {
     index: true,
@@ -57,7 +59,7 @@ export const metadata: Metadata = {
       },
     ],
     locale: "en_US",
-    alternateLocale: ["zh_CN"],
+    alternateLocale: ["zh_CN", "ko_KR", "ja_JP", "es_ES"],
     type: "website",
   },
   twitter: {
@@ -103,7 +105,7 @@ const websiteJsonLd = {
       alternateName: siteConfig.altNames,
       url: siteConfig.url,
       description: siteConfig.description,
-      inLanguage: ["en", "zh-CN"],
+      inLanguage: ["en", "zh-CN", "ko", "ja", "es"],
       publisher: {
         "@id": `${siteConfig.url}/#organization`,
       },

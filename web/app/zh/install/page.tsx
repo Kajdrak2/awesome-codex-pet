@@ -9,6 +9,7 @@ import {
 } from "@/lib/install";
 import { withSiteKeywords } from "@/lib/seo-keywords";
 import { siteConfig } from "@/lib/site";
+import { languageAlternates } from "@/lib/localized-route-metadata";
 
 const title = "如何安装 Codex 小宠物";
 const description =
@@ -59,11 +60,7 @@ export const metadata: Metadata = {
   ]),
   alternates: {
     canonical: "/zh/install",
-    languages: {
-      "en-US": "/install",
-      "zh-CN": "/zh/install",
-      "x-default": "/install",
-    },
+    languages: languageAlternates("/install"),
   },
   openGraph: {
     title,
@@ -71,7 +68,7 @@ export const metadata: Metadata = {
     url: pageUrl,
     type: "article",
     locale: "zh_CN",
-    alternateLocale: ["en_US"],
+    alternateLocale: ["en_US", "ko_KR", "ja_JP", "es_ES"],
     images: [
       {
         url: siteConfig.ogImage,

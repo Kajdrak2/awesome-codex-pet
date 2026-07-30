@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { RequestPageContent } from "@/components/request-page-content";
 import { LocalizedDocumentTitle } from "@/components/localized-document-title";
 import { getAllPets } from "@/lib/pets";
+import { languageAlternates } from "@/lib/localized-route-metadata";
 import { withSiteKeywords } from "@/lib/seo-keywords";
 import { siteConfig } from "@/lib/site";
 
@@ -47,11 +48,7 @@ export const metadata: Metadata = {
   ]),
   alternates: {
     canonical: "/request",
-    languages: {
-      "en-US": "/request",
-      "zh-CN": "/zh/request",
-      "x-default": "/request",
-    },
+    languages: languageAlternates("/request"),
   },
   openGraph: {
     title,
@@ -59,7 +56,7 @@ export const metadata: Metadata = {
     url: pageUrl,
     type: "website",
     locale: "en_US",
-    alternateLocale: ["zh_CN"],
+    alternateLocale: ["zh_CN", "ko_KR", "ja_JP", "es_ES"],
     images: [siteConfig.ogImage],
   },
   twitter: {
@@ -132,6 +129,9 @@ export default function RequestPage() {
     <>
       <LocalizedDocumentTitle
         en="Request a Codex pet for free"
+        es="Pide gratis una mascota Codex"
+        ja="Codex ペットを無料でリクエスト"
+        ko="무료 Codex 펫 제작 요청"
         zh="免费申请 Codex 宠物"
       />
       <RequestPageContent locale="en" petCount={pets.length} />

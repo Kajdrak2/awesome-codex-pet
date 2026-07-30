@@ -2,7 +2,8 @@ import type { Locale } from "@/lib/i18n";
 import type { GalleryPet, Pet } from "@/lib/pets";
 import { getTagSearchTerms } from "@/lib/tag-localization";
 
-export type LocalizedText = Record<Locale, string>;
+export type LocalizedText = Record<"en" | "zh", string> &
+  Partial<Record<Exclude<Locale, "en" | "zh">, string>>;
 export type CollectionKind = "franchise" | "theme";
 
 export type CollectionCatalogEntry = {
@@ -26,6 +27,13 @@ export type CollectionCardData = Omit<
   coverPets: GalleryPet[];
   searchText: string;
 };
+
+export function getLocalizedCollectionText(
+  value: LocalizedText,
+  locale: Locale,
+) {
+  return value[locale] ?? value.en;
+}
 
 export function getCollectionCoverPets(collection: PetCollection) {
   const petsBySlug = new Map(collection.pets.map((pet) => [pet.slug, pet]));
@@ -63,10 +71,8 @@ export function toCollectionCardData(
     })),
     searchText: [
       collection.slug,
-      collection.title.en,
-      collection.title.zh,
-      collection.description.en,
-      collection.description.zh,
+      ...Object.values(collection.title),
+      ...Object.values(collection.description),
       ...collection.pets.flatMap((pet) => [
         pet.slug,
         pet.name,

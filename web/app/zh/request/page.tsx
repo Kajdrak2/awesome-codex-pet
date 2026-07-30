@@ -4,6 +4,7 @@ import { RequestPageContent } from "@/components/request-page-content";
 import { getAllPets } from "@/lib/pets";
 import { withSiteKeywords } from "@/lib/seo-keywords";
 import { siteConfig } from "@/lib/site";
+import { languageAlternates } from "@/lib/localized-route-metadata";
 
 const title = "免费申请制作喜欢角色的 Codex 小宠物";
 const description =
@@ -44,11 +45,7 @@ export const metadata: Metadata = {
   ]),
   alternates: {
     canonical: "/zh/request",
-    languages: {
-      "en-US": "/request",
-      "zh-CN": "/zh/request",
-      "x-default": "/request",
-    },
+    languages: languageAlternates("/request"),
   },
   openGraph: {
     title,
@@ -56,7 +53,7 @@ export const metadata: Metadata = {
     url: pageUrl,
     type: "website",
     locale: "zh_CN",
-    alternateLocale: ["en_US"],
+    alternateLocale: ["en_US", "ko_KR", "ja_JP", "es_ES"],
     images: [siteConfig.ogImage],
   },
   twitter: {

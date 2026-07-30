@@ -280,9 +280,18 @@ Awesome Codex Pet works like a free Codex pet store or library, but it is an ind
 
 - [Gallery](${siteUrl}/): Browse the curated pet catalog.
 - [中文 Codex 小宠物画廊](${siteUrl}/zh): 免费浏览、安装与社区制作申请入口。
+- [한국어 Codex 펫 갤러리](${siteUrl}/ko): 무료 펫 탐색, 설치, 커뮤니티 요청.
+- [日本語 Codex ペットギャラリー](${siteUrl}/ja): 無料ペットの閲覧、インストール、制作リクエスト。
+- [Galería de mascotas Codex en español](${siteUrl}/es): Explora, instala y solicita mascotas gratuitas.
 - [如何安装 Codex 小宠物](${siteUrl}/zh/install): 服务端渲染的中文安装命令、启用步骤与故障排查。
+- [한국어 설치 가이드](${siteUrl}/ko/install): Codex 펫 설치 및 활성화 안내.
+- [日本語インストールガイド](${siteUrl}/ja/install): Codex ペットのインストールと有効化。
+- [Guía de instalación en español](${siteUrl}/es/install): Instala y activa mascotas Codex.
 - [Request a Codex pet](${siteUrl}/request): Submit a free character request that a community contributor may volunteer to make.
 - [免费申请制作 Codex 小宠物](${siteUrl}/zh/request): 免费提交喜欢角色的制作申请、准备参考资料并等待社区志愿者认领。
+- [한국어 펫 제작 요청](${siteUrl}/ko/request): 커뮤니티에 무료 제작 요청을 등록합니다.
+- [日本語ペット制作リクエスト](${siteUrl}/ja/request): コミュニティへ無料の制作リクエストを投稿します。
+- [Petición de mascota en español](${siteUrl}/es/request): Publica una petición comunitaria gratuita.
 - [Collections](${siteUrl}/collections): Browse franchise series and themed collections.
 - [Community rankings](${siteUrl}/rankings): Discover popular pets, recognized contributors, and collections ranked by installs and likes.
 - [Install guide](${siteUrl}/install): Install and activate a pet on macOS, Linux, or Windows.

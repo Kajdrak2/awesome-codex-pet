@@ -1,7 +1,16 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { type Locale, type TranslationKey, detectLocale, getTranslation } from "@/lib/i18n";
+import {
+  type Locale,
+  type TranslationKey,
+  detectLocale,
+  getTranslation,
+  localeConfig,
+  localeFromPathname,
+  supportedLocales,
+} from "@/lib/i18n";
 
 type LocaleContextType = {
   locale: Locale;
@@ -16,19 +25,26 @@ const LocaleContext = createContext<LocaleContextType>({
 });
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState<Locale>("en");
+  const pathname = usePathname();
+  const routeLocale = localeFromPathname(pathname);
+  const [locale, setLocale] = useState<Locale>(routeLocale ?? "en");
 
   useEffect(() => {
+    if (routeLocale) {
+      setLocale(routeLocale);
+      localStorage.setItem("locale", routeLocale);
+      return;
+    }
     const saved = localStorage.getItem("locale") as Locale | null;
-    if (saved && (saved === "en" || saved === "zh")) {
+    if (saved && supportedLocales.includes(saved)) {
       setLocale(saved);
     } else {
       setLocale(detectLocale());
     }
-  }, []);
+  }, [routeLocale]);
 
   useEffect(() => {
-    document.documentElement.lang = locale === "zh" ? "zh-CN" : "en";
+    document.documentElement.lang = localeConfig[locale].htmlLang;
   }, [locale]);
 
   function handleSetLocale(newLocale: Locale) {

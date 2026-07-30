@@ -7,20 +7,29 @@ import { LocaleSwitcher } from "@/components/locale-switcher";
 import { SiteLogo } from "@/components/site-logo";
 import { SubmissionMenu } from "@/components/submission-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { localeFromPathname, localePath } from "@/lib/i18n";
 
 export function SiteHeader() {
-  const { t } = useLocale();
+  const { locale, t } = useLocale();
   const pathname = usePathname();
+  const routeLocale = localeFromPathname(pathname);
+  const activePath = routeLocale
+    ? pathname.replace(new RegExp(`^/${routeLocale}(?=/|$)`), "") || "/"
+    : pathname;
 
   const navItems: { href: string; label: string; matchPrefix?: string }[] = [
-    { href: "/", label: t("gallery"), matchPrefix: "/pets" },
+    {
+      href: localePath(locale, "/"),
+      label: t("gallery"),
+      matchPrefix: "/pets",
+    },
     { href: "/collections", label: t("collections") },
     {
       href: "/rankings",
       label: t("rankings"),
       matchPrefix: "/contributors",
     },
-    { href: "/install", label: t("install") },
+    { href: localePath(locale, "/install"), label: t("install") },
     {
       href: "/requests",
       label: t("requestPlaza"),
@@ -30,7 +39,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-bg/85 px-6 backdrop-blur-lg">
       <div className="mx-auto flex h-14 max-w-[1720px] items-center justify-between">
-        <Link href="/" className="flex items-center gap-2.5">
+        <Link href={localePath(locale, "/")} className="flex items-center gap-2.5">
           <SiteLogo size={28} />
           <span className="whitespace-nowrap text-sm font-semibold tracking-tight text-text sm:hidden">
             Codex Pet
@@ -47,11 +56,17 @@ export function SiteHeader() {
           <div className="hidden md:flex items-center gap-1">
             {navItems.map((item) => {
               const isActive =
-                pathname === item.href ||
+                activePath ===
+                  (routeLocale
+                    ? item.href.replace(
+                        new RegExp(`^/${routeLocale}(?=/|$)`),
+                        "",
+                      ) || "/"
+                    : item.href) ||
                 (item.matchPrefix
-                  ? pathname.startsWith(item.matchPrefix)
+                  ? activePath.startsWith(item.matchPrefix)
                   : false) ||
-                (item.href !== "/" && pathname.startsWith(item.href));
+                (item.href !== "/" && activePath.startsWith(item.href));
               return (
                 <Link
                   key={item.href}

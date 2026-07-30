@@ -4,6 +4,8 @@ import { getAllPets } from "@/lib/pets";
 import { getCollectionSlugs } from "@/lib/collection-catalog";
 import { getContributorSlugs } from "@/lib/leaderboards";
 import { getAllRequests } from "@/lib/request-catalog";
+import { localePath } from "@/lib/i18n";
+import { additionalWebLocales } from "@/lib/localized-route-metadata";
 import { siteConfig } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -63,6 +65,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
   ];
+  const additionalLocaleEntries: MetadataRoute.Sitemap =
+    additionalWebLocales.flatMap((locale) => [
+      {
+        url: `${siteConfig.url}${localePath(locale, "/")}`,
+        changeFrequency: "weekly" as const,
+        priority: 0.9,
+      },
+      {
+        url: `${siteConfig.url}${localePath(locale, "/install")}`,
+        changeFrequency: "monthly" as const,
+        priority: 0.8,
+      },
+      {
+        url: `${siteConfig.url}${localePath(locale, "/request")}`,
+        changeFrequency: "weekly" as const,
+        priority: 0.85,
+      },
+    ]);
   const petEntries = pets.map((pet) => ({
     url: `${siteConfig.url}/pets/${pet.slug}`,
     changeFrequency: "monthly" as const,
@@ -85,6 +105,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
   return [
     ...staticEntries,
+    ...additionalLocaleEntries,
     ...collectionEntries,
     ...contributorEntries,
     ...requestEntries,

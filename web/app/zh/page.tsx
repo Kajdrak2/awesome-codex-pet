@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getAllPets } from "@/lib/pets";
 import { withSiteKeywords } from "@/lib/seo-keywords";
 import { siteConfig } from "@/lib/site";
+import { languageAlternates } from "@/lib/localized-route-metadata";
 
 const title = "Codex 小宠物画廊：免费下载、安装与社区制作申请";
 const description =
@@ -72,11 +73,7 @@ export const metadata: Metadata = {
   ]),
   alternates: {
     canonical: "/zh",
-    languages: {
-      "en-US": "/",
-      "zh-CN": "/zh",
-      "x-default": "/",
-    },
+    languages: languageAlternates("/"),
   },
   openGraph: {
     title,
@@ -84,7 +81,7 @@ export const metadata: Metadata = {
     url: `${siteConfig.url}/zh`,
     type: "article",
     locale: "zh_CN",
-    alternateLocale: ["en_US"],
+    alternateLocale: ["en_US", "ko_KR", "ja_JP", "es_ES"],
     images: [
       {
         url: siteConfig.ogImage,

@@ -8,6 +8,13 @@ const scriptDir = dirname(fileURLToPath(import.meta.url));
 const outDir = resolve(scriptDir, "../out");
 const failures = [];
 const canonicalUrls = new Set();
+const hreflangLocales = ["en", "zh-CN", "ko", "ja", "es", "x-default"];
+const routeLanguages = {
+  zh: "zh-CN",
+  ko: "ko",
+  ja: "ja",
+  es: "es",
+};
 
 function requireMatch(content, pattern, message) {
   if (!pattern.test(content)) failures.push(message);
@@ -39,8 +46,8 @@ function checkPage(filePath, html) {
       ? ""
       : outputPath.replace(/(?:\/index)?\.html$/, "");
   const expectedCanonical = `${SITE_URL}${route ? `/${route}` : ""}`;
-  const expectedLanguage =
-    outputPath === "zh.html" || outputPath.startsWith("zh/") ? "zh-CN" : "en";
+  const routeLocale = outputPath.split(/[/.]/)[0];
+  const expectedLanguage = routeLanguages[routeLocale] ?? "en";
   requireMatch(html, /<title>[^<]+<\/title>/, `${outputPath}: missing title`);
   requireMatch(
     html,
@@ -135,7 +142,7 @@ for (const required of [
     failures.push(`index.html: missing community gallery signal ${required}`);
   }
 }
-for (const language of ["en-US", "zh-CN", "x-default"]) {
+for (const language of hreflangLocales) {
   requireMatch(
     home,
     new RegExp(`hreflang="${language}"`, "i"),
@@ -194,7 +201,7 @@ for (const required of [
     failures.push(`zh/install.html: missing ${required}`);
   }
 }
-for (const language of ["en-US", "zh-CN", "x-default"]) {
+for (const language of hreflangLocales) {
   requireMatch(
     chineseInstall,
     new RegExp(`hreflang="${language}"`, "i"),
@@ -219,6 +226,18 @@ for (const [path, required] of [
       "application/ld+json",
     ],
   ],
+  [
+    "ko/request.html",
+    ["좋아하는 캐릭터의 Codex 펫을 요청하세요", "application/ld+json"],
+  ],
+  [
+    "ja/request.html",
+    ["好きなキャラクターの Codex ペットをリクエスト", "application/ld+json"],
+  ],
+  [
+    "es/request.html",
+    ["Pide una mascota Codex de tu personaje favorito", "application/ld+json"],
+  ],
 ]) {
   const requestPage = await readFile(join(outDir, path), "utf8");
   for (const value of required) {
@@ -226,7 +245,7 @@ for (const [path, required] of [
       failures.push(`${path}: missing ${value}`);
     }
   }
-  for (const language of ["en-US", "zh-CN", "x-default"]) {
+  for (const language of hreflangLocales) {
     requireMatch(
       requestPage,
       new RegExp(`hreflang="${language}"`, "i"),
@@ -289,6 +308,12 @@ for (const required of [
   `${SITE_URL}/zh/install`,
   `${SITE_URL}/request`,
   `${SITE_URL}/zh/request`,
+  `${SITE_URL}/ko/install`,
+  `${SITE_URL}/ko/request`,
+  `${SITE_URL}/ja/install`,
+  `${SITE_URL}/ja/request`,
+  `${SITE_URL}/es/install`,
+  `${SITE_URL}/es/request`,
   "how to install a Codex pet",
   "can the community make a missing character",
   "Opening the request is free",

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useLocale } from "@/components/locale-provider";
 import { getLocalizedPetName } from "@/lib/codex-links";
+import { localePath } from "@/lib/i18n";
 import type { GalleryPet } from "@/lib/pets";
 
 type HeroSectionProps = {
@@ -94,7 +95,7 @@ export function HeroSection({
             </Link>
             <Link
               className="group inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-border bg-bg/60 backdrop-blur text-sm font-medium text-text hover:bg-surface transition-colors"
-              href={locale === "zh" ? "/zh/request" : "/request"}
+              href={localePath(locale, "/request")}
             >
               {t("heroSubmit")}
               <svg

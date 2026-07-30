@@ -30,6 +30,33 @@ const content = {
     copy: "复制提示词",
     copied: "已复制",
   },
+  ko: {
+    trigger: "제가 만들게요",
+    aiTitle: "Codex로 제작",
+    aiDescription: "이 요청과 참고 자료를 새 AI 작업으로 보냅니다.",
+    manualTitle: "Pull Request 제출",
+    manualDescription: "완성된 펫을 GitHub에서 이 요청과 연결해 제출합니다.",
+    copy: "프롬프트 복사",
+    copied: "복사됨",
+  },
+  ja: {
+    trigger: "制作する",
+    aiTitle: "Codex で制作",
+    aiDescription: "このリクエストと参考資料を新しい AI タスクへ送ります。",
+    manualTitle: "Pull Request を投稿",
+    manualDescription: "完成したペットを GitHub からこのリクエストへ投稿します。",
+    copy: "プロンプトをコピー",
+    copied: "コピー済み",
+  },
+  es: {
+    trigger: "Quiero crearla",
+    aiTitle: "Crear con Codex",
+    aiDescription: "Envía esta petición y sus referencias a una nueva tarea de IA.",
+    manualTitle: "Enviar un pull request",
+    manualDescription: "Publica en GitHub tu mascota terminada para esta petición.",
+    copy: "Copiar prompt",
+    copied: "Copiado",
+  },
 } as const;
 
 export function RequestCraftMenu({ request }: { request: PetRequest }) {

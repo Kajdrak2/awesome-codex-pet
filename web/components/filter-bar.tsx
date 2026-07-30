@@ -3,6 +3,7 @@
 import { useDeferredValue, useEffect, useRef, useState } from "react";
 
 import { useLocale } from "@/components/locale-provider";
+import { getLocalizedCategoryLabel } from "@/lib/pet-localization";
 import type { LocalizedCategoryLabel } from "@/lib/pets";
 
 export type CategoryFilterOption = {
@@ -134,7 +135,7 @@ export function FilterBar({ categories, onChange }: FilterBarProps) {
               aria-pressed={selected}
               onClick={() => toggleCategory(category.name)}
             >
-              <span>{category.label[locale]}</span>
+              <span>{getLocalizedCategoryLabel(category.label, locale)}</span>
               <span className="tabular-nums text-[11px] text-muted">
                 {category.count}
               </span>

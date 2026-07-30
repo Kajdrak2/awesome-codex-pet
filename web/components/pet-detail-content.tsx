@@ -19,6 +19,7 @@ import {
   getLocalizedPetName,
   getPetInstallPrompt,
 } from "@/lib/codex-links";
+import { getLocalizedCategoryLabel } from "@/lib/pet-localization";
 import type { Pet } from "@/lib/pets";
 import { siteConfig } from "@/lib/site";
 import { fetchStats } from "@/lib/stats";
@@ -161,7 +162,7 @@ export function PetDetailContent({
             <div className="min-w-0 lg:sticky lg:top-24 lg:border-l lg:border-border lg:pl-10">
               <div className="mb-5 flex flex-wrap items-center gap-2">
                 <span className="inline-flex items-center rounded-md bg-accent-light px-2.5 py-1 text-xs font-medium text-accent">
-                  {pet.categoryLabel[locale]}
+                  {getLocalizedCategoryLabel(pet.categoryLabel, locale)}
                 </span>
                 <span className="text-xs text-muted">
                   v{pet.spriteVersionNumber}

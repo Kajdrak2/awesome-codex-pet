@@ -13,6 +13,7 @@ import {
   type PetRequest,
   type RequestStatus,
 } from "@/lib/request-catalog";
+import { localePath } from "@/lib/i18n";
 import { isFollowingRequest } from "@/lib/stats";
 
 const content = {
@@ -47,6 +48,54 @@ const content = {
     visible: "个请求",
     noResults: "当前筛选条件下没有制作请求。",
     clear: "清除筛选",
+  },
+  ko: {
+    eyebrow: "커뮤니티 제작 대기열",
+    title: "펫 요청 광장",
+    intro:
+      "커뮤니티가 다음으로 원하는 펫을 보고, 요청을 응원하거나 진행 상황을 팔로우하고 직접 제작해 보세요.",
+    newRequest: "요청 등록",
+    all: "전체 요청",
+    following: "팔로우 중",
+    status: "상태",
+    category: "카테고리",
+    everyStatus: "전체 상태",
+    everyCategory: "전체 카테고리",
+    visible: "개 요청",
+    noResults: "필터에 맞는 요청이 없습니다.",
+    clear: "필터 지우기",
+  },
+  ja: {
+    eyebrow: "コミュニティ制作キュー",
+    title: "ペットリクエスト広場",
+    intro:
+      "コミュニティが次に欲しいペットを見て、応援、進捗フォロー、制作への参加ができます。",
+    newRequest: "リクエストを投稿",
+    all: "すべて",
+    following: "フォロー中",
+    status: "状態",
+    category: "カテゴリー",
+    everyStatus: "すべての状態",
+    everyCategory: "すべてのカテゴリー",
+    visible: "件",
+    noResults: "条件に一致するリクエストがありません。",
+    clear: "フィルターをクリア",
+  },
+  es: {
+    eyebrow: "Cola de producción comunitaria",
+    title: "Plaza de peticiones",
+    intro:
+      "Descubre qué quiere la comunidad, apoya una petición, sigue su progreso u ofrécete para crearla.",
+    newRequest: "Publicar petición",
+    all: "Todas",
+    following: "Siguiendo",
+    status: "Estado",
+    category: "Categoría",
+    everyStatus: "Todos los estados",
+    everyCategory: "Todas las categorías",
+    visible: "peticiones",
+    noResults: "Ninguna petición coincide con los filtros.",
+    clear: "Borrar filtros",
   },
 } as const;
 
@@ -123,7 +172,7 @@ export function RequestPlazaContent({
         </div>
         <Link
           className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-accent px-5 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
-          href={locale === "zh" ? "/zh/request" : "/request"}
+          href={localePath(locale, "/request")}
         >
           <svg
             aria-hidden="true"
@@ -141,7 +190,7 @@ export function RequestPlazaContent({
       </header>
 
       <section
-        aria-label={locale === "zh" ? "筛选制作请求" : "Filter pet requests"}
+        aria-label={text.title}
         className="flex flex-col gap-4 border-b border-border py-5 lg:flex-row lg:items-end lg:justify-between"
       >
         <div className="inline-flex w-fit rounded-lg border border-border bg-bg-secondary p-1">

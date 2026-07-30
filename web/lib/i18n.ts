@@ -1,4 +1,69 @@
-export type Locale = "en" | "zh";
+import { additionalTranslations } from "@/lib/i18n-additional";
+
+export const supportedLocales = ["en", "zh", "ko", "ja", "es"] as const;
+export type Locale = (typeof supportedLocales)[number];
+
+export const localeConfig: Record<
+  Locale,
+  {
+    label: string;
+    shortLabel: string;
+    htmlLang: string;
+    ogLocale: string;
+    pathPrefix: string;
+  }
+> = {
+  en: {
+    label: "English",
+    shortLabel: "EN",
+    htmlLang: "en",
+    ogLocale: "en_US",
+    pathPrefix: "",
+  },
+  zh: {
+    label: "简体中文",
+    shortLabel: "中",
+    htmlLang: "zh-CN",
+    ogLocale: "zh_CN",
+    pathPrefix: "/zh",
+  },
+  ko: {
+    label: "한국어",
+    shortLabel: "한",
+    htmlLang: "ko",
+    ogLocale: "ko_KR",
+    pathPrefix: "/ko",
+  },
+  ja: {
+    label: "日本語",
+    shortLabel: "日",
+    htmlLang: "ja",
+    ogLocale: "ja_JP",
+    pathPrefix: "/ja",
+  },
+  es: {
+    label: "Español",
+    shortLabel: "ES",
+    htmlLang: "es",
+    ogLocale: "es_ES",
+    pathPrefix: "/es",
+  },
+};
+
+export function localePath(locale: Locale, path = "") {
+  const normalizedPath = path === "/" ? "" : path;
+  return `${localeConfig[locale].pathPrefix}${normalizedPath}` || "/";
+}
+
+export function localeFromPathname(pathname: string): Locale | null {
+  const segment = pathname
+    .split("/")
+    .filter(Boolean)[0]
+    ?.replace(/\.html$/, "");
+  return supportedLocales.find(
+    (locale) => locale !== "en" && locale === segment,
+  ) ?? null;
+}
 
 export const translations = {
   en: {
@@ -829,7 +894,12 @@ export function getTranslation(
   key: TranslationKey,
   params?: Record<string, string | number>,
 ): string {
-  let text: string = translations[locale][key] ?? translations.en[key] ?? key;
+  let text: string =
+    (locale === "en" || locale === "zh"
+      ? translations[locale][key]
+      : additionalTranslations[locale][key]) ??
+    translations.en[key] ??
+    key;
   if (params) {
     for (const [k, v] of Object.entries(params)) {
       text = text.replace(`{${k}}`, String(v));
@@ -842,5 +912,8 @@ export function detectLocale(): Locale {
   if (typeof window === "undefined") return "en";
   const lang = navigator.language || "en";
   if (lang.startsWith("zh")) return "zh";
+  if (lang.startsWith("ko")) return "ko";
+  if (lang.startsWith("ja")) return "ja";
+  if (lang.startsWith("es")) return "es";
   return "en";
 }

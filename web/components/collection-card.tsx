@@ -6,7 +6,10 @@ import { CollectionPetStage } from "@/components/collection-pet-stage";
 import { ShareMenu } from "@/components/share-menu";
 import { useLocale } from "@/components/locale-provider";
 import { getCollectionInstallPrompt } from "@/lib/codex-links";
-import type { CollectionCardData } from "@/lib/collections";
+import {
+  getLocalizedCollectionText,
+  type CollectionCardData,
+} from "@/lib/collections";
 import { siteConfig } from "@/lib/site";
 
 export function CollectionCard({
@@ -15,7 +18,7 @@ export function CollectionCard({
   collection: CollectionCardData;
 }) {
   const { locale, t } = useLocale();
-  const title = collection.title[locale];
+  const title = getLocalizedCollectionText(collection.title, locale);
   const href = `/collections/${collection.slug}`;
 
   return (
@@ -47,7 +50,7 @@ export function CollectionCard({
           </span>
         </div>
         <p className="min-h-10 text-sm leading-relaxed text-muted">
-          {collection.description[locale]}
+          {getLocalizedCollectionText(collection.description, locale)}
         </p>
       </Link>
     </article>

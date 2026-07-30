@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLocale } from "@/components/locale-provider";
 import { SiteLogo } from "@/components/site-logo";
+import { localeConfig, localePath } from "@/lib/i18n";
 
 export function SiteFooter() {
   const { locale, t } = useLocale();
@@ -56,7 +57,7 @@ export function SiteFooter() {
               <li>
                 <Link
                   className="text-muted hover:text-text transition-colors"
-                  href="/install"
+                  href={localePath(locale, "/install")}
                 >
                   {t("install")}
                 </Link>
@@ -72,7 +73,7 @@ export function SiteFooter() {
               <li>
                 <Link
                   className="text-muted hover:text-text transition-colors"
-                  href={locale === "zh" ? "/zh/request" : "/request"}
+                  href={localePath(locale, "/request")}
                 >
                   {t("requestPet")}
                 </Link>
@@ -80,12 +81,10 @@ export function SiteFooter() {
               <li>
                 <Link
                   className="text-muted hover:text-text transition-colors"
-                  href="/zh"
-                  hrefLang="zh-CN"
+                  href={localePath(locale, "/")}
+                  hrefLang={localeConfig[locale].htmlLang}
                 >
-                  {locale === "zh"
-                    ? "Codex 小宠物中文指南"
-                    : "Chinese Codex pet guide"}
+                  {localeConfig[locale].label} · Awesome Codex Pet
                 </Link>
               </li>
             </ul>

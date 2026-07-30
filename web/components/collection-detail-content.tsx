@@ -8,7 +8,11 @@ import { PetGallery } from "@/components/pet-gallery";
 import { ShareMenu } from "@/components/share-menu";
 import { useLocale } from "@/components/locale-provider";
 import { buildChatGPTUrl, getCollectionInstallPrompt } from "@/lib/codex-links";
-import { getCollectionCoverPets, type PetCollection } from "@/lib/collections";
+import {
+  getCollectionCoverPets,
+  getLocalizedCollectionText,
+  type PetCollection,
+} from "@/lib/collections";
 import { siteConfig } from "@/lib/site";
 
 export function CollectionDetailContent({
@@ -17,7 +21,7 @@ export function CollectionDetailContent({
   collection: PetCollection;
 }) {
   const { locale, t } = useLocale();
-  const title = collection.title[locale];
+  const title = getLocalizedCollectionText(collection.title, locale);
   const coverPets = getCollectionCoverPets(collection);
   const categories = Array.from(
     new Map(
@@ -69,7 +73,7 @@ export function CollectionDetailContent({
               {title}
             </h1>
             <p className="mb-6 max-w-xl text-base leading-relaxed text-muted">
-              {collection.description[locale]}
+              {getLocalizedCollectionText(collection.description, locale)}
             </p>
             <div className="flex flex-wrap gap-3">
               <a

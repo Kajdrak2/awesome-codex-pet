@@ -19,6 +19,17 @@ type PetRequestCraftSource = {
   githubUrl: string;
 };
 
+function taskLanguageInstruction(locale: Locale) {
+  const instructions: Record<Locale, string> = {
+    en: "Use English throughout this task.",
+    zh: "请全程使用中文。",
+    ko: "이 작업에서는 처음부터 끝까지 한국어를 사용하세요.",
+    ja: "このタスクでは最初から最後まで日本語を使用してください。",
+    es: "Usa español durante toda esta tarea.",
+  };
+  return instructions[locale];
+}
+
 export function buildChatGPTUrl(prompt: string) {
   return `https://chatgpt.com/?q=${encodeURIComponent(prompt)}`;
 }
@@ -53,7 +64,7 @@ export function getPetRequestPrompt(locale: Locale) {
 先向我询问角色或概念名称，然后完成查重和 Issue 创建。`;
   }
 
-  return `Use English throughout this task. Help me request a new Codex pet from Awesome Codex Pet at ${repositoryUrl}.
+  return `${taskLanguageInstruction(locale)} Help me request a new Codex pet from Awesome Codex Pet at ${repositoryUrl}.
 
 The goal is a free, clear, actionable GitHub issue. Do not clone the repository and do not open a pull request yet. A community contributor may volunteer to create the pet for free, but a request is not a promise of acceptance, delivery, or completion time.
 
@@ -120,7 +131,7 @@ ${requestContext}
 先检查 Issue 是否仍可认领，再继续制作；不要重新创建请求 Issue。`;
   }
 
-  return `Use English throughout. Help me claim and complete this existing community request for Awesome Codex Pet at ${repositoryUrl}.
+  return `${taskLanguageInstruction(locale)} Help me claim and complete this existing community request for Awesome Codex Pet at ${repositoryUrl}.
 
 Request context:
 ${requestContext}
@@ -159,7 +170,7 @@ export function getPetSubmissionPrompt(locale: Locale) {
 请先询问我要现场制作、继续完善还是提交现成文件，再检查我提供的参考资料和素材，把制作或修复、逐帧验收、验证、GitHub API 上传、PR 与 CI 跟进完整做完。`;
   }
 
-  return `Use English throughout this task. Help me create, finish, or submit my own Codex pet to ${repositoryUrl}.
+  return `${taskLanguageInstruction(locale)} Help me create, finish, or submit my own Codex pet to ${repositoryUrl}.
 
 Use the GitHub API by default so I do not need to clone the full repository. The default outcome is a reviewable pull request, not a blocker report. First ask whether I want to make the pet now from a character or references, finish an in-progress pet, or submit an existing pet folder or spritesheet.webp. Collect all missing decisions in one compact question set.
 
@@ -185,7 +196,7 @@ export function getPetInstallPrompt(pet: PetNameSource, locale: Locale) {
     return `请全程使用中文，为我安装 Awesome Codex Pet 中的「${petName}」（${pet.slug}）。先判断当前操作系统，再运行对应的官方安装命令；确认 pet.json 与 spritesheet.webp 已写入 Codex pets 目录，说明实际安装路径，并告诉我是否需要重启 Codex 以及如何在“设置 → 宠物”中启用它。\n\nmacOS / Linux：\n${commands.bash}\n\nWindows PowerShell：\n${commands.powershell}`;
   }
 
-  return `Use English throughout this task. Install "${petName}" (${pet.slug}) from Awesome Codex Pet. Detect the current operating system, run the matching official command, verify that pet.json and spritesheet.webp were written to the Codex pets directory, report the actual install path, and explain whether Codex needs to restart and how to enable the pet under Settings → Pets.\n\nmacOS / Linux:\n${commands.bash}\n\nWindows PowerShell:\n${commands.powershell}`;
+  return `${taskLanguageInstruction(locale)} Install "${petName}" (${pet.slug}) from Awesome Codex Pet. Detect the current operating system, run the matching official command, verify that pet.json and spritesheet.webp were written to the Codex pets directory, report the actual install path, and explain whether Codex needs to restart and how to enable the pet under Settings → Pets.\n\nmacOS / Linux:\n${commands.bash}\n\nWindows PowerShell:\n${commands.powershell}`;
 }
 
 export function getInstallGuidePrompt(locale: Locale) {
@@ -193,7 +204,7 @@ export function getInstallGuidePrompt(locale: Locale) {
     return `请全程使用中文，帮我从 ${repositoryUrl} 安装一只 Awesome Codex Pet。先询问我要安装的宠物页面链接或 pet slug；收到后判断当前操作系统，选择仓库提供的 Bash、PowerShell 或本地 Node.js 安装方式。安装完成后验证 pet.json 与 spritesheet.webp，告诉我实际安装路径，并说明如何重启 Codex、在“设置 → 宠物”中选择它。不要猜测宠物 slug，也不要修改其他已安装宠物。`;
   }
 
-  return `Use English throughout this task. Help me install an Awesome Codex Pet from ${repositoryUrl}. First ask for the pet page URL or pet slug. Then detect the current operating system and use the repository's Bash, PowerShell, or local Node.js installer. Verify pet.json and spritesheet.webp after installation, report the actual install path, and explain how to restart Codex and select the pet under Settings → Pets. Do not guess the pet slug or modify other installed pets.`;
+  return `${taskLanguageInstruction(locale)} Help me install an Awesome Codex Pet from ${repositoryUrl}. First ask for the pet page URL or pet slug. Then detect the current operating system and use the repository's Bash, PowerShell, or local Node.js installer. Verify pet.json and spritesheet.webp after installation, report the actual install path, and explain how to restart Codex and select the pet under Settings → Pets. Do not guess the pet slug or modify other installed pets.`;
 }
 
 export function getCollectionInstallPrompt(
@@ -206,5 +217,5 @@ export function getCollectionInstallPrompt(
     return `请全程使用中文，安装 Awesome Codex Pet 的「${title}」合集。宠物列表：${slugs}。请根据当前系统逐个调用仓库官方安装脚本，验证每只宠物的 pet.json 与 spritesheet.webp 都已安装到 Codex pets 目录，并用中文汇总安装路径、成功项和失败项。仓库：${repositoryUrl}`;
   }
 
-  return `Use English throughout this task. Install the "${title}" collection from Awesome Codex Pet. Pet slugs: ${slugs}. Use the repository's official installer for this system for each pet, verify pet.json and spritesheet.webp in the Codex pets directory, then summarize install paths, successes, and failures in English. Repository: ${repositoryUrl}`;
+  return `${taskLanguageInstruction(locale)} Install the "${title}" collection from Awesome Codex Pet. Pet slugs: ${slugs}. Use the repository's official installer for this system for each pet, verify pet.json and spritesheet.webp in the Codex pets directory, then summarize install paths, successes, and failures. Repository: ${repositoryUrl}`;
 }

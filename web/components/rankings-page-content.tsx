@@ -12,6 +12,8 @@ import {
 import { useLocale } from "@/components/locale-provider";
 import { PetLikeButton } from "@/components/pet-like-button";
 import { getLocalizedPetName } from "@/lib/codex-links";
+import { getLocalizedCollectionText } from "@/lib/collections";
+import { localeConfig, type Locale } from "@/lib/i18n";
 import type {
   LeaderboardData,
   RankedCollection,
@@ -73,7 +75,7 @@ function PreviewMosaic({
 }: {
   href: string;
   label: string;
-  locale: "en" | "zh";
+  locale: Locale;
   motionAllowed: boolean;
   pets: GalleryPet[];
 }) {
@@ -235,7 +237,7 @@ export function RankingsPageContent({ data }: { data: LeaderboardData }) {
   }
 
   const dateFormatter = new Intl.DateTimeFormat(
-    locale === "zh" ? "zh-CN" : "en-US",
+    localeConfig[locale].htmlLang,
     { month: "short", day: "numeric", timeZone: "UTC" },
   );
   const snapshotLabel = data.generatedAt
@@ -397,7 +399,7 @@ function PetRanking({
   rankingWindow,
 }: {
   entries: RankedPet[];
-  locale: "en" | "zh";
+  locale: Locale;
   motionAllowed: boolean;
   rankingWindow: RankingWindow;
 }) {
@@ -553,7 +555,7 @@ function CollectionRanking({
   rankingWindow,
 }: {
   entries: RankedCollection[];
-  locale: "en" | "zh";
+  locale: Locale;
   motionAllowed: boolean;
   rankingWindow: RankingWindow;
 }) {
@@ -575,7 +577,7 @@ function CollectionRanking({
             </span>
             <PreviewMosaic
               href={`/collections/${collection.slug}`}
-              label={collection.title[locale]}
+              label={getLocalizedCollectionText(collection.title, locale)}
               locale={locale}
               motionAllowed={motionAllowed}
               pets={collection.coverPets}
@@ -585,7 +587,7 @@ function CollectionRanking({
                 className="block truncate text-sm font-semibold text-text hover:text-accent sm:text-base"
                 href={`/collections/${collection.slug}`}
               >
-                {collection.title[locale]}
+                {getLocalizedCollectionText(collection.title, locale)}
               </Link>
               <p className="mt-1 truncate text-xs text-muted">
                 {t(

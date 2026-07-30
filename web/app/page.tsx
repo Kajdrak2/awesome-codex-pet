@@ -19,6 +19,7 @@ import {
 } from "@/lib/pets";
 import { getTrendingPets } from "@/lib/ranking";
 import { getAllRequests, getOpenRequests } from "@/lib/request-catalog";
+import { languageAlternates } from "@/lib/localized-route-metadata";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -28,11 +29,7 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   alternates: {
     canonical: "/",
-    languages: {
-      "en-US": "/",
-      "zh-CN": "/zh",
-      "x-default": "/",
-    },
+    languages: languageAlternates("/"),
   },
   openGraph: {
     title: `${siteConfig.title} — free Codex pet gallery and community`,
@@ -40,7 +37,7 @@ export const metadata: Metadata = {
     url: siteConfig.url,
     type: "website",
     locale: "en_US",
-    alternateLocale: ["zh_CN"],
+    alternateLocale: ["zh_CN", "ko_KR", "ja_JP", "es_ES"],
     images: [
       {
         url: siteConfig.ogImage,
@@ -80,7 +77,7 @@ export default function HomePage() {
         isPartOf: {
           "@id": `${siteConfig.url}/#website`,
         },
-        inLanguage: ["en", "zh-CN"],
+        inLanguage: ["en", "zh-CN", "ko", "ja", "es"],
         isAccessibleForFree: true,
         potentialAction: [
           {
@@ -125,7 +122,7 @@ export default function HomePage() {
           "@id": `${siteConfig.url}/#organization`,
         },
         isAccessibleForFree: true,
-        inLanguage: ["en", "zh-CN"],
+        inLanguage: ["en", "zh-CN", "ko", "ja", "es"],
         keywords: siteConfig.keywords,
         distribution: [
           {
@@ -147,6 +144,9 @@ export default function HomePage() {
     <main>
       <LocalizedDocumentTitle
         en="Free Codex pet gallery and community"
+        es="Galería y comunidad gratuita de mascotas Codex"
+        ja="無料 Codex ペットギャラリーとコミュニティ"
+        ko="무료 Codex 펫 갤러리와 커뮤니티"
         zh="Codex 宠物画廊与社区"
       />
       <HeroSection

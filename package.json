@@ -11,7 +11,7 @@
   "scripts": {
     "format": "prettier --write \"**/*.{md,json}\"",
     "install:pet": "node scripts/install-pet.mjs",
-    "lint": "prettier --check \"**/*.{md,json}\"",
+    "lint": "prettier --check \"**/*.{md,json}\" && node scripts/check-readme-locales.mjs",
     "previews": "python3 scripts/generate-pet-previews.py",
     "requests": "node scripts/generate-request-catalog.mjs",
     "readmes": "node scripts/generate-readmes.mjs",

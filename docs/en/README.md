@@ -1,6 +1,6 @@
 # Awesome Codex Pet Docs
 
-[简体中文](../zh-CN/README.md) | English
+[简体中文](../zh-CN/README.md) | [한국어](../ko/README.md) | [日本語](../ja/README.md) | [Español](../es/README.md) | English
 
 English documentation for Awesome Codex Pet.
 
