@@ -50,40 +50,49 @@ function CloseIcon() {
   );
 }
 
+function CheckIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      className="size-4"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2.4}
+    >
+      <path d="m5 12 4.5 4.5L19 7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 function GachaMachine({
   pets,
   isDrawing,
+  stageLabel,
 }: {
   pets: GalleryPet[];
   isDrawing: boolean;
+  stageLabel: string;
 }) {
-  const samples = useMemo(() => pets.slice(0, 6), [pets]);
   return (
     <div
-      className={`relative mx-auto flex h-52 w-64 items-end justify-center sm:h-60 sm:w-72 ${isDrawing ? "gacha-machine--drawing" : ""}`}
+      className={`gacha-machine-stage ${isDrawing ? "gacha-machine-stage--drawing" : ""}`}
       aria-hidden="true"
     >
-      <div className="absolute bottom-8 h-40 w-52 overflow-hidden rounded-[50%] border-2 border-border bg-bg/80 shadow-inner sm:h-48 sm:w-60">
-        <div className="absolute inset-x-5 top-4 grid grid-cols-3 gap-2 opacity-90">
-          {samples.map((pet, index) => (
-            <span
-              className="flex aspect-square items-center justify-center rounded-full border border-border bg-bg-secondary/90"
-              key={`${pet.slug}-${index}`}
-            >
-              <img
-                alt=""
-                className="size-10 object-contain [image-rendering:pixelated] sm:size-12"
-                src={pet.previewImage}
-              />
-            </span>
-          ))}
-        </div>
+      <div className="gacha-machine-stage__header">
+        <span className="gacha-machine-stage__status" />
+        <span>{stageLabel}</span>
+        <span className="gacha-machine-stage__count">
+          {String(pets.length).padStart(3, "0")}
+        </span>
       </div>
-      <div className="relative z-10 h-16 w-60 rounded-b-2xl rounded-t-md border border-border bg-accent shadow-lg sm:w-[17rem]">
-        <div className="absolute left-1/2 top-2 size-7 -translate-x-1/2 rounded-full border border-white/50 bg-bg-elevated/90" />
-        <div className="absolute -right-8 bottom-0 h-24 w-2 rounded-full bg-accent-hover">
-          <span className="absolute -top-2 left-1/2 size-6 -translate-x-1/2 rounded-full border-2 border-accent-hover bg-accent" />
-        </div>
+      <div className="gacha-machine-art">
+        <img
+          alt=""
+          className="gacha-machine-art__image"
+          draggable="false"
+          src="/gacha/pet-discovery-machine.webp"
+        />
       </div>
     </div>
   );
@@ -93,37 +102,37 @@ function ResultCard({ pet }: { pet: GalleryPet }) {
   const { locale, t } = useLocale();
   const name = getLocalizedPetName(pet, locale);
   return (
-    <article className="flex min-w-0 flex-1 flex-col rounded-lg border border-border bg-bg-secondary p-3">
+    <article className="gacha-result-card">
       <Link
         aria-label={`${t("view")} ${name}`}
-        className="flex h-32 items-center justify-center rounded-md bg-bg-elevated sm:h-36"
+        className="gacha-result-card__visual"
         href={`/pets/${pet.slug}`}
       >
         <img
           alt={`${name} preview`}
-          className="max-h-full max-w-full object-contain [image-rendering:pixelated]"
+          className="gacha-result-card__image"
           src={pet.previewImage}
         />
       </Link>
-      <div className="mt-3 min-w-0">
-        <div className="flex items-start justify-between gap-2">
+      <div className="gacha-result-card__body">
+        <div className="gacha-result-card__title-row">
           <Link
-            className="truncate text-sm font-semibold text-text hover:text-accent"
+            className="gacha-result-card__name"
             href={`/pets/${pet.slug}`}
           >
             {name}
           </Link>
-          <span className="shrink-0 text-[10px] text-muted">
+          <span className="gacha-result-card__category">
             {getLocalizedCategoryLabel(pet.categoryLabel, locale)}
           </span>
         </div>
-        <p className="mt-1 truncate text-xs text-muted">
+        <p className="gacha-result-card__author">
           {t("by")} {pet.author_handle ?? pet.author}
         </p>
       </div>
-      <div className="mt-3 flex gap-2">
+      <div className="gacha-result-card__actions">
         <Link
-          className="inline-flex h-8 min-w-0 flex-1 items-center justify-center rounded-md border border-border bg-bg-elevated px-2 text-xs font-medium text-text hover:bg-surface"
+          className="gacha-result-card__view"
           href={`/pets/${pet.slug}`}
         >
           {t("view")}
@@ -243,83 +252,115 @@ export function GachaDialog({ pets }: GachaDialogProps) {
           <div
             aria-describedby="gacha-description"
             aria-labelledby="gacha-title"
-            className="max-h-[calc(100dvh-1rem)] w-full max-w-2xl overflow-y-auto rounded-t-lg border border-border bg-bg-elevated p-5 shadow-2xl sm:max-h-[calc(100dvh-3rem)] sm:rounded-lg sm:p-7"
+            className="gacha-dialog-surface max-h-[calc(100dvh-1rem)] w-full max-w-3xl overflow-y-auto rounded-t-lg border border-border bg-bg-elevated p-5 shadow-2xl sm:max-h-[calc(100dvh-3rem)] sm:rounded-lg sm:p-7"
             role="dialog"
             aria-modal="true"
           >
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <h2 className="text-xl font-semibold text-text" id="gacha-title">
+            <div className="gacha-dialog-header">
+              <div className="min-w-0">
+                <div className="gacha-dialog-eyebrow">
+                  <span className="gacha-dialog-eyebrow__mark" />
+                  {t("gachaStageLabel")}
+                </div>
+                <h2 className="mt-2 text-2xl font-semibold tracking-tight text-text" id="gacha-title">
                   {t("gachaTitle")}
                 </h2>
                 <p className="mt-1 text-sm text-muted" id="gacha-description">
                   {t("gachaDescription")}
                 </p>
               </div>
-              <button
-                ref={closeRef}
-                aria-label={t("gachaClose")}
-                className="inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-md text-muted hover:bg-surface hover:text-text"
-                onClick={close}
-                title={t("gachaClose")}
-                type="button"
-              >
-                <CloseIcon />
-              </button>
+              <div className="flex shrink-0 items-center gap-3">
+                <span className="gacha-dialog-free">{t("gachaFreeNote")}</span>
+                <button
+                  ref={closeRef}
+                  aria-label={t("gachaClose")}
+                  className="inline-flex size-9 cursor-pointer items-center justify-center rounded-md text-muted transition-colors hover:bg-surface hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                  onClick={close}
+                  title={t("gachaClose")}
+                  type="button"
+                >
+                  <CloseIcon />
+                </button>
+              </div>
             </div>
 
             {!results.length ? (
-              <>
-                <GachaMachine pets={pets} isDrawing={isDrawing} />
-                <div className="mx-auto flex max-w-sm rounded-lg border border-border bg-bg-secondary p-1">
-                  {([1, 3] as const).map((value) => (
-                    <button
-                      aria-pressed={drawCount === value}
-                      className={`h-10 flex-1 cursor-pointer rounded-md px-3 text-sm font-medium transition-colors ${
-                        drawCount === value
-                          ? "bg-bg-elevated text-text shadow-sm"
-                          : "text-muted hover:text-text"
-                      }`}
-                      key={value}
-                      onClick={() => setDrawCount(value)}
-                      type="button"
+              <div className="gacha-dialog-content">
+                <GachaMachine
+                  pets={pets}
+                  isDrawing={isDrawing}
+                  stageLabel={t("gachaStageLabel")}
+                />
+                <div className="gacha-controls">
+                  <div className="gacha-controls__label-row">
+                    <span>{t("gachaDrawCountLabel")}</span>
+                  </div>
+                  <div className="gacha-count-selector">
+                    {([1, 3] as const).map((value) => (
+                      <button
+                        aria-pressed={drawCount === value}
+                        className={`gacha-count-option ${
+                          drawCount === value
+                            ? "gacha-count-option--active"
+                            : ""
+                        }`}
+                        key={value}
+                        onClick={() => setDrawCount(value)}
+                        type="button"
+                      >
+                        <span className="gacha-count-option__number">
+                          {String(value).padStart(2, "0")}
+                        </span>
+                        <span>
+                          {t(value === 1 ? "gachaSingle" : "gachaTriple")}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                  <button
+                    aria-live="polite"
+                    className="gacha-start-button"
+                    disabled={isDrawing || !hasAvailablePets}
+                    onClick={draw}
+                    type="button"
+                  >
+                    <DiceIcon />
+                    <span>{isDrawing ? t("gachaDrawing") : t("gachaStart")}</span>
+                    <svg
+                      aria-hidden="true"
+                      className="size-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
                     >
-                      {t(value === 1 ? "gachaSingle" : "gachaTriple")}
-                    </button>
-                  ))}
+                      <path d="M5 12h13m-5-5 5 5-5 5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
+                  <div className="gacha-controls__note">
+                    <CheckIcon />
+                    <span>{t("gachaRuleNote")}</span>
+                  </div>
                 </div>
-                <button
-                  aria-live="polite"
-                  className="mx-auto mt-4 flex h-11 w-full max-w-sm cursor-pointer items-center justify-center gap-2 rounded-lg bg-accent px-5 text-sm font-semibold text-white transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-60"
-                  disabled={isDrawing || !hasAvailablePets}
-                  onClick={draw}
-                  type="button"
-                >
-                  <DiceIcon />
-                  {isDrawing ? t("gachaDrawing") : t("gachaStart")}
-                </button>
-                <p className="mt-3 text-center text-xs text-muted">
-                  {t("gachaFreeNote")}
-                </p>
-              </>
+              </div>
             ) : (
               <>
                 <div
                   aria-live="polite"
-                  className="my-5 flex items-center justify-center gap-2 text-sm font-medium text-accent"
+                  className="gacha-results-header"
                 >
-                  <span className="inline-flex size-5 items-center justify-center rounded-full bg-accent text-white">
-                    ✓
+                  <span className="gacha-results-header__icon">
+                    <CheckIcon />
                   </span>
                   {t("gachaComplete", { count: results.length })}
                 </div>
-                <div className="grid gap-3 sm:grid-cols-3">
+                <div className="gacha-results-grid">
                   {results.map((pet) => (
                     <ResultCard key={pet.slug} pet={pet} />
                   ))}
                 </div>
                 <button
-                  className="mx-auto mt-5 flex h-10 w-full max-w-sm cursor-pointer items-center justify-center gap-2 rounded-lg border border-accent/50 bg-accent-light px-5 text-sm font-semibold text-accent transition-colors hover:border-accent hover:bg-accent/10"
+                  className="gacha-again-button"
                   onClick={() => {
                     setResults([]);
                     setDrawCount(results.length === 3 ? 3 : 1);
@@ -327,7 +368,7 @@ export function GachaDialog({ pets }: GachaDialogProps) {
                   type="button"
                 >
                   <DiceIcon />
-                  {t("gachaDrawAgain")}
+                  <span>{t("gachaDrawAgain")}</span>
                 </button>
               </>
             )}
