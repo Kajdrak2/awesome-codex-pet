@@ -327,7 +327,9 @@
     "requestType": "Create a new community interpretation",
     "referenceStatus": "A viewable image attachment or public image URL is included",
     "references": "- User-selected public visual reference: https://www.douyin.com/note/7573118644294982976\n- The source page was accessible when this request was prepared and identifies its publisher as “✨🐮艺术就是派大星✨.” It contains tags including #凡人修仙传动画 and #南宫婉.\n- Use this page only as an appearance reference for the animation-version character. Do not trace, extract, reuse, or directly adapt the source image.",
-    "referenceUrls": ["https://www.douyin.com/note/7573118644294982976"],
+    "referenceUrls": [
+      "https://www.douyin.com/note/7573118644294982976"
+    ],
     "referenceImages": [],
     "visualDirection": "- Pixel-art chibi interpretation of the animation-version Nangong Wan.\n- Preferred runtime: V2, including the standard animations and 16 look directions.\n- Keep the character recognizable through a compact feminine silhouette, hair and costume cues from the public reference, and a composed xianxia mood.\n- Create original pixel artwork rather than reproducing the referenced post.",
     "nameLanguages": "Bilingual English and Chinese names: Nangong Wan / 南宫婉.",
