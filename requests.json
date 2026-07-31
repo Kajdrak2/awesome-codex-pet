@@ -202,45 +202,6 @@
     "githubUrl": "https://github.com/legeling/awesome-codex-pet/issues/62"
   },
   {
-    "number": 69,
-    "character": "八重神子",
-    "characterDetails": "八重神子",
-    "franchise": "《原神》（Genshin Impact）",
-    "category": "game",
-    "version": "v1",
-    "requestType": "Create a new community interpretation\n\n希望社区基于《原神》中的公开角色形象重新创作一只 Codex 宠物。参考资料仅用于确认角色外观与标志性特征，不请求直接复制或改编参考页中的现有立绘素材。",
-    "referenceStatus": "A viewable image attachment or public image URL is included",
-    "references": "- 公开角色资料与立绘参考：https://wiki.biligame.com/ys/%E5%85%AB%E9%87%8D%E7%A5%9E%E5%AD%90#/media/%E6%96%87%E4%BB%B6:%E5%85%AB%E9%87%8D%E7%A5%9E%E5%AD%90%E7%AB%8B%E7%BB%98.png\n- 已验证该页面无需登录即可打开，可明确识别角色“八重神子（Yae Miko）”。",
-    "referenceUrls": [
-      "https://wiki.biligame.com/ys/%E5%85%AB%E9%87%8D%E7%A5%9E%E5%AD%90#/media/%E6%96%87%E4%BB%B6:%E5%85%AB%E9%87%8D%E7%A5%9E%E5%AD%90%E7%AB%8B%E7%BB%98.png"
-    ],
-    "referenceImages": [],
-    "visualDirection": "可爱像素风，采用紧凑、清晰的 Q 版比例并保留八重神子的核心辨识特征；可加入樱花飘落动画。适配 v1 标准动画，其他细节可由志愿制作者发挥。",
-    "nameLanguages": "Single-language default name：八重神子（中文）",
-    "attribution": "- 角色与作品来源：《原神》中的八重神子。\n- 外观参考来源：上方公开的哔哩哔哩《原神》WIKI 角色资料页。\n- 不声称第三方角色或参考素材为申请者原创，也不请求直接改编参考页立绘。\n- 本请求产生的仓库宠物作品仅限非商业使用。",
-    "duplicateCheck": "- 已检查仓库 pets.json：未发现“八重神子”“Yae Miko”或“yae”的匹配条目。\n- 已检查 collections.json：仓库已有 genshin-impact（《原神》）合集，但其中未收录八重神子。\n- 已通过 GitHub Issues 搜索“八重神子”和“Yae Miko”：未发现相同角色请求；本 Issue #69 为当前唯一请求。",
-    "state": "open",
-    "status": "triage",
-    "labels": [
-      "type: request",
-      "status: triage",
-      "version: v1",
-      "category: game"
-    ],
-    "author": {
-      "login": "ghao37364-creator",
-      "avatarUrl": "https://avatars.githubusercontent.com/u/284883502?v=4",
-      "url": "https://github.com/ghao37364-creator"
-    },
-    "assignees": [],
-    "createdAt": "2026-07-28T09:42:02Z",
-    "updatedAt": "2026-07-28T11:04:26Z",
-    "closedAt": null,
-    "comments": 1,
-    "reactions": 0,
-    "githubUrl": "https://github.com/legeling/awesome-codex-pet/issues/69"
-  },
-  {
     "number": 60,
     "character": "金毛",
     "characterDetails": "金毛",
@@ -279,6 +240,45 @@
     "comments": 0,
     "reactions": 0,
     "githubUrl": "https://github.com/legeling/awesome-codex-pet/issues/60"
+  },
+  {
+    "number": 69,
+    "character": "八重神子",
+    "characterDetails": "八重神子",
+    "franchise": "《原神》（Genshin Impact）",
+    "category": "game",
+    "version": "v1",
+    "requestType": "Create a new community interpretation\n\n希望社区基于《原神》中的公开角色形象重新创作一只 Codex 宠物。参考资料仅用于确认角色外观与标志性特征，不请求直接复制或改编参考页中的现有立绘素材。",
+    "referenceStatus": "A viewable image attachment or public image URL is included",
+    "references": "- 公开角色资料与立绘参考：https://wiki.biligame.com/ys/%E5%85%AB%E9%87%8D%E7%A5%9E%E5%AD%90#/media/%E6%96%87%E4%BB%B6:%E5%85%AB%E9%87%8D%E7%A5%9E%E5%AD%90%E7%AB%8B%E7%BB%98.png\n- 已验证该页面无需登录即可打开，可明确识别角色“八重神子（Yae Miko）”。",
+    "referenceUrls": [
+      "https://wiki.biligame.com/ys/%E5%85%AB%E9%87%8D%E7%A5%9E%E5%AD%90#/media/%E6%96%87%E4%BB%B6:%E5%85%AB%E9%87%8D%E7%A5%9E%E5%AD%90%E7%AB%8B%E7%BB%98.png"
+    ],
+    "referenceImages": [],
+    "visualDirection": "可爱像素风，采用紧凑、清晰的 Q 版比例并保留八重神子的核心辨识特征；可加入樱花飘落动画。适配 v1 标准动画，其他细节可由志愿制作者发挥。",
+    "nameLanguages": "Single-language default name：八重神子（中文）",
+    "attribution": "- 角色与作品来源：《原神》中的八重神子。\n- 外观参考来源：上方公开的哔哩哔哩《原神》WIKI 角色资料页。\n- 不声称第三方角色或参考素材为申请者原创，也不请求直接改编参考页立绘。\n- 本请求产生的仓库宠物作品仅限非商业使用。",
+    "duplicateCheck": "- 已检查仓库 pets.json：未发现“八重神子”“Yae Miko”或“yae”的匹配条目。\n- 已检查 collections.json：仓库已有 genshin-impact（《原神》）合集，但其中未收录八重神子。\n- 已通过 GitHub Issues 搜索“八重神子”和“Yae Miko”：未发现相同角色请求；本 Issue #69 为当前唯一请求。",
+    "state": "closed",
+    "status": "completed",
+    "labels": [
+      "type: request",
+      "status: triage",
+      "version: v1",
+      "category: game"
+    ],
+    "author": {
+      "login": "ghao37364-creator",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/284883502?v=4",
+      "url": "https://github.com/ghao37364-creator"
+    },
+    "assignees": [],
+    "createdAt": "2026-07-28T09:42:02Z",
+    "updatedAt": "2026-07-31T10:00:05Z",
+    "closedAt": "2026-07-31T10:00:05Z",
+    "comments": 2,
+    "reactions": 0,
+    "githubUrl": "https://github.com/legeling/awesome-codex-pet/issues/69"
   },
   {
     "number": 49,
