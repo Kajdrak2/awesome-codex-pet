@@ -224,3 +224,26 @@ html[data-theme="dark"] {
 .animate-fade-in-up {
   animation: fadeInUp 0.6s ease-out forwards;
 }
+
+@keyframes gachaMachineShake {
+  0%,
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  25% {
+    transform: rotate(-1.5deg) translateY(-2px);
+  }
+  75% {
+    transform: rotate(1.5deg) translateY(-2px);
+  }
+}
+
+.gacha-machine--drawing {
+  animation: gachaMachineShake 180ms ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gacha-machine--drawing {
+    animation: none;
+  }
+}

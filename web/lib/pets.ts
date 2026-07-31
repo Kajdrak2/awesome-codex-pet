@@ -60,6 +60,7 @@ export type GalleryPet = Pick<
   | "author_handle"
   | "author_url"
   | "primary_category"
+  | "canonical_key"
   | "description"
   | "categoryLabel"
   | "localizedNames"
@@ -92,6 +93,7 @@ export function toGalleryPet(pet: Pet): GalleryPet {
     author_handle: pet.author_handle,
     author_url: pet.author_url,
     primary_category: pet.primary_category,
+    canonical_key: pet.canonical_key,
     description: pet.description,
     categoryLabel: pet.categoryLabel,
     localizedNames: pet.localizedNames,

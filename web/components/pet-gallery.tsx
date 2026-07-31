@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import { FilterBar, type CategoryFilterOption } from "@/components/filter-bar";
 import { ActionDropdown } from "@/components/action-dropdown";
+import { GachaDialog } from "@/components/gacha-dialog";
 import { PetCard } from "@/components/pet-card";
 import { useLocale } from "@/components/locale-provider";
 import { fetchStats, type StatsMap } from "@/lib/stats";
@@ -263,6 +264,7 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
                 : t("statsUpdated")}
           </span>
           <div className="flex items-center gap-2">
+            <GachaDialog pets={pets} />
             <span className="hidden sm:inline text-muted">
               {t("sortLabel")}
             </span>

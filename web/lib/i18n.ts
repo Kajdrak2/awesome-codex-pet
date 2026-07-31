@@ -121,6 +121,18 @@ export const translations = {
     loadMorePets: "Load more pets",
     showingPets: "Showing {count} pets",
     backToTop: "Back to top",
+    gachaOpen: "Random discovery",
+    gachaTitle: "Random discovery",
+    gachaDescription:
+      "Discover a few community pets without leaving the gallery.",
+    gachaSingle: "Single draw",
+    gachaTriple: "Three draws",
+    gachaStart: "Start drawing",
+    gachaDrawing: "Drawing...",
+    gachaFreeNote: "Free random discovery",
+    gachaComplete: "Draw complete · {count} pets",
+    gachaDrawAgain: "Draw again",
+    gachaClose: "Close",
 
     // Collections
     featuredCollectionsEyebrow: "Featured collections",
@@ -532,6 +544,17 @@ export const translations = {
     loadMorePets: "加载更多宠物",
     showingPets: "已展示 {count} 只宠物",
     backToTop: "回到顶部",
+    gachaOpen: "随机发现",
+    gachaTitle: "随机发现",
+    gachaDescription: "不用离开画廊，随机发现几只社区宠物。",
+    gachaSingle: "单抽",
+    gachaTriple: "三连抽",
+    gachaStart: "开始抽取",
+    gachaDrawing: "抽取中……",
+    gachaFreeNote: "免费随机发现",
+    gachaComplete: "抽取完成 · {count} 只宠物",
+    gachaDrawAgain: "再抽一次",
+    gachaClose: "关闭",
 
     // Collections
     featuredCollectionsEyebrow: "精选合集",
