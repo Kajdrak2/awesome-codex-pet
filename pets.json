@@ -1703,6 +1703,20 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "yae-miko--legeling",
+    "name": "八重神子",
+    "localized_names": { "en": "Yae Miko", "zh": "八重神子" },
+    "author": "Lingxiaotian",
+    "author_handle": "legeling",
+    "author_url": "https://github.com/legeling",
+    "primary_category": "Game Characters",
+    "canonical_key": "genshin-impact/yae-miko",
+    "collections": ["genshin-impact"],
+    "license": "CC BY-NC 4.0",
+    "description": "An original non-commercial chibi pixel-art interpretation inspired by Yae Miko. The public character reference was used only to preserve recognizable traits; the source artwork, logos, and text were not reproduced.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "nangong-wan--bpup",
     "name": "南宫婉",
     "localized_names": { "en": "Nangong Wan", "zh": "南宫婉" },
