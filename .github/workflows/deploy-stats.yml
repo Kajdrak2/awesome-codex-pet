@@ -57,6 +57,7 @@ jobs:
         working-directory: worker
 
       - name: Configure Turnstile
+        continue-on-error: true
         run: npm run turnstile:ensure -- --remote
         working-directory: worker
 
