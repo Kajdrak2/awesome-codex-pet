@@ -7,7 +7,8 @@ import { fileURLToPath } from "node:url";
 const WIDGET_NAME = "awesome-codex-pet-requests";
 const workerRoot = fileURLToPath(new URL("..", import.meta.url));
 const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
-const apiToken = process.env.CLOUDFLARE_API_TOKEN;
+const apiToken =
+  process.env.TURNSTILE_API_TOKEN || process.env.CLOUDFLARE_API_TOKEN;
 const target = process.argv.includes("--remote") ? "--remote" : "--local";
 
 function sqlString(value) {
