@@ -1,20 +1,22 @@
 name: Request a pet for free
-description: Submit a free request that a community contributor may volunteer to make
+description: Tell the community which character or concept you want
 title: "[Request]: "
 labels:
   - "type: request"
   - "status: triage"
+  - "version: v2"
+  - "category: other"
 body:
   - type: markdown
     attributes:
       value: |
         <!-- pet-flow: request -->
-        Submitting a request is free, and a finished spritesheet is not required. A community contributor may volunteer to create and publish the pet for free, but a request is not an acceptance, delivery, or completion-time promise. The recommended path is **Request a pet with Codex** on [codexpet.top/request](https://codexpet.top/request), or copy the provided prompt for another AI assistant. The workflow checks the catalog and prepares this issue for you.
+        Only the character or concept is required. New requests use **V2** automatically. A community contributor may volunteer to make the pet for free, but completion is not guaranteed.
   - type: input
     id: character
     attributes:
       label: Character or concept
-      description: Give the canonical character, mascot, animal, object, or original concept name.
+      description: A character, mascot, animal, object, or original idea.
       placeholder: Misaka Mikoto
     validations:
       required: true
@@ -22,105 +24,24 @@ body:
     id: franchise
     attributes:
       label: Original work or franchise
-      description: Leave blank for an original character or concept.
+      description: Optional. Leave blank for an original concept.
       placeholder: A Certain Scientific Railgun
-  - type: dropdown
-    id: primary_category
-    attributes:
-      label: Preferred primary category
-      options:
-        - Game Characters
-        - Anime Characters
-        - Original Characters
-        - Mascots
-        - Animals
-        - Fantasy Creatures
-        - Robots
-        - Human Avatars
-        - Memes
-        - Objects & Props
-        - Others
-    validations:
-      required: true
-  - type: dropdown
-    id: pet_version
-    attributes:
-      label: Preferred pet runtime version
-      description: V2 is recommended for new pets and includes 16 look directions.
-      options:
-        - v2 - standard animations plus 16 look directions
-        - v1 - legacy standard animations
-        - Let the maker decide
-    validations:
-      required: true
-  - type: dropdown
-    id: request_kind
-    attributes:
-      label: Request type
-      description: State whether existing artwork is reference-only or will be adapted directly. All repository output is non-commercial by default.
-      options:
-        - Create a new community interpretation
-        - Adapt my own original artwork
-        - Review an existing asset and its source notes first
-    validations:
-      required: true
-  - type: dropdown
-    id: reference_status
-    attributes:
-      label: Reference availability
-      description: Choose the evidence maintainers can actually open from this issue. A local filename, private chat image, or prose description is not an attachment.
-      options:
-        - A viewable image attachment or public image URL is included
-        - An official character or source page is included
-        - This concept intentionally has no fixed visual appearance
-    validations:
-      required: true
   - type: textarea
     id: references
     attributes:
-      label: References
-      description: For a real pet, original character, avatar, or other appearance-specific request, attach at least one viewable image or public image URL before submitting. Known characters may use an official character or source page. Dragging an image into another app or mentioning a local path does not upload it to GitHub.
-      placeholder: GitHub image attachment or public/official URL, followed by notes about the most recognizable traits
-    validations:
-      required: true
+      label: Public reference
+      description: Optional. Add an official page, public image URL, or GitHub image attachment if it helps identify the character.
+      placeholder: Link or drag an image here
   - type: textarea
     id: visual_direction
     attributes:
-      label: Visual and animation direction
-      description: Describe the style, signature details, props, expressions, and actions that matter most.
-      placeholder: Compact chibi proportions, readable electric effects attached to the character, lively review animation...
-    validations:
-      required: true
-  - type: dropdown
-    id: naming
-    attributes:
-      label: Name language support
-      options:
-        - Single-language default name
-        - Bilingual English and Chinese names
-        - Let the maker decide
-    validations:
-      required: true
-  - type: textarea
-    id: attribution
-    attributes:
-      label: Author, source, and non-commercial usage notes
-      description: Required when the request proposes reusing or adapting an existing asset. Keep attribution honest and state non-commercial use even when the original URL is unknown.
-      placeholder: Original author when known, source URL when available, and "non-commercial use only"
-  - type: textarea
-    id: duplicate_check
-    attributes:
-      label: Similar pets already checked
-      description: AI should search pets.json and existing issues before creating this request. Link the same character and franchise when found; an independent interpretation may still be requested, but its difference must be clear.
-      placeholder: Links to the existing character versions or requests, followed by the intended difference
-    validations:
-      required: true
+      label: Important preferences
+      description: Optional. Mention any style, prop, expression, or animation that matters.
+      placeholder: Compact chibi proportions, electric effects...
   - type: checkboxes
-    id: confirmations
+    id: confirmation
     attributes:
-      label: Request confirmation
+      label: Confirmation
       options:
-        - label: I understand that a request is not an acceptance or delivery promise.
-          required: true
-        - label: I have not presented third-party artwork as my own.
+        - label: I understand that this free community request does not guarantee completion.
           required: true

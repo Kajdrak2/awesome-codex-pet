@@ -8,6 +8,8 @@
     "db:migrate:remote": "wrangler d1 migrations apply DB --remote",
     "db:sync": "node scripts/sync-catalog.mjs",
     "db:export": "node scripts/export-stats.mjs",
+    "turnstile:ensure": "node scripts/ensure-turnstile.mjs",
+    "requests:sync": "node scripts/sync-manual-requests.mjs",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "tail": "wrangler tail",

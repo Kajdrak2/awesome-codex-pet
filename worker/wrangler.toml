@@ -18,4 +18,5 @@ crons = ["17 3 * * *"]
 
 [vars]
 # Comma separated list of allowed origins for CORS.
-ALLOWED_ORIGINS = "https://codexpet.top,http://localhost:3000,http://localhost:3001"
+ALLOWED_ORIGINS = "https://codexpet.top,https://www.codexpet.top,http://localhost:3000,http://localhost:3001"
+TURNSTILE_ALLOWED_HOSTNAMES = "codexpet.top,www.codexpet.top"

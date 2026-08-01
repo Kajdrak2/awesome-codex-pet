@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { CodexIcon } from "@/components/codex-icon";
+import { ManualRequestForm } from "@/components/manual-request-form";
 import {
   buildCodexUrl,
   getPetRequestPrompt,
@@ -19,6 +20,7 @@ const content = {
     intro:
       "Submitting a request is free. Tell the Awesome Codex Pet community which character, mascot, animal, or original idea you want. A community contributor may volunteer to create and publish it for free, but requests are not delivery promises.",
     codexCta: "Prepare my request in Codex",
+    manualCta: "Fill the simple form",
     githubCta: "Open the request form",
     plazaCta: "Browse open requests",
     note: "No finished spritesheet or coding experience is required.",
@@ -27,21 +29,21 @@ const content = {
     steps: [
       {
         index: "01",
-        title: "Check the gallery",
+        title: "Name the character",
         description:
-          "Search the pet gallery and open requests first so the community does not duplicate an existing character.",
+          "The character or concept is the only required field. We handle the version and initial classification.",
       },
       {
         index: "02",
-        title: "Share recognizable references",
+        title: "Add details if useful",
         description:
-          "Provide the character name, original work, a public or GitHub-hosted reference image, and the visual details that matter.",
+          "The original work, a public reference link, and visual preferences are optional.",
       },
       {
         index: "03",
-        title: "Publish the free request",
+        title: "Submit without an account",
         description:
-          "Codex can organize the information and open the GitHub request, or you can fill in the community form yourself.",
+          "Complete the human check and submit. The request enters the public community queue as V2.",
       },
       {
         index: "04",
@@ -69,7 +71,7 @@ const content = {
       {
         question: "Can I request an anime or game character?",
         answer:
-          "Yes. You can request anime, game, mascot, animal, meme, object, avatar, or original characters. Include a recognizable official or public reference and honest source notes.",
+          "Yes. You can request anime, game, mascot, animal, meme, object, avatar, or original characters. A public reference is helpful but optional.",
       },
       {
         question: "Do I need to make the spritesheet myself?",
@@ -86,6 +88,7 @@ const content = {
     intro:
       "提交申请本身完全免费。告诉 Awesome Codex Pet 社区你想要哪个动漫角色、游戏人物、吉祥物、动物或原创形象；社区贡献者可能会志愿认领并免费制作，但申请不等于承诺交付。",
     codexCta: "让 Codex 帮我整理申请",
+    manualCta: "直接填写简短表单",
     githubCta: "直接填写申请表",
     plazaCta: "先看已有制作请求",
     note: "不需要现成 spritesheet，也不要求会画画或写代码。",
@@ -94,21 +97,21 @@ const content = {
     steps: [
       {
         index: "01",
-        title: "先搜索画廊",
+        title: "填写角色名称",
         description:
-          "先搜索宠物画廊和已有申请，确认喜欢的角色尚未收录，避免社区重复制作。",
+          "只要求填写角色或概念名称；版本、初始分类和查重由系统处理。",
       },
       {
         index: "02",
-        title: "提供清楚的角色参考",
+        title: "按需补充资料",
         description:
-          "填写角色名称、所属作品、公开或 GitHub 可访问的参考图，以及最重要的外观和动作特点。",
+          "所属作品、公开参考链接和画风偏好都可以不填。",
       },
       {
         index: "03",
-        title: "免费发布制作申请",
+        title: "无需账号直接提交",
         description:
-          "可以让 Codex 自动查重、整理资料并创建 GitHub Issue，也可以自己填写社区申请表。",
+          "完成人机验证后即可提交，申请会以 V2 自动进入公开社区队列。",
       },
       {
         index: "04",
@@ -136,12 +139,12 @@ const content = {
       {
         question: "可以申请动漫或游戏人物吗？",
         answer:
-          "可以。动漫、游戏、吉祥物、动物、梗图、物品、头像和原创角色都可以申请。请提供能辨认角色的官方或公开参考资料，并如实填写来源。",
+          "可以。动漫、游戏、吉祥物、动物、梗图、物品、头像和原创角色都可以申请；公开参考资料有帮助，但不是必填项。",
       },
       {
         question: "申请人需要自己制作 spritesheet 吗？",
         answer:
-          "不需要。申请阶段只要说明角色或概念、提供参考图和偏好；有贡献者愿意认领时，再由社区完成制作与审查。",
+          "不需要。申请阶段只要填写角色或概念名称；参考图和偏好都可以不填，有贡献者愿意认领时再由社区完成制作与审查。",
       },
     ],
   },
@@ -153,6 +156,7 @@ const content = {
     intro:
       "요청 등록은 무료입니다. 원하는 캐릭터, 마스코트, 동물 또는 오리지널 아이디어를 알려 주세요. 커뮤니티 제작자가 무료로 만들 수 있지만 완성이나 채택은 보장되지 않습니다.",
     codexCta: "Codex로 요청 준비",
+    manualCta: "간단한 양식 작성",
     githubCta: "요청 양식 열기",
     plazaCta: "기존 요청 보기",
     note: "완성된 spritesheet나 코딩 경험이 필요하지 않습니다.",
@@ -161,20 +165,20 @@ const content = {
     steps: [
       {
         index: "01",
-        title: "갤러리 확인",
-        description: "같은 캐릭터가 이미 있는지 갤러리와 요청을 먼저 검색합니다.",
+        title: "캐릭터 이름 입력",
+        description: "필수 항목은 캐릭터 또는 콘셉트뿐이며 V2가 자동 선택됩니다.",
       },
       {
         index: "02",
-        title: "알아볼 수 있는 참고 자료 제공",
+        title: "선택 정보 추가",
         description:
-          "캐릭터 이름, 원작, 공개 참고 이미지와 중요한 외형 정보를 제공합니다.",
+          "원작, 공개 참고 링크와 스타일 선호 사항은 선택입니다.",
       },
       {
         index: "03",
-        title: "무료 요청 게시",
+        title: "계정 없이 제출",
         description:
-          "Codex가 정보를 정리해 GitHub 요청을 만들거나 직접 양식을 작성할 수 있습니다.",
+          "사람 인증 후 제출하면 V2 요청이 커뮤니티 대기열에 등록됩니다.",
       },
       {
         index: "04",
@@ -200,7 +204,7 @@ const content = {
       },
       {
         question: "애니메이션이나 게임 캐릭터도 요청할 수 있나요?",
-        answer: "네. 알아볼 수 있는 공개 참고 자료와 정확한 출처를 포함해 주세요.",
+        answer: "네. 공개 참고 자료는 도움이 되지만 선택 사항입니다.",
       },
       {
         question: "spritesheet를 직접 만들어야 하나요?",
@@ -216,6 +220,7 @@ const content = {
     intro:
       "リクエストは無料です。欲しいキャラクター、マスコット、動物、オリジナル案をコミュニティに伝えましょう。有志が無料で制作する場合がありますが、完成や採用は保証されません。",
     codexCta: "Codex でリクエストを準備",
+    manualCta: "簡単なフォームに入力",
     githubCta: "リクエストフォームを開く",
     plazaCta: "既存のリクエストを見る",
     note: "完成した spritesheet やプログラミング経験は不要です。",
@@ -224,21 +229,21 @@ const content = {
     steps: [
       {
         index: "01",
-        title: "ギャラリーを確認",
+        title: "キャラクター名を入力",
         description:
-          "同じキャラクターの重複を避けるため、ギャラリーと既存リクエストを検索します。",
+          "必須なのはキャラクターまたはコンセプトだけで、V2 が自動選択されます。",
       },
       {
         index: "02",
-        title: "分かりやすい参考資料を共有",
+        title: "必要なら情報を追加",
         description:
-          "キャラクター名、原作、公開参考画像、重要な外見や動作を記載します。",
+          "原作、公開参考リンク、スタイルの希望は任意です。",
       },
       {
         index: "03",
-        title: "無料リクエストを公開",
+        title: "アカウントなしで送信",
         description:
-          "Codex に情報整理と GitHub Issue 作成を任せるか、自分でフォームを入力します。",
+          "人間確認後に送信すると、V2 リクエストがコミュニティキューに入ります。",
       },
       {
         index: "04",
@@ -264,7 +269,7 @@ const content = {
       },
       {
         question: "アニメやゲームのキャラクターも依頼できますか？",
-        answer: "はい。判別できる公開参考資料と正確な出典を添えてください。",
+        answer: "はい。公開参考資料があると役立ちますが、必須ではありません。",
       },
       {
         question: "spritesheet を自分で作る必要がありますか？",
@@ -280,6 +285,7 @@ const content = {
     intro:
       "Publicar una petición es gratis. Dinos qué personaje, mascota, animal o idea original quieres. Alguien de la comunidad puede ofrecerse a crearla, pero no se garantiza la entrega ni la aceptación.",
     codexCta: "Preparar mi petición con Codex",
+    manualCta: "Completar el formulario simple",
     githubCta: "Abrir el formulario",
     plazaCta: "Ver peticiones abiertas",
     note: "No necesitas un spritesheet terminado ni experiencia programando.",
@@ -288,21 +294,21 @@ const content = {
     steps: [
       {
         index: "01",
-        title: "Revisa la galería",
+        title: "Escribe el personaje",
         description:
-          "Busca primero en la galería y en las peticiones para evitar duplicados.",
+          "Solo el personaje o concepto es obligatorio; V2 se elige automáticamente.",
       },
       {
         index: "02",
-        title: "Comparte referencias reconocibles",
+        title: "Añade datos opcionales",
         description:
-          "Incluye el personaje, su obra, una imagen pública y los detalles visuales importantes.",
+          "La obra, un enlace público y las preferencias visuales son opcionales.",
       },
       {
         index: "03",
-        title: "Publica la petición gratuita",
+        title: "Envía sin una cuenta",
         description:
-          "Codex puede organizar los datos y abrir el Issue, o puedes completar el formulario.",
+          "Tras la verificación humana, la petición V2 entra en la cola comunitaria.",
       },
       {
         index: "04",
@@ -328,7 +334,7 @@ const content = {
       },
       {
         question: "¿Puedo pedir un personaje de anime o videojuego?",
-        answer: "Sí. Incluye una referencia pública reconocible y datos honestos sobre la fuente.",
+        answer: "Sí. Una referencia pública ayuda, pero es opcional.",
       },
       {
         question: "¿Debo crear el spritesheet?",
@@ -374,7 +380,13 @@ export function RequestPageContent({
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <a
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-5 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
+            className="inline-flex h-12 items-center justify-center rounded-lg bg-accent px-5 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
+            href="#manual-request-form"
+          >
+            {copy.manualCta}
+          </a>
+          <a
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-border bg-bg-elevated px-5 text-sm font-medium text-text transition-colors hover:bg-surface"
             href={buildCodexUrl(requestPrompt)}
           >
             <CodexIcon className="size-5" />
@@ -397,6 +409,8 @@ export function RequestPageContent({
         </div>
         <p className="mt-4 text-sm text-muted">{copy.note}</p>
       </header>
+
+      <ManualRequestForm />
 
       <section className="border-b border-border py-14">
         <p className="text-xs font-semibold uppercase tracking-wider text-accent">

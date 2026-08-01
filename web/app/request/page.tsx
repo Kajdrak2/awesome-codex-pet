@@ -9,7 +9,7 @@ import { siteConfig } from "@/lib/site";
 
 const title = "Request a Codex pet for free";
 const description =
-  "Request a Codex pet for an anime character, game character, mascot, animal, or original idea. Submitting is free, and an Awesome Codex Pet community contributor may volunteer to make it.";
+  "Request a V2 Codex pet for free with a short no-account form. Only the character or concept is required; community contributors may volunteer to make it.";
 const pageUrl = `${siteConfig.url}/request`;
 const faq = [
   {
@@ -20,12 +20,12 @@ const faq = [
   {
     question: "Can I request an anime or game character?",
     answer:
-      "Yes. Include the character name, original work, a recognizable public reference, and honest source information.",
+      "Yes. Only the character name is required. The original work, a public reference, and visual preferences are optional.",
   },
   {
     question: "Do I need to make the spritesheet myself?",
     answer:
-      "No. A clear character request and references are enough for the request queue.",
+      "No. A clear character or concept is enough for the V2 request queue.",
   },
 ] as const;
 
@@ -96,20 +96,20 @@ export default function RequestPage() {
           {
             "@type": "HowToStep",
             position: 1,
-            name: "Search the gallery",
-            text: "Check the gallery and existing requests for the same character.",
+            name: "Name the character",
+            text: "Enter the character or concept. New requests use V2 automatically.",
           },
           {
             "@type": "HowToStep",
             position: 2,
-            name: "Prepare references",
-            text: "Provide the character, original work, public references, and visual preferences.",
+            name: "Add optional details",
+            text: "Optionally add the original work, a public reference URL, and visual preferences.",
           },
           {
             "@type": "HowToStep",
             position: 3,
-            name: "Open the free request",
-            text: "Use Codex or the GitHub request form to publish the community request.",
+            name: "Submit without an account",
+            text: "Complete the human verification and submit the free community request.",
           },
         ],
       },

@@ -64,7 +64,9 @@ jobs:
               ? "v1"
               : versionValue.startsWith("v2")
                 ? "v2"
-                : null;
+                : type === "request"
+                  ? "v2"
+                  : null;
 
             const categoryValue = fieldValue([
               "Primary category",
@@ -111,7 +113,11 @@ jobs:
             }
             managed.push(`type: ${type}`);
             if (version) managed.push(`version: ${version}`);
-            if (categoryLabels[categoryValue]) managed.push(categoryLabels[categoryValue]);
+            if (categoryLabels[categoryValue]) {
+              managed.push(categoryLabels[categoryValue]);
+            } else if (type === "request") {
+              managed.push("category: other");
+            }
 
             await github.rest.issues.setLabels({
               owner: context.repo.owner,

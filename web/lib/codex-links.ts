@@ -49,36 +49,20 @@ export function getPetRequestPrompt(locale: Locale) {
   if (locale === "zh") {
     return `请全程使用中文，帮我向 Awesome Codex Pet 请求制作一只 Codex 宠物。仓库：${repositoryUrl}。
 
-这个流程的目标是免费提交一条清楚、可执行的 GitHub Issue，不需要克隆仓库，也不要直接创建 Pull Request。社区贡献者可能会志愿认领并免费制作，但申请不代表承诺收录、交付或完成时间。
+只先问我想要哪个角色或概念。所属作品、公开参考链接和画风偏好都是可选项，不要让我选择版本、分类、许可证、名称语言或自己查重。新申请默认使用 V2。
 
-执行要求：
-1. 通过 GitHub API 或网页读取仓库的 pets.json、collections.json 和现有 Issues，先检查相同角色或概念是否已经存在；不要为了查重克隆整个仓库。
-2. 向我询问角色或概念名称、所属作品、希望的 V1/V2、参考图或参考链接、偏好的画风、名称语言和补充要求。不能臆造作者或来源。
-3. 创建 Issue 前检查维护者能否打开参考资料：真实宠物、原创角色、头像或其他依赖具体外观的请求，必须至少有一张已上传到 GitHub 的图片附件或公开图片链接；已有知名角色可以提供能明确外观的官方角色页或来源页；只有明确“不限定外观”的概念才可以没有图片。当前对话里的图片、本地文件名或路径、以及“用户提供了照片”之类的文字描述都不算 GitHub 附件。
-4. 如果当前 GitHub 能力不能上传本地或对话图片，不要先创建一个没有图片的 Issue，也不要声称图片已经上传；请我先在 GitHub Issue 或评论中附图，随后验证正文或评论里出现维护者可打开的附件链接，再把请求视为完成。
-5. 区分“希望社区基于公开角色重新创作”和“希望直接改编某份现有素材”。如实说明素材作者与来源，并将仓库产物标记为仅限非商业使用。
-6. 使用仓库的 pet-request Issue Form 字段组织内容，标题使用“[Request]: 角色或概念名称”。正文开头保留 <!-- pet-flow: request -->，写清查重结果、角色与作品、版本、参考资料、制作方向、署名与非商业使用状态。
-7. 使用已连接的 GitHub 能力在 ${repositoryUrl} 创建 Issue。仓库自动化会添加 type: request 和 status: triage 标签；不要自行创建重复标签。
-8. Issue 创建后，把完整链接和仍需补充的信息告诉我。不要声称宠物已经制作或收录。
+收到答案后，通过 GitHub API 检查 pets.json 和现有 Issues，自动整理分类、重复项与来源备注，再创建标题为“[Request]: 角色或概念名称”的 Issue。正文保留 <!-- pet-flow: request -->，明确 V2、社区免费志愿制作且不保证完成。不能臆造作者或来源，也不要声称宠物已经制作或收录。
 
-先向我询问角色或概念名称，然后完成查重和 Issue 创建。`;
+如果 GitHub 未连接或无法创建 Issue，直接告诉我可以在 https://codexpet.top/zh/request 使用无需账号的简短表单，不要要求我配置 GitHub。`;
   }
 
   return `${taskLanguageInstruction(locale)} Help me request a new Codex pet from Awesome Codex Pet at ${repositoryUrl}.
 
-The goal is a free, clear, actionable GitHub issue. Do not clone the repository and do not open a pull request yet. A community contributor may volunteer to create the pet for free, but a request is not a promise of acceptance, delivery, or completion time.
+Ask only which character or concept I want first. The original work, a public reference URL, and style preferences are optional. Do not ask me to choose a version, category, license, naming language, or perform my own duplicate search. New requests default to V2.
 
-Requirements:
-1. Use the GitHub API or website to inspect pets.json, collections.json, and existing issues for the same character or concept. Do not clone the full repository for duplicate research.
-2. Ask me for the character or concept, original work, preferred V1/V2 runtime, references, visual direction, naming language, and any special requirements. Do not invent authorship or sources.
-3. Before creating the issue, verify that maintainers can open the references. A real pet, original character, avatar, or other appearance-specific request requires at least one GitHub image attachment or public image URL. A known canonical character may use an official character or source page that clearly establishes its appearance. Only a concept explicitly described as having no fixed appearance may omit an image. An image visible only in this chat, a local filename or path, or prose saying that a photo exists is not a GitHub attachment.
-4. If the connected GitHub capability cannot upload a local or chat image, do not create an image-less issue and do not claim the image was uploaded. Ask me to attach it to the GitHub issue or a comment, then verify that the body or comment contains a maintainer-viewable attachment URL before treating the request as complete.
-5. Distinguish a request for an original community interpretation from a request to adapt an existing asset. Keep author and source notes honest, and mark repository output as non-commercial.
-6. Follow the repository's pet-request issue fields. Use the title "[Request]: Character or concept" and keep <!-- pet-flow: request --> at the start of the body. Include the duplicate check, character and franchise, version, references, craft direction, attribution, and non-commercial usage status.
-7. Create the issue in ${repositoryUrl} with the connected GitHub capability. Repository automation adds type: request and status: triage; do not create duplicate labels.
-8. Return the issue URL and list any remaining questions. Do not claim that the pet has already been made or accepted.
+After I answer, use the GitHub API to inspect pets.json and existing issues. Organize the category, duplicate findings, and source notes yourself, then create an issue titled "[Request]: Character or concept". Keep <!-- pet-flow: request --> in the body, state that the runtime is V2, and explain that community production is free and voluntary with no completion guarantee. Do not invent authorship or sources, and do not claim the pet is already made or accepted.
 
-Ask me for the character or concept first, then complete the duplicate check and issue creation.`;
+If GitHub is unavailable or cannot create the issue, direct me to the short no-account form at https://codexpet.top/request instead of asking me to configure GitHub.`;
 }
 
 export function getPetRequestCraftPrompt(

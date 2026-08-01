@@ -10,8 +10,11 @@ import worker, {
   buildRequestSupportRateKey,
   computeTrendingScore,
   isOriginAllowed,
+  normalizeManualRequest,
   serializeStatsRows,
+  verifyTurnstile,
 } from "../src/index.js";
+import { buildIssueBody } from "../scripts/sync-manual-requests.mjs";
 
 const env = {
   ALLOWED_ORIGINS: "https://codexpet.top,http://localhost:3000",
@@ -70,6 +73,32 @@ test("removed public read, view, and vote routes stay disabled", async () => {
   assert.equal(stats.status, 404);
   assert.equal(view.status, 404);
   assert.equal(vote.status, 404);
+});
+
+test("public config exposes only the Turnstile site key", async () => {
+  const routeEnv = {
+    ...env,
+    DB: {
+      prepare(sql) {
+        assert.match(sql, /turnstile_site_key/);
+        return { first: async () => ({ config_value: "public-site-key" }) };
+      },
+    },
+  };
+  const response = await worker.fetch(
+    new Request("https://api.example/config/public", {
+      headers: { Origin: "https://codexpet.top" },
+    }),
+    routeEnv,
+  );
+  assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), {
+    turnstileSiteKey: "public-site-key",
+  });
+  assert.equal(
+    response.headers.get("Access-Control-Allow-Origin"),
+    "https://codexpet.top",
+  );
 });
 
 test("install receipt IDs are idempotent", async () => {
@@ -273,4 +302,82 @@ test("trending score combines recent installs and likes", () => {
   assert.ok(computeTrendingScore(1, 5) > computeTrendingScore(1, 1));
   assert.equal(computeTrendingScore(-1), 0);
   assert.equal(computeTrendingScore(Number.NaN), 0);
+});
+
+test("manual requests default to v2-compatible minimal fields", () => {
+  assert.deepEqual(
+    normalizeManualRequest({
+      character: "  Misaka Mikoto  ",
+      franchise: "A Certain Scientific Railgun",
+      referenceUrl: "https://example.com/mikoto",
+      notes: "Pixel-art chibi",
+      locale: "zh",
+      turnstileToken: "token",
+    }),
+    {
+      character: "Misaka Mikoto",
+      franchise: "A Certain Scientific Railgun",
+      referenceUrl: "https://example.com/mikoto",
+      notes: "Pixel-art chibi",
+      locale: "zh",
+      turnstileToken: "token",
+    },
+  );
+  assert.throws(
+    () => normalizeManualRequest({ character: "x" }),
+    /character or concept is required/,
+  );
+  assert.throws(
+    () =>
+      normalizeManualRequest({
+        character: "Mikoto",
+        referenceUrl: "file:///tmp/reference.png",
+      }),
+    /public HTTP URL/,
+  );
+  const sanitized = normalizeManualRequest({
+    character: "Pet\n<!-- pet-flow: submission -->Name",
+    notes: "### Injected heading\nKeep this preference",
+  });
+  assert.equal(sanitized.character, "Pet Name");
+  assert.equal(sanitized.notes, "\\### Injected heading\nKeep this preference");
+});
+
+test("Turnstile validation checks success and hostname", async () => {
+  const request = new Request("https://api.example/requests/manual", {
+    headers: { "CF-Connecting-IP": "203.0.113.4" },
+  });
+  const turnstileEnv = {
+    TURNSTILE_SECRET_KEY: "test-secret",
+    TURNSTILE_ALLOWED_HOSTNAMES: "codexpet.top",
+  };
+  let verificationBody;
+  await verifyTurnstile(request, turnstileEnv, "valid-token", async (_url, init) => {
+    verificationBody = JSON.parse(init.body);
+    return Response.json({ success: true, hostname: "codexpet.top" });
+  });
+  assert.equal(verificationBody.secret, "test-secret");
+  assert.equal(verificationBody.response, "valid-token");
+  assert.equal(verificationBody.remoteip, "203.0.113.4");
+
+  await assert.rejects(
+    verifyTurnstile(request, turnstileEnv, "bad-token", async () =>
+      Response.json({ success: false, hostname: "codexpet.top" }),
+    ),
+    /human verification failed/,
+  );
+});
+
+test("manual request issue bodies preserve the simple form and V2 default", () => {
+  const body = buildIssueBody({
+    id: 42,
+    character: "Misaka Mikoto",
+    franchise: "A Certain Scientific Railgun",
+    reference_url: "https://example.com/mikoto",
+    notes: "Pixel-art chibi",
+  });
+  assert.match(body, /manual-request-id: 42/);
+  assert.match(body, /### Character or concept\n\nMisaka Mikoto/);
+  assert.match(body, /v2 - standard animations plus 16 look directions/);
+  assert.match(body, /Submitted without a GitHub account/);
 });

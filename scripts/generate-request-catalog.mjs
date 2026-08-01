@@ -1,6 +1,7 @@
 import { rename, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { format } from "prettier";
 
 const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)));
 const outputPath = join(repoRoot, "requests.json");
@@ -353,6 +354,9 @@ const catalog = (await fetchIssues())
     return Date.parse(right.updatedAt) - Date.parse(left.updatedAt);
   });
 
-await writeFile(temporaryPath, `${JSON.stringify(catalog, null, 2)}\n`, "utf8");
+const formattedCatalog = await format(JSON.stringify(catalog), {
+  parser: "json",
+});
+await writeFile(temporaryPath, formattedCatalog, "utf8");
 await rename(temporaryPath, outputPath);
 console.log(`Wrote ${catalog.length} request(s) to requests.json`);

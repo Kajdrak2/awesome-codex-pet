@@ -8,7 +8,7 @@ import { languageAlternates } from "@/lib/localized-route-metadata";
 
 const title = "免费申请制作喜欢角色的 Codex 小宠物";
 const description =
-  "免费提交动漫角色、游戏人物、吉祥物、动物或原创形象的 Codex 小宠物制作申请。Awesome Codex Pet 社区贡献者可能会志愿认领并免费制作，但不承诺交付。";
+  "无需账号，通过简短表单免费提交 V2 Codex 小宠物制作申请。只需角色或概念名称，社区贡献者可能会志愿认领并免费制作。";
 const pageUrl = `${siteConfig.url}/zh/request`;
 const faq = [
   {
@@ -19,11 +19,11 @@ const faq = [
   {
     question: "可以申请动漫或游戏人物吗？",
     answer:
-      "可以。请提供角色名称、所属作品、可公开访问的清楚参考图和真实来源说明。",
+      "可以。只需填写角色名称；所属作品、公开参考链接和外观偏好都可以不填。",
   },
   {
     question: "申请人需要自己制作 spritesheet 吗？",
-    answer: "不需要。申请阶段只需要清楚的角色信息、参考资料和制作偏好。",
+    answer: "不需要。申请阶段只需要清楚的角色或概念名称，新申请默认使用 V2。",
   },
 ] as const;
 
@@ -93,20 +93,20 @@ export default function ChineseRequestPage() {
           {
             "@type": "HowToStep",
             position: 1,
-            name: "搜索宠物画廊",
-            text: "检查画廊和已有申请中是否已经存在相同角色。",
+            name: "填写角色名称",
+            text: "填写角色或概念名称，新申请自动使用 V2。",
           },
           {
             "@type": "HowToStep",
             position: 2,
-            name: "准备角色参考",
-            text: "提供角色、所属作品、公开参考图和希望保留的外观特点。",
+            name: "按需补充资料",
+            text: "可以补充所属作品、公开参考链接和外观偏好，也可以不填。",
           },
           {
             "@type": "HowToStep",
             position: 3,
-            name: "发布免费申请",
-            text: "使用 Codex 或 GitHub 申请表创建社区制作申请。",
+            name: "无需账号提交",
+            text: "完成人机验证后直接提交免费社区制作申请。",
           },
         ],
       },

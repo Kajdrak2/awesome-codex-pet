@@ -11,6 +11,11 @@ const EVENT_ID_RE = /^[A-Za-z0-9._:-]{8,128}$/;
 const INSTALL_RATE_LIMIT = 30;
 const CREATOR_FOLLOW_RATE_LIMIT = 60;
 const REQUEST_SUPPORT_RATE_LIMIT = 60;
+const MANUAL_REQUEST_RATE_LIMIT = 3;
+const MANUAL_REQUEST_BODY_LIMIT = 16_384;
+const TURNSTILE_VERIFY_URL =
+  "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+const REQUEST_LOCALES = new Set(["en", "zh", "ko", "ja", "es"]);
 const RECEIPT_TTL_MS = 8 * 24 * 60 * 60 * 1000;
 
 class HttpError extends Error {
@@ -36,7 +41,7 @@ export function isOriginAllowed(request, env) {
 function corsHeaders(request, env) {
   const origin = request.headers.get("Origin");
   const headers = {
-    "Access-Control-Allow-Methods": "POST, DELETE, OPTIONS",
+    "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, X-Event-ID",
     "Access-Control-Max-Age": "86400",
     Vary: "Origin",
@@ -64,6 +69,19 @@ function jsonResponse(
       ...corsHeaders(request, env),
     },
   });
+}
+
+async function readPublicConfig(request, env) {
+  const row = await env.DB.prepare(
+    "SELECT config_value FROM app_config WHERE config_key = 'turnstile_site_key'",
+  ).first();
+  return jsonResponse(
+    { turnstileSiteKey: String(row?.config_value || "") },
+    request,
+    env,
+    200,
+    "public, max-age=300",
+  );
 }
 
 function utcDay(timestamp) {
@@ -176,6 +194,178 @@ export async function buildRequestSupportRateKey(request, env, timestamp) {
     ),
     bucket,
   };
+}
+
+async function buildManualRequestRateKey(request, env, timestamp) {
+  if (!env.HASH_SALT || env.HASH_SALT.length < 16) {
+    throw new HttpError(500, "metric hashing is not configured");
+  }
+  const bucket = hourBucket(timestamp);
+  return {
+    key: await sha256(
+      `${env.HASH_SALT}|rate|manual-request|${clientAddress(request)}|${bucket}`,
+    ),
+    bucket,
+  };
+}
+
+function cleanText(value, maxLength) {
+  if (typeof value !== "string") return "";
+  return value
+    .replace(/\r\n?/g, "\n")
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, "")
+    .trim()
+    .slice(0, maxLength);
+}
+
+function cleanSingleLine(value, maxLength) {
+  return cleanText(value, maxLength).replace(/\s+/g, " ");
+}
+
+function cleanIssueText(value, maxLength) {
+  return cleanText(value, maxLength).replace(/^\s*#/gm, "\\#");
+}
+
+function optionalPublicUrl(value) {
+  const normalized = cleanText(value, 500);
+  if (!normalized) return "";
+  let url;
+  try {
+    url = new URL(normalized);
+  } catch {
+    throw new HttpError(400, "reference URL must be a public HTTP URL");
+  }
+  if (!["http:", "https:"].includes(url.protocol)) {
+    throw new HttpError(400, "reference URL must be a public HTTP URL");
+  }
+  return url.href;
+}
+
+export function normalizeManualRequest(payload) {
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+    throw new HttpError(400, "invalid request body");
+  }
+  if (cleanText(payload.website, 200)) {
+    throw new HttpError(400, "invalid request body");
+  }
+  const character = cleanSingleLine(payload.character, 100);
+  if (character.length < 2) {
+    throw new HttpError(400, "character or concept is required");
+  }
+  const locale = REQUEST_LOCALES.has(payload.locale) ? payload.locale : "en";
+  return {
+    character,
+    franchise: cleanSingleLine(payload.franchise, 120),
+    referenceUrl: optionalPublicUrl(payload.referenceUrl),
+    notes: cleanIssueText(payload.notes, 1_000),
+    locale,
+    turnstileToken: cleanText(payload.turnstileToken, 2_048),
+  };
+}
+
+function turnstileHostnames(env) {
+  return new Set(
+    (env.TURNSTILE_ALLOWED_HOSTNAMES || "codexpet.top,www.codexpet.top")
+      .split(",")
+      .map((hostname) => hostname.trim().toLowerCase())
+      .filter(Boolean),
+  );
+}
+
+export async function verifyTurnstile(request, env, token, fetcher = fetch) {
+  if (!env.TURNSTILE_SECRET_KEY) {
+    throw new HttpError(500, "request verification is not configured");
+  }
+  if (!token) throw new HttpError(400, "complete the human verification");
+  const response = await fetcher(TURNSTILE_VERIFY_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      secret: env.TURNSTILE_SECRET_KEY,
+      response: token,
+      remoteip: clientAddress(request),
+      idempotency_key: crypto.randomUUID(),
+    }),
+    signal: AbortSignal.timeout(10_000),
+  });
+  if (!response.ok) throw new HttpError(502, "verification service unavailable");
+  const result = await response.json();
+  const hostname = String(result.hostname || "").toLowerCase();
+  if (!result.success || !turnstileHostnames(env).has(hostname)) {
+    throw new HttpError(400, "human verification failed; please try again");
+  }
+}
+
+async function enforceManualRequestRateLimit(request, env, timestamp) {
+  const rate = await buildManualRequestRateKey(request, env, timestamp);
+  const result = await env.DB.prepare(
+    `INSERT INTO manual_request_rate_limits
+       (rate_key, bucket_start, event_count, expires_at)
+     VALUES (?, ?, 1, ?)
+     ON CONFLICT(rate_key) DO UPDATE SET
+       event_count = manual_request_rate_limits.event_count + 1,
+       expires_at = excluded.expires_at
+     RETURNING event_count`,
+  )
+    .bind(rate.key, rate.bucket, timestamp + 2 * 60 * 60 * 1000)
+    .first();
+  if ((Number(result?.event_count) || 0) > MANUAL_REQUEST_RATE_LIMIT) {
+    throw new HttpError(429, "too many requests; please try again later");
+  }
+}
+
+async function readJsonBody(request) {
+  const rawBody = await request.text();
+  if (rawBody.length > MANUAL_REQUEST_BODY_LIMIT) {
+    throw new HttpError(413, "request body is too large");
+  }
+  try {
+    return JSON.parse(rawBody);
+  } catch {
+    throw new HttpError(400, "invalid request body");
+  }
+}
+
+async function submitManualRequest(request, env) {
+  if (!isOriginAllowed(request, env)) {
+    throw new HttpError(403, "origin not allowed");
+  }
+  const input = normalizeManualRequest(await readJsonBody(request));
+  await verifyTurnstile(request, env, input.turnstileToken);
+  const timestamp = Date.now();
+  await enforceManualRequestRateLimit(request, env, timestamp);
+  const requestHash = await sha256(
+    `${env.HASH_SALT}|manual-request|${clientAddress(request)}|${input.character}|${input.franchise}|${input.referenceUrl}|${input.notes}`,
+  );
+  const result = await env.DB.prepare(
+    `INSERT INTO manual_requests
+       (request_hash, character, franchise, reference_url, notes, locale, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?)
+     ON CONFLICT(request_hash) DO UPDATE SET request_hash = excluded.request_hash
+     RETURNING id, status, issue_number`,
+  )
+    .bind(
+      requestHash,
+      input.character,
+      input.franchise,
+      input.referenceUrl,
+      input.notes,
+      input.locale,
+      timestamp,
+    )
+    .first();
+  return jsonResponse(
+    {
+      id: Number(result.id),
+      status: result.status,
+      issueNumber: result.issue_number ? Number(result.issue_number) : null,
+      version: "v2",
+    },
+    request,
+    env,
+    202,
+  );
 }
 
 export function computeTrendingScore(installs7d, likes7d = 0) {
@@ -524,6 +714,14 @@ async function routeRequest(request, env) {
     throw new HttpError(500, "D1 binding is not configured");
   }
 
+  if (url.pathname === "/requests/manual" && request.method === "POST") {
+    return submitManualRequest(request, env);
+  }
+
+  if (url.pathname === "/config/public" && request.method === "GET") {
+    return readPublicConfig(request, env);
+  }
+
   if (url.pathname === "/track/install" && request.method === "POST") {
     return trackInstall(request, env, url.searchParams.get("slug") || "");
   }
@@ -573,6 +771,9 @@ async function cleanupMetrics(env) {
     ).bind(timestamp),
     env.DB.prepare(
       "DELETE FROM request_support_rate_limits WHERE expires_at < ?",
+    ).bind(timestamp),
+    env.DB.prepare(
+      "DELETE FROM manual_request_rate_limits WHERE expires_at < ?",
     ).bind(timestamp),
   ]);
 }
