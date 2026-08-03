@@ -1,5 +1,42 @@
 [
   {
+    "number": 81,
+    "character": "泉此方",
+    "characterDetails": "泉此方",
+    "franchise": "幸运星",
+    "category": "other",
+    "version": "v2",
+    "requestType": "Create a new community interpretation",
+    "referenceStatus": "",
+    "references": "No reference supplied yet.",
+    "referenceUrls": [],
+    "referenceImages": [],
+    "visualDirection": "小巧可爱",
+    "nameLanguages": "Let the maker decide",
+    "attribution": "Submitted without a GitHub account. Reference and attribution details should be confirmed during triage. Non-commercial use only.",
+    "duplicateCheck": "Repository automation or a maintainer should complete the duplicate check during triage.",
+    "state": "open",
+    "status": "triage",
+    "labels": [
+      "type: request",
+      "status: triage",
+      "version: v2",
+      "category: other"
+    ],
+    "author": {
+      "login": "github-actions[bot]",
+      "avatarUrl": "https://avatars.githubusercontent.com/in/15368?v=4",
+      "url": "https://github.com/apps/github-actions"
+    },
+    "assignees": [],
+    "createdAt": "2026-08-03T11:00:07Z",
+    "updatedAt": "2026-08-03T11:00:07Z",
+    "closedAt": null,
+    "comments": 0,
+    "reactions": 0,
+    "githubUrl": "https://github.com/legeling/awesome-codex-pet/issues/81"
+  },
+  {
     "number": 77,
     "character": "The Night Fury and the Light Fury",
     "characterDetails": "toothless and the light fury",
