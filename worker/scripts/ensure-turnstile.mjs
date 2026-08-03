@@ -80,11 +80,16 @@ async function findOrCreateWidget() {
   return { widget, secret: widget.secret };
 }
 
+function workerHasSecret(secretName) {
+  const output = runWrangler(["secret", "list"]);
+  return output.includes(`"name": "${secretName}"`);
+}
+
 async function ensureSecret(sitekey, initialSecret) {
   const configured = runD1(
     "SELECT config_value FROM app_config WHERE config_key = 'turnstile_secret_sitekey'",
   )[0]?.config_value;
-  if (configured === sitekey) return;
+  if (configured === sitekey && workerHasSecret("TURNSTILE_SECRET_KEY")) return;
   const secret =
     initialSecret ||
     (await cloudflare(`/challenges/widgets/${sitekey}/rotate_secret`, {
@@ -95,6 +100,31 @@ async function ensureSecret(sitekey, initialSecret) {
 }
 
 async function main() {
+  const existingSiteKey = runD1(
+    "SELECT config_value FROM app_config WHERE config_key = 'turnstile_site_key'",
+  )[0]?.config_value;
+  if (existingSiteKey) {
+    if (workerHasSecret("TURNSTILE_SECRET_KEY")) {
+      console.log(`Turnstile already configured: ${existingSiteKey}`);
+      return;
+    }
+    if (!accountId || !apiToken) {
+      throw new Error(
+        "Turnstile site key is stored but the worker secret is missing; " +
+          "Cloudflare account credentials are required to restore it",
+      );
+    }
+    const { widget, secret } = await findOrCreateWidget();
+    if (widget.sitekey !== existingSiteKey) {
+      throw new Error(
+        `Stored site key ${existingSiteKey} does not match widget ${widget.sitekey}; ` +
+          "re-run after reconciling app_config",
+      );
+    }
+    await ensureSecret(widget.sitekey, secret);
+    console.log(`Turnstile secret restored for: ${widget.sitekey}`);
+    return;
+  }
   if (!accountId || !apiToken) {
     throw new Error("Cloudflare account credentials are required");
   }
