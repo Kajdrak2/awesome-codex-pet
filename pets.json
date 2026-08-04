@@ -552,6 +552,19 @@
     "spriteVersionNumber": 2
   },
   {
+    "slug": "hamo--haipengzzz",
+    "name": "Hamo",
+    "author": "haipengzzz",
+    "author_handle": "haipengzzz",
+    "author_url": "https://github.com/haipengzzz",
+    "primary_category": "Original Characters",
+    "canonical_key": "original/hamo",
+    "collections": [],
+    "license": "Non-commercial use only.",
+    "description": "A silver-and-red armored dragon companion named Hamo.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "hana2--initiatione",
     "name": "Hana2",
     "author": "initiatione",
