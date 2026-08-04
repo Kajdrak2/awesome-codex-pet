@@ -323,7 +323,9 @@
       "https://paldb.cc/tw/Chillet",
       "https://cdn.paldb.cc/image/Pal/Texture/UI/InGame/Ticonskillpal017.webp"
     ],
-    "referenceImages": [],
+    "referenceImages": [
+      "https://cdn.paldb.cc/image/Pal/Texture/UI/InGame/T_icon_skill_pal_017.webp"
+    ],
     "visualDirection": "Cartoon style. Keep the recognizable side-to-side swaying, cute behavior. Use the v2 format with standard animations plus 16 look directions. Base the character appearance on the public reference page.",
     "nameLanguages": "Bilingual English and Chinese names: Chillet / 疾旋鼬",
     "attribution": "Character/source work: 《幻兽帕鲁》 / Palworld. Reference supplied through the public PalDB character page above; the page identifies itself as fan-made and unaffiliated with Pocketpair. This request asks the community to create a new interpretation from the public character reference, not to directly adapt, redistribute, or claim ownership of any existing artwork. No specific artwork author was provided or inferred. Any repository output should be for non-commercial use only.",
