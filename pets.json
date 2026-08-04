@@ -1940,6 +1940,16 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "liubao--killyer",
+    "name": "榴宝",
+    "author": "Shawnzhou",
+    "primary_category": "Original Characters",
+    "canonical_key": "original/killyer/liubao",
+    "collections": [],
+    "license": "CC BY-NC 4.0",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "capybara-lulu--jiushu",
     "name": "水豚噜噜",
     "author": "jiushu",
