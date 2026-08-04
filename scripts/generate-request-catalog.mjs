@@ -24,6 +24,9 @@ const fieldAliases = new Map([
   ["申请类型", "requestType"],
   ["reference availability", "referenceStatus"],
   ["参考资料情况", "referenceStatus"],
+  ["reference image", "references"],
+  ["public reference image", "references"],
+  ["参考图片", "references"],
   ["references", "references"],
   ["参考资料", "references"],
   ["visual and animation direction", "visualDirection"],
@@ -133,6 +136,17 @@ function extractReferenceImages(body) {
     body.match(
       /https:\/\/(?:raw\.githubusercontent\.com|github\.com\/[^/\s]+\/[^/\s]+\/raw\/)[^\s<>"')]+\.(?:avif|gif|jpe?g|png|webp)(?:\?[^\s<>"')]*)?/gi,
     ) ?? [];
+  const publicImageSources = extractUrls(body).filter((url) => {
+    try {
+      const parsed = new URL(url);
+      return (
+        parsed.protocol === "https:" &&
+        /\.(?:avif|gif|jpe?g|png|webp)(?:$|[?#])/i.test(parsed.pathname)
+      );
+    } catch {
+      return false;
+    }
+  });
 
   return [
     ...new Set([
@@ -140,17 +154,19 @@ function extractReferenceImages(body) {
       ...markdownSources,
       ...attachmentSources,
       ...directSources,
+      ...publicImageSources,
     ]),
   ].filter((url) => {
     try {
       const parsed = new URL(url);
       return (
         parsed.protocol === "https:" &&
-        [
+        (new Set([
           "github.com",
           "raw.githubusercontent.com",
           "user-images.githubusercontent.com",
-        ].includes(parsed.hostname)
+        ]).has(parsed.hostname) ||
+          /\.(?:avif|gif|jpe?g|png|webp)(?:$|[?#])/i.test(parsed.pathname))
       );
     } catch {
       return false;

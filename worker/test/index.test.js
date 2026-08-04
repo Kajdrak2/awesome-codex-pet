@@ -328,6 +328,10 @@ test("manual requests default to v2-compatible minimal fields", () => {
     /character or concept is required/,
   );
   assert.throws(
+    () => normalizeManualRequest({ character: "Mikoto" }),
+    /reference image URL is required/,
+  );
+  assert.throws(
     () =>
       normalizeManualRequest({
         character: "Mikoto",
@@ -337,6 +341,7 @@ test("manual requests default to v2-compatible minimal fields", () => {
   );
   const sanitized = normalizeManualRequest({
     character: "Pet\n<!-- pet-flow: submission -->Name",
+    referenceUrl: "https://example.com/reference.png",
     notes: "### Injected heading\nKeep this preference",
   });
   assert.equal(sanitized.character, "Pet Name");
@@ -378,6 +383,7 @@ test("manual request issue bodies preserve the simple form and V2 default", () =
   });
   assert.match(body, /manual-request-id: 42/);
   assert.match(body, /### Character or concept\n\nMisaka Mikoto/);
+  assert.match(body, /### Reference image\n\nhttps:\/\/example.com\/mikoto/);
   assert.match(body, /v2 - standard animations plus 16 look directions/);
   assert.match(body, /Submitted without a GitHub account/);
 });

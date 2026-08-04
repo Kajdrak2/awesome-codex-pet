@@ -227,9 +227,12 @@ function cleanIssueText(value, maxLength) {
   return cleanText(value, maxLength).replace(/^\s*#/gm, "\\#");
 }
 
-function optionalPublicUrl(value) {
+function publicUrl(value, { required = false } = {}) {
   const normalized = cleanText(value, 500);
-  if (!normalized) return "";
+  if (!normalized) {
+    if (required) throw new HttpError(400, "reference image URL is required");
+    return "";
+  }
   let url;
   try {
     url = new URL(normalized);
@@ -257,7 +260,7 @@ export function normalizeManualRequest(payload) {
   return {
     character,
     franchise: cleanSingleLine(payload.franchise, 120),
-    referenceUrl: optionalPublicUrl(payload.referenceUrl),
+    referenceUrl: publicUrl(payload.referenceUrl, { required: true }),
     notes: cleanIssueText(payload.notes, 1_000),
     locale,
     turnstileToken: cleanText(payload.turnstileToken, 2_048),

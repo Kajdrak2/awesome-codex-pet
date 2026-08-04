@@ -11,7 +11,7 @@ body:
     attributes:
       value: |
         <!-- pet-flow: request -->
-        Only the character or concept is required. New requests use **V2** automatically. A community contributor may volunteer to make the pet for free, but completion is not guaranteed.
+        The character or concept and one public reference image are required. New requests use **V2** automatically. A community contributor may volunteer to make the pet for free, but completion is not guaranteed.
   - type: input
     id: character
     attributes:
@@ -29,9 +29,11 @@ body:
   - type: textarea
     id: references
     attributes:
-      label: Public reference
-      description: Optional. Add an official page, public image URL, or GitHub image attachment if it helps identify the character.
-      placeholder: Link or drag an image here
+      label: Public reference image
+      description: Required. Add a public image URL or drag an image attachment here so contributors can identify the character.
+      placeholder: Paste an image URL or drag an image here
+    validations:
+      required: true
   - type: textarea
     id: visual_direction
     attributes:

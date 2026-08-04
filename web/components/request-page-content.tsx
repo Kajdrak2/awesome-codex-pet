@@ -18,32 +18,32 @@ const content = {
     eyebrow: "Free community request",
     title: "Request a Codex pet for a character you love",
     intro:
-      "Submitting a request is free. Tell the Awesome Codex Pet community which character, mascot, animal, or original idea you want. A community contributor may volunteer to create and publish it for free, but requests are not delivery promises.",
-    codexCta: "Prepare my request in Codex",
-    manualCta: "Fill the simple form",
-    githubCta: "Open the request form",
-    plazaCta: "Browse open requests",
-    note: "No finished spritesheet or coding experience is required.",
+      "Choose a character, add a public reference image, and submit it online, with Codex, or directly to GitHub. Requests are free; community production is voluntary.",
+    codexCta: "Use Codex to submit",
+    manualCta: "Submit online",
+    githubCta: "Submit a GitHub Issue",
+    plazaCta: "View existing requests",
+    note: "Online submissions enter the community queue and sync to GitHub Issues. The GitHub button opens the Issue form directly.",
     howEyebrow: "How it works",
     howTitle: "From character idea to community request",
     steps: [
       {
         index: "01",
-        title: "Name the character",
+        title: "Name the character and add an image",
         description:
-          "The character or concept is the only required field. We handle the version and initial classification.",
+          "The character name and a public reference image link are required.",
       },
       {
         index: "02",
-        title: "Add details if useful",
+        title: "Add optional details",
         description:
-          "The original work, a public reference link, and visual preferences are optional.",
+          "The original work, visual style, props, and animation preferences are optional.",
       },
       {
         index: "03",
-        title: "Submit without an account",
+        title: "Choose a submission path",
         description:
-          "Complete the human check and submit. The request enters the public community queue as V2.",
+          "Submit online, use Codex, or open the GitHub Issue form. Online submissions are synced automatically.",
       },
       {
         index: "04",
@@ -69,14 +69,14 @@ const content = {
           "No. Opening a request in Awesome Codex Pet is free. The community may create it voluntarily; the project does not promise a completion date or acceptance.",
       },
       {
-        question: "Can I request an anime or game character?",
+        question: "What must I provide?",
         answer:
-          "Yes. You can request anime, game, mascot, animal, meme, object, avatar, or original characters. A public reference is helpful but optional.",
+          "Provide the character or concept name and a publicly accessible reference image. The original work and visual preferences are optional.",
       },
       {
         question: "Do I need to make the spritesheet myself?",
         answer:
-          "No. A request only needs a clear character or concept, references, and preferences. Contributors handle production when they choose to claim it.",
+          "No. Submit the character name and public reference image; contributors handle production when they choose to claim it.",
       },
     ],
   },
@@ -86,32 +86,32 @@ const content = {
     eyebrow: "免费社区制作申请",
     title: "免费提交喜欢角色的 Codex 小宠物制作申请",
     intro:
-      "提交申请本身完全免费。告诉 Awesome Codex Pet 社区你想要哪个动漫角色、游戏人物、吉祥物、动物或原创形象；社区贡献者可能会志愿认领并免费制作，但申请不等于承诺交付。",
-    codexCta: "让 Codex 帮我整理申请",
-    manualCta: "直接填写简短表单",
-    githubCta: "直接填写申请表",
-    plazaCta: "先看已有制作请求",
-    note: "不需要现成 spritesheet，也不要求会画画或写代码。",
+      "填写角色名称和公开参考图片，选择在线提交、使用 Codex，或去 GitHub 提交 Issue。申请免费，社区制作由贡献者自愿完成。",
+    codexCta: "使用 Codex 提交",
+    manualCta: "在线提交制作请求",
+    githubCta: "去 GitHub 提交 Issue",
+    plazaCta: "查看已有制作请求",
+    note: "在线提交会进入社区请求列表并同步为 GitHub Issue；GitHub 入口会直接打开 Issue 表单。",
     howEyebrow: "申请流程",
     howTitle: "从喜欢的角色到社区制作申请",
     steps: [
       {
         index: "01",
-        title: "填写角色名称",
+        title: "填写角色名称和参考图片",
         description:
-          "只要求填写角色或概念名称；版本、初始分类和查重由系统处理。",
+          "角色名称和公开参考图片链接为必填；版本和初始分类由系统处理。",
       },
       {
         index: "02",
-        title: "按需补充资料",
+        title: "补充制作信息",
         description:
-          "所属作品、公开参考链接和画风偏好都可以不填。",
+          "所属作品、画风、道具和动作偏好可选。",
       },
       {
         index: "03",
-        title: "无需账号直接提交",
+        title: "选择提交方式",
         description:
-          "完成人机验证后即可提交，申请会以 V2 自动进入公开社区队列。",
+          "可以在线提交、使用 Codex，或去 GitHub 提交 Issue；在线提交会自动同步。",
       },
       {
         index: "04",
@@ -137,14 +137,14 @@ const content = {
           "不收费。在 Awesome Codex Pet 创建制作申请是免费的，社区可能志愿完成；项目不承诺一定收录，也不承诺完成时间。",
       },
       {
-        question: "可以申请动漫或游戏人物吗？",
+        question: "提交时需要什么？",
         answer:
-          "可以。动漫、游戏、吉祥物、动物、梗图、物品、头像和原创角色都可以申请；公开参考资料有帮助，但不是必填项。",
+          "请填写角色或概念名称，并提供一张公开可访问的参考图片。所属作品和制作偏好可选。",
       },
       {
         question: "申请人需要自己制作 spritesheet 吗？",
         answer:
-          "不需要。申请阶段只要填写角色或概念名称；参考图和偏好都可以不填，有贡献者愿意认领时再由社区完成制作与审查。",
+          "不需要。申请阶段只需提供角色信息和公开参考图片，社区贡献者负责后续制作与审查。",
       },
     ],
   },
@@ -154,31 +154,32 @@ const content = {
     eyebrow: "무료 커뮤니티 요청",
     title: "좋아하는 캐릭터의 Codex 펫을 요청하세요",
     intro:
-      "요청 등록은 무료입니다. 원하는 캐릭터, 마스코트, 동물 또는 오리지널 아이디어를 알려 주세요. 커뮤니티 제작자가 무료로 만들 수 있지만 완성이나 채택은 보장되지 않습니다.",
-    codexCta: "Codex로 요청 준비",
-    manualCta: "간단한 양식 작성",
-    githubCta: "요청 양식 열기",
+      "캐릭터 이름과 공개 참고 이미지를 입력한 뒤 온라인, Codex 또는 GitHub에서 요청을 제출하세요. 요청은 무료이며 제작은 자원봉사로 진행됩니다.",
+    codexCta: "Codex로 제출",
+    manualCta: "온라인으로 제출",
+    githubCta: "GitHub Issue 제출",
     plazaCta: "기존 요청 보기",
-    note: "완성된 spritesheet나 코딩 경험이 필요하지 않습니다.",
+    note: "온라인 제출은 커뮤니티 대기열과 GitHub Issues에 동기화됩니다. GitHub 버튼은 Issue 양식을 바로 엽니다.",
     howEyebrow: "진행 방식",
     howTitle: "캐릭터 아이디어에서 커뮤니티 요청까지",
     steps: [
       {
         index: "01",
-        title: "캐릭터 이름 입력",
-        description: "필수 항목은 캐릭터 또는 콘셉트뿐이며 V2가 자동 선택됩니다.",
+        title: "캐릭터와 참고 이미지 입력",
+        description:
+          "캐릭터 이름과 공개 참고 이미지 링크가 필수이며 V2가 자동 선택됩니다.",
       },
       {
         index: "02",
         title: "선택 정보 추가",
         description:
-          "원작, 공개 참고 링크와 스타일 선호 사항은 선택입니다.",
+          "원작과 스타일, 소품, 동작 선호는 선택입니다.",
       },
       {
         index: "03",
-        title: "계정 없이 제출",
+        title: "제출 경로 선택",
         description:
-          "사람 인증 후 제출하면 V2 요청이 커뮤니티 대기열에 등록됩니다.",
+          "온라인, Codex 또는 GitHub Issue 양식으로 제출할 수 있습니다.",
       },
       {
         index: "04",
@@ -203,8 +204,8 @@ const content = {
         answer: "아니요. 요청은 무료이며 완성 시점이나 채택은 보장되지 않습니다.",
       },
       {
-        question: "애니메이션이나 게임 캐릭터도 요청할 수 있나요?",
-        answer: "네. 공개 참고 자료는 도움이 되지만 선택 사항입니다.",
+        question: "제출할 때 무엇이 필요한가요?",
+        answer: "캐릭터 이름과 공개 참고 이미지가 필요합니다. 원작과 제작 선호는 선택 사항입니다.",
       },
       {
         question: "spritesheet를 직접 만들어야 하나요?",
@@ -218,32 +219,32 @@ const content = {
     eyebrow: "無料コミュニティリクエスト",
     title: "好きなキャラクターの Codex ペットをリクエスト",
     intro:
-      "リクエストは無料です。欲しいキャラクター、マスコット、動物、オリジナル案をコミュニティに伝えましょう。有志が無料で制作する場合がありますが、完成や採用は保証されません。",
-    codexCta: "Codex でリクエストを準備",
-    manualCta: "簡単なフォームに入力",
-    githubCta: "リクエストフォームを開く",
+      "キャラクター名と公開参考画像を入力し、オンライン、Codex、または GitHub から送信します。リクエストは無料です。",
+    codexCta: "Codex で送信",
+    manualCta: "オンラインで送信",
+    githubCta: "GitHub Issue を送信",
     plazaCta: "既存のリクエストを見る",
-    note: "完成した spritesheet やプログラミング経験は不要です。",
+    note: "オンライン送信はコミュニティキューと GitHub Issues に同期されます。GitHub ボタンは Issue フォームを開きます。",
     howEyebrow: "仕組み",
     howTitle: "キャラクター案からコミュニティリクエストまで",
     steps: [
       {
         index: "01",
-        title: "キャラクター名を入力",
+        title: "キャラクターと参考画像を入力",
         description:
-          "必須なのはキャラクターまたはコンセプトだけで、V2 が自動選択されます。",
+          "キャラクター名と公開参考画像リンクが必須です。V2 は自動選択されます。",
       },
       {
         index: "02",
         title: "必要なら情報を追加",
         description:
-          "原作、公開参考リンク、スタイルの希望は任意です。",
+          "原作、スタイル、道具、動きの希望は任意です。",
       },
       {
         index: "03",
-        title: "アカウントなしで送信",
+        title: "送信方法を選ぶ",
         description:
-          "人間確認後に送信すると、V2 リクエストがコミュニティキューに入ります。",
+          "オンライン、Codex、または GitHub Issue フォームから送信できます。",
       },
       {
         index: "04",
@@ -268,8 +269,8 @@ const content = {
         answer: "いいえ、無料です。完成時期や採用は保証されません。",
       },
       {
-        question: "アニメやゲームのキャラクターも依頼できますか？",
-        answer: "はい。公開参考資料があると役立ちますが、必須ではありません。",
+        question: "送信時に必要なものは？",
+        answer: "キャラクター名と公開参考画像が必要です。原作と制作の希望は任意です。",
       },
       {
         question: "spritesheet を自分で作る必要がありますか？",
@@ -283,20 +284,20 @@ const content = {
     eyebrow: "Petición comunitaria gratuita",
     title: "Pide una mascota Codex de tu personaje favorito",
     intro:
-      "Publicar una petición es gratis. Dinos qué personaje, mascota, animal o idea original quieres. Alguien de la comunidad puede ofrecerse a crearla, pero no se garantiza la entrega ni la aceptación.",
-    codexCta: "Preparar mi petición con Codex",
-    manualCta: "Completar el formulario simple",
-    githubCta: "Abrir el formulario",
-    plazaCta: "Ver peticiones abiertas",
-    note: "No necesitas un spritesheet terminado ni experiencia programando.",
+      "Escribe el personaje y un enlace público a una imagen de referencia; después envía la petición online, con Codex o en GitHub. Es gratis.",
+    codexCta: "Enviar con Codex",
+    manualCta: "Enviar online",
+    githubCta: "Enviar un Issue de GitHub",
+    plazaCta: "Ver peticiones existentes",
+    note: "Los envíos online se sincronizan con la cola comunitaria y GitHub Issues. El botón de GitHub abre el formulario de Issue.",
     howEyebrow: "Cómo funciona",
     howTitle: "De una idea a una petición comunitaria",
     steps: [
       {
         index: "01",
-        title: "Escribe el personaje",
+        title: "Escribe el personaje y una imagen",
         description:
-          "Solo el personaje o concepto es obligatorio; V2 se elige automáticamente.",
+          "El nombre y un enlace público a una imagen de referencia son obligatorios.",
       },
       {
         index: "02",
@@ -306,9 +307,9 @@ const content = {
       },
       {
         index: "03",
-        title: "Envía sin una cuenta",
+        title: "Elige cómo enviarlo",
         description:
-          "Tras la verificación humana, la petición V2 entra en la cola comunitaria.",
+          "Puedes enviarlo online, con Codex o mediante el formulario de Issue de GitHub.",
       },
       {
         index: "04",
@@ -333,8 +334,8 @@ const content = {
         answer: "No. Publicar la petición es gratis; no se garantiza la fecha ni la aceptación.",
       },
       {
-        question: "¿Puedo pedir un personaje de anime o videojuego?",
-        answer: "Sí. Una referencia pública ayuda, pero es opcional.",
+        question: "¿Qué necesito para enviarlo?",
+        answer: "El nombre del personaje y una imagen de referencia accesible públicamente. La obra y las preferencias son opcionales.",
       },
       {
         question: "¿Debo crear el spritesheet?",

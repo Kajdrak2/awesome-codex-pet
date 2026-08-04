@@ -49,7 +49,7 @@ export function getPetRequestPrompt(locale: Locale) {
   if (locale === "zh") {
     return `请全程使用中文，帮我向 Awesome Codex Pet 请求制作一只 Codex 宠物。仓库：${repositoryUrl}。
 
-只先问我想要哪个角色或概念。所属作品、公开参考链接和画风偏好都是可选项，不要让我选择版本、分类、许可证、名称语言或自己查重。新申请默认使用 V2。
+只先问我想要哪个角色或概念，以及一张公开可访问的参考图片链接。所属作品和画风偏好是可选项，不要让我选择版本、分类、许可证、名称语言或自己查重。新申请默认使用 V2。
 
 收到答案后，通过 GitHub API 检查 pets.json 和现有 Issues，自动整理分类、重复项与来源备注，再创建标题为“[Request]: 角色或概念名称”的 Issue。正文保留 <!-- pet-flow: request -->，明确 V2、社区免费志愿制作且不保证完成。不能臆造作者或来源，也不要声称宠物已经制作或收录。
 
@@ -58,7 +58,7 @@ export function getPetRequestPrompt(locale: Locale) {
 
   return `${taskLanguageInstruction(locale)} Help me request a new Codex pet from Awesome Codex Pet at ${repositoryUrl}.
 
-Ask only which character or concept I want first. The original work, a public reference URL, and style preferences are optional. Do not ask me to choose a version, category, license, naming language, or perform my own duplicate search. New requests default to V2.
+Ask only which character or concept I want first, together with a publicly accessible reference image URL. The original work and style preferences are optional. Do not ask me to choose a version, category, license, naming language, or perform my own duplicate search. New requests default to V2.
 
 After I answer, use the GitHub API to inspect pets.json and existing issues. Organize the category, duplicate findings, and source notes yourself, then create an issue titled "[Request]: Character or concept". Keep <!-- pet-flow: request --> in the body, state that the runtime is V2, and explain that community production is free and voluntary with no completion guarantee. Do not invent authorship or sources, and do not claim the pet is already made or accepted.
 

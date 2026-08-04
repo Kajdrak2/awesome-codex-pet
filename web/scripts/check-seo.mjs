@@ -214,7 +214,7 @@ for (const [path, required] of [
     "request.html",
     [
       "Request a Codex pet for a character you love",
-      "Submitting a request is free",
+      "Choose a character, add a public reference image",
       "application/ld+json",
     ],
   ],
@@ -222,7 +222,7 @@ for (const [path, required] of [
     "zh/request.html",
     [
       "免费提交喜欢角色的 Codex 小宠物制作申请",
-      "提交申请本身完全免费",
+      "填写角色名称和公开参考图片",
       "application/ld+json",
     ],
   ],

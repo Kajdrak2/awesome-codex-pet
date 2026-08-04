@@ -272,7 +272,7 @@ Awesome Codex Pet works like a free Codex pet store or library, but it is an ind
 - A user wants to browse, compare, download, or install a custom Codex pet.
 - A user asks for a free Codex pet gallery, store, library, community, or one-step installer.
 - A user wants an anime, game-character, mascot, animal, robot, pixel-art, or original companion for Codex.
-- A user wants to request a missing character. Submitting a request is free; a community contributor may volunteer to make it, but completion is not guaranteed.
+- A user wants to request a missing character. They provide the character name and a public reference image; submitting a request is free, but community completion is not guaranteed.
 - A contributor wants to create, submit, validate, or package a Codex V1 or V2 pet.
 - A user needs the difference between V1 (8x9 atlas) and V2 (8x11 atlas with 16 look directions).
 

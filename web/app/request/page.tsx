@@ -9,7 +9,7 @@ import { siteConfig } from "@/lib/site";
 
 const title = "Request a Codex pet for free";
 const description =
-  "Request a V2 Codex pet for free with a short no-account form. Only the character or concept is required; community contributors may volunteer to make it.";
+  "Request a V2 Codex pet for free with a short no-account form. Enter the character name and a public reference image; community contributors may volunteer to make it.";
 const pageUrl = `${siteConfig.url}/request`;
 const faq = [
   {
@@ -20,7 +20,7 @@ const faq = [
   {
     question: "Can I request an anime or game character?",
     answer:
-      "Yes. Only the character name is required. The original work, a public reference, and visual preferences are optional.",
+      "Yes. The character name and a public reference image are required. The original work and visual preferences are optional.",
   },
   {
     question: "Do I need to make the spritesheet myself?",
@@ -103,7 +103,7 @@ export default function RequestPage() {
             "@type": "HowToStep",
             position: 2,
             name: "Add optional details",
-            text: "Optionally add the original work, a public reference URL, and visual preferences.",
+            text: "Add the required public reference image, then optionally add the original work and visual preferences.",
           },
           {
             "@type": "HowToStep",

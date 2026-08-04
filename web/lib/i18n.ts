@@ -78,16 +78,16 @@ export const translations = {
     docs: "Docs",
     github: "GitHub",
     submitPet: "Request / Submit",
-    requestPetWithAI: "Ask the community to make a pet",
+    requestPetWithAI: "Use Codex to submit a request",
     requestPetWithAIDesc:
-      "Submit a free character request. A community contributor may volunteer to make it; delivery is not guaranteed.",
-    submitPetWithAI: "Submit your pet",
+      "Let Codex organize the request and create the GitHub Issue.",
+    submitPetWithAI: "Use Codex to submit your pet",
     submitPetWithAIDesc:
-      "Open local Codex to create from references or review existing files, then open a focused pull request.",
+      "Let Codex prepare the pet files and a focused pull request.",
     copyPromptShort: "Copy prompt",
-    advancedPullRequest: "Submit a pull request",
+    advancedPullRequest: "Go to GitHub and submit a PR",
     advancedPullRequestDesc:
-      "For contributors who prefer GitHub, Codespaces, or a sparse local checkout.",
+      "Open GitHub to submit an existing pet through a Pull Request.",
     submissionGuide: "Contribution guide",
     submissionGuideDesc:
       "Read the version, quality, attribution, and contribution requirements.",
@@ -505,16 +505,16 @@ export const translations = {
     docs: "文档",
     github: "GitHub",
     submitPet: "申请 / 投稿",
-    requestPetWithAI: "请社区帮我制作宠物",
+    requestPetWithAI: "使用 Codex 提交制作请求",
     requestPetWithAIDesc:
-      "免费提交角色与参考图，社区贡献者可能会志愿制作，但不承诺交付。",
-    submitPetWithAI: "提交自己的宠物",
+      "让 Codex 整理内容并创建 GitHub Issue。",
+    submitPetWithAI: "使用 Codex 制作并投稿",
     submitPetWithAIDesc:
-      "打开本地 Codex，可从参考图现场制作，也可检查现成文件并创建独立 PR。",
+      "让 Codex 准备宠物文件，并创建一个聚焦的 Pull Request。",
     copyPromptShort: "复制提示词",
-    advancedPullRequest: "直接提交 PR",
+    advancedPullRequest: "去 GitHub 提交 PR",
     advancedPullRequestDesc:
-      "适合希望直接使用 GitHub、Codespaces 或稀疏克隆的贡献者。",
+      "打开 GitHub，为已有宠物提交 Pull Request。",
     submissionGuide: "投稿教程",
     submissionGuideDesc: "查看版本、质量、署名与投稿要求。",
     switchToLightMode: "切换到浅色模式",

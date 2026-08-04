@@ -68,7 +68,7 @@ v2 - standard animations plus 16 look directions
 
 Create a new community interpretation
 
-### References
+### Reference image
 
 ${reference}
 
