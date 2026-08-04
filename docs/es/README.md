@@ -12,7 +12,7 @@
 
 <a href="https://codexpet.top/es"><img src="../../assets/cover/awesome-codex-pet-cover.png" alt="Abrir la galería de Awesome Codex Pet"></a>
 
-![pets: 172](https://img.shields.io/badge/pets-172-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN | ko | ja | es](https://img.shields.io/badge/languages-en%20%7C%20zh--CN%20%7C%20ko%20%7C%20ja%20%7C%20es-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
+![pets: 173](https://img.shields.io/badge/pets-173-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN | ko | ja | es](https://img.shields.io/badge/languages-en%20%7C%20zh--CN%20%7C%20ko%20%7C%20ja%20%7C%20es-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
 
 </div>
 
@@ -791,6 +791,13 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -UseB https://raw.gi
 <tr><th>Instalación</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- gudong--rank</code></td></tr>
 <tr><th>Acción</th><td><strong>Reposo</strong></td><td><strong>Saludo</strong></td><td><strong>Correr</strong></td><td><strong>Esperar</strong></td><td><strong>Revisar</strong></td></tr>
 <tr><th>Vista previa</th><td><img src="https://codexpet.top/assets/previews/gudong--rank/webp/idle.webp" alt="咕咚 idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/gudong--rank/webp/waving.webp" alt="咕咚 waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/gudong--rank/webp/running-right.webp" alt="咕咚 running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/gudong--rank/webp/waiting.webp" alt="咕咚 waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/gudong--rank/webp/review.webp" alt="咕咚 review" width="120" height="130"></td></tr>
+</table>
+
+<table>
+<tr><th>Nombre</th><td colspan="5"><a href="../../pets/liubao--killyer">榴宝</a> · por @killyer · Personajes originales · v2</td></tr>
+<tr><th>Instalación</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- liubao--killyer</code></td></tr>
+<tr><th>Acción</th><td><strong>Reposo</strong></td><td><strong>Saludo</strong></td><td><strong>Correr</strong></td><td><strong>Esperar</strong></td><td><strong>Revisar</strong></td></tr>
+<tr><th>Vista previa</th><td><img src="https://codexpet.top/assets/previews/liubao--killyer/webp/idle.webp" alt="榴宝 idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/liubao--killyer/webp/waving.webp" alt="榴宝 waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/liubao--killyer/webp/running-right.webp" alt="榴宝 running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/liubao--killyer/webp/waiting.webp" alt="榴宝 waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/liubao--killyer/webp/review.webp" alt="榴宝 review" width="120" height="130"></td></tr>
 </table>
 
 <table>
