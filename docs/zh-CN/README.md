@@ -12,7 +12,7 @@
 
 <a href="https://codexpet.top"><img src="../../assets/cover/awesome-codex-pet-cover.png" alt="进入 Awesome Codex Pet 精品画廊"></a>
 
-![pets: 175](https://img.shields.io/badge/pets-175-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN | ko | ja | es](https://img.shields.io/badge/languages-en%20%7C%20zh--CN%20%7C%20ko%20%7C%20ja%20%7C%20es-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
+![pets: 176](https://img.shields.io/badge/pets-176-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN | ko | ja | es](https://img.shields.io/badge/languages-en%20%7C%20zh--CN%20%7C%20ko%20%7C%20ja%20%7C%20es-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
 
 </div>
 
@@ -338,6 +338,13 @@ curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scr
 <tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- sparkle--lingxiaotian</code></td></tr>
 <tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
 <tr><th>预览</th><td><img src="https://codexpet.top/assets/previews/sparkle--lingxiaotian/webp/idle.webp" alt="花火 idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/sparkle--lingxiaotian/webp/waving.webp" alt="花火 waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/sparkle--lingxiaotian/webp/running-right.webp" alt="花火 running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/sparkle--lingxiaotian/webp/waiting.webp" alt="花火 waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/sparkle--lingxiaotian/webp/review.webp" alt="花火 review" width="120" height="130"></td></tr>
+</table>
+
+<table>
+<tr><th>名称</th><td colspan="5"><a href="../../pets/susuta--xiangzi529">羞羞獭</a> · 作者 <a href="https://github.com/Xiangzi529">@Xiangzi529</a> · 游戏角色 · v2</td></tr>
+<tr><th>安装</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- susuta--xiangzi529</code></td></tr>
+<tr><th>动作</th><td><strong>待机</strong></td><td><strong>挥手</strong></td><td><strong>奔跑</strong></td><td><strong>等待</strong></td><td><strong>审阅</strong></td></tr>
+<tr><th>预览</th><td><img src="https://codexpet.top/assets/previews/susuta--xiangzi529/webp/idle.webp" alt="羞羞獭 idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/susuta--xiangzi529/webp/waving.webp" alt="羞羞獭 waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/susuta--xiangzi529/webp/running-right.webp" alt="羞羞獭 running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/susuta--xiangzi529/webp/waiting.webp" alt="羞羞獭 waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/susuta--xiangzi529/webp/review.webp" alt="羞羞獭 review" width="120" height="130"></td></tr>
 </table>
 
 <table>
