@@ -8,6 +8,7 @@ import worker, {
   buildCreatorFollowRateKey,
   buildRequestSupportKey,
   buildRequestSupportRateKey,
+  buildManualRequestRateKey,
   computeTrendingScore,
   buildReferenceImageUrl,
   inspectReferenceImage,
@@ -266,6 +267,25 @@ test("request support keys are scoped by IP and issue", async () => {
   assert.notEqual(first, otherIp);
   assert.notEqual(first, otherIssue);
   assert.notEqual(firstRate.key, nextHourRate.key);
+});
+
+test("manual request rate keys stay scoped to one IP across the rolling day", async () => {
+  const firstRequest = new Request("https://api.example/requests/manual", {
+    headers: { "CF-Connecting-IP": "203.0.113.4" },
+  });
+  const sameIpRequest = new Request("https://api.example/requests/manual", {
+    headers: { "CF-Connecting-IP": "203.0.113.4" },
+  });
+  const otherIpRequest = new Request("https://api.example/requests/manual", {
+    headers: { "CF-Connecting-IP": "203.0.113.5" },
+  });
+
+  const first = await buildManualRequestRateKey(firstRequest, env);
+  const sameIp = await buildManualRequestRateKey(sameIpRequest, env);
+  const otherIp = await buildManualRequestRateKey(otherIpRequest, env);
+
+  assert.equal(first, sameIp);
+  assert.notEqual(first, otherIp);
 });
 
 test("stats serialization exposes recent likes and creator fields", () => {

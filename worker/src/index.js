@@ -11,7 +11,8 @@ const EVENT_ID_RE = /^[A-Za-z0-9._:-]{8,128}$/;
 const INSTALL_RATE_LIMIT = 30;
 const CREATOR_FOLLOW_RATE_LIMIT = 60;
 const REQUEST_SUPPORT_RATE_LIMIT = 60;
-const MANUAL_REQUEST_RATE_LIMIT = 3;
+const MANUAL_REQUEST_RATE_LIMIT = 1;
+const MANUAL_REQUEST_RATE_WINDOW_MS = 24 * 60 * 60 * 1000;
 const MANUAL_REQUEST_BODY_LIMIT = 16_384;
 const REFERENCE_IMAGE_MAX_BYTES = 5 * 1024 * 1024;
 const MANUAL_REQUEST_FORM_LIMIT = REFERENCE_IMAGE_MAX_BYTES + 64 * 1024;
@@ -208,17 +209,13 @@ export async function buildRequestSupportRateKey(request, env, timestamp) {
   };
 }
 
-async function buildManualRequestRateKey(request, env, timestamp) {
+export async function buildManualRequestRateKey(request, env) {
   if (!env.HASH_SALT || env.HASH_SALT.length < 16) {
     throw new HttpError(500, "metric hashing is not configured");
   }
-  const bucket = hourBucket(timestamp);
-  return {
-    key: await sha256(
-      `${env.HASH_SALT}|rate|manual-request|${clientAddress(request)}|${bucket}`,
-    ),
-    bucket,
-  };
+  return sha256(
+    `${env.HASH_SALT}|rate|manual-request|${clientAddress(request)}`,
+  );
 }
 
 function cleanText(value, maxLength) {
@@ -546,20 +543,40 @@ export async function verifyTurnstile(request, env, token, fetcher = fetch) {
 }
 
 async function enforceManualRequestRateLimit(request, env, timestamp) {
-  const rate = await buildManualRequestRateKey(request, env, timestamp);
+  const rateKey = await buildManualRequestRateKey(request, env);
   const result = await env.DB.prepare(
     `INSERT INTO manual_request_rate_limits
        (rate_key, bucket_start, event_count, expires_at)
      VALUES (?, ?, 1, ?)
      ON CONFLICT(rate_key) DO UPDATE SET
-       event_count = manual_request_rate_limits.event_count + 1,
-       expires_at = excluded.expires_at
+       bucket_start = CASE
+         WHEN manual_request_rate_limits.expires_at <= ? THEN excluded.bucket_start
+         ELSE manual_request_rate_limits.bucket_start
+       END,
+       event_count = CASE
+         WHEN manual_request_rate_limits.expires_at <= ? THEN excluded.event_count
+         ELSE manual_request_rate_limits.event_count + excluded.event_count
+       END,
+       expires_at = CASE
+         WHEN manual_request_rate_limits.expires_at <= ? THEN excluded.expires_at
+         ELSE manual_request_rate_limits.expires_at
+       END
      RETURNING event_count`,
   )
-    .bind(rate.key, rate.bucket, timestamp + 2 * 60 * 60 * 1000)
+    .bind(
+      rateKey,
+      timestamp,
+      timestamp + MANUAL_REQUEST_RATE_WINDOW_MS,
+      timestamp,
+      timestamp,
+      timestamp,
+    )
     .first();
   if ((Number(result?.event_count) || 0) > MANUAL_REQUEST_RATE_LIMIT) {
-    throw new HttpError(429, "too many requests; please try again later");
+    throw new HttpError(
+      429,
+      "one request per IP is allowed every 24 hours; please try again later",
+    );
   }
 }
 

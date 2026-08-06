@@ -49,7 +49,7 @@ npm run deploy
 
 `db:sync` reads `../pets.json` and `../requests.json`, activates current pets, creators, and open requests, and never lowers existing counters. For a one-time migration from a legacy JSON endpoint, pass `--stats-url <url>` explicitly.
 
-Reference uploads are deliberately bounded and verified at the Worker edge: Turnstile is checked before storage, each source IP may submit at most three requests per hour, files are limited to 5 MB, only PNG/JPEG/WebP signatures are accepted, dimensions are capped at 4096x4096 and 16 megapixels, and object keys are content hashes rather than user-controlled filenames. The public image route is read-only and does not expose an R2 listing or write operation.
+Reference uploads are deliberately bounded and verified at the Worker edge: Turnstile is checked before storage, each source IP may submit at most one request per rolling 24 hours, files are limited to 5 MB, only PNG/JPEG/WebP signatures are accepted, dimensions are capped at 4096x4096 and 16 megapixels, and object keys are content hashes rather than user-controlled filenames. The public image route is read-only and does not expose an R2 listing or write operation. The same rolling limit applies to link-only requests, so a client cannot bypass the quota by switching between an upload and a public URL.
 
 `db:export` queries D1 through Wrangler and atomically writes `../web/public/stats.json`. The web deployment workflows run it once before building Pages, so statistics update when the site is deployed rather than on every page request.
 
