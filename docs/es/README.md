@@ -12,7 +12,7 @@
 
 <a href="https://codexpet.top/es"><img src="../../assets/cover/awesome-codex-pet-cover.png" alt="Abrir la galería de Awesome Codex Pet"></a>
 
-![pets: 174](https://img.shields.io/badge/pets-174-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN | ko | ja | es](https://img.shields.io/badge/languages-en%20%7C%20zh--CN%20%7C%20ko%20%7C%20ja%20%7C%20es-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
+![pets: 178](https://img.shields.io/badge/pets-178-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN | ko | ja | es](https://img.shields.io/badge/languages-en%20%7C%20zh--CN%20%7C%20ko%20%7C%20ja%20%7C%20es-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
 
 </div>
 
@@ -307,6 +307,13 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -UseB https://raw.gi
 </table>
 
 <table>
+<tr><th>Nombre</th><td colspan="5"><a href="../../pets/susuta--xiangzi529">Susuta</a> · por <a href="https://github.com/Xiangzi529">@Xiangzi529</a> · Personajes de videojuegos · v2</td></tr>
+<tr><th>Instalación</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- susuta--xiangzi529</code></td></tr>
+<tr><th>Acción</th><td><strong>Reposo</strong></td><td><strong>Saludo</strong></td><td><strong>Correr</strong></td><td><strong>Esperar</strong></td><td><strong>Revisar</strong></td></tr>
+<tr><th>Vista previa</th><td><img src="https://codexpet.top/assets/previews/susuta--xiangzi529/webp/idle.webp" alt="Susuta idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/susuta--xiangzi529/webp/waving.webp" alt="Susuta waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/susuta--xiangzi529/webp/running-right.webp" alt="Susuta running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/susuta--xiangzi529/webp/waiting.webp" alt="Susuta waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/susuta--xiangzi529/webp/review.webp" alt="Susuta review" width="120" height="130"></td></tr>
+</table>
+
+<table>
 <tr><th>Nombre</th><td colspan="5"><a href="../../pets/tingyun--lingxiaotian">Tingyun</a> · por <a href="https://github.com/legeling">@legeling</a> · Personajes de videojuegos · v1</td></tr>
 <tr><th>Instalación</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- tingyun--lingxiaotian</code></td></tr>
 <tr><th>Acción</th><td><strong>Reposo</strong></td><td><strong>Saludo</strong></td><td><strong>Correr</strong></td><td><strong>Esperar</strong></td><td><strong>Revisar</strong></td></tr>
@@ -397,6 +404,13 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -UseB https://raw.gi
 <tr><th>Instalación</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- chibi-rei-pet--bendy</code></td></tr>
 <tr><th>Acción</th><td><strong>Reposo</strong></td><td><strong>Saludo</strong></td><td><strong>Correr</strong></td><td><strong>Esperar</strong></td><td><strong>Revisar</strong></td></tr>
 <tr><th>Vista previa</th><td><img src="https://codexpet.top/assets/previews/chibi-rei-pet--bendy/webp/idle.webp" alt="Chibi Rei Pet idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/chibi-rei-pet--bendy/webp/waving.webp" alt="Chibi Rei Pet waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/chibi-rei-pet--bendy/webp/running-right.webp" alt="Chibi Rei Pet running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/chibi-rei-pet--bendy/webp/waiting.webp" alt="Chibi Rei Pet waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/chibi-rei-pet--bendy/webp/review.webp" alt="Chibi Rei Pet review" width="120" height="130"></td></tr>
+</table>
+
+<table>
+<tr><th>Nombre</th><td colspan="5"><a href="../../pets/chotu--makriman">Chotu</a> · por <a href="https://github.com/makriman">@makriman</a> · Personajes de anime · v2</td></tr>
+<tr><th>Instalación</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- chotu--makriman</code></td></tr>
+<tr><th>Acción</th><td><strong>Reposo</strong></td><td><strong>Saludo</strong></td><td><strong>Correr</strong></td><td><strong>Esperar</strong></td><td><strong>Revisar</strong></td></tr>
+<tr><th>Vista previa</th><td><img src="https://codexpet.top/assets/previews/chotu--makriman/webp/idle.webp" alt="Chotu idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/chotu--makriman/webp/waving.webp" alt="Chotu waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/chotu--makriman/webp/running-right.webp" alt="Chotu running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/chotu--makriman/webp/waiting.webp" alt="Chotu waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/chotu--makriman/webp/review.webp" alt="Chotu review" width="120" height="130"></td></tr>
 </table>
 
 <table>
@@ -502,6 +516,13 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -UseB https://raw.gi
 <tr><th>Instalación</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- mahiro--lingxiaotian</code></td></tr>
 <tr><th>Acción</th><td><strong>Reposo</strong></td><td><strong>Saludo</strong></td><td><strong>Correr</strong></td><td><strong>Esperar</strong></td><td><strong>Revisar</strong></td></tr>
 <tr><th>Vista previa</th><td><img src="https://codexpet.top/assets/previews/mahiro--lingxiaotian/webp/idle.webp" alt="Mahiro idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/mahiro--lingxiaotian/webp/waving.webp" alt="Mahiro waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/mahiro--lingxiaotian/webp/running-right.webp" alt="Mahiro running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/mahiro--lingxiaotian/webp/waiting.webp" alt="Mahiro waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/mahiro--lingxiaotian/webp/review.webp" alt="Mahiro review" width="120" height="130"></td></tr>
+</table>
+
+<table>
+<tr><th>Nombre</th><td colspan="5"><a href="../../pets/makima-coat--yuyuabc1">Makima (Coat)</a> · por <a href="https://github.com/yuyuabc1">@yuyuabc1</a> · Personajes de anime · v2</td></tr>
+<tr><th>Instalación</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- makima-coat--yuyuabc1</code></td></tr>
+<tr><th>Acción</th><td><strong>Reposo</strong></td><td><strong>Saludo</strong></td><td><strong>Correr</strong></td><td><strong>Esperar</strong></td><td><strong>Revisar</strong></td></tr>
+<tr><th>Vista previa</th><td><img src="https://codexpet.top/assets/previews/makima-coat--yuyuabc1/webp/idle.webp" alt="Makima (Coat) idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/makima-coat--yuyuabc1/webp/waving.webp" alt="Makima (Coat) waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/makima-coat--yuyuabc1/webp/running-right.webp" alt="Makima (Coat) running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/makima-coat--yuyuabc1/webp/waiting.webp" alt="Makima (Coat) waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/makima-coat--yuyuabc1/webp/review.webp" alt="Makima (Coat) review" width="120" height="130"></td></tr>
 </table>
 
 <table>
@@ -1245,6 +1266,13 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -UseB https://raw.gi
 </table>
 
 ### Memes
+
+<table>
+<tr><th>Nombre</th><td colspan="5"><a href="../../pets/drill-cat--qimi">Drill Cat</a> · por <a href="https://github.com/qishichuan">@qishichuan</a> · Memes · v2</td></tr>
+<tr><th>Instalación</th><td colspan="5"><code>curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- drill-cat--qimi</code></td></tr>
+<tr><th>Acción</th><td><strong>Reposo</strong></td><td><strong>Saludo</strong></td><td><strong>Correr</strong></td><td><strong>Esperar</strong></td><td><strong>Revisar</strong></td></tr>
+<tr><th>Vista previa</th><td><img src="https://codexpet.top/assets/previews/drill-cat--qimi/webp/idle.webp" alt="Drill Cat idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/drill-cat--qimi/webp/waving.webp" alt="Drill Cat waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/drill-cat--qimi/webp/running-right.webp" alt="Drill Cat running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/drill-cat--qimi/webp/waiting.webp" alt="Drill Cat waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/drill-cat--qimi/webp/review.webp" alt="Drill Cat review" width="120" height="130"></td></tr>
+</table>
 
 <table>
 <tr><th>Nombre</th><td colspan="5"><a href="../../pets/hami--tat">Hami</a> · por <a href="https://github.com/TATcc">@TATcc</a> · Memes · v2</td></tr>
