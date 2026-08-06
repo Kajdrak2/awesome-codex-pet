@@ -9,8 +9,11 @@ import worker, {
   buildRequestSupportKey,
   buildRequestSupportRateKey,
   computeTrendingScore,
+  buildReferenceImageUrl,
+  inspectReferenceImage,
   isOriginAllowed,
   normalizeManualRequest,
+  normalizeManualRequestSubmission,
   serializeStatsRows,
   verifyTurnstile,
 } from "../src/index.js";
@@ -75,7 +78,7 @@ test("removed public read, view, and vote routes stay disabled", async () => {
   assert.equal(vote.status, 404);
 });
 
-test("public config exposes only the Turnstile site key", async () => {
+test("public config exposes safe client capabilities", async () => {
   const routeEnv = {
     ...env,
     DB: {
@@ -94,6 +97,7 @@ test("public config exposes only the Turnstile site key", async () => {
   assert.equal(response.status, 200);
   assert.deepEqual(await response.json(), {
     turnstileSiteKey: "public-site-key",
+    referenceUploadEnabled: false,
   });
   assert.equal(
     response.headers.get("Access-Control-Allow-Origin"),
@@ -357,10 +361,15 @@ test("Turnstile validation checks success and hostname", async () => {
     TURNSTILE_ALLOWED_HOSTNAMES: "codexpet.top",
   };
   let verificationBody;
-  await verifyTurnstile(request, turnstileEnv, "valid-token", async (_url, init) => {
-    verificationBody = JSON.parse(init.body);
-    return Response.json({ success: true, hostname: "codexpet.top" });
-  });
+  await verifyTurnstile(
+    request,
+    turnstileEnv,
+    "valid-token",
+    async (_url, init) => {
+      verificationBody = JSON.parse(init.body);
+      return Response.json({ success: true, hostname: "codexpet.top" });
+    },
+  );
   assert.equal(verificationBody.secret, "test-secret");
   assert.equal(verificationBody.response, "valid-token");
   assert.equal(verificationBody.remoteip, "203.0.113.4");
@@ -370,6 +379,89 @@ test("Turnstile validation checks success and hostname", async () => {
       Response.json({ success: false, hostname: "codexpet.top" }),
     ),
     /human verification failed/,
+  );
+});
+
+test("reference image uploads require safe, bounded raster files", async () => {
+  const png = new Uint8Array([
+    0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00, 0x00, 0x00, 0x0d,
+    0x49, 0x48, 0x44, 0x52, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01,
+  ]);
+  const file = new File([png], "reference.png", { type: "image/png" });
+  const inspected = await inspectReferenceImage(file);
+
+  assert.equal(inspected.extension, "png");
+  assert.equal(inspected.mimeType, "image/png");
+  assert.equal(inspected.width, 1);
+  assert.equal(inspected.height, 1);
+  assert.match(inspected.contentHash, /^[a-f0-9]{64}$/);
+  assert.equal(
+    normalizeManualRequestSubmission({
+      character: "Mikoto",
+      referenceImage: file,
+      locale: "zh",
+    }).referenceImage,
+    file,
+  );
+  assert.equal(
+    buildReferenceImageUrl(
+      new Request("https://api.example/requests/manual"),
+      `references/${inspected.contentHash}.png`,
+    ),
+    `https://api.example/uploads/reference/references/${inspected.contentHash}.png`,
+  );
+  await assert.rejects(
+    inspectReferenceImage(
+      new File(["<svg xmlns='http://www.w3.org/2000/svg'></svg>"], "x.svg", {
+        type: "image/svg+xml",
+      }),
+    ),
+    /valid PNG, JPG, or WebP/,
+  );
+  assert.throws(
+    () =>
+      normalizeManualRequestSubmission({
+        character: "Mikoto",
+        referenceUrl: "https://example.com/reference.png",
+        referenceImage: file,
+      }),
+    /either a reference image upload or URL/,
+  );
+});
+
+test("reference image route is read-only and serves immutable content", async () => {
+  const key = `references/${"a".repeat(64)}.png`;
+  const payload = new Uint8Array([1, 2, 3]);
+  const routeEnv = {
+    ...env,
+    REFERENCE_IMAGES: {
+      get: async (requestedKey) =>
+        requestedKey === key
+          ? {
+              body: payload,
+              httpEtag: '"test-etag"',
+              httpMetadata: {
+                contentType: "image/png",
+                cacheControl: "public, max-age=31536000, immutable",
+                contentDisposition: "inline",
+              },
+            }
+          : null,
+    },
+  };
+  const response = await worker.fetch(
+    new Request(`https://api.example/uploads/reference/${key}`, {
+      headers: { Origin: "https://codexpet.top" },
+    }),
+    routeEnv,
+  );
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("Content-Type"), "image/png");
+  assert.equal(response.headers.get("X-Content-Type-Options"), "nosniff");
+  assert.equal(response.headers.get("ETag"), '"test-etag"');
+  assert.deepEqual(
+    [...new Uint8Array(await response.arrayBuffer())],
+    [1, 2, 3],
   );
 });
 

@@ -1,9 +1,9 @@
 # awesome-codex-pet-stats Worker
 
-Cloudflare Worker that records privacy-conscious install, like, creator-follow, and request-support actions for the Awesome Codex Pet gallery.
+Cloudflare Worker that records privacy-conscious install, like, creator-follow, and request-support actions for the Awesome Codex Pet gallery. It also accepts verified reference-image uploads for the no-account request form.
 
 - **Production URL**: `https://api.codexpet.top`
-- **Storage**: Cloudflare D1 (`DB` binding)
+- **Storage**: Cloudflare D1 (`DB` binding) and Cloudflare R2 (`REFERENCE_IMAGES` binding)
 - **Public reads**: static `web/public/stats.json`, exported from D1 during web deployment
 - **Cleanup**: daily Cron Trigger removes expired event receipts and rate-limit buckets
 - **Public Worker surface**: custom domain only; `workers.dev` and preview URLs are disabled
@@ -18,6 +18,9 @@ Cloudflare Worker that records privacy-conscious install, like, creator-follow, 
 | `DELETE` | `/track/creator-follow?slug=<id>` | Unfollow one creator                                             |
 | `POST`   | `/track/request-support?number=N` | Support one open GitHub-backed pet request                       |
 | `DELETE` | `/track/request-support?number=N` | Remove support from one request                                  |
+| `POST`   | `/requests/manual`                | Create a Turnstile-verified request from JSON or multipart form  |
+| `GET`    | `/config/public`                  | Expose the Turnstile key and upload capability                   |
+| `GET`    | `/uploads/reference/<key>`        | Serve one validated, immutable reference image                   |
 
 The API never stores raw IP addresses or client event IDs. Metric receipts are salted and hashed before short-lived deduplication. Likes store only a salted, pet-scoped IP hash so the same IP cannot like one pet twice and cannot be correlated across different pets. Creator follows and request supports use the same approach with creator- or request-scoped hashes and may be removed from the corresponding page.
 
@@ -46,7 +49,17 @@ npm run deploy
 
 `db:sync` reads `../pets.json` and `../requests.json`, activates current pets, creators, and open requests, and never lowers existing counters. For a one-time migration from a legacy JSON endpoint, pass `--stats-url <url>` explicitly.
 
+Reference uploads are deliberately bounded and verified at the Worker edge: Turnstile is checked before storage, each source IP may submit at most three requests per hour, files are limited to 5 MB, only PNG/JPEG/WebP signatures are accepted, dimensions are capped at 4096x4096 and 16 megapixels, and object keys are content hashes rather than user-controlled filenames. The public image route is read-only and does not expose an R2 listing or write operation.
+
 `db:export` queries D1 through Wrangler and atomically writes `../web/public/stats.json`. The web deployment workflows run it once before building Pages, so statistics update when the site is deployed rather than on every page request.
+
+Create the R2 bucket before the first Worker deployment:
+
+```bash
+npx wrangler r2 bucket create awesome-codex-pet-reference-images
+```
+
+The bucket is intentionally private; the Worker serves only validated content-hash keys. If the R2 binding is absent, the form automatically keeps the public-link fallback available and does not accept file uploads.
 
 ## Local development
 
@@ -70,7 +83,7 @@ To test likes, creator follows, or request supports against the local Worker, se
 
 `.github/workflows/deploy-stats.yml` runs tests, applies D1 migrations, synchronizes the catalog, and deploys the write-only Worker whenever `worker/**`, `pets.json`, or `requests.json` changes on `main`. Both web deployment workflows export the latest D1 snapshot before building Pages.
 
-The repository must provide `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets. The token needs Workers Scripts and D1 edit permissions. The `HASH_SALT` value stays attached to the Worker as an encrypted Cloudflare secret and is not stored in GitHub.
+The repository must provide `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets. The token needs Workers Scripts, D1, and R2 edit permissions. The `HASH_SALT` value stays attached to the Worker as an encrypted Cloudflare secret and is not stored in GitHub.
 
 ## Disabling statistics
 

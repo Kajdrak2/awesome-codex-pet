@@ -12,7 +12,7 @@ const checks = [
     path: "/zh/request",
     expected: [
       "免费提交喜欢角色的 Codex 小宠物制作申请",
-      "请填写角色名称和公开参考图片",
+      "请填写角色名称并上传参考图片或粘贴公开链接",
       "社区贡献者可能会志愿认领",
     ],
   },
@@ -22,7 +22,7 @@ const checks = [
       "/zh/install",
       "/zh/request",
       "how to install a Codex pet",
-      "public reference image",
+      "reference image upload or public image link",
       "install-pet.sh",
     ],
   },

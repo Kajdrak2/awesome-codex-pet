@@ -2,10 +2,7 @@ import Link from "next/link";
 
 import { CodexIcon } from "@/components/codex-icon";
 import { ManualRequestForm } from "@/components/manual-request-form";
-import {
-  buildCodexUrl,
-  getPetRequestPrompt,
-} from "@/lib/codex-links";
+import { buildCodexUrl, getPetRequestPrompt } from "@/lib/codex-links";
 import { localeConfig, localePath, type Locale } from "@/lib/i18n";
 
 const requestIssueUrl =
@@ -18,7 +15,7 @@ const content = {
     eyebrow: "Free community request",
     title: "Request a Codex pet for a character you love",
     intro:
-      "Choose a character, add a public reference image, and submit it online, with Codex, or directly to GitHub. Requests are free; community production is voluntary.",
+      "Choose a character, upload a reference image or use a public link, and submit it online, with Codex, or directly to GitHub. Requests are free; community production is voluntary.",
     codexCta: "Use Codex to submit",
     manualCta: "Submit online",
     githubCta: "Submit a GitHub Issue",
@@ -31,7 +28,7 @@ const content = {
         index: "01",
         title: "Name the character and add an image",
         description:
-          "The character name and a public reference image link are required.",
+          "The character name and a reference image are required. Online submissions can upload the image directly or use a public link.",
       },
       {
         index: "02",
@@ -76,7 +73,7 @@ const content = {
       {
         question: "Do I need to make the spritesheet myself?",
         answer:
-          "No. Submit the character name and public reference image; contributors handle production when they choose to claim it.",
+          "No. Submit the character name and reference image; contributors handle production when they choose to claim it.",
       },
     ],
   },
@@ -86,7 +83,7 @@ const content = {
     eyebrow: "免费社区制作申请",
     title: "免费提交喜欢角色的 Codex 小宠物制作申请",
     intro:
-      "填写角色名称和公开参考图片，选择在线提交、使用 Codex，或去 GitHub 提交 Issue。申请免费，社区制作由贡献者自愿完成。",
+      "填写角色名称并上传参考图片或粘贴公开链接，选择在线提交、使用 Codex，或去 GitHub 提交 Issue。申请免费，社区制作由贡献者自愿完成。",
     codexCta: "使用 Codex 提交",
     manualCta: "在线提交制作请求",
     githubCta: "去 GitHub 提交 Issue",
@@ -99,13 +96,12 @@ const content = {
         index: "01",
         title: "填写角色名称和参考图片",
         description:
-          "角色名称和公开参考图片链接为必填；版本和初始分类由系统处理。",
+          "角色名称和参考图片为必填；在线提交可以直接上传图片，也可以使用公开链接。版本和初始分类由系统处理。",
       },
       {
         index: "02",
         title: "补充制作信息",
-        description:
-          "所属作品、画风、道具和动作偏好可选。",
+        description: "所属作品、画风、道具和动作偏好可选。",
       },
       {
         index: "03",
@@ -144,7 +140,7 @@ const content = {
       {
         question: "申请人需要自己制作 spritesheet 吗？",
         answer:
-          "不需要。申请阶段只需提供角色信息和公开参考图片，社区贡献者负责后续制作与审查。",
+          "不需要。申请阶段只需提供角色信息和参考图片，社区贡献者负责后续制作与审查。",
       },
     ],
   },
@@ -167,13 +163,12 @@ const content = {
         index: "01",
         title: "캐릭터와 참고 이미지 입력",
         description:
-          "캐릭터 이름과 공개 참고 이미지 링크가 필수이며 V2가 자동 선택됩니다.",
+          "캐릭터 이름과 참고 이미지가 필수입니다. 온라인 제출은 이미지를 직접 업로드하거나 공개 링크를 사용할 수 있습니다.",
       },
       {
         index: "02",
         title: "선택 정보 추가",
-        description:
-          "원작과 스타일, 소품, 동작 선호는 선택입니다.",
+        description: "원작과 스타일, 소품, 동작 선호는 선택입니다.",
       },
       {
         index: "03",
@@ -201,15 +196,18 @@ const content = {
     faq: [
       {
         question: "Codex 펫 요청은 유료인가요?",
-        answer: "아니요. 요청은 무료이며 완성 시점이나 채택은 보장되지 않습니다.",
+        answer:
+          "아니요. 요청은 무료이며 완성 시점이나 채택은 보장되지 않습니다.",
       },
       {
         question: "제출할 때 무엇이 필요한가요?",
-        answer: "캐릭터 이름과 공개 참고 이미지가 필요합니다. 원작과 제작 선호는 선택 사항입니다.",
+        answer:
+          "캐릭터 이름과 공개 참고 이미지가 필요합니다. 원작과 제작 선호는 선택 사항입니다.",
       },
       {
         question: "spritesheet를 직접 만들어야 하나요?",
-        answer: "아니요. 요청에는 명확한 캐릭터 정보, 참고 자료와 선호 사항만 필요합니다.",
+        answer:
+          "아니요. 요청에는 명확한 캐릭터 정보, 참고 자료와 선호 사항만 필요합니다.",
       },
     ],
   },
@@ -232,13 +230,12 @@ const content = {
         index: "01",
         title: "キャラクターと参考画像を入力",
         description:
-          "キャラクター名と公開参考画像リンクが必須です。V2 は自動選択されます。",
+          "キャラクター名と参考画像が必須です。オンライン送信では画像を直接アップロードするか公開リンクを使えます。",
       },
       {
         index: "02",
         title: "必要なら情報を追加",
-        description:
-          "原作、スタイル、道具、動きの希望は任意です。",
+        description: "原作、スタイル、道具、動きの希望は任意です。",
       },
       {
         index: "03",
@@ -270,11 +267,13 @@ const content = {
       },
       {
         question: "送信時に必要なものは？",
-        answer: "キャラクター名と公開参考画像が必要です。原作と制作の希望は任意です。",
+        answer:
+          "キャラクター名と公開参考画像が必要です。原作と制作の希望は任意です。",
       },
       {
         question: "spritesheet を自分で作る必要がありますか？",
-        answer: "いいえ。明確なキャラクター情報、参考資料、希望だけで十分です。",
+        answer:
+          "いいえ。明確なキャラクター情報、参考資料、希望だけで十分です。",
       },
     ],
   },
@@ -284,7 +283,7 @@ const content = {
     eyebrow: "Petición comunitaria gratuita",
     title: "Pide una mascota Codex de tu personaje favorito",
     intro:
-      "Escribe el personaje y un enlace público a una imagen de referencia; después envía la petición online, con Codex o en GitHub. Es gratis.",
+      "Escribe el personaje y sube una imagen de referencia o usa un enlace público; después envía la petición online, con Codex o en GitHub. Es gratis.",
     codexCta: "Enviar con Codex",
     manualCta: "Enviar online",
     githubCta: "Enviar un Issue de GitHub",
@@ -297,7 +296,7 @@ const content = {
         index: "01",
         title: "Escribe el personaje y una imagen",
         description:
-          "El nombre y un enlace público a una imagen de referencia son obligatorios.",
+          "El nombre y una imagen de referencia son obligatorios. En el formulario online puedes subirla directamente o usar un enlace público.",
       },
       {
         index: "02",
@@ -331,11 +330,13 @@ const content = {
     faq: [
       {
         question: "¿Cuesta dinero pedir una mascota Codex?",
-        answer: "No. Publicar la petición es gratis; no se garantiza la fecha ni la aceptación.",
+        answer:
+          "No. Publicar la petición es gratis; no se garantiza la fecha ni la aceptación.",
       },
       {
         question: "¿Qué necesito para enviarlo?",
-        answer: "El nombre del personaje y una imagen de referencia accesible públicamente. La obra y las preferencias son opcionales.",
+        answer:
+          "El nombre del personaje y una imagen de referencia accesible públicamente. La obra y las preferencias son opcionales.",
       },
       {
         question: "¿Debo crear el spritesheet?",
@@ -471,7 +472,10 @@ export function RequestPageContent({
         <h2 className="text-3xl font-semibold text-text">{copy.faqTitle}</h2>
         <div className="mt-7 divide-y divide-border border-y border-border">
           {copy.faq.map((item) => (
-            <article className="grid gap-3 py-6 sm:grid-cols-2" key={item.question}>
+            <article
+              className="grid gap-3 py-6 sm:grid-cols-2"
+              key={item.question}
+            >
               <h3 className="font-semibold leading-7 text-text">
                 {item.question}
               </h3>

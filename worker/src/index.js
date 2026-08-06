@@ -13,6 +13,12 @@ const CREATOR_FOLLOW_RATE_LIMIT = 60;
 const REQUEST_SUPPORT_RATE_LIMIT = 60;
 const MANUAL_REQUEST_RATE_LIMIT = 3;
 const MANUAL_REQUEST_BODY_LIMIT = 16_384;
+const REFERENCE_IMAGE_MAX_BYTES = 5 * 1024 * 1024;
+const MANUAL_REQUEST_FORM_LIMIT = REFERENCE_IMAGE_MAX_BYTES + 64 * 1024;
+const REFERENCE_IMAGE_MAX_DIMENSION = 4_096;
+const REFERENCE_IMAGE_MAX_PIXELS = 16_777_216;
+const REFERENCE_IMAGE_KEY_RE = /^references\/[a-f0-9]{64}\.(?:png|jpe?g|webp)$/;
+const REFERENCE_IMAGE_PATH_PREFIX = "/uploads/reference/";
 const TURNSTILE_VERIFY_URL =
   "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 const REQUEST_LOCALES = new Set(["en", "zh", "ko", "ja", "es"]);
@@ -76,7 +82,10 @@ async function readPublicConfig(request, env) {
     "SELECT config_value FROM app_config WHERE config_key = 'turnstile_site_key'",
   ).first();
   return jsonResponse(
-    { turnstileSiteKey: String(row?.config_value || "") },
+    {
+      turnstileSiteKey: String(row?.config_value || ""),
+      referenceUploadEnabled: Boolean(env.REFERENCE_IMAGES),
+    },
     request,
     env,
     200,
@@ -100,12 +109,15 @@ function clientAddress(request) {
   return request.headers.get("CF-Connecting-IP") || "local";
 }
 
-async function sha256(value) {
-  const bytes = new TextEncoder().encode(value);
+async function digestHex(bytes) {
   const digest = await crypto.subtle.digest("SHA-256", bytes);
   return Array.from(new Uint8Array(digest), (byte) =>
     byte.toString(16).padStart(2, "0"),
   ).join("");
+}
+
+async function sha256(value) {
+  return digestHex(new TextEncoder().encode(value));
 }
 
 function readEventId(request, url) {
@@ -227,6 +239,217 @@ function cleanIssueText(value, maxLength) {
   return cleanText(value, maxLength).replace(/^\s*#/gm, "\\#");
 }
 
+function isFileLike(value) {
+  return Boolean(
+    value &&
+    typeof value === "object" &&
+    typeof value.arrayBuffer === "function" &&
+    Number.isFinite(Number(value.size)),
+  );
+}
+
+function asciiAt(bytes, offset, value) {
+  if (offset + value.length > bytes.length) return false;
+  return [...value].every(
+    (character, index) => character.charCodeAt(0) === bytes[offset + index],
+  );
+}
+
+function uint24LittleEndian(bytes, offset) {
+  return bytes[offset] | (bytes[offset + 1] << 8) | (bytes[offset + 2] << 16);
+}
+
+function readPngDimensions(bytes) {
+  if (bytes.length < 24) return null;
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  return { width: view.getUint32(16), height: view.getUint32(20) };
+}
+
+function readJpegDimensions(bytes) {
+  if (bytes.length < 4 || bytes[0] !== 0xff || bytes[1] !== 0xd8) {
+    return null;
+  }
+  let offset = 2;
+  while (offset + 3 < bytes.length) {
+    if (bytes[offset] !== 0xff) {
+      offset += 1;
+      continue;
+    }
+    while (bytes[offset] === 0xff) offset += 1;
+    const marker = bytes[offset++];
+    if (marker === 0xd9 || marker === 0xda) break;
+    if (marker >= 0xd0 && marker <= 0xd7) continue;
+    if (offset + 1 >= bytes.length) return null;
+    const segmentLength = (bytes[offset] << 8) | bytes[offset + 1];
+    if (segmentLength < 2 || offset + segmentLength > bytes.length) return null;
+    const isStartOfFrame =
+      (marker >= 0xc0 && marker <= 0xc3) ||
+      (marker >= 0xc5 && marker <= 0xc7) ||
+      (marker >= 0xc9 && marker <= 0xcb) ||
+      (marker >= 0xcd && marker <= 0xcf);
+    if (isStartOfFrame && segmentLength >= 7) {
+      return {
+        height: (bytes[offset + 3] << 8) | bytes[offset + 4],
+        width: (bytes[offset + 5] << 8) | bytes[offset + 6],
+      };
+    }
+    offset += segmentLength;
+  }
+  return null;
+}
+
+function readWebpDimensions(bytes) {
+  if (
+    bytes.length < 20 ||
+    !asciiAt(bytes, 0, "RIFF") ||
+    !asciiAt(bytes, 8, "WEBP")
+  ) {
+    return null;
+  }
+  const chunk = String.fromCharCode(...bytes.slice(12, 16));
+  if (chunk === "VP8X" && bytes.length >= 30) {
+    return {
+      width: uint24LittleEndian(bytes, 24) + 1,
+      height: uint24LittleEndian(bytes, 27) + 1,
+    };
+  }
+  if (chunk === "VP8L" && bytes.length >= 25 && bytes[20] === 0x2f) {
+    const bits =
+      bytes[21] | (bytes[22] << 8) | (bytes[23] << 16) | (bytes[24] << 24);
+    return {
+      width: 1 + (bits & 0x3fff),
+      height: 1 + ((bits >>> 14) & 0x3fff),
+    };
+  }
+  if (
+    chunk === "VP8 " &&
+    bytes.length >= 30 &&
+    asciiAt(bytes, 23, "\x9d\x01\x2a")
+  ) {
+    return {
+      width: bytes[26] | (bytes[27] << 8),
+      height: bytes[28] | (bytes[29] << 8),
+    };
+  }
+  return null;
+}
+
+function detectReferenceImage(bytes) {
+  if (
+    bytes.length >= 8 &&
+    bytes[0] === 0x89 &&
+    bytes[1] === 0x50 &&
+    bytes[2] === 0x4e &&
+    bytes[3] === 0x47 &&
+    bytes[4] === 0x0d &&
+    bytes[5] === 0x0a &&
+    bytes[6] === 0x1a &&
+    bytes[7] === 0x0a
+  ) {
+    return {
+      extension: "png",
+      mimeType: "image/png",
+      dimensions: readPngDimensions(bytes),
+    };
+  }
+  if (
+    bytes.length >= 3 &&
+    bytes[0] === 0xff &&
+    bytes[1] === 0xd8 &&
+    bytes[2] === 0xff
+  ) {
+    return {
+      extension: "jpg",
+      mimeType: "image/jpeg",
+      dimensions: readJpegDimensions(bytes),
+    };
+  }
+  if (
+    bytes.length >= 12 &&
+    asciiAt(bytes, 0, "RIFF") &&
+    asciiAt(bytes, 8, "WEBP")
+  ) {
+    return {
+      extension: "webp",
+      mimeType: "image/webp",
+      dimensions: readWebpDimensions(bytes),
+    };
+  }
+  return null;
+}
+
+export async function inspectReferenceImage(file) {
+  if (!isFileLike(file)) {
+    throw new HttpError(400, "reference image upload is required");
+  }
+  const fileSize = Number(file.size);
+  if (!Number.isInteger(fileSize) || fileSize <= 0) {
+    throw new HttpError(400, "reference image upload is empty");
+  }
+  if (fileSize > REFERENCE_IMAGE_MAX_BYTES) {
+    throw new HttpError(413, "reference image is too large; maximum is 5 MB");
+  }
+
+  let bytes;
+  try {
+    bytes = new Uint8Array(await file.arrayBuffer());
+  } catch {
+    throw new HttpError(400, "reference image could not be read");
+  }
+  if (bytes.length !== fileSize) {
+    throw new HttpError(400, "reference image could not be read");
+  }
+  const detected = detectReferenceImage(bytes);
+  if (!detected || !detected.dimensions) {
+    throw new HttpError(
+      400,
+      "reference image must be a valid PNG, JPG, or WebP",
+    );
+  }
+  const suppliedType = String(file.type || "").toLowerCase();
+  if (
+    suppliedType &&
+    suppliedType !== "application/octet-stream" &&
+    suppliedType !== detected.mimeType
+  ) {
+    throw new HttpError(
+      400,
+      "reference image type does not match its contents",
+    );
+  }
+  const { width, height } = detected.dimensions;
+  if (
+    !Number.isInteger(width) ||
+    !Number.isInteger(height) ||
+    width < 1 ||
+    height < 1 ||
+    width > REFERENCE_IMAGE_MAX_DIMENSION ||
+    height > REFERENCE_IMAGE_MAX_DIMENSION ||
+    width * height > REFERENCE_IMAGE_MAX_PIXELS
+  ) {
+    throw new HttpError(400, "reference image dimensions are not supported");
+  }
+  return {
+    bytes,
+    extension: detected.extension,
+    mimeType: detected.mimeType,
+    width,
+    height,
+    contentHash: await digestHex(bytes),
+  };
+}
+
+export function buildReferenceImageUrl(request, key) {
+  if (!REFERENCE_IMAGE_KEY_RE.test(key)) {
+    throw new HttpError(400, "invalid reference image key");
+  }
+  const url = new URL(request.url);
+  url.pathname = `${REFERENCE_IMAGE_PATH_PREFIX}${key}`;
+  url.search = "";
+  url.hash = "";
+  return url.href;
+}
+
 function publicUrl(value, { required = false } = {}) {
   const normalized = cleanText(value, 500);
   if (!normalized) {
@@ -245,7 +468,7 @@ function publicUrl(value, { required = false } = {}) {
   return url.href;
 }
 
-export function normalizeManualRequest(payload) {
+function normalizeManualRequestFields(payload) {
   if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
     throw new HttpError(400, "invalid request body");
   }
@@ -260,11 +483,32 @@ export function normalizeManualRequest(payload) {
   return {
     character,
     franchise: cleanSingleLine(payload.franchise, 120),
-    referenceUrl: publicUrl(payload.referenceUrl, { required: true }),
     notes: cleanIssueText(payload.notes, 1_000),
     locale,
     turnstileToken: cleanText(payload.turnstileToken, 2_048),
   };
+}
+
+export function normalizeManualRequest(payload) {
+  return {
+    ...normalizeManualRequestFields(payload),
+    referenceUrl: publicUrl(payload.referenceUrl, { required: true }),
+  };
+}
+
+export function normalizeManualRequestSubmission(payload) {
+  const normalized = normalizeManualRequestFields(payload);
+  const referenceUrl = publicUrl(payload.referenceUrl);
+  const referenceImage = isFileLike(payload.referenceImage)
+    ? payload.referenceImage
+    : null;
+  if (!referenceUrl && !referenceImage) {
+    throw new HttpError(400, "reference image upload or URL is required");
+  }
+  if (referenceUrl && referenceImage) {
+    throw new HttpError(400, "choose either a reference image upload or URL");
+  }
+  return { ...normalized, referenceUrl, referenceImage };
 }
 
 function turnstileHostnames(env) {
@@ -292,7 +536,8 @@ export async function verifyTurnstile(request, env, token, fetcher = fetch) {
     }),
     signal: AbortSignal.timeout(10_000),
   });
-  if (!response.ok) throw new HttpError(502, "verification service unavailable");
+  if (!response.ok)
+    throw new HttpError(502, "verification service unavailable");
   const result = await response.json();
   const hostname = String(result.hostname || "").toLowerCase();
   if (!result.success || !turnstileHostnames(env).has(hostname)) {
@@ -319,10 +564,8 @@ async function enforceManualRequestRateLimit(request, env, timestamp) {
 }
 
 async function readJsonBody(request) {
-  const rawBody = await request.text();
-  if (rawBody.length > MANUAL_REQUEST_BODY_LIMIT) {
-    throw new HttpError(413, "request body is too large");
-  }
+  const bytes = await readBodyBytes(request, MANUAL_REQUEST_BODY_LIMIT);
+  const rawBody = new TextDecoder().decode(bytes);
   try {
     return JSON.parse(rawBody);
   } catch {
@@ -330,34 +573,178 @@ async function readJsonBody(request) {
   }
 }
 
+function assertContentLength(request, limit) {
+  const header = request.headers.get("Content-Length");
+  if (!header) return;
+  const contentLength = Number(header);
+  if (!Number.isInteger(contentLength) || contentLength < 0) {
+    throw new HttpError(400, "invalid request body");
+  }
+  if (contentLength > limit) {
+    throw new HttpError(413, "request body is too large");
+  }
+}
+
+async function readBodyBytes(request, limit) {
+  const reader = request.body?.getReader();
+  if (!reader) {
+    const bytes = new Uint8Array(await request.arrayBuffer());
+    if (bytes.byteLength > limit)
+      throw new HttpError(413, "request body is too large");
+    return bytes;
+  }
+  const chunks = [];
+  let total = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      total += value.byteLength;
+      if (total > limit) {
+        try {
+          await reader.cancel();
+        } catch {
+          // The request is already being rejected; cancellation failure is not actionable.
+        }
+        throw new HttpError(413, "request body is too large");
+      }
+      chunks.push(value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+  const bytes = new Uint8Array(total);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return bytes;
+}
+
+function formString(form, name) {
+  const value = form.get(name);
+  return typeof value === "string" ? value : "";
+}
+
+async function readManualRequestBody(request) {
+  const contentType = request.headers.get("Content-Type") || "";
+  if (!/^multipart\/form-data\b/i.test(contentType)) {
+    return readJsonBody(request);
+  }
+  assertContentLength(request, MANUAL_REQUEST_FORM_LIMIT);
+  const bytes = await readBodyBytes(request, MANUAL_REQUEST_FORM_LIMIT);
+  let form;
+  try {
+    form = await new Response(bytes, {
+      headers: { "Content-Type": contentType },
+    }).formData();
+  } catch {
+    throw new HttpError(400, "invalid multipart request");
+  }
+  return {
+    character: formString(form, "character"),
+    franchise: formString(form, "franchise"),
+    referenceUrl: formString(form, "referenceUrl"),
+    referenceImage: form.get("referenceImage"),
+    notes: formString(form, "notes"),
+    website: formString(form, "website"),
+    locale: formString(form, "locale"),
+    turnstileToken: formString(form, "turnstileToken"),
+  };
+}
+
+async function storeReferenceImage(request, env, file) {
+  if (!env.REFERENCE_IMAGES) {
+    throw new HttpError(503, "reference image uploads are not configured");
+  }
+  const inspected = await inspectReferenceImage(file);
+  const key = `references/${inspected.contentHash}.${inspected.extension}`;
+  const existing = await env.REFERENCE_IMAGES.head(key);
+  let created = false;
+  if (!existing) {
+    await env.REFERENCE_IMAGES.put(key, inspected.bytes, {
+      httpMetadata: {
+        contentType: inspected.mimeType,
+        cacheControl: "public, max-age=31536000, immutable",
+        contentDisposition: "inline",
+      },
+      customMetadata: {
+        width: String(inspected.width),
+        height: String(inspected.height),
+      },
+    });
+    created = true;
+  }
+  return { key, created, url: buildReferenceImageUrl(request, key) };
+}
+
+async function serveReferenceImage(request, env, key) {
+  if (!env.REFERENCE_IMAGES || !REFERENCE_IMAGE_KEY_RE.test(key)) {
+    throw new HttpError(404, "reference image not found");
+  }
+  const object = await env.REFERENCE_IMAGES.get(key);
+  if (!object) throw new HttpError(404, "reference image not found");
+  const headers = new Headers(corsHeaders(request, env));
+  headers.set(
+    "Content-Type",
+    object.httpMetadata?.contentType || "application/octet-stream",
+  );
+  headers.set(
+    "Cache-Control",
+    object.httpMetadata?.cacheControl || "public, max-age=31536000, immutable",
+  );
+  headers.set(
+    "Content-Disposition",
+    object.httpMetadata?.contentDisposition || "inline",
+  );
+  headers.set("X-Content-Type-Options", "nosniff");
+  if (object.httpEtag) headers.set("ETag", object.httpEtag);
+  return new Response(object.body, { status: 200, headers });
+}
+
 async function submitManualRequest(request, env) {
   if (!isOriginAllowed(request, env)) {
     throw new HttpError(403, "origin not allowed");
   }
-  const input = normalizeManualRequest(await readJsonBody(request));
+  const payload = await readManualRequestBody(request);
+  const input = normalizeManualRequestSubmission(payload);
   await verifyTurnstile(request, env, input.turnstileToken);
   const timestamp = Date.now();
   await enforceManualRequestRateLimit(request, env, timestamp);
+  let referenceUrl = input.referenceUrl;
+  let storedImage = null;
+  if (input.referenceImage) {
+    storedImage = await storeReferenceImage(request, env, input.referenceImage);
+    referenceUrl = storedImage.url;
+  }
   const requestHash = await sha256(
-    `${env.HASH_SALT}|manual-request|${clientAddress(request)}|${input.character}|${input.franchise}|${input.referenceUrl}|${input.notes}`,
+    `${env.HASH_SALT}|manual-request|${clientAddress(request)}|${input.character}|${input.franchise}|${referenceUrl}|${input.notes}`,
   );
-  const result = await env.DB.prepare(
-    `INSERT INTO manual_requests
-       (request_hash, character, franchise, reference_url, notes, locale, created_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?)
-     ON CONFLICT(request_hash) DO UPDATE SET request_hash = excluded.request_hash
-     RETURNING id, status, issue_number`,
-  )
-    .bind(
-      requestHash,
-      input.character,
-      input.franchise,
-      input.referenceUrl,
-      input.notes,
-      input.locale,
-      timestamp,
+  let result;
+  try {
+    result = await env.DB.prepare(
+      `INSERT INTO manual_requests
+         (request_hash, character, franchise, reference_url, notes, locale, created_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?)
+       ON CONFLICT(request_hash) DO UPDATE SET request_hash = excluded.request_hash
+       RETURNING id, status, issue_number`,
     )
-    .first();
+      .bind(
+        requestHash,
+        input.character,
+        input.franchise,
+        referenceUrl,
+        input.notes,
+        input.locale,
+        timestamp,
+      )
+      .first();
+  } catch (error) {
+    if (storedImage?.created)
+      await env.REFERENCE_IMAGES.delete(storedImage.key);
+    throw error;
+  }
   return jsonResponse(
     {
       id: Number(result.id),
@@ -666,11 +1053,7 @@ async function trackRequestSupport(request, env, rawIssueNumber, supporting) {
     throw new HttpError(429, "rate limit exceeded");
   }
 
-  const visitorHash = await buildRequestSupportKey(
-    request,
-    env,
-    issueNumber,
-  );
+  const visitorHash = await buildRequestSupportKey(request, env, issueNumber);
   const result = supporting
     ? await env.DB.prepare(
         `INSERT OR IGNORE INTO request_supports
@@ -711,6 +1094,16 @@ async function routeRequest(request, env) {
       status: 204,
       headers: corsHeaders(request, env),
     });
+  }
+
+  const referenceImageMatch = url.pathname.match(
+    /^\/uploads\/reference\/(references\/[a-f0-9]{64}\.(?:png|jpe?g|webp))$/,
+  );
+  if (referenceImageMatch && request.method === "GET") {
+    return serveReferenceImage(request, env, referenceImageMatch[1]);
+  }
+  if (url.pathname.startsWith(REFERENCE_IMAGE_PATH_PREFIX)) {
+    throw new HttpError(404, "reference image not found");
   }
 
   if (!env.DB) {

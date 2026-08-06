@@ -13,6 +13,10 @@ database_name = "awesome-codex-pet-stats-db"
 database_id = "ec2d5eb9-e53a-4e9c-917e-44ea560581b8"
 migrations_dir = "migrations"
 
+[[r2_buckets]]
+binding = "REFERENCE_IMAGES"
+bucket_name = "awesome-codex-pet-reference-images"
+
 [triggers]
 crons = ["17 3 * * *"]
 

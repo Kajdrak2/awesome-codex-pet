@@ -8,7 +8,7 @@ import { languageAlternates } from "@/lib/localized-route-metadata";
 
 const title = "免费申请制作喜欢角色的 Codex 小宠物";
 const description =
-  "无需账号，通过简短表单免费提交 V2 Codex 小宠物制作申请。请填写角色名称和公开参考图片，社区贡献者可能会志愿认领并免费制作。";
+  "无需账号，通过简短表单免费提交 V2 Codex 小宠物制作申请。请填写角色名称并上传参考图片或粘贴公开链接，社区贡献者可能会志愿认领并免费制作。";
 const pageUrl = `${siteConfig.url}/zh/request`;
 const faq = [
   {
@@ -19,11 +19,12 @@ const faq = [
   {
     question: "可以申请动漫或游戏人物吗？",
     answer:
-      "可以。角色名称和公开参考图片为必填；所属作品和外观偏好可选。",
+      "可以。角色名称和参考图片为必填；在线表单支持直接上传图片或使用公开链接，所属作品和外观偏好可选。",
   },
   {
     question: "申请人需要自己制作 spritesheet 吗？",
-    answer: "不需要。申请阶段只需提供角色信息和公开参考图片，新申请默认使用 V2。",
+    answer:
+      "不需要。申请阶段只需提供角色信息和公开参考图片，新申请默认使用 V2。",
   },
 ] as const;
 
@@ -100,7 +101,7 @@ export default function ChineseRequestPage() {
             "@type": "HowToStep",
             position: 2,
             name: "按需补充资料",
-            text: "先提供公开参考图片，再按需补充所属作品和外观偏好。",
+            text: "上传参考图片或提供公开图片链接，再按需补充所属作品和外观偏好。",
           },
           {
             "@type": "HowToStep",
