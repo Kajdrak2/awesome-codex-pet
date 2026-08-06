@@ -367,6 +367,20 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "drill-cat--qimi",
+    "name": "Drill Cat",
+    "localized_names": { "en": "Drill Cat", "zh": "电钻咪" },
+    "author": "qimi",
+    "author_handle": "qishichuan",
+    "author_url": "https://github.com/qishichuan",
+    "primary_category": "Memes",
+    "canonical_key": "meme/drill-cat",
+    "collections": ["animal-companions"],
+    "license": "Personal non-commercial use only.",
+    "description": "A determined orange repair cat carrying an oversized cordless drill, with expressive task animations and 16 Codex v2 look directions.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "dudu-bubu--clembuilds",
     "name": "Dudu & Bubu",
     "author": "clembuilds",
