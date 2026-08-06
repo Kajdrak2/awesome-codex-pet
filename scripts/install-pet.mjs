@@ -78,14 +78,22 @@ if (codexHomeIndex !== -1) {
 }
 
 const petSlug = args[0];
-const petDir = join(petsDir, petSlug);
-const petJsonPath = join(petDir, "pet.json");
-const spritesheetPath = join(petDir, "spritesheet.webp");
 
 if (!petSlug) {
   usage();
   process.exit(1);
 }
+
+if (!/^[a-z0-9]+(?:-[a-z0-9]+)*--[a-z0-9]+(?:-[a-z0-9]+)*$/.test(petSlug)) {
+  console.error(
+    `Invalid pet id: ${petSlug}. Expected format: pet-slug--author-slug`,
+  );
+  process.exit(1);
+}
+
+const petDir = join(petsDir, petSlug);
+const petJsonPath = join(petDir, "pet.json");
+const spritesheetPath = join(petDir, "spritesheet.webp");
 
 if (!existsSync(petDir)) {
   console.error(`Pet not found: ${petSlug}`);
