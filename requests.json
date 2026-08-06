@@ -1,5 +1,46 @@
 [
   {
+    "number": 95,
+    "character": "Bond/邦德",
+    "characterDetails": "Bond/邦德",
+    "franchise": "间谍过家家",
+    "category": "other",
+    "version": "v2",
+    "requestType": "Create a new community interpretation",
+    "referenceStatus": "",
+    "references": "https://api.codexpet.top/uploads/reference/references/9c9f82dd5c39701e525e9623c8f75ea75e118b27f7c3713db927b6b5cd48ba05.jpg",
+    "referenceUrls": [
+      "https://api.codexpet.top/uploads/reference/references/9c9f82dd5c39701e525e9623c8f75ea75e118b27f7c3713db927b6b5cd48ba05.jpg"
+    ],
+    "referenceImages": [
+      "https://api.codexpet.top/uploads/reference/references/9c9f82dd5c39701e525e9623c8f75ea75e118b27f7c3713db927b6b5cd48ba05.jpg"
+    ],
+    "visualDirection": "Let the community maker decide.",
+    "nameLanguages": "Let the maker decide",
+    "attribution": "Submitted without a GitHub account. Reference and attribution details should be confirmed during triage. Non-commercial use only.",
+    "duplicateCheck": "Repository automation or a maintainer should complete the duplicate check during triage.",
+    "state": "open",
+    "status": "triage",
+    "labels": [
+      "type: request",
+      "status: triage",
+      "version: v2",
+      "category: other"
+    ],
+    "author": {
+      "login": "github-actions[bot]",
+      "avatarUrl": "https://avatars.githubusercontent.com/in/15368?v=4",
+      "url": "https://github.com/apps/github-actions"
+    },
+    "assignees": [],
+    "createdAt": "2026-08-06T10:09:06Z",
+    "updatedAt": "2026-08-06T10:09:06Z",
+    "closedAt": null,
+    "comments": 0,
+    "reactions": 0,
+    "githubUrl": "https://github.com/legeling/awesome-codex-pet/issues/95"
+  },
+  {
     "number": 92,
     "character": "库洛米",
     "characterDetails": "库洛米",
