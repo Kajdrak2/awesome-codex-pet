@@ -220,6 +220,7 @@ export function ManualRequestForm() {
   const turnstileContainer = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const widgetId = useRef<string | null>(null);
+  const submittingRef = useRef(false);
   const [siteKey, setSiteKey] = useState(BUILD_SITE_KEY);
   const [configLoaded, setConfigLoaded] = useState(Boolean(BUILD_SITE_KEY));
   const [referenceUploadEnabled, setReferenceUploadEnabled] = useState(true);
@@ -329,12 +330,14 @@ export function ManualRequestForm() {
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (submittingRef.current) return;
     const formElement = event.currentTarget;
     if (!token) {
       setSuccess(false);
       setMessage(text.verifyNeeded);
       return;
     }
+    submittingRef.current = true;
     const form = new FormData(formElement);
     form.set("turnstileToken", token);
     setPending(true);
@@ -353,6 +356,7 @@ export function ManualRequestForm() {
       setSuccess(false);
       setMessage(text.error);
     } finally {
+      submittingRef.current = false;
       resetVerification();
       setPending(false);
     }
