@@ -1,5 +1,44 @@
 [
   {
+    "number": 92,
+    "character": "库洛米",
+    "characterDetails": "库洛米",
+    "franchise": "Not provided",
+    "category": "other",
+    "version": "v2",
+    "requestType": "Create a new community interpretation",
+    "referenceStatus": "",
+    "references": "https://zh.wikipedia.org/wiki/%E9%85%B7%E6%B4%9B%E7%B1%B3",
+    "referenceUrls": [
+      "https://zh.wikipedia.org/wiki/%E9%85%B7%E6%B4%9B%E7%B1%B3"
+    ],
+    "referenceImages": [],
+    "visualDirection": "Let the community maker decide.",
+    "nameLanguages": "Let the maker decide",
+    "attribution": "Submitted without a GitHub account. Reference and attribution details should be confirmed during triage. Non-commercial use only.",
+    "duplicateCheck": "Repository automation or a maintainer should complete the duplicate check during triage.",
+    "state": "open",
+    "status": "triage",
+    "labels": [
+      "type: request",
+      "status: triage",
+      "version: v2",
+      "category: other"
+    ],
+    "author": {
+      "login": "github-actions[bot]",
+      "avatarUrl": "https://avatars.githubusercontent.com/in/15368?v=4",
+      "url": "https://github.com/apps/github-actions"
+    },
+    "assignees": [],
+    "createdAt": "2026-08-06T03:36:50Z",
+    "updatedAt": "2026-08-06T03:36:50Z",
+    "closedAt": null,
+    "comments": 0,
+    "reactions": 0,
+    "githubUrl": "https://github.com/legeling/awesome-codex-pet/issues/92"
+  },
+  {
     "number": 91,
     "character": "Eeyore",
     "characterDetails": "Eeyore",
@@ -509,6 +548,47 @@
     "comments": 0,
     "reactions": 0,
     "githubUrl": "https://github.com/legeling/awesome-codex-pet/issues/60"
+  },
+  {
+    "number": 93,
+    "character": "库洛米",
+    "characterDetails": "库洛米",
+    "franchise": "Not provided",
+    "category": "other",
+    "version": "v2",
+    "requestType": "Create a new community interpretation",
+    "referenceStatus": "",
+    "references": "https://zh.wikipedia.org/wiki/File:Kuromicharacters.png",
+    "referenceUrls": [
+      "https://zh.wikipedia.org/wiki/File:Kuromicharacters.png"
+    ],
+    "referenceImages": [
+      "https://zh.wikipedia.org/wiki/File:Kuromi_characters.png"
+    ],
+    "visualDirection": "Let the community maker decide.",
+    "nameLanguages": "Let the maker decide",
+    "attribution": "Submitted without a GitHub account. Reference and attribution details should be confirmed during triage. Non-commercial use only.",
+    "duplicateCheck": "Repository automation or a maintainer should complete the duplicate check during triage.",
+    "state": "closed",
+    "status": "completed",
+    "labels": [
+      "type: request",
+      "status: triage",
+      "version: v2",
+      "category: other"
+    ],
+    "author": {
+      "login": "github-actions[bot]",
+      "avatarUrl": "https://avatars.githubusercontent.com/in/15368?v=4",
+      "url": "https://github.com/apps/github-actions"
+    },
+    "assignees": [],
+    "createdAt": "2026-08-06T03:36:51Z",
+    "updatedAt": "2026-08-06T04:48:53Z",
+    "closedAt": "2026-08-06T04:48:53Z",
+    "comments": 1,
+    "reactions": 0,
+    "githubUrl": "https://github.com/legeling/awesome-codex-pet/issues/93"
   },
   {
     "number": 69,
