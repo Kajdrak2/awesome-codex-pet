@@ -9,6 +9,7 @@ import worker, {
   buildRequestSupportKey,
   buildRequestSupportRateKey,
   buildManualRequestRateKey,
+  buildManualRequestDedupeKey,
   computeTrendingScore,
   buildReferenceImageUrl,
   inspectReferenceImage,
@@ -285,6 +286,47 @@ test("manual request rate keys stay scoped to one IP across the rolling day", as
   const otherIp = await buildManualRequestRateKey(otherIpRequest, env);
 
   assert.equal(first, sameIp);
+  assert.notEqual(first, otherIp);
+});
+
+test("manual request dedupe keys normalize the same character per IP", async () => {
+  const firstRequest = new Request("https://api.example/requests/manual", {
+    headers: { "CF-Connecting-IP": "203.0.113.4" },
+  });
+  const sameIpRequest = new Request("https://api.example/requests/manual", {
+    headers: { "CF-Connecting-IP": "203.0.113.4" },
+  });
+  const otherIpRequest = new Request("https://api.example/requests/manual", {
+    headers: { "CF-Connecting-IP": "203.0.113.5" },
+  });
+
+  const first = await buildManualRequestDedupeKey(
+    firstRequest,
+    env,
+    "  Ｋｕｒｏｍｉ  ",
+    "  Sanrio  ",
+  );
+  const sameIp = await buildManualRequestDedupeKey(
+    sameIpRequest,
+    env,
+    "kuromi",
+    "sanrio",
+  );
+  const otherFranchise = await buildManualRequestDedupeKey(
+    firstRequest,
+    env,
+    "kuromi",
+    "",
+  );
+  const otherIp = await buildManualRequestDedupeKey(
+    otherIpRequest,
+    env,
+    "kuromi",
+    "sanrio",
+  );
+
+  assert.equal(first, sameIp);
+  assert.notEqual(first, otherFranchise);
   assert.notEqual(first, otherIp);
 });
 

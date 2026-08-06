@@ -218,6 +218,34 @@ export async function buildManualRequestRateKey(request, env) {
   );
 }
 
+function canonicalManualRequestText(value) {
+  return String(value || "")
+    .normalize("NFKC")
+    .toLocaleLowerCase("en-US")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+export async function buildManualRequestDedupeKey(
+  request,
+  env,
+  character,
+  franchise,
+) {
+  if (!env.HASH_SALT || env.HASH_SALT.length < 16) {
+    throw new HttpError(500, "metric hashing is not configured");
+  }
+  return sha256(
+    JSON.stringify([
+      env.HASH_SALT,
+      "manual-request-dedupe",
+      clientAddress(request),
+      canonicalManualRequestText(character),
+      canonicalManualRequestText(franchise),
+    ]),
+  );
+}
+
 function cleanText(value, maxLength) {
   if (typeof value !== "string") return "";
   return value
@@ -580,6 +608,18 @@ async function enforceManualRequestRateLimit(request, env, timestamp) {
   }
 }
 
+async function findRecentManualRequest(env, dedupeKey, timestamp) {
+  return env.DB.prepare(
+    `SELECT id, status, issue_number
+     FROM manual_requests
+     WHERE dedupe_key = ? AND created_at >= ?
+     ORDER BY created_at DESC
+     LIMIT 1`,
+  )
+    .bind(dedupeKey, timestamp - MANUAL_REQUEST_RATE_WINDOW_MS)
+    .first();
+}
+
 async function readJsonBody(request) {
   const bytes = await readBodyBytes(request, MANUAL_REQUEST_BODY_LIMIT);
   const rawBody = new TextDecoder().decode(bytes);
@@ -728,6 +768,29 @@ async function submitManualRequest(request, env) {
   const input = normalizeManualRequestSubmission(payload);
   await verifyTurnstile(request, env, input.turnstileToken);
   const timestamp = Date.now();
+  const dedupeKey = await buildManualRequestDedupeKey(
+    request,
+    env,
+    input.character,
+    input.franchise,
+  );
+  const existing = await findRecentManualRequest(env, dedupeKey, timestamp);
+  if (existing) {
+    return jsonResponse(
+      {
+        id: Number(existing.id),
+        status: existing.status,
+        issueNumber: existing.issue_number
+          ? Number(existing.issue_number)
+          : null,
+        version: "v2",
+        duplicate: true,
+      },
+      request,
+      env,
+      202,
+    );
+  }
   await enforceManualRequestRateLimit(request, env, timestamp);
   let referenceUrl = input.referenceUrl;
   let storedImage = null;
@@ -742,13 +805,14 @@ async function submitManualRequest(request, env) {
   try {
     result = await env.DB.prepare(
       `INSERT INTO manual_requests
-         (request_hash, character, franchise, reference_url, notes, locale, created_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?)
+         (request_hash, dedupe_key, character, franchise, reference_url, notes, locale, created_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)
        ON CONFLICT(request_hash) DO UPDATE SET request_hash = excluded.request_hash
        RETURNING id, status, issue_number`,
     )
       .bind(
         requestHash,
+        dedupeKey,
         input.character,
         input.franchise,
         referenceUrl,
