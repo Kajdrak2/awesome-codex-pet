@@ -1607,6 +1607,21 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "toyama-kasumi--lsmd23",
+    "name": "Toyama Kasumi",
+    "localized_names": { "en": "Toyama Kasumi", "zh": "户山香澄" },
+    "author": "lsmd23",
+    "author_handle": "lsmd23",
+    "author_url": "https://github.com/lsmd23",
+    "primary_category": "Anime Characters",
+    "canonical_key": "fictional/bang-dream/toyama-kasumi",
+    "variant_note": "An independently produced v2 pixel interpretation with an original palette, nine animation states, and sixteen look directions.",
+    "collections": [],
+    "license": "Unofficial fan art. Subject to third-party rights, contributor lsmd23 authorizes non-commercial repository copying and redistribution of the independently produced spritesheet and metadata with attribution. No official affiliation or endorsement; no rights in third-party characters, names, or trademarks are granted.",
+    "description": "An independently redrawn chibi pixel-art Codex pet inspired by Toyama Kasumi, with original animations and sixteen look directions.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "vertin--chenxin-dlut",
     "name": "Vertin",
     "localized_names": { "en": "Vertin", "zh": "维尔汀" },

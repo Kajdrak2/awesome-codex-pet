@@ -1313,6 +1313,16 @@
       "spritesheetWidth": 1536,
       "spritesheetHeight": 1872
     },
+    "toyama-kasumi--lsmd23": {
+      "name": "Toyama Kasumi",
+      "spriteVersionNumber": 2,
+      "petJsonSha256": "151ff00cb2105fffc57e15f41365a52816d77d65b61041591fe1ce42b19bdd85",
+      "petJsonBytes": 284,
+      "spritesheetSha256": "42750d76222a5b408e6e9624814941bc5e542e0d8cb58f8c263c1227e85ef7af",
+      "spritesheetBytes": 2301758,
+      "spritesheetWidth": 1536,
+      "spritesheetHeight": 2288
+    },
     "vertin--chenxin-dlut": {
       "name": "Vertin",
       "spriteVersionNumber": 1,
