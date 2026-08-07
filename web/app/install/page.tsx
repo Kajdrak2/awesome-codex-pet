@@ -120,7 +120,7 @@ export default function InstallPage() {
             name: "Why is my Codex pet not showing after installation?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Confirm that pet.json and spritesheet.webp exist, make sure pet.json.id matches the folder name, restart Codex, and reopen Settings → Pets.",
+              text: "Confirm that pet.json and spritesheet.webp exist, make sure pet.json.id matches the folder name, restart Codex, and reopen Settings → Pets. Reinstalling an existing pet id requires --force (or -Force in PowerShell).",
             },
           },
           {

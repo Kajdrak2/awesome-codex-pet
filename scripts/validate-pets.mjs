@@ -1,4 +1,5 @@
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { execFileSync, execSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
@@ -9,6 +10,7 @@ const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const petsDir = join(repoRoot, "pets");
 const collectionsPath = join(repoRoot, "collections.json");
 const categoriesPath = join(repoRoot, "categories.json");
+const installManifestPath = join(repoRoot, "install-manifest.json");
 const requireGeneratedAssets = process.argv.includes(
   "--require-generated-assets",
 );
@@ -26,6 +28,7 @@ const requiredGeneratedPaths = [
   join(repoRoot, "README.md"),
   join(repoRoot, "docs", "zh-CN", "README.md"),
   join(repoRoot, "pets.json"),
+  installManifestPath,
 ];
 const errors = [];
 const warnings = [];
@@ -148,6 +151,10 @@ function readJson(path) {
     errors.push(`${path}: ${error.message}`);
     return null;
   }
+}
+
+function sha256File(path) {
+  return createHash("sha256").update(readFileSync(path)).digest("hex");
 }
 
 const collectionCatalog = existsSync(collectionsPath)
@@ -466,6 +473,87 @@ for (const entry of petEntries) {
         }
       } catch (error) {
         errors.push(`${entry}: ${error.message}`);
+      }
+    }
+  }
+}
+
+const installManifest = existsSync(installManifestPath)
+  ? readJson(installManifestPath)
+  : null;
+if (installManifest) {
+  if (installManifest.schemaVersion !== 1) {
+    errors.push("install-manifest.json: schemaVersion must be 1");
+  }
+  if (!installManifest.ref || !installManifest.repository) {
+    errors.push("install-manifest.json: repository and ref are required");
+  }
+  if (
+    !installManifest.pets ||
+    typeof installManifest.pets !== "object" ||
+    Array.isArray(installManifest.pets)
+  ) {
+    errors.push("install-manifest.json: pets must be an object");
+  } else {
+    const manifestSlugs = new Set(Object.keys(installManifest.pets));
+    for (const entry of petEntries) {
+      const record = installManifest.pets[entry];
+      if (!record) {
+        errors.push(`${entry}: missing install manifest record`);
+        continue;
+      }
+
+      for (const [field, pattern] of [
+        ["petJsonSha256", /^[a-f0-9]{64}$/],
+        ["spritesheetSha256", /^[a-f0-9]{64}$/],
+      ]) {
+        if (!pattern.test(record[field] || "")) {
+          errors.push(
+            `${entry}: install manifest ${field} must be a SHA-256 digest`,
+          );
+        }
+      }
+
+      const petJsonPath = join(petsDir, entry, "pet.json");
+      const spritesheetPath = join(petsDir, entry, "spritesheet.webp");
+      const petJsonBytes = Number(record.petJsonBytes);
+      const spritesheetBytes = Number(record.spritesheetBytes);
+      if (
+        !existsSync(petJsonPath) ||
+        !Number.isSafeInteger(petJsonBytes) ||
+        petJsonBytes !== statSync(petJsonPath).size
+      ) {
+        errors.push(`${entry}: install manifest pet.json size is stale`);
+      }
+      if (
+        !existsSync(spritesheetPath) ||
+        !Number.isSafeInteger(spritesheetBytes) ||
+        spritesheetBytes !== statSync(spritesheetPath).size
+      ) {
+        errors.push(`${entry}: install manifest spritesheet size is stale`);
+      }
+
+      const shouldVerifyHash =
+        requireGeneratedAssets ||
+        changedPaths.has(`pets/${entry}/pet.json`) ||
+        changedPaths.has(`pets/${entry}/spritesheet.webp`) ||
+        changedPaths.has("install-manifest.json");
+      if (
+        shouldVerifyHash &&
+        existsSync(petJsonPath) &&
+        existsSync(spritesheetPath)
+      ) {
+        if (sha256File(petJsonPath) !== record.petJsonSha256) {
+          errors.push(`${entry}: install manifest pet.json hash is stale`);
+        }
+        if (sha256File(spritesheetPath) !== record.spritesheetSha256) {
+          errors.push(`${entry}: install manifest spritesheet hash is stale`);
+        }
+      }
+    }
+    for (const slug of manifestSlugs) {
+      if (!petSlugs.has(slug)) {
+        errors.push(`install-manifest.json: unknown pet ${slug}`);
       }
     }
   }

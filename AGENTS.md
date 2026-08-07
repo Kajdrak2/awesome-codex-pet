@@ -68,6 +68,7 @@ pets/<pet-slug>--<author-slug>/
 - `README.md`
 - `docs/zh-CN/README.md`
 - `pets.json`
+- `install-manifest.json`
 
 其中 `assets/previews/<pet-id>/` 默认视为本地产物或部署产物，不作为长期 Git 跟踪内容。
 
@@ -114,8 +115,9 @@ npm run lint
 
 5. 确认 README 中已出现该 pet 和正确版本。
 6. 确认 `pets.json` 已更新。
-7. 确认 `assets/previews/<pet-id>/` 已在本地或 CI 中生成；v2 contact sheet 应包含 11 行。
-8. 确认 `pets/<pet-id>/` 里仍然只有三个文件。
+7. 确认 `install-manifest.json` 已更新，且安装器可以用它校验 `pet.json` 与 `spritesheet.webp`。
+8. 确认 `assets/previews/<pet-id>/` 已在本地或 CI 中生成；v2 contact sheet 应包含 11 行。
+9. 确认 `pets/<pet-id>/` 里仍然只有三个文件。
 
 如果用户新增的是 hatch-pet 输出目录中的 pet，不要直接提交整个运行目录。应只把最终的 `spritesheet.webp` 和元数据落进正式 `pets/` 结构。
 

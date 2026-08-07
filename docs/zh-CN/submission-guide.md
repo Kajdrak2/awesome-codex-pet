@@ -219,5 +219,9 @@ PR 提交后，维护者会检查实际渲染的人物方向、动作语义、�
 PR 合并后，用户无需克隆仓库即可安装：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- pet-slug--author-slug
+curl -fsSL --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- --raw-base https://raw.githubusercontent.com/legeling/awesome-codex-pet/main pet-slug--author-slug
 ```
+
+安装器会用 `install-manifest.json` 校验两个运行时文件，先准备临时目录再切换，
+并且只有添加 `--force` 后才会替换已有宠物。清单会随目录更新自动生成；发布流程
+可以把 `--raw-base` 指向不可变的 commit 或 tag，以获得可复现安装。

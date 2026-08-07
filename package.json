@@ -6,8 +6,13 @@
   "license": "SEE LICENSE IN LICENSE AND ASSETS-LICENSE.md",
   "type": "module",
   "bin": {
-    "awesome-codex-pet": "scripts/install-pet.mjs"
+    "awesome-codex-pet": "scripts/install-pet-remote.mjs"
   },
+  "files": [
+    "scripts/install-pet-remote.mjs",
+    "scripts/install-utils.mjs",
+    "scripts/install-pet.mjs"
+  ],
   "scripts": {
     "format": "prettier --write \"**/*.{md,json}\"",
     "install:pet": "node scripts/install-pet.mjs",
@@ -18,8 +23,9 @@
     "star-history": "node scripts/generate-star-history.mjs",
     "test:duplicates": "node --test scripts/test/pet-duplicates.test.mjs",
     "test:install": "node --test scripts/test/install-pet.test.mjs",
+    "test:package": "node --test scripts/test/package-slim.test.mjs",
     "validate": "node scripts/validate-pets.mjs --require-generated-assets",
-    "validate:pr": "npm run test:duplicates && npm run test:install && node scripts/validate-pets.mjs"
+    "validate:pr": "npm run test:duplicates && npm run test:install && npm run test:package && node scripts/validate-pets.mjs"
   },
   "devDependencies": {
     "prettier": "^3.5.3"

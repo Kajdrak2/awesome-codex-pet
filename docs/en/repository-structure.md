@@ -41,6 +41,7 @@ pets/
 - `submission.json`: repository metadata for curation
 - `pet.json`: runtime metadata used by Codex
 - `spritesheet.webp`: installable spritesheet package
+- `install-manifest.json`: generated size and SHA-256 records used by remote installers
 - `assets/previews/<pet-id>/`: generated contact sheet and action GIF previews
 
 Pet folders should not contain generated previews, QA output, reference images, or README files.
@@ -87,3 +88,10 @@ Default install locations:
 - Windows: `%USERPROFILE%\.codex\pets\<pet-id>\`
 
 Use `CODEX_HOME` or `--codex-home` to install into another Codex home directory.
+
+The remote Bash and PowerShell installers download only the selected package,
+verify the generated `install-manifest.json` and SHA-256 digests, reject
+symbolic-link targets, and activate the package atomically. Replacing an
+existing package requires `--force` (or `-Force` in PowerShell). The Node.js
+package is prepared as a small downloader for npm publication; once published,
+pin its version when using `npx` instead of resolving an unpinned latest release.

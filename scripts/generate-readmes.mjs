@@ -3,16 +3,24 @@ import {
   mkdirSync,
   readdirSync,
   readFileSync,
+  statSync,
   writeFileSync,
 } from "node:fs";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
 import { format } from "prettier";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const petsDir = join(repoRoot, "pets");
-const rawBase =
-  "https://raw.githubusercontent.com/legeling/awesome-codex-pet/main";
+const installRef = process.env.AWESOME_CODEX_PET_INSTALL_REF?.trim() || "main";
+if (
+  !/^[A-Za-z0-9][A-Za-z0-9._/-]*$/.test(installRef) ||
+  installRef.includes("..")
+) {
+  throw new Error("AWESOME_CODEX_PET_INSTALL_REF contains unsafe characters");
+}
+const rawBase = `https://raw.githubusercontent.com/legeling/awesome-codex-pet/${installRef}`;
 const websiteUrl = "https://codexpet.top";
 
 const categoryCatalog = JSON.parse(
@@ -176,11 +184,49 @@ function authorLink(pet) {
 }
 
 function bashInstallCommand(slug) {
-  return `curl -fsSL ${rawBase}/scripts/install-pet.sh | bash -s -- ${slug}`;
+  return `curl -fsSL --proto '=https' --tlsv1.2 ${rawBase}/scripts/install-pet.sh | bash -s -- --raw-base ${rawBase} ${slug}`;
 }
 
 function powershellInstallCommand(slug) {
-  return `powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -UseB ${rawBase}/scripts/install-pet.ps1 | iex; Install-CodexPet ${slug}"`;
+  return `powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -UseB -MaximumRedirection 5 -TimeoutSec 120 ${rawBase}/scripts/install-pet.ps1 | iex; Install-CodexPet ${slug} -RawBase '${rawBase}'"`;
+}
+
+function nodeInstallCommand(slug) {
+  return `npm run install:pet -- ${slug}`;
+}
+
+function sha256File(path) {
+  return createHash("sha256").update(readFileSync(path)).digest("hex");
+}
+
+function installManifest(pets) {
+  const records = Object.fromEntries(
+    pets.map((pet) => {
+      const petJsonPath = join(petsDir, pet.slug, "pet.json");
+      const spritesheetPath = join(petsDir, pet.slug, "spritesheet.webp");
+      const spriteVersionNumber = pet.spriteVersionNumber ?? 1;
+      return [
+        pet.slug,
+        {
+          name: pet.name,
+          spriteVersionNumber,
+          petJsonSha256: sha256File(petJsonPath),
+          petJsonBytes: statSync(petJsonPath).size,
+          spritesheetSha256: sha256File(spritesheetPath),
+          spritesheetBytes: statSync(spritesheetPath).size,
+          spritesheetWidth: 1536,
+          spritesheetHeight: spriteVersionNumber === 2 ? 2288 : 1872,
+        },
+      ];
+    }),
+  );
+
+  return {
+    schemaVersion: 1,
+    repository: "legeling/awesome-codex-pet",
+    ref: installRef,
+    pets: records,
+  };
 }
 
 function localizedPetName(pet, lang) {
@@ -300,14 +346,14 @@ ${powershellInstallCommand(sampleSlug)}
 \`\`\`
 
 \`\`\`bash
-# Anywhere with Node.js
-npx awesome-codex-pet ${sampleSlug}
+# From a local clone with Node.js
+${nodeInstallCommand(sampleSlug)}
 \`\`\`
 
 List available pets:
 
 \`\`\`bash
-curl -fsSL ${rawBase}/scripts/install-pet.sh | bash -s -- --list
+curl -fsSL --proto '=https' --tlsv1.2 ${rawBase}/scripts/install-pet.sh | bash -s -- --raw-base ${rawBase} --list
 \`\`\`
 
 Default install locations:
@@ -315,7 +361,7 @@ Default install locations:
 - macOS / Linux: \`~/.codex/pets/<pet-id>/\`
 - Windows: \`%USERPROFILE%\\.codex\\pets\\<pet-id>\\\`
 
-Set \`CODEX_HOME\` to override, or \`AWESOME_CODEX_PET_NO_STATS=1\` to opt out of anonymous install counters.
+Set \`CODEX_HOME\` to override, or \`AWESOME_CODEX_PET_NO_STATS=1\` to opt out of anonymous install counters. Installers verify the repository manifest and SHA-256 hashes, stage files before activation, and require \`--force\` when replacing an existing package. For reproducible installs, replace \`main\` in both URL positions with an immutable commit or tag.
 
 ## Upgrade an Existing v1 Pet
 
@@ -485,14 +531,14 @@ ${powershellInstallCommand(sampleSlug)}
 \`\`\`
 
 \`\`\`bash
-# 任何能跑 Node.js 的环境
-npx awesome-codex-pet ${sampleSlug}
+# 在本地仓库中使用 Node.js
+${nodeInstallCommand(sampleSlug)}
 \`\`\`
 
 列出可安装的宠物：
 
 \`\`\`bash
-curl -fsSL ${rawBase}/scripts/install-pet.sh | bash -s -- --list
+curl -fsSL --proto '=https' --tlsv1.2 ${rawBase}/scripts/install-pet.sh | bash -s -- --raw-base ${rawBase} --list
 \`\`\`
 
 默认安装位置：
@@ -500,7 +546,7 @@ curl -fsSL ${rawBase}/scripts/install-pet.sh | bash -s -- --list
 - macOS / Linux：\`~/.codex/pets/<pet-id>/\`
 - Windows：\`%USERPROFILE%\\.codex\\pets\\<pet-id>\\\`
 
-可通过 \`CODEX_HOME\` 自定义安装路径，或者设置 \`AWESOME_CODEX_PET_NO_STATS=1\` 关闭匿名安装计数。
+可通过 \`CODEX_HOME\` 自定义安装路径，或者设置 \`AWESOME_CODEX_PET_NO_STATS=1\` 关闭匿名安装计数。安装器会校验仓库清单与 SHA-256，先在临时目录准备完整文件再切换；替换已有宠物时需要显式添加 \`--force\`。如需可复现安装，请把两处 URL 中的 \`main\` 替换为不可变的 commit 或 tag。
 
 ## 升级已有 v1 宠物
 
@@ -670,14 +716,14 @@ ${powershellInstallCommand(sampleSlug)}
 \`\`\`
 
 \`\`\`bash
-# Node.js를 실행할 수 있는 모든 환경
-npx awesome-codex-pet ${sampleSlug}
+# 로컬 저장소에서 Node.js로 실행
+${nodeInstallCommand(sampleSlug)}
 \`\`\`
 
 설치 가능한 펫 목록 보기:
 
 \`\`\`bash
-curl -fsSL ${rawBase}/scripts/install-pet.sh | bash -s -- --list
+curl -fsSL --proto '=https' --tlsv1.2 ${rawBase}/scripts/install-pet.sh | bash -s -- --raw-base ${rawBase} --list
 \`\`\`
 
 기본 설치 위치:
@@ -685,7 +731,7 @@ curl -fsSL ${rawBase}/scripts/install-pet.sh | bash -s -- --list
 - macOS / Linux: \`~/.codex/pets/<pet-id>/\`
 - Windows: \`%USERPROFILE%\\.codex\\pets\\<pet-id>\\\`
 
-\`CODEX_HOME\`으로 설치 위치를 바꾸거나 \`AWESOME_CODEX_PET_NO_STATS=1\`을 설정해 익명 설치 집계를 끌 수 있습니다.
+\`CODEX_HOME\`으로 설치 위치를 바꾸거나 \`AWESOME_CODEX_PET_NO_STATS=1\`을 설정해 익명 설치 집계를 끌 수 있습니다. 설치기는 저장소 매니페스트와 SHA-256을 검증하고 임시 디렉터리에서 원자적으로 활성화하며, 기존 펫을 교체할 때는 \`--force\`가 필요합니다. 재현 가능한 설치가 필요하면 두 URL의 \`main\`을 변경할 수 없는 commit 또는 tag로 바꾸세요.
 
 ## 기존 v1 펫 업그레이드
 
@@ -815,7 +861,7 @@ const additionalReadmeCopy = {
     v2Use: "標準アニメーションと 16 方向の視線",
     installTitle: "クイックインストール",
     installIntro:
-      "リポジトリのクローンは不要です。利用するシェルに合ったコマンドを選んでください。",
+      "リポジトリのクローンは不要です。利用するシェルに合ったコマンドを選んでください。インストーラーはマニフェストと SHA-256 を検証し、既存のパッケージを置き換える場合は `--force` を要求します。",
     petsTitle: "ペット一覧",
     contributeTitle: "リクエストと投稿",
     contribute:
@@ -853,7 +899,7 @@ const additionalReadmeCopy = {
     v2Use: "Animaciones estándar y 16 direcciones de mirada",
     installTitle: "Instalación rápida",
     installIntro:
-      "No necesitas clonar el repositorio. Elige el comando correspondiente a tu sistema.",
+      "No necesitas clonar el repositorio. Elige el comando correspondiente a tu sistema. El instalador verifica el manifiesto y los hashes SHA-256, y exige `--force` para reemplazar un paquete existente.",
     petsTitle: "Catálogo de mascotas",
     contributeTitle: "Pedir o enviar una mascota",
     contribute:
@@ -999,5 +1045,15 @@ const formattedCatalog = await format(JSON.stringify(catalog), {
   parser: "json",
 });
 writeFileSync(join(repoRoot, "pets.json"), formattedCatalog, "utf8");
+const formattedManifest = await format(JSON.stringify(installManifest(pets)), {
+  parser: "json",
+});
+writeFileSync(
+  join(repoRoot, "install-manifest.json"),
+  formattedManifest,
+  "utf8",
+);
 
-console.log(`generated README files for ${pets.length} pet(s)`);
+console.log(
+  `generated README files and install manifest for ${pets.length} pet(s)`,
+);

@@ -109,7 +109,8 @@ jobs:
             docs/ko/README.md \
             docs/ja/README.md \
             docs/es/README.md \
-            pets.json
+            pets.json \
+            install-manifest.json
           catalog_changed=false
           if git diff --cached --name-only | grep -Fxq pets.json; then
             catalog_changed=true

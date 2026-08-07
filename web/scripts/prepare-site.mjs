@@ -17,6 +17,14 @@ const dataDir = join(webRoot, ".generated");
 const publicDir = join(webRoot, "public");
 const publicAssetsDir = join(publicDir, "assets");
 const authorSlugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const installRef = process.env.NEXT_PUBLIC_INSTALL_REF?.trim() || "main";
+if (
+  !/^[A-Za-z0-9][A-Za-z0-9._/-]*$/.test(installRef) ||
+  installRef.includes("..")
+) {
+  throw new Error("NEXT_PUBLIC_INSTALL_REF contains unsafe characters");
+}
+const installRawBase = `https://raw.githubusercontent.com/legeling/awesome-codex-pet/${installRef}`;
 const collectionCatalog = readJson("collections.json");
 const categoryCatalog = readJson("categories.json");
 const requestCatalog = readJson("requests.json");
@@ -145,8 +153,8 @@ const pets = readJson("pets.json").map((pet) => {
     ),
     actions,
     gifs,
-    installCommand: `curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- ${pet.slug}`,
-    installCommandPowerShell: `powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -UseB https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.ps1 | iex; Install-CodexPet ${pet.slug}"`,
+    installCommand: `curl -fsSL --proto '=https' --tlsv1.2 ${installRawBase}/scripts/install-pet.sh | bash -s -- --raw-base ${installRawBase} ${pet.slug}`,
+    installCommandPowerShell: `powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -UseB -MaximumRedirection 5 -TimeoutSec 120 ${installRawBase}/scripts/install-pet.ps1 | iex; Install-CodexPet ${pet.slug} -RawBase '${installRawBase}'"`,
     repositoryPath: `https://github.com/legeling/awesome-codex-pet/tree/main/pets/${pet.slug}`,
   };
 });
@@ -301,7 +309,7 @@ Awesome Codex Pet works like a free Codex pet store or library, but it is an ind
 ## Direct answer: how to install a Codex pet
 
 1. Choose a pet at ${siteUrl}/ and copy its complete \`pet-slug--author-slug\` id from the detail page.
-2. On macOS or Linux, run \`curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- <pet-slug--author-slug>\`.
+2. On macOS or Linux, run \`curl -fsSL --proto '=https' --tlsv1.2 ${installRawBase}/scripts/install-pet.sh | bash -s -- --raw-base ${installRawBase} <pet-slug--author-slug>\`.
 3. On Windows, use the PowerShell command shown on the same pet detail page.
 4. Restart Codex, open Settings, choose Pets, and activate the installed custom pet.
 

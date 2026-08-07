@@ -194,7 +194,13 @@ export const additionalTranslations: Record<
     installStep3Desc: "Codex를 재시작하고 설정 → 펫에서 선택합니다.",
     installMethodTitle: "시스템에 맞는 설치 방법",
     installMethodDesc:
-      "설치기는 pet.json과 spritesheet.webp만 Codex 홈에 복사합니다.",
+      "설치기는 pet.json과 spritesheet.webp만 내려받고 매니페스트와 SHA-256을 검증한 뒤 원자적으로 활성화합니다.",
+    installMethodVerifyDesc:
+      "설치 후 pets/<pet-id>/에는 pet.json과 spritesheet.webp만 남으며, 활성화 전에 SHA-256과 WebP 헤더를 확인합니다.",
+    installManageUpdateDesc:
+      "같은 ID를 다시 설치하려면 --force를 사용하세요. PowerShell에서는 -Force를 사용하며 다른 펫 폴더는 건드리지 않습니다.",
+    installFaqA5:
+      "예. 서로 다른 ID의 V1/V2 펫은 함께 사용할 수 있고, --force 재설치는 해당 폴더만 원자적으로 교체합니다.",
     installRecommended: "추천",
     installBashLabel: "macOS / Linux",
     installPwshLabel: "Windows PowerShell",
@@ -412,7 +418,13 @@ export const additionalTranslations: Record<
     installStep3Desc: "Codex を再起動し、設定 → Pets で選択します。",
     installMethodTitle: "OS に合った方法を選ぶ",
     installMethodDesc:
-      "インストーラーは pet.json と spritesheet.webp だけを Codex ホームへコピーします。",
+      "インストーラーは pet.json と spritesheet.webp だけを取得し、マニフェストと SHA-256 を検証してから原子的に有効化します。",
+    installMethodVerifyDesc:
+      "インストール後の pets/<pet-id>/ には pet.json と spritesheet.webp だけが残り、有効化前に SHA-256 と WebP ヘッダーを確認します。",
+    installManageUpdateDesc:
+      "同じ ID を再インストールする場合は --force（PowerShell は -Force）を指定してください。他のペットフォルダーは変更しません。",
+    installFaqA5:
+      "はい。異なる ID の V1/V2 ペットは共存でき、--force で再インストールしても対象フォルダーだけを原子的に更新します。",
     installRecommended: "おすすめ",
     installBashLabel: "macOS / Linux",
     installPwshLabel: "Windows PowerShell",
@@ -638,7 +650,13 @@ export const additionalTranslations: Record<
     installStep3Desc: "Reinicia Codex y selecciónala en Ajustes → Mascotas.",
     installMethodTitle: "Elige el método para tu sistema",
     installMethodDesc:
-      "El instalador solo copia pet.json y spritesheet.webp al directorio de Codex.",
+      "El instalador solo descarga pet.json y spritesheet.webp, verifica el manifiesto y SHA-256, y activa el paquete de forma atómica.",
+    installMethodVerifyDesc:
+      "Tras la instalación, pets/<pet-id>/ solo contiene pet.json y spritesheet.webp; también se comprueban SHA-256 y la cabecera WebP antes de activarlo.",
+    installManageUpdateDesc:
+      "Para reinstalar el mismo ID usa --force (o -Force en PowerShell). La sustitución es atómica y no toca otras mascotas.",
+    installFaqA5:
+      "Sí. Las mascotas V1 y V2 con IDs distintos pueden convivir; --force solo reemplaza la carpeta del ID indicado.",
     installRecommended: "Recomendado",
     installBashLabel: "macOS / Linux",
     installPwshLabel: "Windows PowerShell",

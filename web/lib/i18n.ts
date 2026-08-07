@@ -292,7 +292,7 @@ export const translations = {
       "Restart Codex if it is open, then select the new pet under Settings → Pets.",
     installMethodTitle: "Choose the method for your system",
     installMethodDesc:
-      "The installer copies only pet.json and spritesheet.webp into your Codex home. Replace the sample id with the exact id shown on the pet page.",
+      "The installer downloads only pet.json and spritesheet.webp, verifies the repository manifest and SHA-256 hashes, then activates the package atomically. Replace the sample id with the exact id shown on the pet page.",
     installRecommended: "Recommended",
     installBashLabel: "macOS / Linux",
     installPwshLabel: "Windows PowerShell",
@@ -308,7 +308,7 @@ export const translations = {
       "No sudo or administrator shell is needed. A custom CODEX_HOME is supported when your setup uses another location.",
     installMethodVerifyTitle: "Verify the two runtime files",
     installMethodVerifyDesc:
-      "A successful install contains pet.json and spritesheet.webp under pets/<pet-id>/.",
+      "A successful install contains only pet.json and spritesheet.webp under pets/<pet-id>/. The installer also checks the SHA-256 hashes and WebP header before activation.",
     installActivateTitle: "Enable the pet in Codex",
     installActivateDesc:
       "Installation places the files; Codex still needs to load and select the pet.",
@@ -333,7 +333,7 @@ export const translations = {
       "Set CODEX_HOME before the command, or pass --codex-home to the Bash and local Node.js installers.",
     installManageUpdateTitle: "Update or reinstall",
     installManageUpdateDesc:
-      "Run the same command again with the same id. The two runtime files are replaced; other pet folders are left alone.",
+      "Run the same command again with --force (or -Force in PowerShell) to replace that id atomically. Other pet folders are left alone.",
     installManageRemoveTitle: "Uninstall",
     installManageRemoveDesc:
       "Quit Codex, remove only that pet's folder, then reopen Codex. No registry or system files are created.",
@@ -354,7 +354,7 @@ export const translations = {
       "Confirm both runtime files exist, verify that pet.json.id matches the folder name, restart Codex, then look under Settings → Pets again.",
     installFaqQ5: "Can V1 and V2 pets coexist?",
     installFaqA5:
-      "Yes. Version belongs to each pet package. Different pet ids can coexist, and reinstalling one id updates only that folder.",
+      "Yes. Version belongs to each pet package. Different pet ids can coexist, and reinstalling one id with --force updates only that folder.",
     openGallery: "Open gallery",
 
     // Guide page
@@ -714,7 +714,7 @@ export const translations = {
       "如果 Codex 正在运行，请重启，然后到“设置 → 宠物”选择新宠物。",
     installMethodTitle: "选择适合当前系统的方式",
     installMethodDesc:
-      "安装器只会把 pet.json 与 spritesheet.webp 写入 Codex 主目录。请把示例标识符替换成详情页显示的完整值。",
+      "安装器只下载 pet.json 与 spritesheet.webp，会先校验仓库清单和 SHA-256，再原子切换到 Codex 主目录。请把示例标识符替换成详情页显示的完整值。",
     installRecommended: "推荐",
     installBashLabel: "macOS / Linux",
     installPwshLabel: "Windows PowerShell",
@@ -730,7 +730,7 @@ export const translations = {
       "不需要 sudo 或管理员终端。如果 Codex 主目录不在默认位置，也可以指定 CODEX_HOME。",
     installMethodVerifyTitle: "核对两个运行文件",
     installMethodVerifyDesc:
-      "安装成功后，pets/<pet-id>/ 中应同时存在 pet.json 与 spritesheet.webp。",
+      "安装成功后，pets/<pet-id>/ 中只会有 pet.json 与 spritesheet.webp；安装器还会在切换前核对 SHA-256 和 WebP 文件头。",
     installActivateTitle: "在 Codex 中启用宠物",
     installActivateDesc:
       "安装只负责放好文件，Codex 还需要重新加载并选中这只宠物。",
@@ -755,7 +755,7 @@ export const translations = {
       "运行命令前设置 CODEX_HOME；Bash 与本地 Node.js 安装器也支持 --codex-home 参数。",
     installManageUpdateTitle: "更新或重新安装",
     installManageUpdateDesc:
-      "使用同一标识符再次运行相同命令即可覆盖两个运行文件，不会影响其他宠物目录。",
+      "使用同一标识符再次运行命令，并添加 --force（PowerShell 使用 -Force）才能原子替换，不会影响其他宠物目录。",
     installManageRemoveTitle: "卸载宠物",
     installManageRemoveDesc:
       "退出 Codex，只删除对应宠物文件夹，再重新打开 Codex。安装器不会写注册表或系统目录。",
@@ -775,7 +775,7 @@ export const translations = {
       "先确认两个运行文件都存在，再检查 pet.json.id 是否与文件夹名称一致；重启 Codex 后重新打开“设置 → 宠物”。",
     installFaqQ5: "V1 与 V2 宠物可以同时使用吗？",
     installFaqA5:
-      "可以。版本属于每个独立宠物包；不同标识符可以共存，重新安装某个标识符也只会更新对应文件夹。",
+      "可以。版本属于每个独立宠物包；不同标识符可以共存，使用 --force 重新安装时也只会更新对应文件夹。",
     openGallery: "去画廊看看",
 
     // Guide page

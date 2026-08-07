@@ -35,7 +35,7 @@ const faq = [
   {
     question: "安装脚本会覆盖其他宠物吗？",
     answer:
-      "不会。安装器只写入目标宠物自己的目录；不同 id 的 V1、V2 宠物可以同时存在。",
+      "不会。安装器只写入目标宠物自己的目录；不同 id 的 V1、V2 宠物可以同时存在。重新安装已有 id 时必须显式添加 --force（PowerShell 使用 -Force）。",
   },
 ] as const;
 

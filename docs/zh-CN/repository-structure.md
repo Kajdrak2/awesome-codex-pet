@@ -41,6 +41,7 @@ pets/
 - `submission.json`：仓库收录和展示用元数据
 - `pet.json`：Codex 运行时使用的元数据
 - `spritesheet.webp`：可安装的 spritesheet
+- `install-manifest.json`：远程安装器使用的自动生成大小与 SHA-256 清单
 - `assets/previews/<pet-id>/`：自动生成的联系表和动作 GIF 预览
 
 pet 目录里不应该包含自动生成的预览图、QA 输出、参考图或 README 文件。
@@ -87,3 +88,8 @@ npm run install:pet -- pet-slug--author-slug
 - Windows：`%USERPROFILE%\.codex\pets\<pet-id>\`
 
 如果要安装到其他 Codex 目录，可以使用 `CODEX_HOME` 或 `--codex-home`。
+
+远程 Bash 和 PowerShell 安装器只下载选中的宠物，会校验生成的
+`install-manifest.json` 与 SHA-256，拒绝符号链接目标，并在校验完成后原子切换。
+替换已有宠物时需要显式添加 `--force`（PowerShell 使用 `-Force`）。Node.js 包已按
+轻量下载器准备好，发布到 npm 后使用 `npx` 时应固定版本，不要无条件解析最新版本。

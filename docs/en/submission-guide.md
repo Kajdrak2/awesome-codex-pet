@@ -162,5 +162,11 @@ The share menu can copy the page URL, a ready-to-post message, or a Markdown lin
 After merge, users can install without cloning the repository:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- pet-slug--author-slug
+curl -fsSL --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- --raw-base https://raw.githubusercontent.com/legeling/awesome-codex-pet/main pet-slug--author-slug
 ```
+
+The installer verifies the package against `install-manifest.json`, stages the
+two runtime files before activation, and refuses to replace an existing package
+unless `--force` is supplied. The manifest is generated with every catalog
+update; a release workflow can pass an immutable commit or tag as
+`--raw-base` for reproducible installs.

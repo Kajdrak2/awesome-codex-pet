@@ -131,7 +131,7 @@ v2 运行时清单示例：
 - `submission.json` 已填写
 - `canonical_key` 正确归入角色分组；后续独立版本已经填写 `variant_note`
 - 作者信息和素材使用说明清楚；正式许可证或明确的“仅限非商业使用”声明均可
-- 贡献者 PR 不包含 `README.md`、`docs/zh-CN/README.md`、`pets.json` 或 `assets/previews/<pet-id>/` 下的生成预览二进制
+- 贡献者 PR 不包含 `README.md`、`docs/zh-CN/README.md`、`pets.json`、`install-manifest.json` 或 `assets/previews/<pet-id>/` 下的生成预览二进制
 - `npm run validate:pr` 通过
 - 快速安装命令可用：`npm run install:pet -- <slug> --codex-home /tmp/codex-pet-test`
 - 不包含无关文件

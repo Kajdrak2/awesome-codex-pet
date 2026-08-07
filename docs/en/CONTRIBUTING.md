@@ -129,7 +129,7 @@ A formal license name is optional. The `license` field may contain a recognized 
 - `submission.json` filled in
 - `canonical_key` groups the character correctly; a later independent version includes `variant_note`
 - Author and asset usage terms included; either a formal license or an explicit non-commercial-only statement is acceptable
-- Contributor PR does not include `README.md`, `docs/zh-CN/README.md`, `pets.json`, or generated preview binaries under `assets/previews/<pet-id>/`
+- Contributor PR does not include `README.md`, `docs/zh-CN/README.md`, `pets.json`, `install-manifest.json`, or generated preview binaries under `assets/previews/<pet-id>/`
 - `npm run validate:pr` passes
 - Quick install works with `npm run install:pet -- <slug> --codex-home /tmp/codex-pet-test`
 - No unrelated files
