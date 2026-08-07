@@ -52,7 +52,7 @@ export function RequestVisual({
       {!placeholderFailed ? (
         <img
           alt={showReference ? `${name} reference` : ""}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-contain"
           loading="lazy"
           onError={() => {
             if (showReference) setFailed(true);

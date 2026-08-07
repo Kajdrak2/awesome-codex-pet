@@ -256,7 +256,7 @@ export function RequestPlazaContent({
       </div>
 
       {filtered.length > 0 ? (
-        <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <section className="grid gap-5 [grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr))]">
           {filtered.map((request) => (
             <RequestCard
               key={request.number}

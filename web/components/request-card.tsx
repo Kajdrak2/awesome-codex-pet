@@ -43,12 +43,16 @@ export function RequestCard({
     >
       <Link
         aria-label={request.character}
-        className={compact ? "block h-full min-h-44" : "block aspect-[16/9]"}
+        className={
+          compact
+            ? "block h-full min-h-44"
+            : "block aspect-[3/2] max-h-[18rem]"
+        }
         href={`/requests/${request.number}`}
       >
         <RequestVisual
           category={request.category}
-          className="h-full w-full"
+          className={compact ? "h-full w-full" : "h-full w-full p-3"}
           image={
             request.completedPet?.previewImage ?? request.referenceImages[0]
           }
