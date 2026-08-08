@@ -12,7 +12,7 @@
 
 <a href="https://codexpet.top"><img src="./assets/cover/awesome-codex-pet-cover.png" alt="Open the Awesome Codex Pet gallery"></a>
 
-![pets: 182](https://img.shields.io/badge/pets-182-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN | ko | ja | es](https://img.shields.io/badge/languages-en%20%7C%20zh--CN%20%7C%20ko%20%7C%20ja%20%7C%20es-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
+![pets: 183](https://img.shields.io/badge/pets-183-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN | ko | ja | es](https://img.shields.io/badge/languages-en%20%7C%20zh--CN%20%7C%20ko%20%7C%20ja%20%7C%20es-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
 
 </div>
 
@@ -669,6 +669,13 @@ The **Update** action is an AI-assisted v1-to-v2 conversion, not a download noti
 <tr><th>Install</th><td colspan="5"><code>curl -fsSL --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- --raw-base https://raw.githubusercontent.com/legeling/awesome-codex-pet/main takamatsu-tomori--a1wace-dev</code></td></tr>
 <tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
 <tr><th>Preview</th><td><img src="https://codexpet.top/assets/previews/takamatsu-tomori--a1wace-dev/webp/idle.webp" alt="Takamatsu Tomori idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/takamatsu-tomori--a1wace-dev/webp/waving.webp" alt="Takamatsu Tomori waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/takamatsu-tomori--a1wace-dev/webp/running-right.webp" alt="Takamatsu Tomori running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/takamatsu-tomori--a1wace-dev/webp/waiting.webp" alt="Takamatsu Tomori waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/takamatsu-tomori--a1wace-dev/webp/review.webp" alt="Takamatsu Tomori review" width="120" height="130"></td></tr>
+</table>
+
+<table>
+<tr><th>Name</th><td colspan="5"><a href="./pets/togawa-sakiko--enclairfarron">Togawa Sakiko</a> · by <a href="https://github.com/enclairfarron">@enclairfarron</a> · Anime Characters · v2</td></tr>
+<tr><th>Install</th><td colspan="5"><code>curl -fsSL --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- --raw-base https://raw.githubusercontent.com/legeling/awesome-codex-pet/main togawa-sakiko--enclairfarron</code></td></tr>
+<tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
+<tr><th>Preview</th><td><img src="https://codexpet.top/assets/previews/togawa-sakiko--enclairfarron/webp/idle.webp" alt="Togawa Sakiko idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/togawa-sakiko--enclairfarron/webp/waving.webp" alt="Togawa Sakiko waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/togawa-sakiko--enclairfarron/webp/running-right.webp" alt="Togawa Sakiko running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/togawa-sakiko--enclairfarron/webp/waiting.webp" alt="Togawa Sakiko waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/togawa-sakiko--enclairfarron/webp/review.webp" alt="Togawa Sakiko review" width="120" height="130"></td></tr>
 </table>
 
 <table>

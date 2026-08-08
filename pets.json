@@ -1621,6 +1621,20 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "togawa-sakiko--enclairfarron",
+    "name": "Togawa Sakiko",
+    "localized_names": { "en": "Togawa Sakiko", "zh": "丰川祥子" },
+    "author": "法隆",
+    "author_handle": "enclairfarron",
+    "author_url": "https://github.com/enclairfarron",
+    "primary_category": "Anime Characters",
+    "canonical_key": "fictional/bang-dream/togawa-sakiko",
+    "collections": [],
+    "license": "Non-commercial use only. AI-assisted fan-art Codex pet by 法隆; no official affiliation or commercial use permitted.",
+    "description": "A polished chibi fan-art Codex pet inspired by Togawa Sakiko, with long silver-blue twin-tails, amber eyes, a cream ruffled blouse, a black ribbon, a gray plaid skirt, and poised task reactions.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "toyama-kasumi--lsmd23",
     "name": "Toyama Kasumi",
     "localized_names": { "en": "Toyama Kasumi", "zh": "户山香澄" },
