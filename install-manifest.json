@@ -1773,6 +1773,16 @@
       "spritesheetWidth": 1536,
       "spritesheetHeight": 1872
     },
+    "fujiwara-chika--klmklmnb": {
+      "name": "藤原千花",
+      "spriteVersionNumber": 2,
+      "petJsonSha256": "4096a54b3827f30db973046aab1f37daa1c73aa61ab21c72e7bb8cbbf4babbc7",
+      "petJsonBytes": 225,
+      "spritesheetSha256": "030e73c1262af37b0a059a6fc7f95169903c285428387a1d95f8aca7a899a3e9",
+      "spritesheetBytes": 1898760,
+      "spritesheetWidth": 1536,
+      "spritesheetHeight": 2288
+    },
     "shinobu-kocho--wangfan002": {
       "name": "蝴蝶忍 Q版 华丽动作",
       "spriteVersionNumber": 1,
