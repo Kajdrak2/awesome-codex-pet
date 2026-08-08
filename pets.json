@@ -67,6 +67,7 @@
     "author_handle": "chenxin-dlut",
     "author_url": "https://github.com/chenxin-dlut",
     "primary_category": "Anime Characters",
+    "canonical_key": "spy-x-family/anya-forger",
     "collections": ["spy-x-family"],
     "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
@@ -1243,6 +1244,7 @@
     "author_handle": "chenxin-dlut",
     "author_url": "https://github.com/chenxin-dlut",
     "primary_category": "Game Characters",
+    "canonical_key": "wuthering-waves/phoebe",
     "collections": ["wuthering-waves"],
     "license": "Personal non-commercial fan use",
     "spriteVersionNumber": 1
@@ -2170,11 +2172,12 @@
   {
     "slug": "fujiwara-chika--klmklmnb",
     "name": "藤原千花",
+    "localized_names": { "en": "Chika Fujiwara", "zh": "藤原千花" },
     "author": "klmklmnb",
     "author_handle": "klmklmnb",
     "author_url": "https://github.com/klmklmnb",
     "primary_category": "Anime Characters",
-    "canonical_key": "kaguya-sama-love-is-war/chika-fujiwara",
+    "canonical_key": "kaguya-sama-love-is-war/fujiwara-chika",
     "collections": [],
     "license": "Non-commercial use only. Unofficial independently AI-generated fan art submitted by klmklmnb for non-commercial repository redistribution; no official affiliation or endorsement. The original character and related intellectual property belong to their respective rights holders.",
     "description": "A polished chibi sticker-style Chika Fujiwara pet with pink hair, her signature black bow, the Shuchiin school uniform, nine animation states, and 16 look directions.",

@@ -3,15 +3,19 @@
   "pet_slug": "fujiwara-chika",
   "author_slug": "klmklmnb",
   "name": "藤原千花",
+  "localized_names": {
+    "en": "Chika Fujiwara",
+    "zh": "藤原千花"
+  },
   "author": "klmklmnb",
   "author_handle": "klmklmnb",
   "author_url": "https://github.com/klmklmnb",
   "primary_category": "Anime Characters",
-  "canonical_key": "kaguya-sama-love-is-war/chika-fujiwara",
+  "canonical_key": "kaguya-sama-love-is-war/fujiwara-chika",
   "tags": [
     "anime",
     "kaguya-sama-love-is-war",
-    "chika-fujiwara",
+    "fujiwara-chika",
     "schoolgirl",
     "chibi",
     "sticker-art",

@@ -749,10 +749,10 @@ The **Update** action is an AI-assisted v1-to-v2 conversion, not a download noti
 </table>
 
 <table>
-<tr><th>Name</th><td colspan="5"><a href="./pets/fujiwara-chika--klmklmnb">藤原千花</a> · by <a href="https://github.com/klmklmnb">@klmklmnb</a> · Anime Characters · v2</td></tr>
+<tr><th>Name</th><td colspan="5"><a href="./pets/fujiwara-chika--klmklmnb">Chika Fujiwara</a> · by <a href="https://github.com/klmklmnb">@klmklmnb</a> · Anime Characters · v2</td></tr>
 <tr><th>Install</th><td colspan="5"><code>curl -fsSL --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- --raw-base https://raw.githubusercontent.com/legeling/awesome-codex-pet/main fujiwara-chika--klmklmnb</code></td></tr>
 <tr><th>Action</th><td><strong>Idle</strong></td><td><strong>Waving</strong></td><td><strong>Running</strong></td><td><strong>Waiting</strong></td><td><strong>Review</strong></td></tr>
-<tr><th>Preview</th><td><img src="https://codexpet.top/assets/previews/fujiwara-chika--klmklmnb/webp/idle.webp" alt="藤原千花 idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/fujiwara-chika--klmklmnb/webp/waving.webp" alt="藤原千花 waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/fujiwara-chika--klmklmnb/webp/running-right.webp" alt="藤原千花 running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/fujiwara-chika--klmklmnb/webp/waiting.webp" alt="藤原千花 waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/fujiwara-chika--klmklmnb/webp/review.webp" alt="藤原千花 review" width="120" height="130"></td></tr>
+<tr><th>Preview</th><td><img src="https://codexpet.top/assets/previews/fujiwara-chika--klmklmnb/webp/idle.webp" alt="Chika Fujiwara idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/fujiwara-chika--klmklmnb/webp/waving.webp" alt="Chika Fujiwara waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/fujiwara-chika--klmklmnb/webp/running-right.webp" alt="Chika Fujiwara running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/fujiwara-chika--klmklmnb/webp/waiting.webp" alt="Chika Fujiwara waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/fujiwara-chika--klmklmnb/webp/review.webp" alt="Chika Fujiwara review" width="120" height="130"></td></tr>
 </table>
 
 <table>
