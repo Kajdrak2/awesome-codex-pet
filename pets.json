@@ -1979,6 +1979,19 @@
     "spriteVersionNumber": 2
   },
   {
+    "slug": "doudizhu-laonongmin--chenyijing131-art",
+    "name": "斗地主老农民",
+    "author": "chenyijing131-art",
+    "author_handle": "chenyijing131-art",
+    "author_url": "https://github.com/chenyijing131-art",
+    "primary_category": "Game Characters",
+    "canonical_key": "doudizhu/laonongmin",
+    "collections": [],
+    "license": "Independent AI-generated asset; non-commercial use only.",
+    "description": "An original community reinterpretation of the requested 斗地主老农民 character, generated and assembled for Awesome Codex Pet from the public issue references. Non-commercial use only.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "new-covenant-exusiai--chenxin-dlut",
     "name": "新约能天使",
     "localized_names": { "en": "Exusiai the New Covenant", "zh": "新约能天使" },

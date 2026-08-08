@@ -1623,6 +1623,16 @@
       "spritesheetWidth": 1536,
       "spritesheetHeight": 2288
     },
+    "doudizhu-laonongmin--chenyijing131-art": {
+      "name": "斗地主老农民",
+      "spriteVersionNumber": 2,
+      "petJsonSha256": "77e409ed4d8c29ed2db70a0a8a19001516db86728ada55b1124711876ad23fc5",
+      "petJsonBytes": 336,
+      "spritesheetSha256": "3d7d54e88ca2904c47f4fa6dbcc405311f72a5c4e864c38c3c4662b963cbb4fc",
+      "spritesheetBytes": 2341104,
+      "spritesheetWidth": 1536,
+      "spritesheetHeight": 2288
+    },
     "new-covenant-exusiai--chenxin-dlut": {
       "name": "新约能天使",
       "spriteVersionNumber": 1,

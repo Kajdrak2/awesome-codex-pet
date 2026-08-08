@@ -12,7 +12,7 @@
 
 <a href="https://codexpet.top/es"><img src="../../assets/cover/awesome-codex-pet-cover.png" alt="Abrir la galería de Awesome Codex Pet"></a>
 
-![pets: 179](https://img.shields.io/badge/pets-179-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN | ko | ja | es](https://img.shields.io/badge/languages-en%20%7C%20zh--CN%20%7C%20ko%20%7C%20ja%20%7C%20es-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
+![pets: 180](https://img.shields.io/badge/pets-180-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN | ko | ja | es](https://img.shields.io/badge/languages-en%20%7C%20zh--CN%20%7C%20ko%20%7C%20ja%20%7C%20es-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
 
 </div>
 
@@ -353,6 +353,13 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -UseB -MaximumRedire
 <tr><th>Instalación</th><td colspan="5"><code>curl -fsSL --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- --raw-base https://raw.githubusercontent.com/legeling/awesome-codex-pet/main dnf-female-ammo--qunboo</code></td></tr>
 <tr><th>Acción</th><td><strong>Reposo</strong></td><td><strong>Saludo</strong></td><td><strong>Correr</strong></td><td><strong>Esperar</strong></td><td><strong>Revisar</strong></td></tr>
 <tr><th>Vista previa</th><td><img src="https://codexpet.top/assets/previews/dnf-female-ammo--qunboo/webp/idle.webp" alt="女弹药Q idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/dnf-female-ammo--qunboo/webp/waving.webp" alt="女弹药Q waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/dnf-female-ammo--qunboo/webp/running-right.webp" alt="女弹药Q running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/dnf-female-ammo--qunboo/webp/waiting.webp" alt="女弹药Q waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/dnf-female-ammo--qunboo/webp/review.webp" alt="女弹药Q review" width="120" height="130"></td></tr>
+</table>
+
+<table>
+<tr><th>Nombre</th><td colspan="5"><a href="../../pets/doudizhu-laonongmin--chenyijing131-art">斗地主老农民</a> · por <a href="https://github.com/chenyijing131-art">@chenyijing131-art</a> · Personajes de videojuegos · v2</td></tr>
+<tr><th>Instalación</th><td colspan="5"><code>curl -fsSL --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- --raw-base https://raw.githubusercontent.com/legeling/awesome-codex-pet/main doudizhu-laonongmin--chenyijing131-art</code></td></tr>
+<tr><th>Acción</th><td><strong>Reposo</strong></td><td><strong>Saludo</strong></td><td><strong>Correr</strong></td><td><strong>Esperar</strong></td><td><strong>Revisar</strong></td></tr>
+<tr><th>Vista previa</th><td><img src="https://codexpet.top/assets/previews/doudizhu-laonongmin--chenyijing131-art/webp/idle.webp" alt="斗地主老农民 idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/doudizhu-laonongmin--chenyijing131-art/webp/waving.webp" alt="斗地主老农民 waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/doudizhu-laonongmin--chenyijing131-art/webp/running-right.webp" alt="斗地主老农民 running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/doudizhu-laonongmin--chenyijing131-art/webp/waiting.webp" alt="斗地主老农民 waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/doudizhu-laonongmin--chenyijing131-art/webp/review.webp" alt="斗地主老农民 review" width="120" height="130"></td></tr>
 </table>
 
 <table>
