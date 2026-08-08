@@ -733,6 +733,20 @@
     "spriteVersionNumber": 2
   },
   {
+    "slug": "kaguya-luna--enclairfarron",
+    "name": "Kaguya Luna",
+    "localized_names": { "en": "Kaguya Luna", "zh": "辉夜姬" },
+    "author": "法隆",
+    "author_handle": "enclairfarron",
+    "author_url": "https://github.com/enclairfarron",
+    "primary_category": "Anime Characters",
+    "canonical_key": "virtual-youtuber/kaguya-luna",
+    "collections": [],
+    "license": "Non-commercial use only. AI-assisted fan-art Codex pet by 法隆; no official affiliation or commercial use permitted.",
+    "description": "A high-energy chibi fan-art Codex pet inspired by Kaguya Luna / 辉夜姬, the Japanese virtual YouTuber and singer known as one of the early VTuber Four Heavenly Kings, featuring her long pale-gold hair, ruby eyes, oversized charcoal tunic, coral shorts, and bright blue sneakers.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "kaiju-no-8--terry878",
     "name": "Kaiju No. 8",
     "localized_names": { "en": "Kaiju No. 8", "zh": "怪獸8號" },

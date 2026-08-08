@@ -603,6 +603,16 @@
       "spritesheetWidth": 1536,
       "spritesheetHeight": 2288
     },
+    "kaguya-luna--enclairfarron": {
+      "name": "Kaguya Luna",
+      "spriteVersionNumber": 2,
+      "petJsonSha256": "3c62e0f72d0f00360015ae2f8ed42c0bd17af8ffa5d48aa1adb4d78c52e95fc9",
+      "petJsonBytes": 320,
+      "spritesheetSha256": "6bd1f1deea672ab8930443d0434c10d9374c014faa0d0d30cadd613c2985a3cf",
+      "spritesheetBytes": 1509452,
+      "spritesheetWidth": 1536,
+      "spritesheetHeight": 2288
+    },
     "kaiju-no-8--terry878": {
       "name": "Kaiju No. 8",
       "spriteVersionNumber": 2,
