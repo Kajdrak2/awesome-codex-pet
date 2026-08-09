@@ -1,0 +1,20 @@
+{
+  "slug": "minuit--kajdrak2",
+  "pet_slug": "minuit",
+  "author_slug": "kajdrak2",
+  "name": "Minuit",
+  "author": "Kajdrak2",
+  "author_handle": "Kajdrak2",
+  "author_url": "https://github.com/Kajdrak2",
+  "primary_category": "Original Characters",
+  "canonical_key": "original/kajdrak2/minuit",
+  "tags": ["v2", "ai-generated"],
+  "source_type": "ai-generated",
+  "source_notes": "Independently AI-generated for this Pet; no existing spritesheet pixels were reused.",
+  "license": "Non-commercial use only.",
+  "description": "A tiny midnight archivist-mage who turns tangled problems into constellations.",
+  "codex_install": {
+    "pet_json": "pet.json",
+    "spritesheet": "spritesheet.webp"
+  }
+}
