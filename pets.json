@@ -230,6 +230,20 @@
     "spriteVersionNumber": 2
   },
   {
+    "slug": "citlali--zaytsevzy",
+    "name": "Citlali",
+    "localized_names": { "en": "Citlali", "zh": "茜特菈莉" },
+    "author": "ZaytsevZY",
+    "author_handle": "ZaytsevZY",
+    "author_url": "https://github.com/ZaytsevZY",
+    "primary_category": "Game Characters",
+    "canonical_key": "genshin-impact/citlali",
+    "collections": ["genshin-impact"],
+    "license": "CC BY-NC 4.0",
+    "description": "A pixel-art fan-made Citlali Codex pet reading a novel while seated on her Itzpapa cushion.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "claude--xiangking",
     "name": "Claude",
     "author": "XiangWang",

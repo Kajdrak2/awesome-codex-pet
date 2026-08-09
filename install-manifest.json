@@ -193,6 +193,16 @@
       "spritesheetWidth": 1536,
       "spritesheetHeight": 2288
     },
+    "citlali--zaytsevzy": {
+      "name": "Citlali",
+      "spriteVersionNumber": 2,
+      "petJsonSha256": "e1b6e3d2e5088f8031a39492600f0367480898b46204a0287d03cb29261ecfca",
+      "petJsonBytes": 196,
+      "spritesheetSha256": "9fbe935730ba52af3e80a41e6a698391b73d2a872c9fcf2a7ce9c44e9ec98ed3",
+      "spritesheetBytes": 2149902,
+      "spritesheetWidth": 1536,
+      "spritesheetHeight": 2288
+    },
     "claude--xiangking": {
       "name": "Claude",
       "spriteVersionNumber": 1,

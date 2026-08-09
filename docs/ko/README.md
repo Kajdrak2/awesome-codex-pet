@@ -12,7 +12,7 @@
 
 <a href="https://codexpet.top"><img src="../../assets/cover/awesome-codex-pet-cover.png" alt="Awesome Codex Pet 갤러리 열기"></a>
 
-![pets: 183](https://img.shields.io/badge/pets-183-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN | ko | ja | es](https://img.shields.io/badge/languages-en%20%7C%20zh--CN%20%7C%20ko%20%7C%20ja%20%7C%20es-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
+![pets: 184](https://img.shields.io/badge/pets-184-2ea44f) ![categories: 11](https://img.shields.io/badge/categories-11-0969da) ![languages: en | zh--CN | ko | ja | es](https://img.shields.io/badge/languages-en%20%7C%20zh--CN%20%7C%20ko%20%7C%20ja%20%7C%20es-8250df) ![code: MIT](https://img.shields.io/badge/code-MIT-111111) ![assets: CC BY--NC 4.0](https://img.shields.io/badge/assets-CC%20BY--NC%204.0-f97316) ![install: one command](https://img.shields.io/badge/install-one%20command-111111) [![Pet previews](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml/badge.svg)](https://github.com/legeling/awesome-codex-pet/actions/workflows/pet-previews.yml)
 
 </div>
 
@@ -142,6 +142,13 @@ curl -fsSL --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/legeling
 <tr><th>설치</th><td colspan="5"><code>curl -fsSL --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- --raw-base https://raw.githubusercontent.com/legeling/awesome-codex-pet/main chen--chenxin-dlut</code></td></tr>
 <tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
 <tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/chen--chenxin-dlut/webp/idle.webp" alt="Chen idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/chen--chenxin-dlut/webp/waving.webp" alt="Chen waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/chen--chenxin-dlut/webp/running-right.webp" alt="Chen running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/chen--chenxin-dlut/webp/waiting.webp" alt="Chen waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/chen--chenxin-dlut/webp/review.webp" alt="Chen review" width="120" height="130"></td></tr>
+</table>
+
+<table>
+<tr><th>이름</th><td colspan="5"><a href="../../pets/citlali--zaytsevzy">Citlali</a> · 제작자 <a href="https://github.com/ZaytsevZY">@ZaytsevZY</a> · 게임 캐릭터 · v2</td></tr>
+<tr><th>설치</th><td colspan="5"><code>curl -fsSL --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/legeling/awesome-codex-pet/main/scripts/install-pet.sh | bash -s -- --raw-base https://raw.githubusercontent.com/legeling/awesome-codex-pet/main citlali--zaytsevzy</code></td></tr>
+<tr><th>동작</th><td><strong>대기</strong></td><td><strong>인사</strong></td><td><strong>달리기</strong></td><td><strong>입력 대기</strong></td><td><strong>검토</strong></td></tr>
+<tr><th>미리 보기</th><td><img src="https://codexpet.top/assets/previews/citlali--zaytsevzy/webp/idle.webp" alt="Citlali idle" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/citlali--zaytsevzy/webp/waving.webp" alt="Citlali waving" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/citlali--zaytsevzy/webp/running-right.webp" alt="Citlali running-right" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/citlali--zaytsevzy/webp/waiting.webp" alt="Citlali waiting" width="120" height="130"></td><td><img src="https://codexpet.top/assets/previews/citlali--zaytsevzy/webp/review.webp" alt="Citlali review" width="120" height="130"></td></tr>
 </table>
 
 <table>
