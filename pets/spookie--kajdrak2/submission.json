@@ -1,0 +1,20 @@
+{
+  "slug": "spookie--kajdrak2",
+  "pet_slug": "spookie",
+  "author_slug": "kajdrak2",
+  "name": "Spookie",
+  "author": "Kajdrak2",
+  "author_handle": "Kajdrak2",
+  "author_url": "https://github.com/Kajdrak2",
+  "primary_category": "Original Characters",
+  "canonical_key": "original/kajdrak2/spookie",
+  "tags": ["v2", "ai-generated"],
+  "source_type": "ai-generated",
+  "source_notes": "Independently AI-generated for this Pet; no existing spritesheet pixels were reused.",
+  "license": "Non-commercial use only.",
+  "description": "Un petit fantome gentil en figurine d argile, avec des lunettes etincelantes.",
+  "codex_install": {
+    "pet_json": "pet.json",
+    "spritesheet": "spritesheet.webp"
+  }
+}
