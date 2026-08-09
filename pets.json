@@ -487,6 +487,19 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "flammy--kajdrak2",
+    "name": "Flammy",
+    "author": "Kajdrak2",
+    "author_handle": "Kajdrak2",
+    "author_url": "https://github.com/Kajdrak2",
+    "primary_category": "Original Characters",
+    "canonical_key": "original/kajdrak2/flammy",
+    "collections": [],
+    "license": "Non-commercial use only.",
+    "description": "Flammy is a compact friendly fire dragon rendered in polished pixel art.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "fleta--natewanggg",
     "name": "Fleta",
     "author": "NateWanggg",

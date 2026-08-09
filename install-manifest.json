@@ -403,6 +403,16 @@
       "spritesheetWidth": 1536,
       "spritesheetHeight": 1872
     },
+    "flammy--kajdrak2": {
+      "name": "Flammy",
+      "spriteVersionNumber": 2,
+      "petJsonSha256": "1659a3cc7cc5baf4d952475c06a3254dc914673ab34a920fc52980939598da18",
+      "petJsonBytes": 220,
+      "spritesheetSha256": "e93898aa36bdefe41d1189c4e9c5c6d99e8290a644294b9c01e1e91334be0a7f",
+      "spritesheetBytes": 2942330,
+      "spritesheetWidth": 1536,
+      "spritesheetHeight": 2288
+    },
     "fleta--natewanggg": {
       "name": "Fleta",
       "spriteVersionNumber": 1,
