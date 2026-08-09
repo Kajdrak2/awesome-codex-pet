@@ -933,6 +933,16 @@
       "spritesheetWidth": 1536,
       "spritesheetHeight": 2288
     },
+    "minuit--kajdrak2": {
+      "name": "Minuit",
+      "spriteVersionNumber": 2,
+      "petJsonSha256": "bdcff8b66895640f26a1bb13c75495a2fe38ece9bccd25aa4a964721d85c9e16",
+      "petJsonBytes": 226,
+      "spritesheetSha256": "d5d040e692d2cffff7a1d1b05a3fdce54f607ca40e3f13b04102f69a40145743",
+      "spritesheetBytes": 2376384,
+      "spritesheetWidth": 1536,
+      "spritesheetHeight": 2288
+    },
     "misaka-network--ldl1234": {
       "name": "Misaka Network",
       "spriteVersionNumber": 2,

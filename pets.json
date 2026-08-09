@@ -1137,6 +1137,19 @@
     "spriteVersionNumber": 2
   },
   {
+    "slug": "minuit--kajdrak2",
+    "name": "Minuit",
+    "author": "Kajdrak2",
+    "author_handle": "Kajdrak2",
+    "author_url": "https://github.com/Kajdrak2",
+    "primary_category": "Original Characters",
+    "canonical_key": "original/kajdrak2/minuit",
+    "collections": [],
+    "license": "Non-commercial use only.",
+    "description": "A tiny midnight archivist-mage who turns tangled problems into constellations.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "misaka-network--ldl1234",
     "name": "Misaka Network",
     "localized_names": { "en": "Misaka Network", "zh": "御坂网络" },
