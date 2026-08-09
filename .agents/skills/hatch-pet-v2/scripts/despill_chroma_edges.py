@@ -13,6 +13,7 @@ from PIL import Image, ImageFilter
 CELL_WIDTH = 192
 CELL_HEIGHT = 208
 ALGORITHM = "edge-local-chroma-spill-suppression"
+VALIDATOR_CHROMA_DISTANCE = 96.0
 
 
 def parse_hex_color(value: str) -> tuple[int, int, int]:
@@ -87,6 +88,13 @@ def chroma_saturation(color: tuple[float, float, float]) -> float:
     return (maximum - min(color)) / maximum
 
 
+def color_distance(
+    color: tuple[int, int, int],
+    key: tuple[int, int, int],
+) -> float:
+    return sum((channel - key_channel) ** 2 for channel, key_channel in zip(color, key)) ** 0.5
+
+
 def suppress_boundary_spill(
     pixels: list[tuple[int, int, int, int]],
     *,
@@ -99,6 +107,7 @@ def suppress_boundary_spill(
     minimum_saturation: float,
 ) -> tuple[list[tuple[int, int, int, int]], list[bool]]:
     width, height = size
+    key_srgb = tuple(round(linear_to_srgb(channel) * 255) for channel in key_linear)
     colors_linear = [
         tuple(srgb_to_linear(channel / 255) for channel in pixel[:3]) for pixel in pixels
     ]
@@ -110,7 +119,10 @@ def suppress_boundary_spill(
             pixel[3] < 250
             or (
                 chroma_saturation(color) >= minimum_saturation
-                and chroma_similarity(color, key_linear) >= similarity_threshold
+                and (
+                    chroma_similarity(color, key_linear) >= similarity_threshold
+                    or color_distance(pixel[:3], key_srgb) <= VALIDATOR_CHROMA_DISTANCE
+                )
             )
         )
         for pixel, color, is_boundary in zip(pixels, colors_linear, boundary)

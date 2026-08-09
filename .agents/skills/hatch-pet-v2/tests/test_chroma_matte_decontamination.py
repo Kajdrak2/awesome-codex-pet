@@ -161,6 +161,24 @@ class ChromaMatteDecontaminationTest(unittest.TestCase):
         self.assertEqual(cleaned.getpixel((2, 4)), (8, 8, 8, 255))
         self.assertGreater(report["spill_suppressed_pixels"], 0)
 
+    def test_removes_validator_range_key_fringe_with_shifted_hue(self) -> None:
+        image = Image.new("RGBA", (9, 9), (0, 0, 0, 0))
+        for y in range(2, 7):
+            for x in range(2, 7):
+                image.putpixel((x, y), (255, 10, 170, 255))
+        for y in range(3, 6):
+            for x in range(3, 6):
+                image.putpixel((x, y), (180, 110, 25, 255))
+
+        cleaned, report = DESPILL.decontaminate_image(
+            image,
+            chroma_key=(255, 0, 255),
+            edge_radius=2,
+        )
+
+        self.assertEqual(cleaned.getpixel((2, 4)), (180, 110, 25, 255))
+        self.assertGreater(report["spill_suppressed_pixels"], 0)
+
     def test_extends_interior_color_through_non_key_translucent_edge(self) -> None:
         image = Image.new("RGBA", (7, 7), (0, 0, 0, 0))
         for y in range(1, 6):
