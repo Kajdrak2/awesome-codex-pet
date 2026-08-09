@@ -1253,6 +1253,16 @@
       "spritesheetWidth": 1536,
       "spritesheetHeight": 1872
     },
+    "son-goku--kajdrak2": {
+      "name": "Son goku",
+      "spriteVersionNumber": 2,
+      "petJsonSha256": "95cb0d1af425d2147e6e4c7f8dec9f206b1914506fad859bc9f82fc179cd1f93",
+      "petJsonBytes": 259,
+      "spritesheetSha256": "12e3f873121969aad06c5e44e4a910c50fbdd6974c3a5139bad1833b30551c92",
+      "spritesheetBytes": 2406926,
+      "spritesheetWidth": 1536,
+      "spritesheetHeight": 2288
+    },
     "sonetto--chenxin-dlut": {
       "name": "Sonetto",
       "spriteVersionNumber": 1,

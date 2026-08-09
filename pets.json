@@ -1542,6 +1542,19 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "son-goku--kajdrak2",
+    "name": "Son goku",
+    "author": "Kajdrak2",
+    "author_handle": "Kajdrak2",
+    "author_url": "https://github.com/Kajdrak2",
+    "primary_category": "Anime Characters",
+    "canonical_key": "anime/son-goku",
+    "collections": [],
+    "license": "Non-commercial use only.",
+    "description": "Son goku enfant en costume d'arts martiaux orange et bleu, avec son bâton rouge-brun et sa queue de singe.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "sonetto--chenxin-dlut",
     "name": "Sonetto",
     "localized_names": { "en": "Sonetto", "zh": "十四行诗" },
