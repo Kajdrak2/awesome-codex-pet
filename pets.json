@@ -2070,6 +2070,20 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "xingxingren--legeling",
+    "name": "星星人",
+    "localized_names": { "en": "Star Person", "zh": "星星人" },
+    "author": "Legeling",
+    "author_handle": "legeling",
+    "author_url": "https://github.com/legeling",
+    "primary_category": "Others",
+    "canonical_key": "original/star-person",
+    "collections": [],
+    "license": "Non-commercial use only. Independently AI-generated community fan art based on a community request; no source pixels copied.",
+    "description": "An original AI-generated Star Person community pet with a warm orange face, yellow star cap, red-and-cream scarf, and readable 16-direction look loop. Non-commercial use only.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "regulus-star-antimony--chenxin-dlut",
     "name": "星锑",
     "localized_names": { "en": "Regulus", "zh": "星锑" },

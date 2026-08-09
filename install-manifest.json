@@ -1693,6 +1693,16 @@
       "spritesheetWidth": 1536,
       "spritesheetHeight": 1872
     },
+    "xingxingren--legeling": {
+      "name": "星星人",
+      "spriteVersionNumber": 2,
+      "petJsonSha256": "86d834562e3119c77d11a1efb8de8e9f413d4ce9221cd2ca95046b4b7c0dd1d1",
+      "petJsonBytes": 263,
+      "spritesheetSha256": "649619e2d5d77620e838e2729261d4aa7c0d306a674979bbadc0bd8ef2a4a366",
+      "spritesheetBytes": 2310428,
+      "spritesheetWidth": 1536,
+      "spritesheetHeight": 2288
+    },
     "regulus-star-antimony--chenxin-dlut": {
       "name": "星锑",
       "spriteVersionNumber": 1,
