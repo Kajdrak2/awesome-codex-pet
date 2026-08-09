@@ -1552,6 +1552,19 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "spookie--kajdrak2",
+    "name": "Spookie",
+    "author": "Kajdrak2",
+    "author_handle": "Kajdrak2",
+    "author_url": "https://github.com/Kajdrak2",
+    "primary_category": "Original Characters",
+    "canonical_key": "original/kajdrak2/spookie",
+    "collections": [],
+    "license": "Non-commercial use only.",
+    "description": "Un petit fantome gentil en figurine d argile, avec des lunettes etincelantes.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "starcorn--alterhq",
     "name": "Starcorn",
     "author": "Alter",

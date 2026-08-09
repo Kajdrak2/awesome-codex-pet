@@ -1263,6 +1263,16 @@
       "spritesheetWidth": 1536,
       "spritesheetHeight": 1872
     },
+    "spookie--kajdrak2": {
+      "name": "Spookie",
+      "spriteVersionNumber": 2,
+      "petJsonSha256": "acfd08179fe8249a0bf245278f733880ccf085da46b95236dc85b4d1072fdf67",
+      "petJsonBytes": 227,
+      "spritesheetSha256": "2b7e7e159c1979a17a77f92d749cfc8b219a944a02abc2d8f7e95cb6630e1d48",
+      "spritesheetBytes": 2390146,
+      "spritesheetWidth": 1536,
+      "spritesheetHeight": 2288
+    },
     "starcorn--alterhq": {
       "name": "Starcorn",
       "spriteVersionNumber": 1,
