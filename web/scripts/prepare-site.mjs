@@ -62,11 +62,14 @@ function toWebPath(relativePath) {
 }
 
 function listActionsForPet(slug) {
+  const webpDir = join(repoRoot, "assets", "previews", slug, "webp");
   const gifsDir = join(repoRoot, "assets", "previews", slug, "gifs");
-  if (!existsSync(gifsDir)) return [];
-  const names = readdirSync(gifsDir)
-    .filter((name) => name.toLowerCase().endsWith(".gif"))
-    .map((name) => name.replace(/\.gif$/i, ""));
+  const sourceDir = existsSync(webpDir) ? webpDir : gifsDir;
+  const extension = existsSync(webpDir) ? ".webp" : ".gif";
+  if (!existsSync(sourceDir)) return [];
+  const names = readdirSync(sourceDir)
+    .filter((name) => name.toLowerCase().endsWith(extension))
+    .map((name) => name.slice(0, -extension.length));
 
   return names.sort((a, b) => {
     const ai = actionOrder.indexOf(a);

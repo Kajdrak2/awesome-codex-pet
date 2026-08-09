@@ -26,11 +26,13 @@ Pull-request CI uses `npm run build:pr` because a clean contributor checkout doe
 
 ## Deployment (Cloudflare Pages)
 
-The site deploys automatically after commits land on `main`. The `Pet previews` workflow regenerates previews/README data, commits those generated files, then builds and deploys the web gallery from the latest `main` state.
+The site deploys automatically after commits land on `main`. The `Pet previews` workflow regenerates README/catalog data, commits changed generated files, then lets the follow-up commit perform one deployment from the latest `main` state. This avoids deploying both the source commit and its generated follow-up commit.
 
 There is also a separate manual/tag-based deploy workflow available as a fallback (`v*`, `web-v*`, or manual dispatch).
 
-Complete GIF, WebP, and contact-sheet previews are generated for the CI artifact. The Pages bundle only includes thumbnails and animated WebP files referenced by the gallery and README, rather than every QA output under `assets/previews/`.
+Production uses `npm run previews:site`, which generates only thumbnails and animated WebP files. A source fingerprint per pet lets the workflow reuse unchanged files from the GitHub Actions cache and rebuild only new or modified pets. Pull-request preview artifacts still contain the complete GIF, WebP, and contact-sheet output for changed pets so maintainers can perform visual QA.
+
+Cloudflare Pages receives the complete static output manifest, but Wrangler uploads assets by content hash and skips files already stored by Pages. The workflow therefore avoids repeat preview rendering and large all-preview artifacts, while Cloudflare avoids repeat network uploads. The cache is bounded by GitHub Actions' repository cache policy and is replaced naturally as pet sources change.
 
 This means README preview links can point at the deployed site while the repository stays leaner over time.
 

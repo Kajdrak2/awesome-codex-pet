@@ -91,10 +91,16 @@ export function ActionDropdown({
     document.addEventListener("pointerdown", closeOnOutsidePointer);
     document.addEventListener("keydown", closeOnEscape);
     window.addEventListener("resize", close);
+    window.addEventListener("scroll", close, true);
+    window.visualViewport?.addEventListener("resize", close);
+    window.visualViewport?.addEventListener("scroll", close);
     return () => {
       document.removeEventListener("pointerdown", closeOnOutsidePointer);
       document.removeEventListener("keydown", closeOnEscape);
       window.removeEventListener("resize", close);
+      window.removeEventListener("scroll", close, true);
+      window.visualViewport?.removeEventListener("resize", close);
+      window.visualViewport?.removeEventListener("scroll", close);
     };
   }, [open]);
 

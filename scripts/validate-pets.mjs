@@ -14,6 +14,7 @@ const installManifestPath = join(repoRoot, "install-manifest.json");
 const requireGeneratedAssets = process.argv.includes(
   "--require-generated-assets",
 );
+const requireSiteAssets = process.argv.includes("--require-site-assets");
 
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*--[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const collectionSlugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -591,7 +592,7 @@ for (const generatedPath of requiredGeneratedPaths) {
   }
 }
 
-if (requireGeneratedAssets) {
+if (requireGeneratedAssets || requireSiteAssets) {
   for (const entry of readdirSync(petsDir)) {
     if (entry.startsWith(".")) continue;
 
@@ -610,12 +611,27 @@ if (requireGeneratedAssets) {
         "assets",
         "previews",
         entry,
-        "gifs",
-        `${state}.gif`,
+        requireSiteAssets ? "webp" : "gifs",
+        `${state}.${requireSiteAssets ? "webp" : "gif"}`,
       );
       if (!existsSync(previewPath)) {
         errors.push(
           `${entry}: missing generated preview ${previewPath.replace(`${repoRoot}/`, "")}`,
+        );
+      }
+    }
+
+    if (requireSiteAssets) {
+      const thumbnailPath = join(
+        repoRoot,
+        "assets",
+        "previews",
+        entry,
+        "thumbnail.png",
+      );
+      if (!existsSync(thumbnailPath)) {
+        errors.push(
+          `${entry}: missing generated preview ${thumbnailPath.replace(`${repoRoot}/`, "")}`,
         );
       }
     }

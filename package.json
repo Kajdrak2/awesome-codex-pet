@@ -18,6 +18,7 @@
     "install:pet": "node scripts/install-pet.mjs",
     "lint": "prettier --check \"**/*.{md,json}\" && node scripts/check-readme-locales.mjs",
     "previews": "python3 scripts/generate-pet-previews.py",
+    "previews:site": "python3 scripts/generate-pet-previews.py --site-only --incremental",
     "requests": "node scripts/generate-request-catalog.mjs",
     "readmes": "node scripts/generate-readmes.mjs",
     "star-history": "node scripts/generate-star-history.mjs",
@@ -25,6 +26,7 @@
     "test:install": "node --test scripts/test/install-pet.test.mjs",
     "test:package": "node --test scripts/test/package-slim.test.mjs",
     "validate": "node scripts/validate-pets.mjs --require-generated-assets",
+    "validate:site": "node scripts/validate-pets.mjs --require-site-assets",
     "validate:pr": "npm run test:duplicates && npm run test:install && npm run test:package && node scripts/validate-pets.mjs"
   },
   "devDependencies": {

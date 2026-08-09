@@ -39,8 +39,19 @@ jobs:
       - name: Install preview dependencies
         run: python -m pip install -r requirements.txt
 
-      - name: Generate previews for site bundle
-        run: npm run previews
+      - name: Restore generated site preview cache
+        uses: actions/cache@v6
+        with:
+          path: assets/previews
+          key: site-previews-v1-${{ runner.os }}-${{ hashFiles('requirements.txt', 'scripts/generate-pet-previews.py') }}-${{ hashFiles('pets/**/pet.json', 'pets/**/spritesheet.webp') }}
+          restore-keys: |
+            site-previews-v1-${{ runner.os }}-${{ hashFiles('requirements.txt', 'scripts/generate-pet-previews.py') }}-
+
+      - name: Generate changed previews for site bundle
+        run: npm run previews:site
+
+      - name: Validate repository and site previews
+        run: npm run validate:site
 
       - name: Install dependencies
         run: npm ci
