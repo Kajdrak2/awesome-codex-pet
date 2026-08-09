@@ -1,6 +1,13 @@
 name: Pet publication
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/ISSUE_TEMPLATE/pet-report.yml
+      - .github/scripts/pet-approval.mjs
+      - .github/workflows/pet-approval.yml
   workflow_run:
     workflows:
       - Pet previews
@@ -33,6 +40,7 @@ concurrency:
 jobs:
   review:
     if: >-
+      github.event_name == 'push' ||
       github.event_name == 'workflow_run' ||
       github.event_name == 'pull_request_target' ||
       (github.event_name == 'issue_comment' &&

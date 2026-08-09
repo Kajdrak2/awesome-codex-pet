@@ -178,6 +178,7 @@ test("the privileged workflow imports only protected default-branch code", async
   const workflow = await readFile(".github/workflows/pet-approval.yml", "utf8");
   assert.match(workflow, /pull_request_target:/);
   assert.match(workflow, /workflow_run:/);
+  assert.match(workflow, /push:\s+branches:\s+- main/);
   assert.match(workflow, /ready_for_review/);
   assert.match(workflow, /\/publish-pet/);
   assert.doesNotMatch(workflow, /approved-pet|\/approve-pet/);
@@ -187,6 +188,43 @@ test("the privileged workflow imports only protected default-branch code", async
   );
   assert.match(workflow, /persist-credentials: false/);
   assert.doesNotMatch(workflow, /ref:.*head\.sha/);
+});
+
+test("the protected main-branch deployment prepares the Pet report label", async () => {
+  const labels = [];
+  const github = {
+    rest: {
+      issues: {
+        getLabel: async () => {
+          const error = new Error("Missing label");
+          error.status = 404;
+          throw error;
+        },
+        createLabel: async (parameters) => {
+          labels.push(parameters);
+          return { data: {} };
+        },
+      },
+    },
+  };
+  const messages = [];
+  await runPetApproval({
+    github,
+    context: {
+      eventName: "push",
+      repo: { owner: "Kajdrak2", repo: "awesome-codex-pet" },
+      payload: {},
+    },
+    core: {
+      info(message) {
+        messages.push(message);
+      },
+    },
+  });
+
+  assert.equal(labels.length, 1);
+  assert.equal(labels[0].name, "pet-report");
+  assert.match(messages.at(-1), /No open Pet pull request/);
 });
 
 test("the public Pet report form carries the moderation label and privacy warning", async () => {

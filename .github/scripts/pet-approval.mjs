@@ -297,13 +297,13 @@ async function upsertStatusComment(github, context, pullRequest, body, core) {
 }
 
 export async function runPetApproval({ github, context, core }) {
+  await ensureReportLabel(github, context, core);
+
   const pullNumber = await resolvePullRequestNumber(github, context);
   if (!pullNumber) {
     core.info("No open Pet pull request is associated with this event.");
     return;
   }
-
-  await ensureReportLabel(github, context, core);
 
   const pullResponse = await github.rest.pulls.get({
     owner: context.repo.owner,
