@@ -22,6 +22,8 @@ npm run build
 
 Output is in `web/out/` (static HTML export).
 
+Production and PR builds remove stale `.next` output while preserving `.next/cache`, so Next.js can reuse compiler, type-checking, and lint metadata. Run `npm run clean` only when a deliberately cold local build is required.
+
 Pull-request CI uses `npm run build:pr` because a clean contributor checkout does not contain the ignored full preview tree. The production `npm run build` additionally verifies that every catalog preview is present and that QA-only GIF/contact-sheet files are absent from the Pages bundle.
 
 ## Deployment (Cloudflare Pages)
@@ -33,6 +35,8 @@ There is also a separate manual/tag-based deploy workflow available as a fallbac
 Production uses `npm run previews:site`, which generates only thumbnails and animated WebP files. A source fingerprint per pet lets the workflow reuse unchanged files from the GitHub Actions cache and rebuild only new or modified pets. Pull-request preview artifacts still contain the complete GIF, WebP, and contact-sheet output for changed pets so maintainers can perform visual QA.
 
 Cloudflare Pages receives the complete static output manifest, but Wrangler uploads assets by content hash and skips files already stored by Pages. The workflow therefore avoids repeat preview rendering and large all-preview artifacts, while Cloudflare avoids repeat network uploads. The cache is bounded by GitHub Actions' repository cache policy and is replaced naturally as pet sources change.
+
+All Web build jobs also restore `web/.next/cache`, keyed by the Web lockfile and source hash. A source change may restore the latest dependency-compatible cache and then save the updated result; unchanged builds use the exact cache. `actions/setup-node` separately caches npm's download cache while `npm ci` continues to recreate `node_modules` from the lockfile for reproducibility.
 
 This means README preview links can point at the deployed site while the repository stays leaner over time.
 
@@ -88,7 +92,7 @@ npx wrangler pages deploy out --project-name=awesome-codex-pet
 - **Stats reads**: deployment-time `public/stats.json`, served as a free Pages static asset; rankings do not poll the Worker
 - **Stats writes and requests**: a separate Worker at `https://api.codexpet.top` records explicit installs, IP-limited pet likes, creator follows, and request support. The no-account request form accepts a checked PNG/JPEG/WebP upload or a public image link; uploads are stored in a private R2 bucket and served through a read-only content-hash URL. Rankings reuse total and 7-day like counts instead of introducing another popularity action. Ordinary page views never invoke the Worker. See `worker/README.md`.
 - **Preview delivery**: cards load a static thumbnail first and fetch animation on hover or keyboard focus; the top three pet rankings animate automatically while lower pet rows and contributor/collection mosaics animate on interaction; detail pages keep the complete action set
-- **Caching**: Next.js hashed assets are immutable, preview assets use a seven-day browser cache, and the deployment-time statistics snapshot uses a ten-minute cache
+- **Caching**: Next.js build metadata is cached in CI; hashed browser JavaScript uses a one-year immutable cache, preview assets use a seven-day cache, and the deployment-time statistics snapshot uses a ten-minute cache. The bundle check rejects missing cache-header rules.
 
 ## Environment variables
 

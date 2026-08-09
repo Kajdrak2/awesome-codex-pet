@@ -55,7 +55,9 @@ if (missing.length > 0) {
   );
 }
 
-const sizes = await Promise.all(files.map(async (path) => (await stat(path)).size));
+const sizes = await Promise.all(
+  files.map(async (path) => (await stat(path)).size),
+);
 const totalBytes = sizes.reduce((total, size) => total + size, 0);
 const previewFiles = files.filter((path) => path.includes("/assets/previews/"));
 const previewSizes = await Promise.all(
@@ -63,6 +65,33 @@ const previewSizes = await Promise.all(
 );
 const previewBytes = previewSizes.reduce((total, size) => total + size, 0);
 const homeBytes = (await stat(join(outDir, "index.html"))).size;
+const headers = await readFile(join(outDir, "_headers"), "utf8");
+const requiredCacheRules = [
+  {
+    path: "/_next/static/*",
+    value: "Cache-Control: public, max-age=31536000, immutable",
+  },
+  {
+    path: "/assets/previews/*",
+    value:
+      "Cache-Control: public, max-age=604800, stale-while-revalidate=86400",
+  },
+  {
+    path: "/stats.json",
+    value: "Cache-Control: public, max-age=600, stale-while-revalidate=3600",
+  },
+];
+for (const rule of requiredCacheRules) {
+  const rulePattern = new RegExp(
+    `${rule.path.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s+${rule.value.replace(
+      /[.*+?^${}()|[\]\\]/g,
+      "\\$&",
+    )}`,
+  );
+  if (!rulePattern.test(headers)) {
+    throw new Error(`Pages bundle is missing cache rule ${rule.path}`);
+  }
+}
 
 console.log(
   `Bundle check passed: ${files.length} files, ${(totalBytes / 1024 / 1024).toFixed(1)} MiB total; ` +

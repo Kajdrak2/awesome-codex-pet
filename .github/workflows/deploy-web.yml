@@ -31,6 +31,14 @@ jobs:
             web/package-lock.json
             worker/package-lock.json
 
+      - name: Restore Next.js build cache
+        uses: actions/cache@v6
+        with:
+          path: web/.next/cache
+          key: next-build-v1-${{ runner.os }}-${{ hashFiles('web/package-lock.json') }}-${{ hashFiles('web/app/**', 'web/components/**', 'web/lib/**', 'web/scripts/**', 'web/next.config.ts', 'web/postcss.config.mjs', 'web/tsconfig.json') }}
+          restore-keys: |
+            next-build-v1-${{ runner.os }}-${{ hashFiles('web/package-lock.json') }}-
+
       - name: Setup Python
         uses: actions/setup-python@v7
         with:

@@ -152,3 +152,11 @@ GitHub 官方动作已升级到原生 Node 24 的 v7，Cloudflare Wrangler Actio
 本地 184 只宠物实测：冷启动站点预览生成耗时 255.36 秒；缓存全部命中时耗时 0.54 秒。CI 还需要下载并解压约 249.4 MiB 的站点预览缓存，因此实际热部署会高于 0.54 秒，但不再消耗数分钟重复编码，也不再产生全量 artifact 存储。算法会线性读取每只宠物的源文件计算指纹，时间复杂度为 `O(B + C)`，其中 `B` 是源文件总字节数、`C` 是发生变化的宠物生成成本；内存保持单只图集有界，不把全部素材同时载入内存。
 
 失败与回滚：缓存清单损坏、缺失或输出不完整时会自动重建对应宠物；需要强制全量刷新时，提升工作流中的 `site-previews-v1` 版本或删除对应 Actions cache。回滚代码时可恢复 `npm run previews` 和 `npm run validate`，但会重新引入全量生成与大 artifact 成本。当前继续使用 Pages 静态资产，不引入 R2；只有 Actions cache 传输成为新的主要瓶颈时，才评估把预览迁移到独立对象存储。
+
+### Next.js 与 JavaScript 缓存
+
+三个 Web 构建路径（main、PR、手动/标签部署）现在都会缓存 `web/.next/cache`。缓存主键由操作系统、`web/package-lock.json` 和 Web 源码哈希组成；源码变化时可以恢复同一依赖版本的最近缓存，由 Next.js 自己按输入失效内部条目。`npm run build` 与 `npm run build:pr` 只清理 `.next` 中的输出并保留 `cache/`，而 `npm run clean` 仍可执行显式冷清理。该方案不缓存 `node_modules`，仍由 `npm ci` 根据锁文件重建；`actions/setup-node` 只复用 npm 下载缓存，避免牺牲可重复性。
+
+本地缓存目录约 93 MiB。保留缓存后，当前构建的 Next.js 编译阶段由此前观测的 3.0 秒降至 1.503 秒，完整静态构建、bundle 和 SEO 校验耗时 11.97 秒。CI 还包含缓存下载和上传时间，因此收益以工作流实测为准；缓存由 GitHub Actions 的容量与淘汰策略保持有界，不建立无限增长的仓库内缓存。
+
+浏览器端 JavaScript 原本已经使用 Next.js 内容哈希文件名和 `Cache-Control: public, max-age=31536000, immutable`。生产抽查为 Cloudflare `HIT`，因此没有把 HTML 一并设成长缓存，也没有重复创建另一套 JS 缓存。构建门禁现在会检查 `_next/static`、预览资源和 `stats.json` 三组 `_headers` 规则，防止以后改配置时悄悄丢失缓存策略。需要强制重建时运行 `npm run clean`；需要让 CI 放弃旧编译缓存时提升 `next-build-v1` 版本或删除对应 Actions cache。
