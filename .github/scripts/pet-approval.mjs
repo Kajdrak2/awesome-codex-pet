@@ -1,29 +1,16 @@
-const APPROVAL_LABEL = "approved-pet";
-const APPROVAL_COMMAND = "/approve-pet";
+const PUBLISH_COMMAND = "/publish-pet";
+const REPORT_LABEL = "pet-report";
 const STATUS_MARKER = "<!-- pet-approval-status -->";
 const PET_PREVIEW_WORKFLOW = "pet-previews.yml";
 const PET_PATH_PATTERN =
   /^pets\/([a-z0-9][a-z0-9._-]*--[a-z0-9][a-z0-9._-]*)\/(submission\.json|pet\.json|spritesheet\.webp)$/;
 const ALLOWED_FILE_STATUSES = new Set(["added", "modified"]);
-const MERGE_PERMISSIONS = new Set(["admin", "maintain", "write"]);
 const MAX_JSON_BYTES = 128 * 1024;
 const MAX_SPRITESHEET_BYTES = 80 * 1024 * 1024;
 
 function timeValue(value) {
   const parsed = Date.parse(value || "");
   return Number.isFinite(parsed) ? parsed : 0;
-}
-
-function loginOf(value) {
-  return typeof value === "string" ? value.trim().toLowerCase() : "";
-}
-
-export function permissionCanMerge(permission) {
-  return MERGE_PERMISSIONS.has(String(permission || "").toLowerCase());
-}
-
-export function collaboratorPermissionValue(responseData) {
-  return responseData?.permission || responseData?.role_name || "none";
 }
 
 export function validatePetChangeSet(files, treeEntries, options = {}) {
@@ -109,25 +96,6 @@ export function validatePetChangeSet(files, treeEntries, options = {}) {
   };
 }
 
-export function isTrustedOwnerSubmission(
-  pullRequest,
-  repositoryOwner,
-  repositoryName,
-) {
-  const owner = loginOf(repositoryOwner);
-  const author = loginOf(pullRequest?.user?.login);
-  const headRepository = loginOf(pullRequest?.head?.repo?.full_name);
-  const targetRepository = loginOf(`${repositoryOwner}/${repositoryName}`);
-  const headBranch = pullRequest?.head?.ref || "";
-
-  return (
-    owner.length > 0 &&
-    author === owner &&
-    headRepository === targetRepository &&
-    headBranch.startsWith("codex-avatars/submit-")
-  );
-}
-
 export function selectPetPreviewRun(runs, headSha) {
   return [...(runs || [])]
     .filter(
@@ -144,45 +112,7 @@ export function selectPetPreviewRun(runs, headSha) {
     )[0];
 }
 
-export function collectApprovalActors({
-  comments,
-  timelineEvents,
-  headCommittedAt,
-}) {
-  const cutoff = timeValue(headCommittedAt);
-  const actors = new Set();
-
-  for (const comment of comments || []) {
-    if (
-      String(comment?.body || "").trim() === APPROVAL_COMMAND &&
-      timeValue(comment?.created_at) >= cutoff
-    ) {
-      const login = loginOf(comment?.user?.login);
-      if (login) actors.add(login);
-    }
-  }
-
-  for (const event of timelineEvents || []) {
-    if (
-      event?.event === "labeled" &&
-      event?.label?.name === APPROVAL_LABEL &&
-      timeValue(event?.created_at) >= cutoff
-    ) {
-      const login = loginOf(event?.actor?.login);
-      if (login) actors.add(login);
-    }
-  }
-
-  return [...actors];
-}
-
-export function decidePetMerge({
-  pullRequest,
-  scope,
-  validationRun,
-  trustedOwner,
-  approvedMaintainer,
-}) {
+export function decidePetMerge({ pullRequest, scope, validationRun }) {
   if (pullRequest?.state !== "open") return { merge: false, state: "closed" };
   if (pullRequest?.draft) return { merge: false, state: "draft" };
   if (pullRequest?.base?.ref !== "main")
@@ -191,44 +121,37 @@ export function decidePetMerge({
   if (!validationRun) return { merge: false, state: "checks-pending" };
   if (validationRun.conclusion !== "success")
     return { merge: false, state: "checks-failed" };
-  if (!trustedOwner && !approvedMaintainer) {
-    return { merge: false, state: "approval-required" };
-  }
-  return {
-    merge: true,
-    state: trustedOwner ? "owner-approved" : "maintainer-approved",
-  };
+  return { merge: true, state: "validated" };
 }
 
-async function ensureApprovalLabel(github, context, core) {
+async function ensureReportLabel(github, context, core) {
   try {
     await github.rest.issues.getLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
-      name: APPROVAL_LABEL,
+      name: REPORT_LABEL,
     });
   } catch (error) {
     if (error?.status !== 404) throw error;
     await github.rest.issues.createLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
-      name: APPROVAL_LABEL,
-      color: "2EA44F",
-      description: "Maintainer approved this validated Pet for automatic merge",
+      name: REPORT_LABEL,
+      color: "D73A4A",
+      description: "A community member reported a published Pet for review",
     });
-    core.info(`Created the ${APPROVAL_LABEL} repository label.`);
+    core.info(`Created the ${REPORT_LABEL} repository label.`);
   }
 }
 
 async function resolvePullRequestNumber(github, context) {
   if (context.eventName === "pull_request_target") {
-    if (context.payload.label?.name !== APPROVAL_LABEL) return null;
     return context.payload.pull_request?.number || null;
   }
 
   if (context.eventName === "issue_comment") {
     if (!context.payload.issue?.pull_request) return null;
-    if (String(context.payload.comment?.body || "").trim() !== APPROVAL_COMMAND)
+    if (String(context.payload.comment?.body || "").trim() !== PUBLISH_COMMAND)
       return null;
     return context.payload.issue.number;
   }
@@ -250,53 +173,6 @@ async function resolvePullRequestNumber(github, context) {
     response.data.find((pullRequest) => pullRequest.state === "open")?.number ||
     null
   );
-}
-
-async function collaboratorPermission(github, context, login) {
-  try {
-    const response = await github.rest.repos.getCollaboratorPermissionLevel({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      username: login,
-    });
-    return collaboratorPermissionValue(response.data);
-  } catch (error) {
-    if (error?.status === 404) return "none";
-    throw error;
-  }
-}
-
-async function findApprovedMaintainer(
-  github,
-  context,
-  pullRequest,
-  headCommittedAt,
-) {
-  const [comments, timelineEvents] = await Promise.all([
-    github.paginate(github.rest.issues.listComments, {
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      issue_number: pullRequest.number,
-      per_page: 100,
-    }),
-    github.paginate(github.rest.issues.listEventsForTimeline, {
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      issue_number: pullRequest.number,
-      per_page: 100,
-    }),
-  ]);
-
-  const candidates = collectApprovalActors({
-    comments,
-    timelineEvents,
-    headCommittedAt,
-  });
-  for (const login of candidates) {
-    const permission = await collaboratorPermission(github, context, login);
-    if (permissionCanMerge(permission)) return login;
-  }
-  return null;
 }
 
 async function findValidationRun(github, context, pullRequest) {
@@ -350,8 +226,6 @@ function reviewStatusBody({
   pullRequest,
   scope,
   validationRun,
-  trustedOwner,
-  approvedMaintainer,
   previewUrl,
   mergeState,
 }) {
@@ -363,11 +237,6 @@ function reviewStatusBody({
     : validationRun.conclusion === "success"
       ? `- Automated checks: ✅ [passed](${validationRun.html_url})`
       : `- Automated checks: ❌ [${validationRun.conclusion || "failed"}](${validationRun.html_url})`;
-  const approvalLine = trustedOwner
-    ? "- Approval: ✅ trusted Codex Avatars submission from the repository owner"
-    : approvedMaintainer
-      ? `- Approval: ✅ approved by @${approvedMaintainer}`
-      : "- Approval: ⏳ maintainer approval required";
   const previewLine = previewUrl
     ? `- Visual preview: [download CI artifact](${previewUrl})`
     : null;
@@ -382,31 +251,16 @@ function reviewStatusBody({
       "- Publication: ⚠️ merged, but the catalog rebuild could not be queued";
   }
 
-  const instructions =
-    scope.ok &&
-    validationRun?.conclusion === "success" &&
-    !trustedOwner &&
-    !approvedMaintainer
-      ? [
-          "",
-          "### Maintainer shortcut",
-          "Review the preview, then either add the `approved-pet` label or comment `/approve-pet`.",
-          "The workflow will merge this exact revision and rebuild the catalog automatically.",
-        ]
-      : [];
-
   return [
     STATUS_MARKER,
-    "## Pet review assistant",
+    "## Pet publication assistant",
     "",
     `PR #${pullRequest.number} is tracked by the protected publication workflow.`,
     "",
     scopeLine,
     checksLine,
     ...(previewLine ? [previewLine] : []),
-    approvalLine,
     resultLine,
-    ...instructions,
   ].join("\n");
 }
 
@@ -449,7 +303,7 @@ export async function runPetApproval({ github, context, core }) {
     return;
   }
 
-  await ensureApprovalLabel(github, context, core);
+  await ensureReportLabel(github, context, core);
 
   const pullResponse = await github.rest.pulls.get({
     owner: context.repo.owner,
@@ -462,26 +316,20 @@ export async function runPetApproval({ github, context, core }) {
     return;
   }
 
-  const [files, commitResponse, gitCommitResponse, validationRun] =
-    await Promise.all([
-      github.paginate(github.rest.pulls.listFiles, {
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        pull_number: pullNumber,
-        per_page: 100,
-      }),
-      github.rest.repos.getCommit({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        ref: pullRequest.head.sha,
-      }),
-      github.rest.git.getCommit({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        commit_sha: pullRequest.head.sha,
-      }),
-      findValidationRun(github, context, pullRequest),
-    ]);
+  const [files, gitCommitResponse, validationRun] = await Promise.all([
+    github.paginate(github.rest.pulls.listFiles, {
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      pull_number: pullNumber,
+      per_page: 100,
+    }),
+    github.rest.git.getCommit({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      commit_sha: pullRequest.head.sha,
+    }),
+    findValidationRun(github, context, pullRequest),
+  ]);
 
   const treeResponse = await github.rest.git.getTree({
     owner: context.repo.owner,
@@ -492,22 +340,6 @@ export async function runPetApproval({ github, context, core }) {
   const scope = validatePetChangeSet(files, treeResponse.data.tree, {
     treeTruncated: treeResponse.data.truncated,
   });
-  const headCommittedAt =
-    commitResponse.data.commit?.committer?.date ||
-    commitResponse.data.commit?.author?.date;
-  const trustedOwner = isTrustedOwnerSubmission(
-    pullRequest,
-    context.repo.owner,
-    context.repo.repo,
-  );
-  const approvedMaintainer = trustedOwner
-    ? null
-    : await findApprovedMaintainer(
-        github,
-        context,
-        pullRequest,
-        headCommittedAt,
-      );
   const previewUrl = await previewArtifactUrl(
     github,
     context,
@@ -518,8 +350,6 @@ export async function runPetApproval({ github, context, core }) {
     pullRequest,
     scope,
     validationRun,
-    trustedOwner,
-    approvedMaintainer,
   });
 
   const status = (mergeState) =>
@@ -527,8 +357,6 @@ export async function runPetApproval({ github, context, core }) {
       pullRequest,
       scope,
       validationRun,
-      trustedOwner,
-      approvedMaintainer,
       previewUrl,
       mergeState,
     });
@@ -552,7 +380,7 @@ export async function runPetApproval({ github, context, core }) {
     sha: pullRequest.head.sha,
     merge_method: "squash",
     commit_title: `${pullRequest.title} (#${pullRequest.number})`,
-    commit_message: "Approved by the protected Pet publication workflow.",
+    commit_message: "Published automatically after protected Pet validation.",
   });
   if (!mergeResponse.data.merged) {
     await upsertStatusComment(
@@ -600,7 +428,7 @@ export async function runPetApproval({ github, context, core }) {
 }
 
 export const PET_APPROVAL_CONSTANTS = Object.freeze({
-  approvalCommand: APPROVAL_COMMAND,
-  approvalLabel: APPROVAL_LABEL,
+  publishCommand: PUBLISH_COMMAND,
+  reportLabel: REPORT_LABEL,
   statusMarker: STATUS_MARKER,
 });
