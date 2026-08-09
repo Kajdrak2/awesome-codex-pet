@@ -144,6 +144,18 @@ npm run validate
 npm run lint
 ```
 
+## Maintainer approval shortcut
+
+The protected `Pet approval` workflow keeps publication review focused:
+
+- Pet CI posts or updates one `Pet review assistant` comment with the exact package scope, validation result, and downloadable visual-preview artifact.
+- A repository-owner submission created by Codex Avatars is merged automatically only after the Pet previews workflow succeeds for that exact commit.
+- For any other contributor, a maintainer with write access reviews the preview and either adds the `approved-pet` label or comments `/approve-pet`.
+- An approval applies only to the current head commit. Any later contributor push requires a fresh approval and a fresh successful validation.
+- After merge, the workflow dispatches catalog generation so `README.md`, `pets.json`, and `install-manifest.json` are updated without another manual step.
+
+The privileged workflow never checks out contributor code. It imports its merge logic from the protected default branch and independently rejects changes outside one regular-file Pet package.
+
 ## Curation rules
 
 Maintainers may decline a submission if:

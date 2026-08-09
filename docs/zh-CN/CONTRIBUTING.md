@@ -146,6 +146,18 @@ npm run validate
 npm run lint
 ```
 
+## 维护者快速审批
+
+受保护的 `Pet approval` 工作流让发布审核保持简单：
+
+- Pet CI 会创建或更新一条 `Pet review assistant` 评论，列出准确的包范围、验证结果和可下载的视觉预览产物。
+- 由仓库所有者通过 Codex Avatars 创建的投稿，只有在当前提交的 Pet previews 工作流成功后才会自动合并。
+- 对于其他贡献者，具有写入权限的维护者检查预览后，可添加 `approved-pet` 标签，或评论 `/approve-pet`。
+- 审批只对当前 head commit 有效。贡献者之后再次推送时，必须重新审批并重新通过验证。
+- 合并后，工作流会启动目录生成，因此无需再手动更新 `README.md`、`pets.json` 和 `install-manifest.json`。
+
+特权工作流不会检出贡献者代码。它只从受保护的默认分支加载合并逻辑，并独立拒绝单个常规 Pet 包之外的任何改动。
+
 ## 收录规则
 
 维护者可能会拒绝以下投稿：

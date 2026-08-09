@@ -1,0 +1,59 @@
+name: Pet approval
+
+on:
+  workflow_run:
+    workflows:
+      - Pet previews
+    types:
+      - completed
+  pull_request_target:
+    types:
+      - labeled
+  issue_comment:
+    types:
+      - created
+
+permissions:
+  actions: write
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: >-
+    pet-approval-${{
+      github.event.pull_request.number ||
+      github.event.issue.number ||
+      github.event.workflow_run.head_branch ||
+      github.run_id
+    }}
+  cancel-in-progress: false
+
+jobs:
+  review:
+    if: >-
+      github.event_name == 'workflow_run' ||
+      (github.event_name == 'pull_request_target' && github.event.label.name == 'approved-pet') ||
+      (github.event_name == 'issue_comment' &&
+        github.event.issue.pull_request &&
+        github.event.comment.body == '/approve-pet')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout protected workflow code
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+          sparse-checkout: .github/scripts/pet-approval.mjs
+          sparse-checkout-cone-mode: false
+
+      - name: Review, approve, and publish Pet
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const { pathToFileURL } = require("node:url");
+            const moduleUrl = pathToFileURL(
+              `${process.env.GITHUB_WORKSPACE}/.github/scripts/pet-approval.mjs`,
+            );
+            const { runPetApproval } = await import(moduleUrl.href);
+            await runPetApproval({ github, context, core });

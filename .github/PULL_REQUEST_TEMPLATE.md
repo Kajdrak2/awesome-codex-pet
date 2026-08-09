@@ -10,6 +10,8 @@ Submit a completed pet as **Ready for review**, not as a draft. Use a draft only
 
 Drag a contact sheet here. CI also uploads a downloadable preview artifact for changed pets. Preview files belong in the PR description or CI artifact, not in the pet directory.
 
+After CI, the Pet review assistant links the artifact and shows the exact publication state. Maintainers can approve the current revision with the `approved-pet` label or the `/approve-pet` comment.
+
 ## Checklist
 
 - [ ] This pull request focuses on one pet only
