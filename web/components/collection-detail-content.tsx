@@ -94,11 +94,6 @@ export function CollectionDetailContent({
               <ShareMenu
                 title={title}
                 url={`${siteConfig.url}/collections/${collection.slug}`}
-                codexPrompt={getCollectionInstallPrompt(
-                  title,
-                  collection.pets.map((pet) => pet.slug),
-                  locale,
-                )}
               />
             </div>
           </div>

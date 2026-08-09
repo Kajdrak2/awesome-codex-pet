@@ -9,8 +9,7 @@ import { PetInstallMenu } from "@/components/pet-install-menu";
 import { PetLikeButton } from "@/components/pet-like-button";
 import { ShareMenu } from "@/components/share-menu";
 import { useLocale } from "@/components/locale-provider";
-import { getLocalizedPetName, getPetInstallPrompt } from "@/lib/codex-links";
-import { getPetInstallCommands } from "@/lib/install";
+import { getLocalizedPetName } from "@/lib/codex-links";
 import { siteConfig } from "@/lib/site";
 
 type PetCardProps = {
@@ -31,7 +30,6 @@ export function PetCard({ pet, installs = 0, likes = 0 }: PetCardProps) {
   const localizedName = getLocalizedPetName(pet, locale);
   const cardRef = useRef<HTMLElement>(null);
   const [isAnimating, setIsAnimating] = useState(false);
-  const commands = getPetInstallCommands(pet.slug);
 
   function updateCardTilt(event: PointerEvent<HTMLElement>) {
     if (event.pointerType === "touch") return;
@@ -165,8 +163,6 @@ export function PetCard({ pet, installs = 0, likes = 0 }: PetCardProps) {
             compact
             title={localizedName}
             url={`${siteConfig.url}${detailHref}`}
-            codexPrompt={getPetInstallPrompt(pet, locale)}
-            installCommand={commands.bash}
           />
         </div>
       </div>

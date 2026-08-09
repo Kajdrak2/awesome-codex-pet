@@ -249,8 +249,14 @@ export const translations = {
     copyMarkdownLink: "Copy Markdown link",
     shareMessage:
       "Meet {title}, a carefully made Codex pet. Preview every animation and install it in one step. Discover more selected community pets on Awesome Codex Pet:",
-    shareToX: "Share to X",
-    shareToLinkedIn: "Share to LinkedIn",
+    shareToWeibo: "Weibo",
+    shareToQQ: "QQ",
+    shareToQzone: "Qzone",
+    shareToWeChat: "WeChat / Moments",
+    shareToX: "X",
+    shareToFacebook: "Facebook",
+    shareToLinkedIn: "LinkedIn",
+    shareToTelegram: "Telegram",
     moreShareOptions: "More share options",
 
     // Footer
@@ -672,8 +678,14 @@ export const translations = {
     copyMarkdownLink: "复制 Markdown 链接",
     shareMessage:
       "分享一只制作很用心的 Codex 小宠物：{title}。可以先看完整动作，再一键安装到 Codex。更多精品宠物都在 Awesome Codex Pet：",
-    shareToX: "分享到 X",
-    shareToLinkedIn: "分享到 LinkedIn",
+    shareToWeibo: "微博",
+    shareToQQ: "QQ",
+    shareToQzone: "QQ 空间",
+    shareToWeChat: "微信 / 朋友圈",
+    shareToX: "X",
+    shareToFacebook: "Facebook",
+    shareToLinkedIn: "LinkedIn",
+    shareToTelegram: "Telegram",
     moreShareOptions: "更多分享方式",
 
     // Footer

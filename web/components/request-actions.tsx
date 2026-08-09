@@ -129,14 +129,14 @@ export function RequestActions({
 
   return (
     <div>
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="grid grid-cols-2 gap-2">
         <button
           aria-pressed={supporting}
-          className={`inline-flex h-10 items-center justify-center gap-2 rounded-lg px-3 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-55 ${
+          className={`inline-flex h-10 min-w-0 items-center justify-center gap-1.5 rounded-lg px-2 font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-55 ${
             supporting
               ? "border border-accent bg-accent-light text-accent"
               : "bg-accent text-white hover:bg-accent-hover"
-          } ${compact ? "min-w-0" : "min-w-32"}`}
+          } ${compact ? "text-xs" : "text-sm"}`}
           disabled={pending || disabled}
           onClick={toggleSupport}
           title={text.supportTitle}
@@ -144,7 +144,7 @@ export function RequestActions({
         >
           <svg
             aria-hidden="true"
-            className="size-4"
+            className="size-4 shrink-0"
             fill={supporting ? "currentColor" : "none"}
             stroke="currentColor"
             strokeWidth="2"
@@ -156,25 +156,27 @@ export function RequestActions({
               strokeLinejoin="round"
             />
           </svg>
-          <span>{supporting ? text.supported : text.support}</span>
-          <span className="font-mono text-xs tabular-nums opacity-75">
+          <span className="truncate">
+            {supporting ? text.supported : text.support}
+          </span>
+          <span className="shrink-0 font-mono text-xs tabular-nums opacity-75">
             {supporters}
           </span>
         </button>
         <button
           aria-pressed={following}
-          className={`inline-flex h-10 items-center justify-center gap-2 rounded-lg border px-3 text-sm font-medium transition-colors ${
+          className={`inline-flex h-10 min-w-0 items-center justify-center gap-1.5 rounded-lg border px-2 font-medium transition-colors ${
             following
               ? "border-text bg-text text-bg"
               : "border-border bg-bg-elevated text-text hover:border-border-hover hover:bg-surface"
-          }`}
+          } ${compact ? "text-xs" : "text-sm"}`}
           onClick={toggleFollow}
           title={text.followTitle}
           type="button"
         >
           <svg
             aria-hidden="true"
-            className="size-4"
+            className="size-4 shrink-0"
             fill={following ? "currentColor" : "none"}
             stroke="currentColor"
             strokeLinejoin="round"
@@ -183,7 +185,9 @@ export function RequestActions({
           >
             <path d="M6 3h12v18l-6-4-6 4V3Z" />
           </svg>
-          {following ? text.following : text.follow}
+          <span className="truncate">
+            {following ? text.following : text.follow}
+          </span>
         </button>
       </div>
       {error ? (

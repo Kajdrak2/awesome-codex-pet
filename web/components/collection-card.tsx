@@ -5,7 +5,6 @@ import Link from "next/link";
 import { CollectionPetStage } from "@/components/collection-pet-stage";
 import { ShareMenu } from "@/components/share-menu";
 import { useLocale } from "@/components/locale-provider";
-import { getCollectionInstallPrompt } from "@/lib/codex-links";
 import {
   getLocalizedCollectionText,
   type CollectionCardData,
@@ -30,11 +29,6 @@ export function CollectionCard({
             compact
             title={title}
             url={`${siteConfig.url}${href}`}
-            codexPrompt={getCollectionInstallPrompt(
-              title,
-              collection.petSlugs,
-              locale,
-            )}
           />
         </div>
       </div>

@@ -183,8 +183,6 @@ export function PetDetailContent({
                 <ShareMenu
                   title={localizedName}
                   url={`${siteConfig.url}/pets/${pet.slug}`}
-                  codexPrompt={getPetInstallPrompt(pet, locale)}
-                  installCommand={pet.installCommand}
                 />
                 <a
                   className="inline-flex h-9 items-center justify-center gap-2 rounded-lg border border-border bg-bg-elevated px-3 text-sm font-medium text-text transition-colors hover:bg-surface"

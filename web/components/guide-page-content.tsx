@@ -120,8 +120,6 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
             <ShareMenu
               title={t("guideShareTitle")}
               url={guideUrl}
-              codexPrompt={submissionPrompt}
-              codexMode="create"
             />
           </div>
         </div>
@@ -468,8 +466,6 @@ export function GuidePageContent({ categories }: GuidePageContentProps) {
             <ShareMenu
               title={t("guideShareTitle")}
               url={guideUrl}
-              codexPrompt={submissionPrompt}
-              codexMode="create"
             />
             <a
               className="inline-flex h-9 items-center justify-center rounded-lg border border-border bg-bg-elevated px-4 text-sm font-medium text-text transition-colors hover:bg-surface"

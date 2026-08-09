@@ -37,16 +37,16 @@ export function RequestCard({
     <article
       className={`group overflow-hidden rounded-lg border border-border bg-bg-elevated transition-colors hover:border-border-hover ${
         compact
-          ? "grid min-w-[300px] grid-cols-[96px_minmax(0,1fr)]"
-          : "flex h-full flex-col"
+          ? "grid h-60 min-w-[300px] grid-cols-[128px_minmax(0,1fr)]"
+          : "flex h-[35rem] flex-col"
       }`}
     >
       <Link
         aria-label={request.character}
         className={
           compact
-            ? "block h-full min-h-44"
-            : "block aspect-[3/2] max-h-[18rem]"
+            ? "block h-full min-h-0"
+            : "block h-56 shrink-0"
         }
         href={`/requests/${request.number}`}
       >
@@ -59,8 +59,10 @@ export function RequestCard({
           name={request.character}
         />
       </Link>
-      <div className={`flex min-w-0 flex-1 flex-col ${compact ? "p-4" : "p-5"}`}>
-        <div className="flex flex-wrap items-center gap-2 text-xs">
+      <div
+        className={`flex min-h-0 min-w-0 flex-1 flex-col ${compact ? "p-4" : "p-5"}`}
+      >
+        <div className="flex h-7 min-w-0 items-center gap-2 overflow-hidden whitespace-nowrap text-xs">
           <span className="rounded-md bg-accent-light px-2 py-1 font-medium text-accent">
             {getRequestStatusLabel(request.status, locale)}
           </span>
@@ -74,26 +76,36 @@ export function RequestCard({
           ) : null}
         </div>
         <Link
-          className="mt-3 block text-lg font-semibold leading-snug text-text transition-colors group-hover:text-accent"
+          className={`block overflow-hidden font-semibold leading-snug text-text transition-colors group-hover:text-accent ${
+            compact
+              ? "mt-2 h-10 text-base [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]"
+              : "mt-3 h-12 text-lg [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]"
+          }`}
           href={`/requests/${request.number}`}
         >
           {request.character}
         </Link>
-        {request.franchise ? (
-          <p className="mt-1 truncate text-sm text-muted">
-            {request.franchise}
-          </p>
-        ) : null}
-        {!compact && request.visualDirection ? (
-          <p className="mt-3 flex-1 text-sm leading-6 text-text-secondary">
-            {requestExcerpt(request.visualDirection)}
+        <p
+          aria-hidden={request.franchise ? undefined : true}
+          className="mt-1 h-5 truncate text-sm text-muted"
+        >
+          {request.franchise || "\u00a0"}
+        </p>
+        {!compact ? (
+          <p
+            aria-hidden={request.visualDirection ? undefined : true}
+            className="mt-3 h-[4.5rem] overflow-hidden text-sm leading-6 text-text-secondary [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3]"
+          >
+            {request.visualDirection
+              ? requestExcerpt(request.visualDirection)
+              : "\u00a0"}
           </p>
         ) : (
           <div className="flex-1" />
         )}
-        <div className="mt-4 flex items-center justify-between gap-3 border-t border-border pt-3 text-xs text-muted">
-          <span>#{request.number}</span>
-          <span>
+        <div className="mt-auto flex min-w-0 items-center justify-between gap-3 border-t border-border pt-3 text-xs text-muted">
+          <span className="shrink-0">#{request.number}</span>
+          <span className="truncate text-right">
             {text.updated}
             {formatRequestDate(request.updatedAt, locale)}
           </span>
@@ -101,7 +113,7 @@ export function RequestCard({
         <div className="mt-3">
           {request.completedPet ? (
             <Link
-              className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-text px-4 text-sm font-medium text-bg transition-opacity hover:opacity-85"
+              className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-text px-4 text-sm font-medium text-bg transition-opacity hover:opacity-85"
               href={`/pets/${request.completedPet.slug}`}
             >
               {text.completed}
