@@ -6,6 +6,7 @@ permissions:
   issues: write
 
 on:
+  workflow_dispatch:
   pull_request:
   push:
     branches:
@@ -163,13 +164,13 @@ jobs:
         working-directory: web
 
   deploy-stats:
-    if: github.event_name == 'push' && needs.previews.outputs.catalog-changed == 'true'
+    if: github.repository == 'legeling/awesome-codex-pet' && github.event_name == 'push' && needs.previews.outputs.catalog-changed == 'true'
     needs: previews
     uses: ./.github/workflows/deploy-stats.yml
     secrets: inherit
 
   deploy-web:
-    if: github.event_name == 'push' && needs.previews.outputs.generated-commit != 'true'
+    if: github.repository == 'legeling/awesome-codex-pet' && github.event_name == 'push' && needs.previews.outputs.generated-commit != 'true'
     needs: previews
     runs-on: ubuntu-latest
     env:
