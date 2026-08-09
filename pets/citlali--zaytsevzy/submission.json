@@ -19,6 +19,7 @@
   "license": "CC BY-NC 4.0",
   "description": "A pixel-art fan-made Citlali Codex pet reading a novel while seated on her Itzpapa cushion.",
   "preview_image": "../../assets/previews/citlali--zaytsevzy/gifs/idle.gif",
+  "spritesheet_sha256": "9fbe935730ba52af3e80a41e6a698391b73d2a872c9fcf2a7ce9c44e9ec98ed3",
   "codex_install": {
     "pet_json": "pet.json",
     "spritesheet": "spritesheet.webp"
