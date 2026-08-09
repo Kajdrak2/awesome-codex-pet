@@ -1,6 +1,13 @@
-name: Pet approval
+name: Pet publication
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/ISSUE_TEMPLATE/pet-report.yml
+      - .github/scripts/pet-approval.mjs
+      - .github/workflows/pet-approval.yml
   workflow_run:
     workflows:
       - Pet previews
@@ -8,7 +15,8 @@ on:
       - completed
   pull_request_target:
     types:
-      - labeled
+      - ready_for_review
+      - reopened
   issue_comment:
     types:
       - created
@@ -21,7 +29,7 @@ permissions:
 
 concurrency:
   group: >-
-    pet-approval-${{
+    pet-publication-${{
       github.event.pull_request.number ||
       github.event.issue.number ||
       github.event.workflow_run.head_branch ||
@@ -32,11 +40,12 @@ concurrency:
 jobs:
   review:
     if: >-
+      github.event_name == 'push' ||
       github.event_name == 'workflow_run' ||
-      (github.event_name == 'pull_request_target' && github.event.label.name == 'approved-pet') ||
+      github.event_name == 'pull_request_target' ||
       (github.event_name == 'issue_comment' &&
         github.event.issue.pull_request &&
-        github.event.comment.body == '/approve-pet')
+        github.event.comment.body == '/publish-pet')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout protected workflow code
@@ -47,7 +56,7 @@ jobs:
           sparse-checkout: .github/scripts/pet-approval.mjs
           sparse-checkout-cone-mode: false
 
-      - name: Review, approve, and publish Pet
+      - name: Validate and publish Pet
         uses: actions/github-script@v8
         with:
           script: |

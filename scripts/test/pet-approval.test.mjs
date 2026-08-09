@@ -3,11 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 import {
-  collaboratorPermissionValue,
-  collectApprovalActors,
   decidePetMerge,
-  isTrustedOwnerSubmission,
-  permissionCanMerge,
   runPetApproval,
   selectPetPreviewRun,
   validatePetChangeSet,
@@ -114,31 +110,6 @@ test("rejects empty, truncated, duplicate, and oversized change sets", () => {
   assert.equal(validatePetChangeSet(changedFiles(), oversized).ok, false);
 });
 
-test("trusts only repository-owner submissions created by Codex Avatars", () => {
-  assert.equal(
-    isTrustedOwnerSubmission(pullRequest(), "Kajdrak2", "awesome-codex-pet"),
-    true,
-  );
-  assert.equal(
-    isTrustedOwnerSubmission(
-      pullRequest({ user: { login: "someone-else" } }),
-      "Kajdrak2",
-      "awesome-codex-pet",
-    ),
-    false,
-  );
-  assert.equal(
-    isTrustedOwnerSubmission(
-      pullRequest({
-        head: { ...pullRequest().head, ref: "feature/manual-change" },
-      }),
-      "Kajdrak2",
-      "awesome-codex-pet",
-    ),
-    false,
-  );
-});
-
 test("selects the newest completed Pet preview run for the exact head", () => {
   const selected = selectPetPreviewRun(
     [
@@ -172,70 +143,7 @@ test("selects the newest completed Pet preview run for the exact head", () => {
   assert.equal(selected.id, 3);
 });
 
-test("uses only approval signals created after the current head commit", () => {
-  const actors = collectApprovalActors({
-    headCommittedAt: "2026-08-09T11:00:00Z",
-    comments: [
-      {
-        body: "/approve-pet",
-        created_at: "2026-08-09T10:00:00Z",
-        user: { login: "Old" },
-      },
-      {
-        body: " /approve-pet ",
-        created_at: "2026-08-09T11:01:00Z",
-        user: { login: "Alice" },
-      },
-      {
-        body: "/approve-pet later",
-        created_at: "2026-08-09T11:02:00Z",
-        user: { login: "Noise" },
-      },
-    ],
-    timelineEvents: [
-      {
-        event: "labeled",
-        label: { name: "approved-pet" },
-        created_at: "2026-08-09T11:03:00Z",
-        actor: { login: "Bob" },
-      },
-      {
-        event: "labeled",
-        label: { name: "different-label" },
-        created_at: "2026-08-09T11:04:00Z",
-        actor: { login: "Noise" },
-      },
-    ],
-  });
-
-  assert.deepEqual(actors.sort(), ["alice", "bob"]);
-});
-
-test("allows merge permissions but rejects read and triage permissions", () => {
-  for (const permission of ["admin", "maintain", "write"]) {
-    assert.equal(permissionCanMerge(permission), true);
-  }
-  for (const permission of ["triage", "read", "none", undefined]) {
-    assert.equal(permissionCanMerge(permission), false);
-  }
-});
-
-test("reads the collaborator permission level instead of the nested capability object", () => {
-  assert.equal(
-    collaboratorPermissionValue({
-      permission: "write",
-      user: { permissions: { pull: true, push: true } },
-    }),
-    "write",
-  );
-  assert.equal(
-    collaboratorPermissionValue({ role_name: "maintain" }),
-    "maintain",
-  );
-  assert.equal(collaboratorPermissionValue({}), "none");
-});
-
-test("merges only safe, green, approved Pet revisions", () => {
+test("automatically merges only safe, green, ready Pet revisions", () => {
   const pr = pullRequest();
   const scope = validatePetChangeSet(changedFiles(), treeEntries());
   const green = { conclusion: "success" };
@@ -245,38 +153,22 @@ test("merges only safe, green, approved Pet revisions", () => {
       pullRequest: pr,
       scope,
       validationRun: green,
-      trustedOwner: true,
-      approvedMaintainer: null,
     }),
-    { merge: true, state: "owner-approved" },
-  );
-  assert.deepEqual(
-    decidePetMerge({
-      pullRequest: pr,
-      scope,
-      validationRun: green,
-      trustedOwner: false,
-      approvedMaintainer: "maintainer",
-    }),
-    { merge: true, state: "maintainer-approved" },
+    { merge: true, state: "validated" },
   );
   assert.equal(
     decidePetMerge({
-      pullRequest: pr,
+      pullRequest: { ...pr, draft: true },
       scope,
       validationRun: green,
-      trustedOwner: false,
-      approvedMaintainer: null,
     }).state,
-    "approval-required",
+    "draft",
   );
   assert.equal(
     decidePetMerge({
       pullRequest: pr,
       scope,
       validationRun: { conclusion: "failure" },
-      trustedOwner: true,
-      approvedMaintainer: null,
     }).state,
     "checks-failed",
   );
@@ -286,12 +178,63 @@ test("the privileged workflow imports only protected default-branch code", async
   const workflow = await readFile(".github/workflows/pet-approval.yml", "utf8");
   assert.match(workflow, /pull_request_target:/);
   assert.match(workflow, /workflow_run:/);
+  assert.match(workflow, /push:\s+branches:\s+- main/);
+  assert.match(workflow, /ready_for_review/);
+  assert.match(workflow, /\/publish-pet/);
+  assert.doesNotMatch(workflow, /approved-pet|\/approve-pet/);
   assert.match(
     workflow,
     /ref: \$\{\{ github\.event\.repository\.default_branch \}\}/,
   );
   assert.match(workflow, /persist-credentials: false/);
   assert.doesNotMatch(workflow, /ref:.*head\.sha/);
+});
+
+test("the protected main-branch deployment prepares the Pet report label", async () => {
+  const labels = [];
+  const github = {
+    rest: {
+      issues: {
+        getLabel: async () => {
+          const error = new Error("Missing label");
+          error.status = 404;
+          throw error;
+        },
+        createLabel: async (parameters) => {
+          labels.push(parameters);
+          return { data: {} };
+        },
+      },
+    },
+  };
+  const messages = [];
+  await runPetApproval({
+    github,
+    context: {
+      eventName: "push",
+      repo: { owner: "Kajdrak2", repo: "awesome-codex-pet" },
+      payload: {},
+    },
+    core: {
+      info(message) {
+        messages.push(message);
+      },
+    },
+  });
+
+  assert.equal(labels.length, 1);
+  assert.equal(labels[0].name, "pet-report");
+  assert.match(messages.at(-1), /No open Pet pull request/);
+});
+
+test("the public Pet report form carries the moderation label and privacy warning", async () => {
+  const form = await readFile(".github/ISSUE_TEMPLATE/pet-report.yml", "utf8");
+  assert.match(form, /name: Report a published Pet/);
+  assert.match(form, /- pet-report/);
+  assert.match(form, /Reports are public/);
+  assert.match(form, /Copyright or attribution concern/);
+  assert.match(form, /Inappropriate or unsafe content/);
+  assert.match(form, /Do not include passwords, tokens, private conversations/);
 });
 
 test("manual catalog dispatches run the generated-listing commit path", async () => {
@@ -303,9 +246,17 @@ test("manual catalog dispatches run the generated-listing commit path", async ()
   );
 });
 
-test("the protected runtime merges a green owner submission and dispatches the catalog", async () => {
-  const calls = { comments: [], dispatches: [], merges: [] };
-  const pr = pullRequest({ title: "[Pet] Minuit by Kajdrak2" });
+test("the protected runtime merges a green external submission and dispatches the catalog", async () => {
+  const calls = { comments: [], dispatches: [], labels: [], merges: [] };
+  const pr = pullRequest({
+    title: "[Pet] Minuit by an external author",
+    user: { login: "external-author" },
+    head: {
+      ...pullRequest().head,
+      ref: "submit-minuit",
+      repo: { full_name: "external-author/awesome-codex-pet" },
+    },
+  });
   const workflowRun = {
     id: 42,
     name: "Pet previews",
@@ -339,8 +290,15 @@ test("the protected runtime merges a green owner submission and dispatches the c
         calls.comments.push(parameters.body);
         return { data: {} };
       },
-      createLabel: async () => ({ data: {} }),
-      getLabel: async () => ({ data: { name: "approved-pet" } }),
+      createLabel: async (parameters) => {
+        calls.labels.push(parameters);
+        return { data: {} };
+      },
+      getLabel: async () => {
+        const error = new Error("Missing label");
+        error.status = 404;
+        throw error;
+      },
       listComments: async () => ({ data: [] }),
       listEventsForTimeline: async () => ({ data: [] }),
       updateComment: async () => ({ data: {} }),
@@ -356,9 +314,6 @@ test("the protected runtime merges a green owner submission and dispatches the c
     repos: {
       getCommit: async () => ({
         data: { commit: { committer: { date: "2026-08-09T11:00:00Z" } } },
-      }),
-      getCollaboratorPermissionLevel: async () => ({
-        data: { permission: "write" },
       }),
       listPullRequestsAssociatedWithCommit: async () => ({ data: [pr] }),
     },
@@ -388,6 +343,8 @@ test("the protected runtime merges a green owner submission and dispatches the c
   assert.equal(calls.merges[0].sha, pr.head.sha);
   assert.equal(calls.dispatches.length, 1);
   assert.equal(calls.dispatches[0].workflow_id, "pet-previews.yml");
+  assert.equal(calls.labels.length, 1);
+  assert.equal(calls.labels[0].name, "pet-report");
   assert.equal(calls.comments.length, 1);
   assert.match(calls.comments[0], /catalog rebuild queued/);
   assert.deepEqual(failures, []);

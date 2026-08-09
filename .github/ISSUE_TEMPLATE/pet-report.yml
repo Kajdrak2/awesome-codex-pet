@@ -1,0 +1,54 @@
+name: Report a published Pet
+description: Flag a copyright, safety, duplication, quality, or technical concern in the public catalog.
+title: "[Pet report] "
+labels:
+  - pet-report
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Reports are public. Do not include passwords, tokens, private conversations, or other personal data.
+
+  - type: input
+    id: pet
+    attributes:
+      label: Pet name or catalog id
+      placeholder: minuit--kajdrak2
+    validations:
+      required: true
+
+  - type: dropdown
+    id: reason
+    attributes:
+      label: Reason
+      options:
+        - Copyright or attribution concern
+        - Inappropriate or unsafe content
+        - Duplicate or misleading listing
+        - Broken or invalid Pet
+        - Impersonation or deceptive identity
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Explain what should be reviewed and include public evidence when available.
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Public evidence URL
+      placeholder: https://...
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: I am submitting this report in good faith and understand that it is public.
+          required: true
