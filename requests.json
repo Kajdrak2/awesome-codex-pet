@@ -41,47 +41,6 @@
     "githubUrl": "https://github.com/legeling/awesome-codex-pet/issues/101"
   },
   {
-    "number": 100,
-    "character": "星星人",
-    "characterDetails": "星星人",
-    "franchise": "Not provided",
-    "category": "other",
-    "version": "v2",
-    "requestType": "Create a new community interpretation",
-    "referenceStatus": "",
-    "references": "https://api.codexpet.top/uploads/reference/references/b1b018efc7c32fa1a148abe8a38b0ad3a3c5138d682086e77e37360a85e40754.jpg",
-    "referenceUrls": [
-      "https://api.codexpet.top/uploads/reference/references/b1b018efc7c32fa1a148abe8a38b0ad3a3c5138d682086e77e37360a85e40754.jpg"
-    ],
-    "referenceImages": [
-      "https://api.codexpet.top/uploads/reference/references/b1b018efc7c32fa1a148abe8a38b0ad3a3c5138d682086e77e37360a85e40754.jpg"
-    ],
-    "visualDirection": "Let the community maker decide.",
-    "nameLanguages": "Let the maker decide",
-    "attribution": "Submitted without a GitHub account. Reference and attribution details should be confirmed during triage. Non-commercial use only.",
-    "duplicateCheck": "Repository automation or a maintainer should complete the duplicate check during triage.",
-    "state": "open",
-    "status": "triage",
-    "labels": [
-      "type: request",
-      "status: triage",
-      "version: v2",
-      "category: other"
-    ],
-    "author": {
-      "login": "github-actions[bot]",
-      "avatarUrl": "https://avatars.githubusercontent.com/in/15368?v=4",
-      "url": "https://github.com/apps/github-actions"
-    },
-    "assignees": [],
-    "createdAt": "2026-08-07T10:15:02Z",
-    "updatedAt": "2026-08-07T10:15:02Z",
-    "closedAt": null,
-    "comments": 0,
-    "reactions": 0,
-    "githubUrl": "https://github.com/legeling/awesome-codex-pet/issues/100"
-  },
-  {
     "number": 95,
     "character": "Bond/邦德",
     "characterDetails": "Bond/邦德",
@@ -671,6 +630,47 @@
     "comments": 0,
     "reactions": 0,
     "githubUrl": "https://github.com/legeling/awesome-codex-pet/issues/60"
+  },
+  {
+    "number": 100,
+    "character": "星星人",
+    "characterDetails": "星星人",
+    "franchise": "Not provided",
+    "category": "other",
+    "version": "v2",
+    "requestType": "Create a new community interpretation",
+    "referenceStatus": "",
+    "references": "https://api.codexpet.top/uploads/reference/references/b1b018efc7c32fa1a148abe8a38b0ad3a3c5138d682086e77e37360a85e40754.jpg",
+    "referenceUrls": [
+      "https://api.codexpet.top/uploads/reference/references/b1b018efc7c32fa1a148abe8a38b0ad3a3c5138d682086e77e37360a85e40754.jpg"
+    ],
+    "referenceImages": [
+      "https://api.codexpet.top/uploads/reference/references/b1b018efc7c32fa1a148abe8a38b0ad3a3c5138d682086e77e37360a85e40754.jpg"
+    ],
+    "visualDirection": "Let the community maker decide.",
+    "nameLanguages": "Let the maker decide",
+    "attribution": "Submitted without a GitHub account. Reference and attribution details should be confirmed during triage. Non-commercial use only.",
+    "duplicateCheck": "Repository automation or a maintainer should complete the duplicate check during triage.",
+    "state": "closed",
+    "status": "completed",
+    "labels": [
+      "type: request",
+      "status: triage",
+      "version: v2",
+      "category: other"
+    ],
+    "author": {
+      "login": "github-actions[bot]",
+      "avatarUrl": "https://avatars.githubusercontent.com/in/15368?v=4",
+      "url": "https://github.com/apps/github-actions"
+    },
+    "assignees": [],
+    "createdAt": "2026-08-07T10:15:02Z",
+    "updatedAt": "2026-08-09T06:47:37Z",
+    "closedAt": "2026-08-09T06:47:37Z",
+    "comments": 1,
+    "reactions": 0,
+    "githubUrl": "https://github.com/legeling/awesome-codex-pet/issues/100"
   },
   {
     "number": 93,
