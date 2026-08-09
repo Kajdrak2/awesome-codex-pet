@@ -77,18 +77,24 @@ const requiredCacheRules = [
       "Cache-Control: public, max-age=604800, stale-while-revalidate=86400",
   },
   {
-    path: "/stats.json",
-    value: "Cache-Control: public, max-age=600, stale-while-revalidate=3600",
+    path: "/*.json",
+    value: "Cache-Control: public, max-age=300, stale-while-revalidate=3600",
+  },
+  {
+    path: "/*.json",
+    value:
+      "CDN-Cache-Control: public, max-age=600, stale-while-revalidate=3600",
   },
 ];
 for (const rule of requiredCacheRules) {
-  const rulePattern = new RegExp(
-    `${rule.path.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s+${rule.value.replace(
-      /[.*+?^${}()|[\]\\]/g,
-      "\\$&",
-    )}`,
-  );
-  if (!rulePattern.test(headers)) {
+  const hasRule = headers
+    .split(/\n(?=\/)/)
+    .some(
+      (block) =>
+        block.trimStart().startsWith(`${rule.path}\n`) &&
+        block.includes(`  ${rule.value}`),
+    );
+  if (!hasRule) {
     throw new Error(`Pages bundle is missing cache rule ${rule.path}`);
   }
 }

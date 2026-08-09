@@ -12,6 +12,7 @@ import type { GalleryPet } from "@/lib/pets";
 
 type GachaDialogProps = {
   pets: GalleryPet[];
+  onOpenRequest?: () => Promise<unknown>;
 };
 
 type DrawCount = 1 | 3;
@@ -60,7 +61,11 @@ function CheckIcon() {
       stroke="currentColor"
       strokeWidth={2.4}
     >
-      <path d="m5 12 4.5 4.5L19 7" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="m5 12 4.5 4.5L19 7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -116,10 +121,7 @@ function ResultCard({ pet }: { pet: GalleryPet }) {
       </Link>
       <div className="gacha-result-card__body">
         <div className="gacha-result-card__title-row">
-          <Link
-            className="gacha-result-card__name"
-            href={`/pets/${pet.slug}`}
-          >
+          <Link className="gacha-result-card__name" href={`/pets/${pet.slug}`}>
             {name}
           </Link>
           <span className="gacha-result-card__category">
@@ -131,10 +133,7 @@ function ResultCard({ pet }: { pet: GalleryPet }) {
         </p>
       </div>
       <div className="gacha-result-card__actions">
-        <Link
-          className="gacha-result-card__view"
-          href={`/pets/${pet.slug}`}
-        >
+        <Link className="gacha-result-card__view" href={`/pets/${pet.slug}`}>
           {t("view")}
         </Link>
         <PetInstallMenu pet={pet} />
@@ -143,12 +142,13 @@ function ResultCard({ pet }: { pet: GalleryPet }) {
   );
 }
 
-export function GachaDialog({ pets }: GachaDialogProps) {
+export function GachaDialog({ pets, onOpenRequest }: GachaDialogProps) {
   const { t } = useLocale();
   const [open, setOpen] = useState(false);
   const [drawCount, setDrawCount] = useState<DrawCount>(1);
   const [results, setResults] = useState<GalleryPet[]>([]);
   const [isDrawing, setIsDrawing] = useState(false);
+  const [isPreparing, setIsPreparing] = useState(false);
   const hasAvailablePets = useMemo(
     () => pets.some((pet) => pet.previewImage && pet.animatedPreviewImage),
     [pets],
@@ -201,7 +201,7 @@ export function GachaDialog({ pets }: GachaDialogProps) {
   );
 
   function draw() {
-    if (isDrawing || !hasAvailablePets) return;
+    if (isDrawing || isPreparing || !hasAvailablePets) return;
     setIsDrawing(true);
     setResults([]);
     const reducedMotion = window.matchMedia(
@@ -209,11 +209,7 @@ export function GachaDialog({ pets }: GachaDialogProps) {
     ).matches;
     const delay = reducedMotion ? 0 : 520;
     timerRef.current = window.setTimeout(() => {
-      const nextResults = drawGachaPets(
-        pets,
-        drawCount,
-        previousSlugs.current,
-      );
+      const nextResults = drawGachaPets(pets, drawCount, previousSlugs.current);
       previousSlugs.current = nextResults.map((pet) => pet.slug);
       setResults(nextResults);
       setIsDrawing(false);
@@ -225,6 +221,12 @@ export function GachaDialog({ pets }: GachaDialogProps) {
     previousSlugs.current = [];
     setResults([]);
     setOpen(true);
+    if (onOpenRequest) {
+      setIsPreparing(true);
+      void onOpenRequest()
+        .catch(() => undefined)
+        .finally(() => setIsPreparing(false));
+    }
   }
 
   return (
@@ -262,7 +264,10 @@ export function GachaDialog({ pets }: GachaDialogProps) {
                   <span className="gacha-dialog-eyebrow__mark" />
                   {t("gachaStageLabel")}
                 </div>
-                <h2 className="mt-2 text-2xl font-semibold tracking-tight text-text" id="gacha-title">
+                <h2
+                  className="mt-2 text-2xl font-semibold tracking-tight text-text"
+                  id="gacha-title"
+                >
                   {t("gachaTitle")}
                 </h2>
                 <p className="mt-1 text-sm text-muted" id="gacha-description">
@@ -320,12 +325,14 @@ export function GachaDialog({ pets }: GachaDialogProps) {
                   <button
                     aria-live="polite"
                     className="gacha-start-button"
-                    disabled={isDrawing || !hasAvailablePets}
+                    disabled={isDrawing || isPreparing || !hasAvailablePets}
                     onClick={draw}
                     type="button"
                   >
                     <DiceIcon />
-                    <span>{isDrawing ? t("gachaDrawing") : t("gachaStart")}</span>
+                    <span>
+                      {isDrawing ? t("gachaDrawing") : t("gachaStart")}
+                    </span>
                     <svg
                       aria-hidden="true"
                       className="size-4"
@@ -334,7 +341,11 @@ export function GachaDialog({ pets }: GachaDialogProps) {
                       stroke="currentColor"
                       strokeWidth={2}
                     >
-                      <path d="M5 12h13m-5-5 5 5-5 5" strokeLinecap="round" strokeLinejoin="round" />
+                      <path
+                        d="M5 12h13m-5-5 5 5-5 5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                     </svg>
                   </button>
                   <div className="gacha-controls__note">
@@ -345,10 +356,7 @@ export function GachaDialog({ pets }: GachaDialogProps) {
               </div>
             ) : (
               <>
-                <div
-                  aria-live="polite"
-                  className="gacha-results-header"
-                >
+                <div aria-live="polite" className="gacha-results-header">
                   <span className="gacha-results-header__icon">
                     <CheckIcon />
                   </span>

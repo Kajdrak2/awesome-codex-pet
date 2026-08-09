@@ -32,6 +32,10 @@ export function RequestCard({
 }) {
   const { locale } = useLocale();
   const text = cardCopy[locale];
+  const thumbnail =
+    request.completedPet?.previewImage ?? request.referenceThumbnails?.[0];
+  const legacyOriginalFallback =
+    !request.completedPet && thumbnail ? request.referenceImages[0] : undefined;
 
   return (
     <article
@@ -43,19 +47,14 @@ export function RequestCard({
     >
       <Link
         aria-label={request.character}
-        className={
-          compact
-            ? "block h-full min-h-0"
-            : "block h-56 shrink-0"
-        }
+        className={compact ? "block h-full min-h-0" : "block h-56 shrink-0"}
         href={`/requests/${request.number}`}
       >
         <RequestVisual
           category={request.category}
           className={compact ? "h-full w-full" : "h-full w-full p-3"}
-          image={
-            request.completedPet?.previewImage ?? request.referenceImages[0]
-          }
+          fallbackImage={legacyOriginalFallback}
+          image={thumbnail}
           name={request.character}
         />
       </Link>

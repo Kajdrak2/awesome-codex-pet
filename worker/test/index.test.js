@@ -13,6 +13,7 @@ import worker, {
   computeTrendingScore,
   buildReferenceImageUrl,
   inspectReferenceImage,
+  inspectReferenceThumbnail,
   isOriginAllowed,
   normalizeManualRequest,
   normalizeManualRequestSubmission,
@@ -451,12 +452,22 @@ test("reference image uploads require safe, bounded raster files", async () => {
   ]);
   const file = new File([png], "reference.png", { type: "image/png" });
   const inspected = await inspectReferenceImage(file);
+  const webp = new Uint8Array(30);
+  webp.set([0x52, 0x49, 0x46, 0x46], 0);
+  webp.set([0x57, 0x45, 0x42, 0x50], 8);
+  webp.set([0x56, 0x50, 0x38, 0x58], 12);
+  const thumbnailFile = new File([webp], "reference-thumbnail.webp", {
+    type: "image/webp",
+  });
+  const thumbnail = await inspectReferenceThumbnail(thumbnailFile, inspected);
 
   assert.equal(inspected.extension, "png");
   assert.equal(inspected.mimeType, "image/png");
   assert.equal(inspected.width, 1);
   assert.equal(inspected.height, 1);
   assert.match(inspected.contentHash, /^[a-f0-9]{64}$/);
+  assert.equal(thumbnail.width, 1);
+  assert.equal(thumbnail.height, 1);
   assert.equal(
     normalizeManualRequestSubmission({
       character: "Mikoto",
@@ -466,11 +477,27 @@ test("reference image uploads require safe, bounded raster files", async () => {
     file,
   );
   assert.equal(
+    normalizeManualRequestSubmission({
+      character: "Mikoto",
+      referenceImage: file,
+      referenceThumbnail: thumbnailFile,
+      locale: "zh",
+    }).referenceThumbnail,
+    thumbnailFile,
+  );
+  assert.equal(
     buildReferenceImageUrl(
       new Request("https://api.example/requests/manual"),
       `references/${inspected.contentHash}.png`,
     ),
     `https://api.example/uploads/reference/references/${inspected.contentHash}.png`,
+  );
+  assert.equal(
+    buildReferenceImageUrl(
+      new Request("https://api.example/requests/manual"),
+      `thumbnails/${inspected.contentHash}.webp`,
+    ),
+    `https://api.example/uploads/reference/thumbnails/${inspected.contentHash}.webp`,
   );
   await assert.rejects(
     inspectReferenceImage(

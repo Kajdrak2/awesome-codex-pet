@@ -27,6 +27,7 @@ export type PetRequest = {
   references: string;
   referenceUrls: string[];
   referenceImages: string[];
+  referenceThumbnails?: string[];
   visualDirection: string;
   nameLanguages: string;
   attribution: string;
@@ -60,9 +61,7 @@ export function getAllRequests() {
 }
 
 export function getRequestByNumber(number: number) {
-  return (
-    getAllRequests().find((request) => request.number === number) ?? null
-  );
+  return getAllRequests().find((request) => request.number === number) ?? null;
 }
 
 export function getRequestCategories(requests: PetRequest[]) {

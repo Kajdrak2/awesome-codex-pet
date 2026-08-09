@@ -627,7 +627,7 @@ if (requireGeneratedAssets || requireSiteAssets) {
         "assets",
         "previews",
         entry,
-        "thumbnail.png",
+        "thumbnail.webp",
       );
       if (!existsSync(thumbnailPath)) {
         errors.push(

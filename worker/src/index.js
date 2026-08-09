@@ -15,10 +15,14 @@ const MANUAL_REQUEST_RATE_LIMIT = 1;
 const MANUAL_REQUEST_RATE_WINDOW_MS = 24 * 60 * 60 * 1000;
 const MANUAL_REQUEST_BODY_LIMIT = 16_384;
 const REFERENCE_IMAGE_MAX_BYTES = 5 * 1024 * 1024;
-const MANUAL_REQUEST_FORM_LIMIT = REFERENCE_IMAGE_MAX_BYTES + 64 * 1024;
+const REFERENCE_THUMBNAIL_MAX_BYTES = 400 * 1024;
+const MANUAL_REQUEST_FORM_LIMIT =
+  REFERENCE_IMAGE_MAX_BYTES + REFERENCE_THUMBNAIL_MAX_BYTES + 64 * 1024;
 const REFERENCE_IMAGE_MAX_DIMENSION = 4_096;
 const REFERENCE_IMAGE_MAX_PIXELS = 16_777_216;
-const REFERENCE_IMAGE_KEY_RE = /^references\/[a-f0-9]{64}\.(?:png|jpe?g|webp)$/;
+const REFERENCE_THUMBNAIL_MAX_DIMENSION = 512;
+const REFERENCE_IMAGE_KEY_RE =
+  /^(?:references\/[a-f0-9]{64}\.(?:png|jpe?g|webp)|thumbnails\/[a-f0-9]{64}\.webp)$/;
 const REFERENCE_IMAGE_PATH_PREFIX = "/uploads/reference/";
 const TURNSTILE_VERIFY_URL =
   "https://challenges.cloudflare.com/turnstile/v0/siteverify";
@@ -464,6 +468,29 @@ export async function inspectReferenceImage(file) {
   };
 }
 
+export async function inspectReferenceThumbnail(file, referenceImage) {
+  if (!isFileLike(file)) {
+    throw new HttpError(400, "reference thumbnail is required");
+  }
+  if (Number(file.size) > REFERENCE_THUMBNAIL_MAX_BYTES) {
+    throw new HttpError(413, "reference thumbnail is too large");
+  }
+  const inspected = await inspectReferenceImage(file);
+  if (
+    inspected.mimeType !== "image/webp" ||
+    inspected.width > REFERENCE_THUMBNAIL_MAX_DIMENSION ||
+    inspected.height > REFERENCE_THUMBNAIL_MAX_DIMENSION
+  ) {
+    throw new HttpError(400, "reference thumbnail must be a WebP up to 512px");
+  }
+  const referenceRatio = referenceImage.width / referenceImage.height;
+  const thumbnailRatio = inspected.width / inspected.height;
+  if (Math.abs(referenceRatio - thumbnailRatio) > 0.03) {
+    throw new HttpError(400, "reference thumbnail aspect ratio does not match");
+  }
+  return inspected;
+}
+
 export function buildReferenceImageUrl(request, key) {
   if (!REFERENCE_IMAGE_KEY_RE.test(key)) {
     throw new HttpError(400, "invalid reference image key");
@@ -527,13 +554,25 @@ export function normalizeManualRequestSubmission(payload) {
   const referenceImage = isFileLike(payload.referenceImage)
     ? payload.referenceImage
     : null;
+  const referenceThumbnail = isFileLike(payload.referenceThumbnail)
+    ? payload.referenceThumbnail
+    : null;
   if (!referenceUrl && !referenceImage) {
     throw new HttpError(400, "reference image upload or URL is required");
   }
   if (referenceUrl && referenceImage) {
     throw new HttpError(400, "choose either a reference image upload or URL");
   }
-  return { ...normalized, referenceUrl, referenceImage };
+  if (referenceUrl && referenceThumbnail) {
+    throw new HttpError(
+      400,
+      "reference thumbnail is only valid with an upload",
+    );
+  }
+  if (referenceThumbnail && !referenceImage) {
+    throw new HttpError(400, "reference thumbnail requires an image upload");
+  }
+  return { ...normalized, referenceUrl, referenceImage, referenceThumbnail };
 }
 
 function turnstileHostnames(env) {
@@ -704,6 +743,7 @@ async function readManualRequestBody(request) {
     franchise: formString(form, "franchise"),
     referenceUrl: formString(form, "referenceUrl"),
     referenceImage: form.get("referenceImage"),
+    referenceThumbnail: form.get("referenceThumbnail"),
     notes: formString(form, "notes"),
     website: formString(form, "website"),
     locale: formString(form, "locale"),
@@ -711,11 +751,14 @@ async function readManualRequestBody(request) {
   };
 }
 
-async function storeReferenceImage(request, env, file) {
+async function storeReferenceImage(request, env, file, thumbnailFile) {
   if (!env.REFERENCE_IMAGES) {
     throw new HttpError(503, "reference image uploads are not configured");
   }
   const inspected = await inspectReferenceImage(file);
+  const thumbnail = thumbnailFile
+    ? await inspectReferenceThumbnail(thumbnailFile, inspected)
+    : null;
   const key = `references/${inspected.contentHash}.${inspected.extension}`;
   const existing = await env.REFERENCE_IMAGES.head(key);
   let created = false;
@@ -733,7 +776,39 @@ async function storeReferenceImage(request, env, file) {
     });
     created = true;
   }
-  return { key, created, url: buildReferenceImageUrl(request, key) };
+  const storedObjects = [{ key, created }];
+  try {
+    if (thumbnail) {
+      const thumbnailKey = `thumbnails/${inspected.contentHash}.webp`;
+      const existingThumbnail = await env.REFERENCE_IMAGES.head(thumbnailKey);
+      let thumbnailCreated = false;
+      if (!existingThumbnail) {
+        await env.REFERENCE_IMAGES.put(thumbnailKey, thumbnail.bytes, {
+          httpMetadata: {
+            contentType: "image/webp",
+            cacheControl: "public, max-age=31536000, immutable",
+            contentDisposition: "inline",
+          },
+          customMetadata: {
+            width: String(thumbnail.width),
+            height: String(thumbnail.height),
+            source: inspected.contentHash,
+          },
+        });
+        thumbnailCreated = true;
+      }
+      storedObjects.push({ key: thumbnailKey, created: thumbnailCreated });
+    }
+  } catch (error) {
+    for (const object of storedObjects) {
+      if (object.created) await env.REFERENCE_IMAGES.delete(object.key);
+    }
+    throw error;
+  }
+  return {
+    storedObjects,
+    url: buildReferenceImageUrl(request, key),
+  };
 }
 
 async function serveReferenceImage(request, env, key) {
@@ -795,7 +870,12 @@ async function submitManualRequest(request, env) {
   let referenceUrl = input.referenceUrl;
   let storedImage = null;
   if (input.referenceImage) {
-    storedImage = await storeReferenceImage(request, env, input.referenceImage);
+    storedImage = await storeReferenceImage(
+      request,
+      env,
+      input.referenceImage,
+      input.referenceThumbnail,
+    );
     referenceUrl = storedImage.url;
   }
   const requestHash = await sha256(
@@ -822,8 +902,9 @@ async function submitManualRequest(request, env) {
       )
       .first();
   } catch (error) {
-    if (storedImage?.created)
-      await env.REFERENCE_IMAGES.delete(storedImage.key);
+    for (const object of storedImage?.storedObjects ?? []) {
+      if (object.created) await env.REFERENCE_IMAGES.delete(object.key);
+    }
     throw error;
   }
   return jsonResponse(
@@ -1178,7 +1259,7 @@ async function routeRequest(request, env) {
   }
 
   const referenceImageMatch = url.pathname.match(
-    /^\/uploads\/reference\/(references\/[a-f0-9]{64}\.(?:png|jpe?g|webp))$/,
+    /^\/uploads\/reference\/((?:references\/[a-f0-9]{64}\.(?:png|jpe?g|webp)|thumbnails\/[a-f0-9]{64}\.webp))$/,
   );
   if (referenceImageMatch && request.method === "GET") {
     return serveReferenceImage(request, env, referenceImageMatch[1]);

@@ -8,15 +8,8 @@ import { CommunityPulse } from "@/components/community-pulse";
 import { HomeRequestSection } from "@/components/home-request-section";
 import { getCollections } from "@/lib/collection-catalog";
 import { toCollectionCardData } from "@/lib/collections";
-import {
-  getCommunityPulseData,
-  getLeaderboardData,
-} from "@/lib/leaderboards";
-import {
-  getAllPets,
-  getCategories,
-  toGalleryPet,
-} from "@/lib/pets";
+import { getCommunityPulseData, getLeaderboardData } from "@/lib/leaderboards";
+import { getAllPets, getCategories, toGalleryPet } from "@/lib/pets";
 import { getTrendingPets } from "@/lib/ranking";
 import { getAllRequests, getOpenRequests } from "@/lib/request-catalog";
 import { languageAlternates } from "@/lib/localized-route-metadata";
@@ -58,10 +51,30 @@ export const metadata: Metadata = {
 export default function HomePage() {
   const pets = getAllPets();
   const galleryPets = pets.map(toGalleryPet);
-  const categories = getCategories(galleryPets);
+  const categoryCounts = new Map<string, number>();
+  for (const pet of galleryPets) {
+    categoryCounts.set(
+      pet.primary_category,
+      (categoryCounts.get(pet.primary_category) ?? 0) + 1,
+    );
+  }
+  const categories = getCategories(galleryPets).map((category) => ({
+    ...category,
+    count: categoryCounts.get(category.name) ?? 0,
+  }));
   const collections = getCollections(pets).map(toCollectionCardData);
   const featured = getTrendingPets(pets, 6).map(toGalleryPet);
   const leaderboard = getLeaderboardData(pets);
+  const initialGalleryPets = [...leaderboard.pets]
+    .sort((left, right) => {
+      const leftRank = left.stats.dailyRank || Number.MAX_SAFE_INTEGER;
+      const rightRank = right.stats.dailyRank || Number.MAX_SAFE_INTEGER;
+      return (
+        leftRank - rightRank || left.pet.slug.localeCompare(right.pet.slug)
+      );
+    })
+    .slice(0, 18)
+    .map((entry) => entry.pet);
   const communityPulse = getCommunityPulseData(leaderboard);
   const requests = getOpenRequests(getAllRequests()).slice(0, 4);
 
@@ -159,7 +172,12 @@ export default function HomePage() {
           <CommunityPulse data={communityPulse} />
           <HomeRequestSection requests={requests} />
           <FeaturedCollections collections={collections} />
-          <PetGallery pets={galleryPets} categories={categories} />
+          <PetGallery
+            pets={initialGalleryPets}
+            categories={categories}
+            catalogUrl="/gallery.json"
+            totalPetCount={galleryPets.length}
+          />
         </div>
       </section>
       <script

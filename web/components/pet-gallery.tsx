@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { FilterBar, type CategoryFilterOption } from "@/components/filter-bar";
 import { ActionDropdown } from "@/components/action-dropdown";
@@ -9,11 +9,18 @@ import { PetCard } from "@/components/pet-card";
 import { useLocale } from "@/components/locale-provider";
 import { fetchStats, type StatsMap } from "@/lib/stats";
 import type { GalleryPet } from "@/lib/pets";
+import { parseGalleryCatalog } from "@/lib/gallery-catalog";
 import { getTagSearchTerms } from "@/lib/tag-localization";
 
 type PetGalleryProps = {
   pets: GalleryPet[];
-  categories: Array<{ name: string; label: GalleryPet["categoryLabel"] }>;
+  categories: Array<{
+    name: string;
+    label: GalleryPet["categoryLabel"];
+    count?: number;
+  }>;
+  catalogUrl?: string;
+  totalPetCount?: number;
 };
 
 type SortKey = "random" | "trending" | "downloads" | "likes" | "name";
@@ -54,16 +61,43 @@ function createPetRanks(pets: GalleryPet[], shuffle = false) {
   return new Map(slugs.map((slug, index) => [slug, index]));
 }
 
-export function PetGallery({ pets, categories }: PetGalleryProps) {
+function appendRandomRanks(current: Map<string, number>, pets: GalleryPet[]) {
+  const missing = pets
+    .map((pet) => pet.slug)
+    .filter((slug) => !current.has(slug));
+  for (let index = missing.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [missing[index], missing[swapIndex]] = [missing[swapIndex], missing[index]];
+  }
+  if (missing.length === 0) return current;
+  const next = new Map(current);
+  const start = next.size;
+  missing.forEach((slug, index) => next.set(slug, start + index));
+  return next;
+}
+
+export function PetGallery({
+  pets,
+  categories,
+  catalogUrl,
+  totalPetCount = pets.length,
+}: PetGalleryProps) {
   const { t } = useLocale();
   const [filters, setFilters] = useState({
     query: "",
     categories: [] as string[],
   });
   const [sort, setSort] = useState<SortKey>("random");
+  const [catalogPets, setCatalogPets] = useState(pets);
+  const [catalogStatus, setCatalogStatus] = useState<
+    "partial" | "loading" | "ready" | "error"
+  >(catalogUrl && pets.length < totalPetCount ? "partial" : "ready");
   const [randomRanks, setRandomRanks] = useState(() => createPetRanks(pets));
   const [renderCount, setRenderCount] = useState(INITIAL_BATCH_SIZE);
   const loadMoreRef = useRef<HTMLDivElement>(null);
+  const catalogRequestRef = useRef<Promise<GalleryPet[]> | null>(null);
+  const catalogAbortRef = useRef<AbortController | null>(null);
+  const disposedRef = useRef(false);
   const [statsState, setStatsState] = useState<StatsState>({
     status: "loading",
     pets: {},
@@ -73,6 +107,60 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
   useEffect(() => {
     setRandomRanks(createPetRanks(pets, true));
   }, [pets]);
+
+  const loadCompleteCatalog = useCallback(() => {
+    if (!catalogUrl || catalogStatus === "ready") {
+      return Promise.resolve(catalogPets);
+    }
+    if (catalogRequestRef.current) return catalogRequestRef.current;
+
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 10_000);
+    catalogAbortRef.current = controller;
+    setCatalogStatus("loading");
+    const request = fetch(catalogUrl, { signal: controller.signal })
+      .then(async (response) => {
+        if (!response.ok) {
+          throw new Error(`Gallery catalog returned HTTP ${response.status}`);
+        }
+        const complete = parseGalleryCatalog(await response.json());
+        setCatalogPets((current) => {
+          const known = new Set(current.map((pet) => pet.slug));
+          return [
+            ...current,
+            ...complete.filter((pet) => !known.has(pet.slug)),
+          ];
+        });
+        setRandomRanks((current) => appendRandomRanks(current, complete));
+        setCatalogStatus("ready");
+        return complete;
+      })
+      .catch((error: unknown) => {
+        if (!disposedRef.current) {
+          console.warn(
+            "Unable to load the complete gallery catalog",
+            error instanceof Error ? error.stack : String(error),
+          );
+          setCatalogStatus("error");
+        }
+        throw error;
+      })
+      .finally(() => {
+        window.clearTimeout(timeoutId);
+        catalogAbortRef.current = null;
+        catalogRequestRef.current = null;
+      });
+    catalogRequestRef.current = request;
+    return request;
+  }, [catalogPets, catalogStatus, catalogUrl]);
+
+  useEffect(() => {
+    disposedRef.current = false;
+    return () => {
+      disposedRef.current = true;
+      catalogAbortRef.current?.abort();
+    };
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -101,7 +189,7 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
       .split(/\s+/)
       .filter(Boolean);
 
-    const filtered = pets.filter((pet) => {
+    const filtered = catalogPets.filter((pet) => {
       const matchesCategory =
         filters.categories.length === 0 ||
         filters.categories.includes(pet.primary_category);
@@ -181,7 +269,7 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
     });
 
     return withStats;
-  }, [filters, pets, randomRanks, sort, statsState]);
+  }, [catalogPets, filters, randomRanks, sort, statsState]);
 
   useEffect(() => {
     setRenderCount(INITIAL_BATCH_SIZE);
@@ -189,7 +277,7 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
 
   const categoryOptions = useMemo<CategoryFilterOption[]>(() => {
     const countByCategory = new Map<string, number>();
-    for (const pet of pets) {
+    for (const pet of catalogPets) {
       countByCategory.set(
         pet.primary_category,
         (countByCategory.get(pet.primary_category) ?? 0) + 1,
@@ -198,13 +286,17 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
     return categories
       .map((category) => ({
         ...category,
-        count: countByCategory.get(category.name) ?? 0,
+        count: category.count ?? countByCategory.get(category.name) ?? 0,
       }))
       .filter((category) => category.count > 0);
-  }, [categories, pets]);
+  }, [categories, catalogPets]);
 
   const rendered = visible.slice(0, renderCount);
   const hasMore = rendered.length < visible.length;
+  const displayedPetCount =
+    filters.query || filters.categories.length > 0 || catalogStatus === "ready"
+      ? visible.length
+      : totalPetCount;
   const sortOptions: Array<{ value: SortKey; label: string }> = [
     { value: "random", label: t("sortRandom") },
     { value: "downloads", label: t("sortDownloads") },
@@ -218,21 +310,32 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
 
   function selectSort(nextSort: SortKey) {
     if (nextSort === "random") {
-      setRandomRanks(createPetRanks(pets, true));
+      setRandomRanks(createPetRanks(catalogPets, true));
       setRenderCount(INITIAL_BATCH_SIZE);
+    } else {
+      void loadCompleteCatalog().catch(() => undefined);
     }
     setSort(nextSort);
   }
 
   useEffect(() => {
     const target = loadMoreRef.current;
-    if (!hasMore || !target || typeof IntersectionObserver === "undefined") {
+    const mayHaveUnloadedPets =
+      catalogStatus !== "ready" && catalogPets.length < totalPetCount;
+    if (
+      (!hasMore && !mayHaveUnloadedPets) ||
+      !target ||
+      typeof IntersectionObserver === "undefined"
+    ) {
       return;
     }
 
     const observer = new IntersectionObserver(
       (entries) => {
         if (!entries.some((entry) => entry.isIntersecting)) return;
+        if (mayHaveUnloadedPets) {
+          void loadCompleteCatalog().catch(() => undefined);
+        }
         setRenderCount((current) =>
           Math.min(current + LOAD_MORE_BATCH_SIZE, visible.length),
         );
@@ -241,7 +344,14 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
     );
     observer.observe(target);
     return () => observer.disconnect();
-  }, [hasMore, visible.length]);
+  }, [
+    catalogPets.length,
+    catalogStatus,
+    hasMore,
+    loadCompleteCatalog,
+    totalPetCount,
+    visible.length,
+  ]);
 
   return (
     <section id="gallery" className="scroll-mt-20">
@@ -251,7 +361,7 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
             {t("galleryTitle")}
           </h2>
           <p className="text-muted text-sm mt-1">
-            {t("petsAvailable", { count: visible.length })}
+            {t("petsAvailable", { count: displayedPetCount })}
           </p>
         </div>
 
@@ -264,7 +374,10 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
                 : t("statsUpdated")}
           </span>
           <div className="flex items-center gap-2">
-            <GachaDialog pets={pets} />
+            <GachaDialog
+              pets={catalogPets}
+              onOpenRequest={loadCompleteCatalog}
+            />
             <span className="hidden sm:inline text-muted">
               {t("sortLabel")}
             </span>
@@ -331,9 +444,19 @@ export function PetGallery({ pets, categories }: PetGalleryProps) {
         </div>
       </div>
 
-      <FilterBar categories={categoryOptions} onChange={setFilters} />
+      <FilterBar
+        categories={categoryOptions}
+        onChange={setFilters}
+        onInteract={() => {
+          void loadCompleteCatalog().catch(() => undefined);
+        }}
+      />
 
-      {visible.length === 0 ? (
+      {visible.length === 0 && catalogStatus === "loading" ? (
+        <div className="py-20 text-center text-sm text-muted">
+          {t("statsLoading")}
+        </div>
+      ) : visible.length === 0 ? (
         <div className="text-center py-20 text-muted">
           <p className="text-lg">{t("noResults")}</p>
           <p className="text-sm mt-1">{t("noResultsHint")}</p>

@@ -26,24 +26,31 @@ export function RequestVisual({
   name,
   category,
   image,
+  fallbackImage,
   className = "",
 }: {
   name: string;
   category: string;
   image?: string;
+  fallbackImage?: string;
   className?: string;
 }) {
-  const [failed, setFailed] = useState(false);
+  const [sourceIndex, setSourceIndex] = useState(0);
   const [placeholderFailed, setPlaceholderFailed] = useState(false);
   const placeholder = `/assets/request-placeholders/${
     categoryPlaceholder[category] ?? "other"
   }.webp`;
-  const showReference = Boolean(image) && !failed;
+  const sources = [image, fallbackImage].filter(
+    (source, index, values): source is string =>
+      Boolean(source) && values.indexOf(source) === index,
+  );
+  const activeSource = sources[sourceIndex];
+  const showReference = Boolean(activeSource);
 
   useEffect(() => {
-    setFailed(false);
+    setSourceIndex(0);
     setPlaceholderFailed(false);
-  }, [image]);
+  }, [fallbackImage, image]);
 
   return (
     <div
@@ -53,12 +60,13 @@ export function RequestVisual({
         <img
           alt={showReference ? `${name} reference` : ""}
           className="h-full w-full object-contain"
+          decoding="async"
           loading="lazy"
           onError={() => {
-            if (showReference) setFailed(true);
+            if (showReference) setSourceIndex((current) => current + 1);
             else setPlaceholderFailed(true);
           }}
-          src={showReference ? image : placeholder}
+          src={showReference ? activeSource : placeholder}
         />
       ) : (
         <>

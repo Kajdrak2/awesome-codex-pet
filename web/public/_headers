@@ -4,5 +4,6 @@
 /assets/previews/*
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400
 
-/stats.json
-  Cache-Control: public, max-age=600, stale-while-revalidate=3600
+/*.json
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
+  CDN-Cache-Control: public, max-age=600, stale-while-revalidate=3600

@@ -27,7 +27,12 @@ if (
 const installRawBase = `https://raw.githubusercontent.com/legeling/awesome-codex-pet/${installRef}`;
 const collectionCatalog = readJson("collections.json");
 const categoryCatalog = readJson("categories.json");
-const requestCatalog = readJson("requests.json");
+const requestCatalog = readJson("requests.json").map((request) => ({
+  ...request,
+  referenceThumbnails: (request.referenceImages ?? [])
+    .map((image) => managedReferenceThumbnail(image))
+    .filter(Boolean),
+}));
 const categoryByName = new Map(
   categoryCatalog.map((category) => [category.name, category]),
 );
@@ -55,6 +60,22 @@ function actionPreviewPath(slug, action) {
 
 function readJson(relativePath) {
   return JSON.parse(readFileSync(join(repoRoot, relativePath), "utf8"));
+}
+
+function managedReferenceThumbnail(value) {
+  try {
+    const url = new URL(value);
+    const match = url.pathname.match(
+      /^\/uploads\/reference\/references\/([a-f0-9]{64})\.(?:png|jpe?g|webp)$/i,
+    );
+    if (url.hostname !== "api.codexpet.top" || !match) return null;
+    url.pathname = `/uploads/reference/thumbnails/${match[1].toLowerCase()}.webp`;
+    url.search = "";
+    url.hash = "";
+    return url.href;
+  } catch {
+    return null;
+  }
 }
 
 function toWebPath(relativePath) {
@@ -87,11 +108,11 @@ function previewImageForPet(slug, submission, gifs) {
     "assets",
     "previews",
     slug,
-    "thumbnail.png",
+    "thumbnail.webp",
   );
 
   if (existsSync(generatedThumbnail)) {
-    return `/assets/previews/${slug}/thumbnail.png`;
+    return `/assets/previews/${slug}/thumbnail.webp`;
   }
 
   return submission.preview_image
@@ -100,7 +121,7 @@ function previewImageForPet(slug, submission, gifs) {
 }
 
 function animatedPreviewForPet(slug, gifs, previewImage) {
-  return gifs.idle ?? previewImage ?? `/assets/previews/${slug}/thumbnail.png`;
+  return gifs.idle ?? previewImage ?? `/assets/previews/${slug}/thumbnail.webp`;
 }
 
 function resolveAuthorSlug(pet, submission) {
@@ -161,6 +182,25 @@ const pets = readJson("pets.json").map((pet) => {
     repositoryPath: `https://github.com/legeling/awesome-codex-pet/tree/main/pets/${pet.slug}`,
   };
 });
+
+const galleryPets = pets.map((pet) => ({
+  slug: pet.slug,
+  name: pet.name,
+  author_slug: pet.author_slug,
+  author: pet.author,
+  author_handle: pet.author_handle,
+  author_url: pet.author_url,
+  primary_category: pet.primary_category,
+  canonical_key: pet.canonical_key,
+  description: pet.description,
+  categoryLabel: pet.categoryLabel,
+  localizedNames: pet.localizedNames,
+  displayName: pet.displayName,
+  runtimeDescription: pet.runtimeDescription,
+  tags: pet.tags,
+  previewImage: pet.previewImage,
+  animatedPreviewImage: pet.animatedPreviewImage,
+}));
 
 function normalizedIdentity(value) {
   return String(value ?? "")
@@ -253,6 +293,11 @@ mkdirSync(publicDir, { recursive: true });
 writeFileSync(
   join(publicDir, "pets.json"),
   `${JSON.stringify(pets, null, 2)}\n`,
+  "utf8",
+);
+writeFileSync(
+  join(publicDir, "gallery.json"),
+  `${JSON.stringify(galleryPets)}\n`,
   "utf8",
 );
 writeFileSync(

@@ -85,14 +85,18 @@ npx wrangler pages deploy out --project-name=awesome-codex-pet
 - **Framework**: Next.js 15 with static export (`output: "export"`)
 - **Styling**: Tailwind CSS v4
 - **i18n**: Client-side locale detection (zh/en) with React Context; visible browser-tab titles follow the active locale while static route metadata remains crawlable
-- **Data**: Generated at build time from `pets.json`, `requests.json`, and individual pet metadata
+- **Data**: Generated at build time from `pets.json`, `requests.json`, and individual pet metadata. The home page inlines 18 daily-shuffled gallery DTOs and loads the bounded, minified `gallery.json` catalog only when search, filters, sorting, gacha, or pagination needs it.
 - **Collection visibility**: Series and themes are published after they contain at least three pets
 - **Community pages**: Static contributor profiles, rankings, `/requests`, and `/requests/<issue-number>` request details are generated at build time
 - **Hosting**: Cloudflare Pages (global CDN, free tier)
 - **Stats reads**: deployment-time `public/stats.json`, served as a free Pages static asset; rankings do not poll the Worker
 - **Stats writes and requests**: a separate Worker at `https://api.codexpet.top` records explicit installs, IP-limited pet likes, creator follows, and request support. The no-account request form accepts a checked PNG/JPEG/WebP upload or a public image link; uploads are stored in a private R2 bucket and served through a read-only content-hash URL. Rankings reuse total and 7-day like counts instead of introducing another popularity action. Ordinary page views never invoke the Worker. See `worker/README.md`.
 - **Preview delivery**: cards load a static thumbnail first and fetch animation on hover or keyboard focus; the top three pet rankings animate automatically while lower pet rows and contributor/collection mosaics animate on interaction; detail pages keep the complete action set
-- **Caching**: Next.js build metadata is cached in CI; hashed browser JavaScript uses a one-year immutable cache, preview assets use a seven-day cache, and the deployment-time statistics snapshot uses a ten-minute cache. The bundle check rejects missing cache-header rules.
+- **Caching**: Next.js build metadata is cached in CI; hashed browser JavaScript uses a one-year immutable cache, preview assets use a seven-day cache, and read-only JSON catalogs use short browser/CDN TTLs. The bundle check rejects missing cache-header rules.
+
+### Static JSON edge cache
+
+Cloudflare does not make JSON eligible for edge caching by extension alone. Run the manual `Configure Cloudflare CDN cache` workflow once after adding `Zone > Cache Rules > Edit` to `CLOUDFLARE_API_TOKEN`. The workflow calls an idempotent repository script that adds or updates one exact-path GET rule for the six public catalogs without caching HTML or API traffic. `CLOUDFLARE_ZONE_ID` is optional; when absent, the script resolves the `codexpet.top` zone from the account.
 
 ## Environment variables
 

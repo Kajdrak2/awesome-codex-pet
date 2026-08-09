@@ -22,7 +22,8 @@ THUMBNAIL_SIZE = (CELL_WIDTH * THUMBNAIL_SCALE, CELL_HEIGHT * THUMBNAIL_SCALE)
 LABEL_HEIGHT = 22
 WEBP_QUALITY = 90
 WEBP_METHOD = 4
-CACHE_FORMAT_VERSION = 1
+THUMBNAIL_WEBP_METHOD = 6
+CACHE_FORMAT_VERSION = 2
 CACHE_CHUNK_SIZE = 1024 * 1024
 
 STANDARD_STATES = [
@@ -75,7 +76,7 @@ def make_thumbnail(atlas: Image.Image, output: Path) -> None:
     frame = extract_frame(atlas, 0, 0)
     frame = frame.resize(THUMBNAIL_SIZE, Image.Resampling.NEAREST)
     output.parent.mkdir(parents=True, exist_ok=True)
-    frame.save(output)
+    frame.save(output, format="WEBP", lossless=True, method=THUMBNAIL_WEBP_METHOD, exact=True)
 
 
 def make_contact_sheet(
@@ -182,7 +183,7 @@ def expected_outputs(
 ) -> list[Path]:
     preview_dir = preview_root / pet_dir.name
     states = states_for_pet(pet_dir)
-    outputs = [preview_dir / "thumbnail.png"]
+    outputs = [preview_dir / "thumbnail.webp"]
     outputs.extend(preview_dir / "webp" / f"{state}.webp" for state, _, _ in states)
     if not site_only:
         outputs.append(preview_dir / "contact-sheet.png")
@@ -270,7 +271,7 @@ def generate_for_pet(
     remove_stale_animations(preview_dir / "webp", ".webp", states)
     if not site_only:
         remove_stale_animations(preview_dir / "gifs", ".gif", states)
-    make_thumbnail(atlas, preview_dir / "thumbnail.png")
+    make_thumbnail(atlas, preview_dir / "thumbnail.webp")
     if not site_only:
         make_contact_sheet(atlas, states, preview_dir / "contact-sheet.png")
     for state, row, durations in states:

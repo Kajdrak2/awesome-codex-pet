@@ -11,11 +11,83 @@ const REQUEST_API =
   process.env.NEXT_PUBLIC_STATS_WRITE_API ?? "https://api.codexpet.top";
 const BUILD_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
 const MAX_REFERENCE_IMAGE_BYTES = 5 * 1024 * 1024;
+const REFERENCE_THUMBNAIL_MAX_EDGE = 512;
+const REFERENCE_THUMBNAIL_MAX_BYTES = 400 * 1024;
 const REFERENCE_IMAGE_TYPES = new Set([
   "image/png",
   "image/jpeg",
   "image/webp",
 ]);
+
+async function createReferenceThumbnail(file: File) {
+  let source: CanvasImageSource;
+  let width: number;
+  let height: number;
+  let release: () => void = () => {};
+
+  if (typeof createImageBitmap === "function") {
+    const bitmap = await createImageBitmap(file);
+    source = bitmap;
+    width = bitmap.width;
+    height = bitmap.height;
+    release = () => bitmap.close();
+  } else {
+    const objectUrl = URL.createObjectURL(file);
+    const image = new Image();
+    try {
+      await new Promise<void>((resolve, reject) => {
+        image.onload = () => resolve();
+        image.onerror = () => reject(new Error("Unable to decode image"));
+        image.src = objectUrl;
+      });
+      source = image;
+      width = image.naturalWidth;
+      height = image.naturalHeight;
+    } catch (error) {
+      URL.revokeObjectURL(objectUrl);
+      throw error;
+    }
+    release = () => URL.revokeObjectURL(objectUrl);
+  }
+
+  try {
+    const scale = Math.min(
+      1,
+      REFERENCE_THUMBNAIL_MAX_EDGE / Math.max(width, height),
+    );
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.max(1, Math.round(width * scale));
+    canvas.height = Math.max(1, Math.round(height * scale));
+    const context = canvas.getContext("2d", { alpha: true });
+    if (!context) throw new Error("Unable to create thumbnail canvas");
+    context.drawImage(source, 0, 0, canvas.width, canvas.height);
+    let blob: Blob | null = null;
+    for (const quality of [0.8, 0.65, 0.5]) {
+      blob = await new Promise<Blob>((resolve, reject) => {
+        canvas.toBlob(
+          (output) =>
+            output
+              ? resolve(output)
+              : reject(new Error("Unable to encode reference thumbnail")),
+          "image/webp",
+          quality,
+        );
+      });
+      if (blob.size <= REFERENCE_THUMBNAIL_MAX_BYTES) break;
+    }
+    if (!blob || blob.type !== "image/webp") {
+      throw new Error("This browser cannot encode WebP thumbnails");
+    }
+    if (blob.size > REFERENCE_THUMBNAIL_MAX_BYTES) {
+      throw new Error("Unable to create a bounded reference thumbnail");
+    }
+    return new File([blob], "reference-thumbnail.webp", {
+      type: "image/webp",
+    });
+  } finally {
+    release();
+  }
+}
 
 type TurnstileApi = {
   render: (
@@ -343,6 +415,12 @@ export function ManualRequestForm() {
     setPending(true);
     setMessage("");
     try {
+      if (referenceMode === "upload" && selectedFile) {
+        form.set(
+          "referenceThumbnail",
+          await createReferenceThumbnail(selectedFile),
+        );
+      }
       const response = await fetch(`${REQUEST_API}/requests/manual`, {
         method: "POST",
         body: form,

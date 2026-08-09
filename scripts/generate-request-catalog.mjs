@@ -174,6 +174,22 @@ function extractReferenceImages(body) {
   });
 }
 
+function referenceThumbnailUrl(url) {
+  try {
+    const parsed = new URL(url);
+    const match = parsed.pathname.match(
+      /^\/uploads\/reference\/references\/([a-f0-9]{64})\.(?:png|jpe?g|webp)$/i,
+    );
+    if (parsed.hostname !== "api.codexpet.top" || !match) return null;
+    parsed.pathname = `/uploads/reference/thumbnails/${match[1].toLowerCase()}.webp`;
+    parsed.search = "";
+    parsed.hash = "";
+    return parsed.href;
+  } catch {
+    return null;
+  }
+}
+
 function labelNames(issue) {
   return issue.labels
     .map((label) => (typeof label === "string" ? label : label.name))
@@ -239,6 +255,9 @@ function toCatalogItem(issue) {
   const fields = parseIssueForm(body);
   const labels = labelNames(issue);
   const referenceImages = extractReferenceImages(body);
+  const referenceThumbnails = referenceImages
+    .map(referenceThumbnailUrl)
+    .filter(Boolean);
   const characterDetails =
     fields.character ||
     issue.title.replace(/^\s*\[request\]\s*:?\s*/i, "").trim() ||
@@ -266,6 +285,7 @@ function toCatalogItem(issue) {
     references,
     referenceUrls: extractUrls(references),
     referenceImages,
+    referenceThumbnails,
     visualDirection: fields.visualDirection || "",
     nameLanguages: fields.nameLanguages || "",
     attribution: fields.attribution || "",
