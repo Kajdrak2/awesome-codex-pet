@@ -1542,6 +1542,19 @@
     "spriteVersionNumber": 1
   },
   {
+    "slug": "slimy--kajdrak2",
+    "name": "Slimy",
+    "author": "Kajdrak2",
+    "author_handle": "Kajdrak2",
+    "author_url": "https://github.com/Kajdrak2",
+    "primary_category": "Original Characters",
+    "canonical_key": "original/kajdrak2/slimy",
+    "collections": [],
+    "license": "Non-commercial use only.",
+    "description": "Un slime mascotte en peluche douce, bleu par défaut, qui saute, fond, se durcit en métal et change de couleurs.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "son-goku--kajdrak2",
     "name": "Son goku",
     "author": "Kajdrak2",

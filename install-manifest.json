@@ -1253,6 +1253,16 @@
       "spritesheetWidth": 1536,
       "spritesheetHeight": 1872
     },
+    "slimy--kajdrak2": {
+      "name": "Slimy",
+      "spriteVersionNumber": 2,
+      "petJsonSha256": "0ac7d9f23aec4ab768fb678e3db8cfddad15254acb5cfd1205e380044a9a3d59",
+      "petJsonBytes": 259,
+      "spritesheetSha256": "5db9c1bc36ca010cfdf2cc4563ec154850ac8a9efdbed6a26ef657fb3a471f13",
+      "spritesheetBytes": 2393992,
+      "spritesheetWidth": 1536,
+      "spritesheetHeight": 2288
+    },
     "son-goku--kajdrak2": {
       "name": "Son goku",
       "spriteVersionNumber": 2,
