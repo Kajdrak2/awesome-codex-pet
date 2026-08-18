@@ -1,0 +1,20 @@
+{
+  "slug": "slimy--kajdrak2",
+  "pet_slug": "slimy",
+  "author_slug": "kajdrak2",
+  "name": "Slimy",
+  "author": "Kajdrak2",
+  "author_handle": "Kajdrak2",
+  "author_url": "https://github.com/Kajdrak2",
+  "primary_category": "Original Characters",
+  "canonical_key": "original/kajdrak2/slimy",
+  "tags": ["v2", "ai-generated"],
+  "source_type": "ai-generated",
+  "source_notes": "Independently AI-generated for this Pet; no existing spritesheet pixels were reused.",
+  "license": "Non-commercial use only.",
+  "description": "Un slime mascotte en peluche douce, bleu par défaut, qui saute, fond, se durcit en métal et change de couleurs.",
+  "codex_install": {
+    "pet_json": "pet.json",
+    "spritesheet": "spritesheet.webp"
+  }
+}
