@@ -623,6 +623,16 @@
       "spritesheetWidth": 1536,
       "spritesheetHeight": 2288
     },
+    "joker-chibi--kajdrak2": {
+      "name": "Joker Chibi",
+      "spriteVersionNumber": 2,
+      "petJsonSha256": "8ee204f8383e0f4ae1001bba10a35803ef477abe324b997e968a0953151fbf5e",
+      "petJsonBytes": 236,
+      "spritesheetSha256": "3ee57474e1724ca91b8a1c2667dc99e304e686c67a506261bccb9c9ac3859668",
+      "spritesheetBytes": 2182940,
+      "spritesheetWidth": 1536,
+      "spritesheetHeight": 2288
+    },
     "jolyne-cujoh--d2682787206-sys": {
       "name": "Jolyne Cujoh",
       "spriteVersionNumber": 2,

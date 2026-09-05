@@ -760,6 +760,19 @@
     "spriteVersionNumber": 2
   },
   {
+    "slug": "joker-chibi--kajdrak2",
+    "name": "Joker Chibi",
+    "author": "Kajdrak2",
+    "author_handle": "Kajdrak2",
+    "author_url": "https://github.com/Kajdrak2",
+    "primary_category": "Original Characters",
+    "canonical_key": "original/kajdrak2/joker-chibi",
+    "collections": [],
+    "license": "Non-commercial use only.",
+    "description": "Joker de Persona 5 en chibi anime, manteau noir, masque blanc et gants rouges.",
+    "spriteVersionNumber": 2
+  },
+  {
     "slug": "jolyne-cujoh--d2682787206-sys",
     "name": "Jolyne Cujoh",
     "localized_names": { "en": "Jolyne Cujoh", "zh": "徐伦" },
